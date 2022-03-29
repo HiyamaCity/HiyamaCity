@@ -1,0 +1,8 @@
+name: Script
+version: 1.0
+main: de.hiyamacity.main.Main
+author: AhegaHOE
+api-version: 1.16
+commands:
+  ping:
+    description: Allows the player to check their ping.
