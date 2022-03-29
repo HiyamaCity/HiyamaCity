@@ -1,7 +1,5 @@
 package de.hiyamacity.database;
 
-import de.AhegaHOE.MySQL.MySQL;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
