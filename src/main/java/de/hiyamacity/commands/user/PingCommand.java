@@ -8,7 +8,6 @@ import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.SQLException;
 import java.util.UUID;
 
 public class PingCommand implements CommandExecutor {
@@ -19,6 +18,7 @@ public class PingCommand implements CommandExecutor {
             sender.sendMessage(LanguageHandler.getResourceBundle().getString("onlyAsPlayer"));
             return true;
         }
+
         Player p = (Player) sender;
         UUID uuid = p.getUniqueId();
         int ping = ((CraftPlayer) p).getHandle().ping;

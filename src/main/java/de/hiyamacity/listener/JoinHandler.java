@@ -1,7 +1,5 @@
 package de.hiyamacity.listener;
 
-import de.hiyamacity.database.MySqlPointer;
-import de.hiyamacity.items.CapriSonneElfenTrank;
 import de.hiyamacity.items.Katana;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
