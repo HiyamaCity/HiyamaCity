@@ -6,3 +6,5 @@ api-version: 1.16
 commands:
   ping:
     description: Allows the player to check their ping.
+  stats:
+    description: Allows the player to see their stats.

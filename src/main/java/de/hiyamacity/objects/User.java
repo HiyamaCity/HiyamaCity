@@ -1,7 +1,13 @@
 package de.hiyamacity.objects;
 
+import com.google.gson.GsonBuilder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Getter
+@Setter
 public class User {
 
     private long purse;
@@ -17,8 +23,24 @@ public class User {
     private String tsIdentifier;
     private String banReason;
 
-    public User() {
+    public User(UUID uuid) {
+        this.purse = 4000;
+        this.bank = 2000;
+        this.playedMinutes = 0;
+        this.playedHours = 0;
+        this.uuid = uuid;
+    }
 
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        return new GsonBuilder().create().toJson(this);
+    }
+
+    public static User fromJson(String string) {
+        return new GsonBuilder().create().fromJson(string, User.class);
     }
 
 }

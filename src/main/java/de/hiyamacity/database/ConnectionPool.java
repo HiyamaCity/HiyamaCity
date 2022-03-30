@@ -19,14 +19,16 @@ public class ConnectionPool {
     private static final String username = cfg.getString("username");
     private static final String password = cfg.getString("password");
 
-    public static void initDatabases() throws SQLException {
+    public static void initDatabases() {
         try (Connection con = getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS PLAYERDATA (UUID VARCHAR(40), PLAYER JSON)")) {
+            try (PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS PLAYERS (UUID VARCHAR(40), PLAYER JSON)")) {
                 ps.executeUpdate();
             }
-            try(PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS LANGUAGE (UUID VARCHAR(40), COUNTRY VARCHAR(255), LANG VARCHAR(255))")){
-             ps.executeUpdate();
+            try (PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS LANGUAGE (UUID VARCHAR(40), COUNTRY VARCHAR(255), LANG VARCHAR(255))")) {
+                ps.executeUpdate();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,13 +1,14 @@
 package de.hiyamacity.main;
 
 import de.hiyamacity.commands.user.PingCommand;
+import de.hiyamacity.commands.user.StatsCommand;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.listener.JoinHandler;
+import de.hiyamacity.util.PlaytimeTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.sql.SQLException;
 import java.util.Objects;
 
 public class Main extends JavaPlugin {
@@ -25,12 +26,10 @@ public class Main extends JavaPlugin {
         ConnectionPool.initDatabaseConnectionPool();
         loadCommands();
         loadListeners();
-        try {
-            ConnectionPool.initDatabases();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ConnectionPool.initDatabases();
+        PlaytimeTracker.startPlaytimeTracker();
     }
+
 
     public void onDisable() {
         ConnectionPool.closeDatabaseConnectionPool();
@@ -38,6 +37,8 @@ public class Main extends JavaPlugin {
 
     private void loadCommands() {
         Objects.requireNonNull(getCommand("ping")).setExecutor(new PingCommand());
+        Objects.requireNonNull(getCommand("stats")).setExecutor(new StatsCommand());
+
     }
 
     private void loadListeners() {

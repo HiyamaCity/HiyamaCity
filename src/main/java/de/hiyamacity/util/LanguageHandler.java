@@ -12,11 +12,15 @@ import java.util.UUID;
 
 public class LanguageHandler {
 
-    public static @NotNull ResourceBundle getResourceBundle(UUID uuid) throws SQLException {
+    public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
         try (PreparedStatement ps = ConnectionPool.getDataSource().getConnection().prepareStatement("SELECT * FROM LANGUAGE WHERE UUID = ?")) {
+            ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
-            return ResourceBundle.getBundle("languagePack", new Locale(rs.getString("LANG"), rs.getString("COUNTRY")));
+            if (rs.next()) return ResourceBundle.getBundle("languagePack", new Locale(rs.getString("LANG"), rs.getString("COUNTRY")));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return getResourceBundle();
     }
 
     public static @NotNull ResourceBundle getResourceBundle() {

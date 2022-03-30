@@ -15,17 +15,16 @@ public class PingCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player p)) {
+        if (!(sender instanceof Player)) {
             sender.sendMessage(LanguageHandler.getResourceBundle().getString("onlyAsPlayer"));
             return true;
         }
+        Player p = (Player) sender;
         UUID uuid = p.getUniqueId();
         int ping = ((CraftPlayer) p).getHandle().ping;
-        try {
-            sender.sendMessage(LanguageHandler.getResourceBundle(uuid).getString("pingMessage").replace("%target%", p.getName()).replace("%ping%", "" + ping));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        sender.sendMessage(LanguageHandler.getResourceBundle(uuid).getString("pingMessage").replace("%target%", p.getName()).replace("%ping%", "" + ping));
+
         return false;
     }
 }
