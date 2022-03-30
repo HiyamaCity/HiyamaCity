@@ -6,23 +6,22 @@ import java.util.Locale;
 
 public class DecimalSeperator {
     public static DecimalFormat prepareFormat(char decimalSeparator, char thousandSeparator, boolean forceFraction, byte decimalPlaces) {
-        String pattern = "#,###.";
+        StringBuilder pattern = new StringBuilder("#,###.");
         if (decimalPlaces <= 0) {
-            pattern = pattern.substring(0, pattern.length() - 1);
+            pattern = new StringBuilder(pattern.substring(0, pattern.length() - 1));
         } else if (forceFraction) {
             for (byte i = 0; i < decimalPlaces; i++) {
-                pattern += "0";
+                pattern.append("0");
             }
         } else {
             for (byte i = 0; i < decimalPlaces; i++) {
-                pattern += "#";
+                pattern.append("#");
             }
         }
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.GERMAN);
         symbols.setDecimalSeparator(decimalSeparator);
         symbols.setGroupingSeparator(thousandSeparator);
-        DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
-        return decimalFormat;
+        return new DecimalFormat(pattern.toString(), symbols);
     }
 
 }

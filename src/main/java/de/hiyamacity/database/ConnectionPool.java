@@ -27,6 +27,9 @@ public class ConnectionPool {
             try (PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS LANGUAGE (UUID VARCHAR(40), COUNTRY VARCHAR(255), LANG VARCHAR(255))")) {
                 ps.executeUpdate();
             }
+            try(PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS HOUSES (ID VARCHAR(40), HOUSE JSON)")) {
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

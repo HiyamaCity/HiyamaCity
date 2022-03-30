@@ -1,8 +1,10 @@
 package de.hiyamacity.main;
 
+import de.hiyamacity.commands.admin.GameModeCommand;
 import de.hiyamacity.commands.user.PingCommand;
 import de.hiyamacity.commands.user.StatsCommand;
 import de.hiyamacity.database.ConnectionPool;
+import de.hiyamacity.listener.DamageHandler;
 import de.hiyamacity.listener.JoinHandler;
 import de.hiyamacity.util.PlaytimeTracker;
 import org.bukkit.Bukkit;
@@ -24,12 +26,11 @@ public class Main extends JavaPlugin {
         instance = this;
         ConnectionPool.writeFile();
         ConnectionPool.initDatabaseConnectionPool();
+        ConnectionPool.initDatabases();
         loadCommands();
         loadListeners();
-        ConnectionPool.initDatabases();
         PlaytimeTracker.startPlaytimeTracker();
     }
-
 
     public void onDisable() {
         ConnectionPool.closeDatabaseConnectionPool();
@@ -38,11 +39,12 @@ public class Main extends JavaPlugin {
     private void loadCommands() {
         Objects.requireNonNull(getCommand("ping")).setExecutor(new PingCommand());
         Objects.requireNonNull(getCommand("stats")).setExecutor(new StatsCommand());
-
+        Objects.requireNonNull(getCommand("gm")).setExecutor(new GameModeCommand());
     }
 
     private void loadListeners() {
         this.pm.registerEvents(new JoinHandler(), this);
+        this.pm.registerEvents(new DamageHandler(), this);
     }
 
 }

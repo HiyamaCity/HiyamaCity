@@ -8,3 +8,6 @@ commands:
     description: Allows the player to check their ping.
   stats:
     description: Allows the player to see their stats.
+  gm:
+    description: Allows the player to change their game mode.
+    aliases: [ gamemode ]
