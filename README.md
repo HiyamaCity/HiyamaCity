@@ -16,7 +16,7 @@ ______________________
 * Hören alles gleich Laut? (Bietet dadurch die Möglichkeit Spieler von weiter wegzuhören, nimmt aber dafür die
   Möglichkeit anhand von Lautstärke die Entfernung von Spielern einzuschätzen.)
 * Wenn sie sich in der Nähe von Engeln befinden erleiden sie Nebeneffekte wie Kopfschmerzen oder andere Arten von
-  schmerzen, welche sie dazu zwingen sich von Engeln fern zu halten.
+  schmerzen, welche sie dazu zwingen, sich von Engeln fernzuhalten.
 
 ______________________
 
