@@ -11,17 +11,21 @@ import java.util.UUID;
 
 public class MySqlPointer {
 
-    public static boolean isUserExist(UUID uuid) throws SQLException {
+    public static boolean isUserExist(UUID uuid) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM PLAYERS WHERE UUID = ?")) {
                 ps.setString(1, uuid.toString());
                 ResultSet rs = ps.executeQuery();
                 return rs.next();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     public static void registerUser(UUID uuid, User user) {
+        if (isUserExist(uuid)) return;
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO PLAYERS (UUID, PLAYER) VALUES (?,?)")) {
                 ps.setString(1, uuid.toString());
