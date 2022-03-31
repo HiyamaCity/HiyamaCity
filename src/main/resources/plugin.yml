@@ -23,3 +23,6 @@ commands:
     description: Allows the player to get the current time.
   dice:
     description: Allows the player to roll a dice.
+  m:
+    description: Allows the player to message other players.
+    aliases: [ message ]

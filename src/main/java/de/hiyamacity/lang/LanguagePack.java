@@ -18,6 +18,7 @@ public class LanguagePack extends ListResourceBundle {
             {"payCantPaySelf", "§cFehler: Du kannst dir selber kein Geld zustecken."},
             {"gmInvalidGameMode", "§cFehler: Dein angegebener GameMode muss ≤ 0 ≤ 3 sein."},
             {"kissSelf", "§cFehler: Du kannst dich nicht selber küssen."},
+            {"messageNotToYourself", "§cFehler: Du kannst dir selbst keine Nachricht schicken"},
             // Usages
             {"meUsage", "§cFehler: Benutze \"/me <Aktion>\""},
             {"kissUsage", "§cFehler: Benutze \"/kiss <Spielername>\""},
@@ -38,6 +39,8 @@ public class LanguagePack extends ListResourceBundle {
             {"kiss", "§d*§5 %player%§d hat §5%target%§d einen Kuss gegeben."},
             {"dice", "§9%player% §7hat eine §9%result% §7gewürfelt."},
             {"showFinancesSelf", "§7Du hast §9%target% §7deine Finanzen gezeigt."},
-            {"showFinancesOther", "§7Dir wurden die Finanzen von §9%player% gezeigt.\\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$."}
+            {"showFinancesOther", "§7Dir wurden die Finanzen von §9%player% gezeigt.\\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$."},
+            {"messageSelf", "§7[§9Du §7-> §9%target%§7] §r%msg%"},
+            {"messageOther", "§7[§9%player% -> §9Dir§7] §r%msg%"}
     };
 }
