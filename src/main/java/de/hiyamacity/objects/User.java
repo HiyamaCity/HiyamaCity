@@ -16,12 +16,16 @@ public class User {
     private long playedHours;
     private long banStart;
     private long banEnd;
+    private long kills;
+    private long deaths;
     private boolean isBanned;
     private boolean isConfirmedTeamspeak;
     private String banID;
     private UUID uuid;
     private String tsIdentifier;
     private String banReason;
+    private String forename;
+    private String surname;
 
     public User(UUID uuid) {
         this.purse = 4000;

@@ -26,3 +26,6 @@ commands:
   m:
     description: Allows the player to message other players.
     aliases: [ message ]
+  show-finances:
+    description: Allows the player to show their finances to other players.
+    aliases: [ showfinances ]

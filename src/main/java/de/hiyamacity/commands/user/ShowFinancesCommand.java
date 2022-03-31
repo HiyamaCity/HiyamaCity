@@ -44,7 +44,7 @@ public class ShowFinancesCommand implements CommandExecutor {
         DecimalFormat decimalFormat = DecimalSeperator.prepareFormat(',', '.', false, (byte) 0);
         p.sendMessage(rs.getString("showFinancesSelf").replace("%target%", t.getName()));
         ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-        t.sendMessage(trs.getString("showFinancesOther").replace("%player%", p.getName()).replace("%money%", decimalFormat.format(user.getPurse())).replace("%bank%", decimalFormat.format(user.getBank())));
+        t.sendMessage(trs.getString("showFinancesOther").replace("%player%", p.getName()).replace("%money%", decimalFormat.format(user.getPurse())));
 
         return false;
     }

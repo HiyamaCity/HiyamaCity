@@ -46,6 +46,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("time")).setExecutor(new TimeCommand());
         Objects.requireNonNull(getCommand("dice")).setExecutor(new DiceCommand());
         Objects.requireNonNull(getCommand("m")).setExecutor(new MessageCommand());
+        Objects.requireNonNull(getCommand("show-finances")).setExecutor(new ShowFinancesCommand());
     }
 
     private void loadListeners() {
