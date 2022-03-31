@@ -13,3 +13,5 @@ commands:
     aliases: [ gamemode ]
   pay:
     description: Allows the player to pay money to other players.
+  info:
+    description: Allows the player to get informations.
