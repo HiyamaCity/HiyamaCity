@@ -19,28 +19,28 @@ public class PayCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(sender instanceof Player)) return true;
         Player p = (Player) sender;
-        ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(p.getUniqueId());
+        ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
         if (args.length != 2) {
-            p.sendMessage(resourceBundle.getString("payUsage"));
+            p.sendMessage(rs.getString("payUsage"));
             return true;
         }
         Player t = Bukkit.getPlayer(args[0]);
 
         if (t == null) {
-            p.sendMessage(resourceBundle.getString("playerNotFound"));
+            p.sendMessage(rs.getString("playerNotFound"));
             return true;
         }
 
         if (p.getLocation().distanceSquared(t.getLocation()) >= Distances.CHAT_MESSAGE_NEAREST) {
-            p.sendMessage(resourceBundle.getString("playerTooFarAway"));
+            p.sendMessage(rs.getString("playerTooFarAway"));
             return true;
         }
 
         int amount = Integer.parseInt(args[1]);
 
         if (amount < 0) {
-            p.sendMessage(resourceBundle.getString("payNonNegative"));
+            p.sendMessage(rs.getString("payNonNegative"));
             return true;
         }
 
@@ -49,15 +49,16 @@ public class PayCommand implements CommandExecutor {
 
         long moneyUser = pUser.getPurse();
         if (moneyUser < amount) {
-            p.sendMessage(resourceBundle.getString("payInsufficientAmount"));
+            p.sendMessage(rs.getString("payInsufficientAmount"));
             return true;
         }
 
         pUser.setPurse(pUser.getPurse() - amount);
-        p.sendMessage(resourceBundle.getString("payOutboundMessage").replace("%target%", t.getName()).replace("%amount%", "" + amount));
+        p.sendMessage(rs.getString("paySend").replace("%target%", t.getName()).replace("%amount%", "" + amount));
         p.sendMessage("§c-" + amount + "$");
         tUser.setPurse(tUser.getPurse() + amount);
-        t.sendMessage(resourceBundle.getString("payInboundMessage").replace("%player%", p.getName()).replace("%amount%", "" + amount));
+        ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
+        t.sendMessage(trs.getString("payReceive").replace("%player%", p.getName()).replace("%amount%", "" + amount));
         t.sendMessage("§a+" + amount + "$");
 
         MySqlPointer.updateUser(p.getUniqueId(), pUser);
