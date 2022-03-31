@@ -17,10 +17,11 @@ public class MessageCommand implements CommandExecutor {
         Player p = (Player) Sender;
         ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(p.getUniqueId());
 
-        if (args.length > 2) {
+        if (args.length < 2) {
             p.sendMessage(resourceBundle.getString("messageUsage"));
             return true;
         }
+
         Player t = Bukkit.getPlayer(args[0]);
 
         if (t == null) {
@@ -41,11 +42,9 @@ public class MessageCommand implements CommandExecutor {
         // i + 1 -> args.length
         for (int i = 1; i < args.length; i++) {
             msg.append(args[i]).append(" ");
-            p.sendMessage("index: " + i + " " + msg);
         }
 
         String message = msg.toString().trim();
-        p.sendMessage("nachricht fertig gebaut: " + message);
 
         p.sendMessage(resourceBundle.getString("messageSelf").replace("%target%", t.getName()).replace("%msg%", message));
         ResourceBundle targetResourceBundle = LanguageHandler.getResourceBundle(t.getUniqueId());
