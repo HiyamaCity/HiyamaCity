@@ -1,6 +1,7 @@
 package de.hiyamacity.main;
 
 import de.hiyamacity.commands.admin.GameModeCommand;
+import de.hiyamacity.commands.user.PayCommand;
 import de.hiyamacity.commands.user.PingCommand;
 import de.hiyamacity.commands.user.StatsCommand;
 import de.hiyamacity.database.ConnectionPool;
@@ -40,6 +41,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("ping")).setExecutor(new PingCommand());
         Objects.requireNonNull(getCommand("stats")).setExecutor(new StatsCommand());
         Objects.requireNonNull(getCommand("gm")).setExecutor(new GameModeCommand());
+        Objects.requireNonNull(getCommand("pay")).setExecutor(new PayCommand());
     }
 
     private void loadListeners() {
