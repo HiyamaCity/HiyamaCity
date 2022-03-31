@@ -19,4 +19,5 @@ public class JoinHandler implements Listener {
     public void onEvent(PlayerQuitEvent e) {
         e.setQuitMessage("");
     }
+
 }
