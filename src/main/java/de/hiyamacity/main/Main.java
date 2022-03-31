@@ -4,6 +4,7 @@ import de.hiyamacity.commands.admin.GameModeCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.listener.DamageHandler;
+import de.hiyamacity.listener.DeathHandler;
 import de.hiyamacity.listener.JoinHandler;
 import de.hiyamacity.util.PlaytimeTracker;
 import org.bukkit.Bukkit;
@@ -52,6 +53,7 @@ public class Main extends JavaPlugin {
     private void loadListeners() {
         this.pm.registerEvents(new JoinHandler(), this);
         this.pm.registerEvents(new DamageHandler(), this);
+        this.pm.registerEvents(new DeathHandler(), this);
     }
 
 }
