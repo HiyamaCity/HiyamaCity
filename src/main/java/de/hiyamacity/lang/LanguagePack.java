@@ -26,7 +26,7 @@ public class LanguagePack extends ListResourceBundle {
             {"gmUsage", "§cFehler: Benutze \"/gm <0-3> [Spielername]\""},
             {"payUsage", "§cFehler: Benutze \"/pay <Spielername> <Betrag>\""},
             {"showFinancesUsage", "§cFehler: Benutze \"/showfinances <Spielername>\""},
-            {"deathUsage","§cFehler: Benutze \"/Dead <Spielernamen>\""},
+            {"deathUsage","§cFehler: Benutze \"/deaths <Spielernamen>\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -43,6 +43,6 @@ public class LanguagePack extends ListResourceBundle {
             {"showFinancesOther", "§9%player%§7 gibt dir einen Einblick ins Portemonnaie von sich\n§7Portemonnaie: §9%money%§7$."},
             {"messageSelf", "§7[§9Du §7-> §9%target%§7] §r%msg%"},
             {"messageOther", "§7[§9%player% -> §9Dir§7] §r%msg%"},
-            {"deathCount", "§9%target% §7hat §9%amount% §9Tode."}
+            {"deathCount", "§9%target% §7hat §9%amount% §7Tode."}
     };
 }
