@@ -45,6 +45,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("kiss")).setExecutor(new KissCommand());
         Objects.requireNonNull(getCommand("time")).setExecutor(new TimeCommand());
         Objects.requireNonNull(getCommand("dice")).setExecutor(new DiceCommand());
+        Objects.requireNonNull(getCommand("m")).setExecutor(new MessageCommand());
     }
 
     private void loadListeners() {
