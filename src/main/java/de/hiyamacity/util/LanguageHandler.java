@@ -16,14 +16,15 @@ public class LanguageHandler {
         try (PreparedStatement ps = ConnectionPool.getDataSource().getConnection().prepareStatement("SELECT * FROM LANGUAGE WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return ResourceBundle.getBundle("languagePack", new Locale(rs.getString("LANG"), rs.getString("COUNTRY")));
+            if (rs.next())
+                return ResourceBundle.getBundle("de.hiyamacity.lang.LanguagePack", new Locale(rs.getString("LANG"), rs.getString("COUNTRY")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return getResourceBundle();
     }
 
-    public static @NotNull ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("languagePack", new Locale(""));
+    private static @NotNull ResourceBundle getResourceBundle() {
+        return ResourceBundle.getBundle("de.hiyamacity.lang.LanguagePack", new Locale("en", "US"));
     }
 }

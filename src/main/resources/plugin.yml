@@ -15,3 +15,11 @@ commands:
     description: Allows the player to pay money to other players.
   info:
     description: Allows the player to get informations.
+  me:
+    description: Allows the player to do actions.
+  kiss:
+    description: Allows the player to kiss other players.
+  time:
+    description: Allows the player to get the current time.
+  dice:
+    description: Allows the player to roll a dice.

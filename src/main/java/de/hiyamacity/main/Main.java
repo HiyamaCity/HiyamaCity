@@ -1,10 +1,7 @@
 package de.hiyamacity.main;
 
 import de.hiyamacity.commands.admin.GameModeCommand;
-import de.hiyamacity.commands.user.InfoCommand;
-import de.hiyamacity.commands.user.PayCommand;
-import de.hiyamacity.commands.user.PingCommand;
-import de.hiyamacity.commands.user.StatsCommand;
+import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.listener.DamageHandler;
 import de.hiyamacity.listener.JoinHandler;
@@ -44,6 +41,10 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("gm")).setExecutor(new GameModeCommand());
         Objects.requireNonNull(getCommand("pay")).setExecutor(new PayCommand());
         Objects.requireNonNull(getCommand("info")).setExecutor(new InfoCommand());
+        Objects.requireNonNull(getCommand("me")).setExecutor(new MeCommand());
+        Objects.requireNonNull(getCommand("kiss")).setExecutor(new KissCommand());
+        Objects.requireNonNull(getCommand("time")).setExecutor(new TimeCommand());
+        Objects.requireNonNull(getCommand("dice")).setExecutor(new DiceCommand());
     }
 
     private void loadListeners() {

@@ -16,10 +16,8 @@ public class StatsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(LanguageHandler.getResourceBundle().getString("onlyAsPlayer"));
-            return true;
-        }
+        if (!(sender instanceof Player)) return true;
+
 
         Player p = (Player) sender;
 

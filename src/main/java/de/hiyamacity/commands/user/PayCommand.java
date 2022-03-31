@@ -28,7 +28,7 @@ public class PayCommand implements CommandExecutor {
         Player t = Bukkit.getPlayer(args[0]);
 
         if (t == null) {
-            p.sendMessage(rs.getString("playerNotFound"));
+            p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
 
@@ -37,7 +37,7 @@ public class PayCommand implements CommandExecutor {
             return true;
         }
 
-        if (p.getLocation().distanceSquared(t.getLocation()) >= Distances.CHAT_MESSAGE_NEAREST) {
+        if (p.getLocation().distanceSquared(t.getLocation()) > Distances.CHAT_MESSAGE_NEAREST) {
             p.sendMessage(rs.getString("playerTooFarAway"));
             return true;
         }

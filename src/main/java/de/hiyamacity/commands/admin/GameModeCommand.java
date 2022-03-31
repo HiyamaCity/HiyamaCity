@@ -16,10 +16,8 @@ public class GameModeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(LanguageHandler.getResourceBundle().getString("onlyAsPlayer"));
-            return true;
-        }
+        if (!(sender instanceof Player)) return true;
+
 
         Player p = (Player) sender;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
@@ -64,7 +62,7 @@ public class GameModeCommand implements CommandExecutor {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[1]));
                     return true;
                 }
-
+                assert gm != null;
                 p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChangedOther").replace("%gamemode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%target%", t.getName()));
                 ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
                 t.sendMessage(trs.getString("gmPrefix") + " " + trs.getString("gmOtherChangedOther").replace("%gamemode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%player%", p.getName()));
