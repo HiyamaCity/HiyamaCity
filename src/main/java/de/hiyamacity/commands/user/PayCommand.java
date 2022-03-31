@@ -32,6 +32,11 @@ public class PayCommand implements CommandExecutor {
             return true;
         }
 
+        if (p.getName().equals(t.getName())) {
+            p.sendMessage(rs.getString("payCantPaySelf"));
+            return true;
+        }
+
         if (p.getLocation().distanceSquared(t.getLocation()) >= Distances.CHAT_MESSAGE_NEAREST) {
             p.sendMessage(rs.getString("playerTooFarAway"));
             return true;
