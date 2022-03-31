@@ -1,6 +1,5 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.misc.Distances;
 import de.hiyamacity.objects.User;
@@ -12,9 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PayCommand implements CommandExecutor {
@@ -24,9 +20,6 @@ public class PayCommand implements CommandExecutor {
         if (!(sender instanceof Player)) return true;
         Player p = (Player) sender;
         ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(p.getUniqueId());
-
-        //           0            1      args = 2
-        // /pay <Spielername> <Betrag>
 
         if (args.length != 2) {
             p.sendMessage(resourceBundle.getString("payUsage"));
@@ -46,6 +39,11 @@ public class PayCommand implements CommandExecutor {
 
         int amount = Integer.parseInt(args[1]);
 
+        if (amount < 0) {
+            p.sendMessage(resourceBundle.getString("payNonNegative"));
+            return true;
+        }
+
         User pUser = MySqlPointer.getUser(p.getUniqueId());
         User tUser = MySqlPointer.getUser(t.getUniqueId());
 
@@ -56,7 +54,11 @@ public class PayCommand implements CommandExecutor {
         }
 
         pUser.setPurse(pUser.getPurse() - amount);
+        p.sendMessage(resourceBundle.getString("payOutboundMessage").replace("%target%", t.getName()).replace("%amount%", "" + amount));
+        p.sendMessage("§c-" + amount + "$");
         tUser.setPurse(tUser.getPurse() + amount);
+        t.sendMessage(resourceBundle.getString("payInboundMessage").replace("%player%", p.getName()).replace("%amount%", "" + amount));
+        t.sendMessage("§a+" + amount + "$");
 
         MySqlPointer.updateUser(p.getUniqueId(), pUser);
         MySqlPointer.updateUser(t.getUniqueId(), tUser);
