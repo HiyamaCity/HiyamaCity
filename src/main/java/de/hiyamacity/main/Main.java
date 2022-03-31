@@ -1,6 +1,7 @@
 package de.hiyamacity.main;
 
 import de.hiyamacity.commands.admin.GameModeCommand;
+import de.hiyamacity.commands.user.InfoCommand;
 import de.hiyamacity.commands.user.PayCommand;
 import de.hiyamacity.commands.user.PingCommand;
 import de.hiyamacity.commands.user.StatsCommand;
@@ -42,6 +43,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("stats")).setExecutor(new StatsCommand());
         Objects.requireNonNull(getCommand("gm")).setExecutor(new GameModeCommand());
         Objects.requireNonNull(getCommand("pay")).setExecutor(new PayCommand());
+        Objects.requireNonNull(getCommand("info")).setExecutor(new InfoCommand());
     }
 
     private void loadListeners() {
