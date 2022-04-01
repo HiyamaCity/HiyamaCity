@@ -19,15 +19,13 @@ public class PlaytimeTracker {
                     long hours = user.getPlayedHours();
 
                     minutes++;
-                    user.setPlayedMinutes(minutes);
                     if (minutes >= 60) {
                         minutes = 0;
                         hours++;
-                        user.setPlayedMinutes(minutes);
                         user.setPlayedHours(hours);
                     }
+                    user.setPlayedMinutes(minutes);
                     MySqlPointer.updateUser(player.getUniqueId(), user);
-
                 });
             }
         };
