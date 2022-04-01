@@ -4,10 +4,7 @@ import de.hiyamacity.commands.admin.GameModeCommand;
 import de.hiyamacity.commands.admin.VanishCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
-import de.hiyamacity.listener.ChatHandler;
-import de.hiyamacity.listener.DamageHandler;
-import de.hiyamacity.listener.DeathHandler;
-import de.hiyamacity.listener.JoinHandler;
+import de.hiyamacity.listener.*;
 import de.hiyamacity.util.PlaytimeTracker;
 import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
@@ -62,6 +59,7 @@ public class Main extends JavaPlugin {
         this.pm.registerEvents(new DamageHandler(), this);
         this.pm.registerEvents(new DeathHandler(), this);
         this.pm.registerEvents(new ChatHandler(), this);
+        this.pm.registerEvents(new MOTDHandler(), this);
     }
 
 }
