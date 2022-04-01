@@ -17,6 +17,7 @@ public class Katana {
     private HashMap<Enchantments, Integer> enchantments = new HashMap<>();
     private final @NotNull ItemStack itemStack = new ItemStack(Material.IRON_SWORD);
 
+    @SuppressWarnings("deprecation")
     public Katana() {
         this.enchantments.put(Enchantments.SHARPNESS, 3);
         ItemMeta itemMeta = itemStack.getItemMeta();

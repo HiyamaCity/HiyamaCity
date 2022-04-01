@@ -4,7 +4,6 @@ import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.main.Main;
 import de.hiyamacity.objects.User;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlaytimeTracker {

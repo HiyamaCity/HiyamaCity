@@ -11,7 +11,7 @@ public class Resident {
 
     public enum RenterType {
         OWNER(),
-        RENTER();
+        RENTER()
     }
 
     private UUID uuid;

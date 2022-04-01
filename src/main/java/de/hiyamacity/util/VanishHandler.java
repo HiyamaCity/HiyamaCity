@@ -3,7 +3,6 @@ package de.hiyamacity.util;
 import de.hiyamacity.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.Collection;

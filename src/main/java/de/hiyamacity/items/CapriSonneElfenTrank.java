@@ -8,6 +8,7 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public class CapriSonneElfenTrank {
 
     private final int shopCost = 15;

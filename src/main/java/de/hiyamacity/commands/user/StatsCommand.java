@@ -2,7 +2,7 @@ package de.hiyamacity.commands.user;
 
 import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.objects.User;
-import de.hiyamacity.util.DecimalSeperator;
+import de.hiyamacity.util.DecimalSeparator;
 import de.hiyamacity.util.LanguageHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,7 +27,7 @@ public class StatsCommand implements CommandExecutor {
         long money = user.getPurse();
         long bank = user.getBank();
 
-        DecimalFormat decimalFormat = DecimalSeperator.prepareFormat(',', '.', false, (byte) 0);
+        DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
 
         String msg = LanguageHandler.getResourceBundle(p.getUniqueId()).getString("statsMessage")
                 .replace("%target%", p.getName())

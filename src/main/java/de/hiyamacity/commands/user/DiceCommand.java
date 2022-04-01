@@ -18,8 +18,6 @@ public class DiceCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(sender instanceof Player)) return true;
         Player p = (Player) sender;
-        ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-
         int result = new Random().nextInt(6);
         for (Player all : Bukkit.getOnlinePlayers())
             if (p.getLocation().distanceSquared(all.getLocation()) <= Distances.CHAT_MESSAGE_NEAREST) {

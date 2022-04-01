@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+@SuppressWarnings("deprecation")
 public class DeathHandler implements Listener {
 
     @EventHandler

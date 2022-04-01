@@ -18,7 +18,7 @@ import java.util.Objects;
 
 public class Main extends JavaPlugin {
 
-    PluginManager pm = Bukkit.getPluginManager();
+    final PluginManager pm = Bukkit.getPluginManager();
     private static Main instance;
 
     public static Main getInstance() {

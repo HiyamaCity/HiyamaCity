@@ -5,7 +5,6 @@ import de.hiyamacity.database.ConnectionPool;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
-import org.checkerframework.checker.units.qual.A;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

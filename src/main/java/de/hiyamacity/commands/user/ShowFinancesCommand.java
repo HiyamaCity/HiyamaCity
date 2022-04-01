@@ -3,7 +3,7 @@ package de.hiyamacity.commands.user;
 import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.misc.Distances;
 import de.hiyamacity.objects.User;
-import de.hiyamacity.util.DecimalSeperator;
+import de.hiyamacity.util.DecimalSeparator;
 import de.hiyamacity.util.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -41,7 +41,7 @@ public class ShowFinancesCommand implements CommandExecutor {
         }
 
         User user = MySqlPointer.getUser(p.getUniqueId());
-        DecimalFormat decimalFormat = DecimalSeperator.prepareFormat(',', '.', false, (byte) 0);
+        DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
         p.sendMessage(rs.getString("showFinancesSelf").replace("%target%", t.getName()));
         ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
         t.sendMessage(trs.getString("showFinancesOther").replace("%player%", p.getName()).replace("%money%", decimalFormat.format(user.getPurse())));

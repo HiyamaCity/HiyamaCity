@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-public class DecimalSeperator {
+public class DecimalSeparator {
     public static DecimalFormat prepareFormat(char decimalSeparator, char thousandSeparator, boolean forceFraction, byte decimalPlaces) {
         StringBuilder pattern = new StringBuilder("#,###.");
         if (decimalPlaces <= 0) {

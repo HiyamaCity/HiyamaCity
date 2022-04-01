@@ -8,11 +8,11 @@ ______________________
 
 # Spezies
 
-#### Alle Spezies sollen die Möglichkeit haben sich untereinander in einem “Spezies-Chat” auszutauschen.
+#### Alle Spezies sollen die Möglichkeit haben sich untereinander in einem „Spezies-Chat“ auszutauschen.
 
 ## Dämonen
 
-* Können Zivilisten in ihre Spezies verwandeln. (Nur High-Class-Devils bzw. Leader)
+* Können Zivilisten in ihre Spezies verwandeln? (Nur High-Class-Devils bzw. Leader)
 * Hören alles gleich Laut? (Bietet dadurch die Möglichkeit Spieler von weiter wegzuhören, nimmt aber dafür die
   Möglichkeit anhand von Lautstärke die Entfernung von Spielern einzuschätzen.)
 * Wenn sie sich in der Nähe von Engeln befinden erleiden sie Nebeneffekte wie Kopfschmerzen oder andere Arten von
@@ -54,7 +54,7 @@ ______________________
 
 # Jobs
 
-#### Die Jobs können Voll- und Teil-zeitig ausgeübt werden ebenso wie als Nebenjob und als Schwarzarbeit wobei diese dann nicht über das Geldsystem des Server geregelt wird sondern unter den Spielern selber.
+#### Die Jobs können Voll- und Teil-zeitig ausgeübt werden ebenso wie als Nebenjob und als Schwarzarbeit wobei diese dann nicht über das Geldsystem des Servers geregelt wird, sondern unter den Spielern selber.
 
 * Nachrichten bzw. Zeitung
     * Informationen über Geschehnisse und anderes.

@@ -10,7 +10,7 @@ public class LanguagePack extends ListResourceBundle {
     }
 
     private final Object[][] contents = {
-            {"tablistHeader", " \n     §b§lHiyamaCity §r§7- §cFantasy §7& §cReallife Roleplay     "},
+            {"tablistHeader", " \n     §b§lHiyamaCity §r§7- §cFantasy §7& §cReallife Role-play     "},
             {"tablistFooter", "§7%current%§8/§7%max%§a Spieler online.\n "},
             // Errors
             {"playerNotFound", "§cFehler: Der Spieler %target% wurde nicht gefunden."},
