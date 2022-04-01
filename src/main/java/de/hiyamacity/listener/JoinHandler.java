@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 @SuppressWarnings("deprecation")
 public class JoinHandler implements Listener {
-    
+
     @EventHandler
     public void onEvent(PlayerJoinEvent e) {
         e.setJoinMessage("");
