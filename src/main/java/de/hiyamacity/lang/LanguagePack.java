@@ -10,6 +10,8 @@ public class LanguagePack extends ListResourceBundle {
     }
 
     private final Object[][] contents = {
+            {"tablistHeader", " \n     §b§lHiyamaCity §r§7- §cFantasy §7& §cReallife Roleplay     "},
+            {"tablistFooter", "§7%current%§8/§7%max%§a Spieler online.\n "},
             // Errors
             {"playerNotFound", "§cFehler: Der Spieler %target% wurde nicht gefunden."},
             {"playerTooFarAway", "§cFehler: Der angegebene Spieler ist zu weit entfernt."},
@@ -26,7 +28,8 @@ public class LanguagePack extends ListResourceBundle {
             {"gmUsage", "§cFehler: Benutze \"/gm <0-3> [Spielername]\""},
             {"payUsage", "§cFehler: Benutze \"/pay <Spielername> <Betrag>\""},
             {"showFinancesUsage", "§cFehler: Benutze \"/showfinances <Spielername>\""},
-            {"deathUsage","§cFehler: Benutze \"/deaths <Spielernamen>\""},
+            {"deathUsage", "§cFehler: Benutze \"/deaths <Spielernamen>\""},
+            {"vanishUsage", "§cFehler: Benutze \"/vanish <Spielername>\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -43,6 +46,16 @@ public class LanguagePack extends ListResourceBundle {
             {"showFinancesOther", "§9%player%§7 gibt dir einen Einblick ins Portemonnaie von sich\n§7Portemonnaie: §9%money%§7$."},
             {"messageSelf", "§7[§9Du §7-> §9%target%§7] §r%msg%"},
             {"messageOther", "§7[§9%player% -> §9Dir§7] §r%msg%"},
-            {"deathCount", "§9%target% §7hat §9%amount% §7Tode."}
+            {"deathCount", "§9%target% §7hat §9%amount% §7Tode."},
+            {"vanishSelfActivate", "§7Du bist nun§a unsichtbar§7, niemand kann dich sehen..."},
+            {"vanishSelfDeactivate", "§7Du bist nun wieder§c sichtbar§7, jeder kann dich sehen..."},
+            {"vanishSelfActivateOther", "§7Du hast §9%target%§a unsichtbar §7gemacht..."},
+            {"vanishSelfDeactivateOther", "§7Du hast §9%target% §7wieder§c sichtbar §7gemacht..."},
+            {"vanishOtherActivate", "§9%player% §7hat dich§a unsichtbar §7gemacht..."},
+            {"vanishOtherDeactivate", "§9%player% hat dich wieder§c sichtbar §7gemacht..."},
+            {"playerSay", "§9%player%§r sagt: "},
+            {"playerAsk", "§9%player%§r fragt: "},
+            {"playerShout", "§9%player%§r schreit: "},
+            {"playerWhisper", "§9%player%§r flüstert: "},
     };
 }
