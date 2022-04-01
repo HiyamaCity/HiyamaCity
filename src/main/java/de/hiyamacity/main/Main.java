@@ -1,12 +1,15 @@
 package de.hiyamacity.main;
 
 import de.hiyamacity.commands.admin.GameModeCommand;
+import de.hiyamacity.commands.admin.VanishCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
+import de.hiyamacity.listener.ChatHandler;
 import de.hiyamacity.listener.DamageHandler;
 import de.hiyamacity.listener.DeathHandler;
 import de.hiyamacity.listener.JoinHandler;
 import de.hiyamacity.util.PlaytimeTracker;
+import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,9 +30,11 @@ public class Main extends JavaPlugin {
         ConnectionPool.writeFile();
         ConnectionPool.initDatabaseConnectionPool();
         ConnectionPool.initDatabases();
+        PlaytimeTracker.startPlaytimeTracker();
+        RankHandler.initScoreboard();
+
         loadCommands();
         loadListeners();
-        PlaytimeTracker.startPlaytimeTracker();
     }
 
     public void onDisable() {
@@ -49,12 +54,14 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("m")).setExecutor(new MessageCommand());
         Objects.requireNonNull(getCommand("show-finances")).setExecutor(new ShowFinancesCommand());
         Objects.requireNonNull(getCommand("deaths")).setExecutor(new DeathsCommand());
+        Objects.requireNonNull(getCommand("vanish")).setExecutor(new VanishCommand());
     }
 
     private void loadListeners() {
         this.pm.registerEvents(new JoinHandler(), this);
         this.pm.registerEvents(new DamageHandler(), this);
         this.pm.registerEvents(new DeathHandler(), this);
+        this.pm.registerEvents(new ChatHandler(), this);
     }
 
 }
