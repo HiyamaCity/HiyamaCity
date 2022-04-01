@@ -31,3 +31,5 @@ commands:
     aliases: [ showfinances ]
   deaths:
     description: Allows the player to see the deadcounter
+  vanish:
+    description: Allows the player to hide themselves and others.
