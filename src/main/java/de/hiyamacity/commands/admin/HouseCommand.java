@@ -35,6 +35,8 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                 double houseNum = Double.parseDouble(args[2]);
                 double postalCode = Double.parseDouble(args[3]);
 
+                // TODO: Finish House registration
+
                 break;
             }
 
