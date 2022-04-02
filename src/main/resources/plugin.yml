@@ -30,7 +30,7 @@ commands:
     description: Allows the player to show their finances to other players.
     aliases: [ showfinances ]
   deaths:
-    description: Allows the player to see the deadcounter
+    description: Allows the player to see the deathcount.
   vanish:
     description: Allows the player to hide themselves and others.
   slap:
