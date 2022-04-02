@@ -7,14 +7,14 @@ import lombok.Setter;
 @Setter
 public class Address {
 
-    private String address;
+    private String street;
     private long postalCode;
     private long houseNumber;
 
-    public Address(String address, long postalCode, long houseNumber) {
-        this.address = address;
-        this.postalCode = postalCode;
+    public Address(String street, long houseNumber, long postalCode) {
+        this.street = street;
         this.houseNumber = houseNumber;
+        this.postalCode = postalCode;
     }
 
 }

@@ -5,6 +5,7 @@ import de.hiyamacity.database.ConnectionPool;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,17 +19,17 @@ public class House {
 
     private UUID houseID;
     private Location[] doorLocations;
-    private Resident[] renters;
+    private Resident[] residents;
     private Address address;
 
-    public House(UUID owner, Location[] doorLocations, Address address) {
-        this.houseID = generateNonOccupiedUUID();
+    public House(UUID owner, UUID houseID, Location[] doorLocations, Address address) {
+        this.houseID = houseID;
         this.doorLocations = doorLocations;
         this.address = address;
-        this.renters = new Resident[]{new Resident(owner, Resident.RenterType.OWNER)};
+        this.residents = new Resident[]{new Resident(owner, Resident.RenterType.OWNER)};
     }
 
-    private UUID generateNonOccupiedUUID() {
+    public static @NotNull UUID generateNonOccupiedUUID() {
         UUID uuid = UUID.randomUUID();
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM HOUSES WHERE ID = ?")) {
@@ -40,7 +41,7 @@ public class House {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return generateNonOccupiedUUID();
     }
 
     @Override
