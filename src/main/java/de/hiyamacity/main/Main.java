@@ -10,6 +10,7 @@ import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -52,7 +53,9 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("show-finances")).setExecutor(new ShowFinancesCommand());
         Objects.requireNonNull(getCommand("deaths")).setExecutor(new DeathsCommand());
         Objects.requireNonNull(getCommand("vanish")).setExecutor(new VanishCommand());
+        Objects.requireNonNull(getCommand("slap")).setExecutor(new SlapCommand());
     }
+
 
     private void loadListeners() {
         this.pm.registerEvents(new JoinHandler(), this);

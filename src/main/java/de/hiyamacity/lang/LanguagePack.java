@@ -21,6 +21,7 @@ public class LanguagePack extends ListResourceBundle {
             {"gmInvalidGameMode", "§cFehler: Dein angegebener GameMode muss ≤ 0 ≤ 3 sein."},
             {"kissSelf", "§cFehler: Du kannst dich nicht selber küssen."},
             {"messageNotToYourself", "§cFehler: Du kannst dir selbst keine Nachricht schicken"},
+            {"slapSelf", "§cFehler: Du kannst dich nicht selbst schlagen."},
             // Usages
             {"meUsage", "§cFehler: Benutze \"/me <Aktion>\""},
             {"kissUsage", "§cFehler: Benutze \"/kiss <Spielername>\""},
@@ -30,6 +31,7 @@ public class LanguagePack extends ListResourceBundle {
             {"showFinancesUsage", "§cFehler: Benutze \"/showfinances <Spielername>\""},
             {"deathUsage", "§cFehler: Benutze \"/deaths <Spielernamen>\""},
             {"vanishUsage", "§cFehler: Benutze \"/vanish <Spielername>\""},
+            {"slapUsage", "§cFehler: Benutze \"/slap <Spielername>\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
