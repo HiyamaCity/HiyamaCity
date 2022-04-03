@@ -46,6 +46,7 @@ public class House {
 
     @Override
     public String toString() {
+        // TODO: Produces StackOverflow because of recursion!!!
         return new GsonBuilder().create().toJson(this);
     }
 

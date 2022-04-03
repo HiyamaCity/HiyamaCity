@@ -22,6 +22,7 @@ public class LanguagePack extends ListResourceBundle {
             {"kissSelf", "§cFehler: Du kannst dich nicht selber küssen."},
             {"messageNotToYourself", "§cFehler: Du kannst dir selbst keine Nachricht schicken"},
             {"slapSelf", "§cFehler: Du kannst dich nicht selbst schlagen."},
+            {"houseRegisterNonOpenableTargetBlock", "§cFehler: Du musst einen Block anschauen der geöffnet werden kann."},
             // Usages
             {"meUsage", "§cFehler: Benutze \"/me <Aktion>\""},
             {"kissUsage", "§cFehler: Benutze \"/kiss <Spielername>\""},
@@ -32,7 +33,7 @@ public class LanguagePack extends ListResourceBundle {
             {"deathUsage", "§cFehler: Benutze \"/deaths <Spielernamen>\""},
             {"vanishUsage", "§cFehler: Benutze \"/vanish <Spielername>\""},
             {"slapUsage", "§cFehler: Benutze \"/slap <Spielername>\""},
-            {"houseRegisterUsage", "§cFehler: Benutze \"/house register <Straße> <Hausnummer> <Postleitzahl> [Besitzer]\""},
+            {"houseRegisterUsage", "§cFehler: Benutze \"/house register <Straße> <Hausnummer> <Stadt> <Postleitzahl> [Besitzer]\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -46,7 +47,7 @@ public class LanguagePack extends ListResourceBundle {
             {"kiss", "§d*§5 %player%§d hat §5%target%§d einen Kuss gegeben."},
             {"dice", "§9%player% §7hat eine §9%result% §7gewürfelt."},
             {"showFinancesSelf", "§7Du hast §9%target% §7deine Finanzen gezeigt."},
-            {"showFinancesOther", "§9%player%§7 gibt dir einen Einblick ins Portemonnaie von sich\n§7Portemonnaie: §9%money%§7$."},
+            {"showFinancesOther", "§9%player%§7 gibt dir einen Einblick ins Portemonnaie von sich.\n§7Portemonnaie: §9%money%§7$."},
             {"messageSelf", "§7[§9Du §7-> §9%target%§7] §r%msg%"},
             {"messageOther", "§7[§9%player% -> §9Dir§7] §r%msg%"},
             {"deathCount", "§9%target% §7hat §9%amount% §7Tode."},
@@ -60,5 +61,6 @@ public class LanguagePack extends ListResourceBundle {
             {"playerAsk", "§9%player%§r fragt: "},
             {"playerShout", "§9%player%§r schreit: "},
             {"playerWhisper", "§9%player%§r flüstert: "},
+            {"houseRegisterSuccessful", "§aDu hast erfolgreich ein neues Haus (%address%) registriert.\nKoordinaten:\n%x%\n%y%\n%z%"}
     };
 }

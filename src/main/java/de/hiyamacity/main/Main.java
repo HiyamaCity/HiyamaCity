@@ -1,6 +1,7 @@
 package de.hiyamacity.main;
 
 import de.hiyamacity.commands.admin.GameModeCommand;
+import de.hiyamacity.commands.admin.HouseCommand;
 import de.hiyamacity.commands.admin.VanishCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
@@ -10,7 +11,6 @@ import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -54,6 +54,8 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("deaths")).setExecutor(new DeathsCommand());
         Objects.requireNonNull(getCommand("vanish")).setExecutor(new VanishCommand());
         Objects.requireNonNull(getCommand("slap")).setExecutor(new SlapCommand());
+        Objects.requireNonNull(getCommand("house")).setExecutor(new HouseCommand());
+        Objects.requireNonNull(getCommand("house")).setTabCompleter(new HouseCommand());
     }
 
 
