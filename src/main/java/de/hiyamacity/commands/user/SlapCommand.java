@@ -18,29 +18,30 @@ public class SlapCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(sender instanceof Player)) return true;
         Player p = (Player) sender;
-        ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
+        ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(p.getUniqueId());
 
         if (args.length != 1) {
-            p.sendMessage(rs.getString("slapUsage"));
+            p.sendMessage(resourceBundle.getString("slapUsage"));
             return true;
         }
         Player t = Bukkit.getPlayer(args[0]);
         if (t == null) {
-            p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
+            p.sendMessage(resourceBundle.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
         if (p.getLocation().distanceSquared(t.getLocation()) > Distances.KISS) {
-            p.sendMessage(rs.getString("playerTooFarAway"));
+            p.sendMessage(resourceBundle.getString("playerTooFarAway"));
             return true;
         }
         if (p.getName().equals(t.getName())) {
-            p.sendMessage(rs.getString("slapSelf"));
+            p.sendMessage(resourceBundle.getString("slapSelf"));
             return true;
         }
         Location pLoc = new Location(p.getWorld(), p.getLocation().getX(), p.getLocation().getY() + 2, p.getLocation().getZ());
         Location tLoc = new Location(t.getWorld(), t.getLocation().getX(), t.getLocation().getY() + 2, t.getLocation().getZ());
 
         for (Player o : Bukkit.getOnlinePlayers()) {
+
 
             if (p.getLocation().distanceSquared(t.getLocation()) <= Distances.KISS) {
                 ResourceBundle ors = LanguageHandler.getResourceBundle(o.getUniqueId());
