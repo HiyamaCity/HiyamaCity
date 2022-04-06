@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.hiyamacity.commands.admin.GameModeCommand;
 import de.hiyamacity.commands.admin.HouseCommand;
+import de.hiyamacity.commands.admin.ShopCommand;
 import de.hiyamacity.commands.admin.VanishCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
@@ -26,7 +27,7 @@ public class Main extends JavaPlugin {
     }
 
     private static final Gson gson = new GsonBuilder().create();
-    
+
 
     public void onEnable() {
         instance = this;
@@ -61,6 +62,8 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("slap")).setExecutor(new SlapCommand());
         Objects.requireNonNull(getCommand("house")).setExecutor(new HouseCommand());
         Objects.requireNonNull(getCommand("house")).setTabCompleter(new HouseCommand());
+        Objects.requireNonNull(getCommand("shop")).setExecutor(new ShopCommand());
+        Objects.requireNonNull(getCommand("shop")).setTabCompleter(new ShopCommand());
     }
 
     private void loadListeners() {

@@ -1,6 +1,5 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.items.weapons.Katana;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Shop;
 import de.hiyamacity.objects.ShopType;
@@ -24,15 +23,15 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
         Player p = (Player) sender;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
         if (!p.hasPermission("shop")) return true;
-        args[0] = args[0].toLowerCase();
-
-        if (ShopType.getAllTypes().contains(args[0])) {
+        if (args.length == 0) return true;
+        args[0] = args[0].toUpperCase();
+        List<String> pos = ShopType.getAllTypes();
+        if (!pos.contains(args[0])) {
             p.sendMessage(rs.getString("shopUnknownType"));
             return true;
         }
 
         switch (ShopType.valueOf(args[0])) {
-
             case DRINK:
                 Shop shop = new Shop("", null, new ArrayList<>(), new ShopType[]{ShopType.DRINK}, p.getLocation());
                 p.sendMessage(shop.toString());

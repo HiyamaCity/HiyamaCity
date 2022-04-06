@@ -37,3 +37,5 @@ commands:
     description: Allows the player to slap themselves and others.
   house:
     description: Allows the player to handle some stuff in the house system.
+  shop:
+    description: Allows the player to interact with shops.
