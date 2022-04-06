@@ -28,8 +28,9 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
         Player p = (Player) sender;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
+        /** TODO: Deactivated because of StackOverFlowError in {@link de.hiyamacity.database.MySqlPointer#registerHouse} */
         if (true) {
-            p.sendMessage(rs.getString("commandDisabled")); // TODO: Deactivated because of StackOverFlowError in {@link de.hiyamacity.database.MySqlPointer#registerHouse}
+            p.sendMessage(rs.getString("commandDisabled"));
             return true;
         }
 
