@@ -15,6 +15,7 @@ public class LanguagePack extends ListResourceBundle {
             // Errors
             {"playerNotFound", "§cFehler: Der Spieler %target% wurde nicht gefunden."},
             {"playerTooFarAway", "§cFehler: Der angegebene Spieler ist zu weit entfernt."},
+            {"commandDisabled", "§cFehler: Dieser Command wurde deaktiviert."},
             {"payNonNegative", "§cFehler: Der angegebene Betrag darf nicht < 0 sein."},
             {"payInsufficientAmount", "§cFehler: Du kannst nicht mehr Geld abgeben als du dabei hast."},
             {"payCantPaySelf", "§cFehler: Du kannst dir selber kein Geld zustecken."},

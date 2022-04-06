@@ -27,6 +27,12 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player)) return true;
         Player p = (Player) sender;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
+
+        if (true) {
+            p.sendMessage(rs.getString("commandDisabled")); // TODO: Deactivated because of StackOverFlowError in {@link de.hiyamacity.database.MySqlPointer#registerHouse}
+            return true;
+        }
+
         if (!p.hasPermission("house.register")) return true;
         if (args.length < 1) return true;
         switch (args[0].toLowerCase()) {
@@ -36,7 +42,6 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                     p.sendMessage(rs.getString("houseRegisterUsage"));
                     return true;
                 }
-                // /house register <straße> <hausnummer> <stadt> <postleitzahl> [Besitzer]
 
                 Address address = new Address(firstLetterCapital(args[1]), Long.parseLong(args[2]), firstLetterCapital(args[3]), Long.parseLong(args[4]));
                 UUID owner = null;
