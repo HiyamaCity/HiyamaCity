@@ -17,10 +17,10 @@ public class Shop {
     private String name;
     private UUID owner;
     private ArrayList<? extends HiyamaCityItem> items;
-    private ShopType shopType;
+    private ShopType[] shopType;
     private Location location;
 
-    public Shop(String name, UUID owner, ArrayList<? extends HiyamaCityItem> items, ShopType shopType, Location location) {
+    public Shop(String name, UUID owner, ArrayList<? extends HiyamaCityItem> items, ShopType[] shopType, Location location) {
         this.name = name;
         this.owner = owner;
         this.items = items;

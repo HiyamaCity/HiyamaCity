@@ -1,6 +1,8 @@
 package de.hiyamacity.commands.admin;
 
+import de.hiyamacity.items.weapons.Katana;
 import de.hiyamacity.lang.LanguageHandler;
+import de.hiyamacity.objects.Shop;
 import de.hiyamacity.objects.ShopType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,7 +31,32 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        switch (ShopType.valueOf(args[0])) {
 
+            case DRINK:
+                Shop shop = new Shop("", null, new ArrayList<>(), new ShopType[]{ShopType.DRINK}, p.getLocation());
+                p.sendMessage(shop.toString());
+                break;
+            case FOOD:
+                break;
+            case AGRICULTURE:
+                break;
+            case SOUVENIRS:
+                break;
+            case ORES:
+                break;
+            case ARMOR:
+                break;
+            case PET:
+                break;
+            case TIMBER:
+                break;
+            case WEAPONS:
+                break;
+            default:
+                break;
+
+        }
 
         return false;
     }
