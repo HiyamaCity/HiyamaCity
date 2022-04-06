@@ -51,6 +51,16 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
                 break;
             case TIMBER:
                 break;
+            case STONES:
+                break;
+            case NETHER:
+                break;
+            case END:
+                break;
+            case DECORATION:
+                break;
+            case WORKINGBLOCKS:
+                break;
             case WEAPONS:
                 break;
             default:
