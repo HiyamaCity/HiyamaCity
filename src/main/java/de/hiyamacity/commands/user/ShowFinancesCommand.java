@@ -4,7 +4,7 @@ import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.misc.Distances;
 import de.hiyamacity.objects.User;
 import de.hiyamacity.util.DecimalSeparator;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

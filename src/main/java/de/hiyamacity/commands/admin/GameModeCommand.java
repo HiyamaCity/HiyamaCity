@@ -1,6 +1,6 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;

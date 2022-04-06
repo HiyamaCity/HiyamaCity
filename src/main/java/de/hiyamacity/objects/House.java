@@ -44,12 +44,10 @@ public class House {
         return generateNonOccupiedUUID();
     }
 
-    /*
     @Override
     public String toString() {
         return new GsonBuilder().create().toJson(this, this.getClass());
     }
-    */
 
     public static House fromJson(String string) {
         return new GsonBuilder().create().fromJson(string, House.class);

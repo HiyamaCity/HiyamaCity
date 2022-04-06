@@ -1,6 +1,6 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.util.VanishHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

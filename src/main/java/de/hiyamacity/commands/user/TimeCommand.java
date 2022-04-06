@@ -1,6 +1,6 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

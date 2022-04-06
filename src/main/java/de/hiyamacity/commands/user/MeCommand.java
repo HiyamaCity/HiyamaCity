@@ -1,7 +1,7 @@
 package de.hiyamacity.commands.user;
 
 import de.hiyamacity.misc.Distances;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

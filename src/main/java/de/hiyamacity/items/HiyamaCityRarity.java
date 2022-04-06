@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.ChatColor;
 
 @Getter
-public enum Rarity {
+public enum HiyamaCityRarity {
 
     MYTHIC(ChatColor.LIGHT_PURPLE),
     LEGENDARY(ChatColor.GOLD),
@@ -15,10 +15,9 @@ public enum Rarity {
 
     private final ChatColor chatColor;
 
-    Rarity(ChatColor color) {
+    HiyamaCityRarity(ChatColor color) {
         this.chatColor = color;
     }
-
 
     @Override
     public String toString() {

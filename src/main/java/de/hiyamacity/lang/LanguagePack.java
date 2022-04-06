@@ -24,6 +24,7 @@ public class LanguagePack extends ListResourceBundle {
             {"messageNotToYourself", "§cFehler: Du kannst dir selbst keine Nachricht schicken"},
             {"slapSelf", "§cFehler: Du kannst dich nicht selbst schlagen."},
             {"houseRegisterNonOpenableTargetBlock", "§cFehler: Du musst einen Block anschauen der geöffnet werden kann."},
+            {"shopUnknownType", "§cFehler: Dein angegebener Shop-Typ ist nicht gültig."},
             // Usages
             {"meUsage", "§cFehler: Benutze \"/me <Aktion>\""},
             {"kissUsage", "§cFehler: Benutze \"/kiss <Spielername>\""},

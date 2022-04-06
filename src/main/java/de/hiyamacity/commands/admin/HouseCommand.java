@@ -2,7 +2,7 @@ package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.objects.Address;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.data.BlockData;
@@ -34,7 +34,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!p.hasPermission("house.register")) return true;
+        if (!p.hasPermission("house")) return true;
         if (args.length < 1) return true;
         switch (args[0].toLowerCase()) {
             case "register": {

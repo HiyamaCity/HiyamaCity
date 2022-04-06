@@ -1,4 +1,4 @@
-package de.hiyamacity.util;
+package de.hiyamacity.lang;
 
 import de.hiyamacity.database.ConnectionPool;
 import org.jetbrains.annotations.NotNull;

@@ -1,7 +1,7 @@
 package de.hiyamacity.listener;
 
 import de.hiyamacity.misc.Distances;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
