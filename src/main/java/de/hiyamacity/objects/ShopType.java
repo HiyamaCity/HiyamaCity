@@ -18,6 +18,11 @@ public enum ShopType {
     ARMOR("armor"),
     PET("pet"),
     TIMBER("timber"),
+    STONES("stones"),
+    NETHER("nether"),
+    END("end"),
+    DECORATION("decoration"),
+    WORKBLOCKS("workblocks"),
     WEAPONS("weapons");
 
     ShopType(String type) {
