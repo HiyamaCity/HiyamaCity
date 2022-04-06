@@ -1,5 +1,7 @@
 package de.hiyamacity.main;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import de.hiyamacity.commands.admin.GameModeCommand;
 import de.hiyamacity.commands.admin.HouseCommand;
 import de.hiyamacity.commands.admin.VanishCommand;
@@ -22,6 +24,9 @@ public class Main extends JavaPlugin {
     public static Main getInstance() {
         return instance;
     }
+
+    private static final Gson gson = new GsonBuilder().create();
+    
 
     public void onEnable() {
         instance = this;
@@ -58,13 +63,16 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("house")).setTabCompleter(new HouseCommand());
     }
 
-
     private void loadListeners() {
         this.pm.registerEvents(new JoinHandler(), this);
         this.pm.registerEvents(new DamageHandler(), this);
         this.pm.registerEvents(new DeathHandler(), this);
         this.pm.registerEvents(new ChatHandler(), this);
         this.pm.registerEvents(new MOTDHandler(), this);
+    }
+
+    public static String toJsonString(Object src) {
+        return src != null ? gson.toJson(src) : null;
     }
 
 }

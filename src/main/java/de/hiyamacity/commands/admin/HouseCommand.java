@@ -2,7 +2,6 @@ package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.objects.Address;
-import de.hiyamacity.objects.House;
 import de.hiyamacity.util.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -58,9 +57,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                 double x = loc[0].getX();
                 double y = loc[0].getY();
                 double z = loc[0].getZ();
-                House house = new House(owner, UUID.randomUUID(), loc, address);
-                System.out.println(house);
-                //MySqlPointer.registerHouse(owner, loc, address);
+                MySqlPointer.registerHouse(owner, loc, address);
                 p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + x).replace("%y%", "" + y).replace("%z%", "" + z));
 
                 break;

@@ -91,7 +91,7 @@ public class MySqlPointer {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO HOUSES (UUID, HOUSE) VALUES (?,?)")) {
                 UUID uuid = House.generateNonOccupiedUUID();
                 ps.setString(1, uuid.toString());
-                ps.setString(2, new House(owner, uuid, locations, address).toString());
+                ps.setString(2, new House(owner, uuid, locations, address).toString()); // TODO: StackOverFlowError
                 ps.executeUpdate();
             }
         } catch (SQLException e) {

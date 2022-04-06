@@ -1,6 +1,7 @@
 package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
+import de.hiyamacity.main.Main;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,7 @@ public class Resident {
 
     @Override
     public String toString() {
-        return new GsonBuilder().create().toJson(this);
+        return Main.toJsonString(this);
     }
 
     public static Resident fromJson(String string) {

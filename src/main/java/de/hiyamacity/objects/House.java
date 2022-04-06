@@ -19,8 +19,8 @@ public class House {
 
     private UUID houseID;
     private Location[] doorLocations;
-    private Resident[] residents;
-    private Address address;
+    transient Resident[] residents;
+    transient Address address;
 
     public House(UUID owner, UUID houseID, Location[] doorLocations, Address address) {
         this.houseID = houseID;
@@ -44,11 +44,12 @@ public class House {
         return generateNonOccupiedUUID();
     }
 
+    /*
     @Override
     public String toString() {
-        // TODO: Produces StackOverflow because of recursion!!!
-        return new GsonBuilder().create().toJson(this);
+        return new GsonBuilder().create().toJson(this, this.getClass());
     }
+    */
 
     public static House fromJson(String string) {
         return new GsonBuilder().create().fromJson(string, House.class);
