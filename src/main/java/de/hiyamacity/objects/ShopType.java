@@ -2,7 +2,6 @@ package de.hiyamacity.objects;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,7 +12,7 @@ public enum ShopType {
     FOOD("food"),
     DRINK("drink"),
     AGRICULTURE("agriculture"),
-    SOUVENIERS("souveniers"),
+    SOUVENIRS("souvenirs"),
     ORES("ores"),
     ARMOR("armor"),
     PET("pet"),
@@ -22,7 +21,7 @@ public enum ShopType {
     NETHER("nether"),
     END("end"),
     DECORATION("decoration"),
-    WORKBLOCKS("workblocks"),
+    WORKINGBLOCKS("workingblocks"),
     WEAPONS("weapons");
 
     ShopType(String type) {
