@@ -13,6 +13,11 @@ public enum ShopType {
     FOOD("food"),
     DRINK("drink"),
     AGRICULTURE("agriculture"),
+    SOUVENIERS("souveniers"),
+    ORES("ores"),
+    ARMOR("armor"),
+    PET("pet"),
+    TIMBER("timber"),
     WEAPONS("weapons");
 
     ShopType(String type) {
