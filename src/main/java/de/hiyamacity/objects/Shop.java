@@ -2,7 +2,6 @@ package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
 import de.hiyamacity.items.HiyamaCityItem;
-import de.hiyamacity.main.Main;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
@@ -30,7 +29,7 @@ public class Shop {
 
     @Override
     public String toString() {
-        return Main.toJsonString(this);
+        return new GsonBuilder().registerTypeAdapter(this.getClass(), this).create().toJson(this);
     }
 
     public static Shop fromJson(String string) {

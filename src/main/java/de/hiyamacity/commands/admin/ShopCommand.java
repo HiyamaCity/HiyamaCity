@@ -33,7 +33,7 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
 
         switch (ShopType.valueOf(args[0])) {
             case DRINK:
-                Shop shop = new Shop("", null, new ArrayList<>(), new ShopType[]{ShopType.DRINK}, p.getLocation());
+                Shop shop = new Shop("Hallo", null, new ArrayList<>(), new ShopType[]{ShopType.DRINK}, p.getLocation());
                 p.sendMessage(shop.toString());
                 break;
             case FOOD:

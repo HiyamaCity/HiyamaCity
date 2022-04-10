@@ -46,7 +46,7 @@ public class House {
 
     @Override
     public String toString() {
-        return new GsonBuilder().create().toJson(this, this.getClass());
+        return new GsonBuilder().registerTypeAdapter(House.class, this).create().toJson(this);
     }
 
     public static House fromJson(String string) {

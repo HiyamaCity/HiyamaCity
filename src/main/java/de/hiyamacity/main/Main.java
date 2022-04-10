@@ -9,6 +9,7 @@ import de.hiyamacity.commands.admin.VanishCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.listener.*;
+import de.hiyamacity.util.AutoValueAdapterFactory;
 import de.hiyamacity.util.PlaytimeTracker;
 import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
@@ -26,8 +27,7 @@ public class Main extends JavaPlugin {
         return instance;
     }
 
-    private static final Gson gson = new GsonBuilder().create();
-
+    public static Gson gson = new GsonBuilder().registerTypeAdapterFactory(new AutoValueAdapterFactory()).serializeNulls().create();
 
     public void onEnable() {
         instance = this;
@@ -74,8 +74,8 @@ public class Main extends JavaPlugin {
         this.pm.registerEvents(new MOTDHandler(), this);
     }
 
-    public static String toJsonString(Object src) {
-        return src != null ? gson.toJson(src) : null;
+    public String toJsonString(Object src) {
+        return gson.toJson(src);
     }
 
 }

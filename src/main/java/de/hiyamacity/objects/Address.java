@@ -23,7 +23,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return Main.toJsonString(this);
+        return new GsonBuilder().registerTypeAdapter(Address.class, this).create().toJson(this);
     }
 
     public String getAsAddress() {

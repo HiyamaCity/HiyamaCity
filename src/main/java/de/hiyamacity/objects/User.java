@@ -41,7 +41,7 @@ public class User {
 
     @Override
     public String toString() {
-        return Main.toJsonString(this);
+        return new GsonBuilder().registerTypeAdapter(User.class, this).create().toJson(this);
     }
 
     public static User fromJson(String string) {
