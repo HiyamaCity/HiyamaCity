@@ -21,23 +21,23 @@ public class House {
     @Expose
     private UUID houseID;
     @Expose
-    private Location[] doorLocations;
+    private DoorLocation[] doorLocations;
     @Expose
     private Resident[] residents;
     @Expose
     private Address address;
 
-    public House(UUID owner, UUID houseID, Location[] doorLocations, Address address) {
+    public House(UUID owner, UUID houseID, DoorLocation[] doorLocations, Address address) {
         this.houseID = houseID;
         this.doorLocations = doorLocations;
         this.address = address;
-        this.residents = new Resident[]{new Resident(owner, Resident.RenterType.OWNER)};
+        this.residents = new Resident[]{new Resident(owner, Resident.ResidentType.OWNER)};
     }
 
     public static @NotNull UUID generateNonOccupiedUUID() {
         UUID uuid = UUID.randomUUID();
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM HOUSES WHERE ID = ?")) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM HOUSES WHERE UUID = ?")) {
                 ps.setString(1, uuid.toString());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) generateNonOccupiedUUID();
