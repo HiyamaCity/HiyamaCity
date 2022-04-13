@@ -12,10 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class TeleportCommand implements CommandExecutor, TabCompleter {
 
@@ -102,27 +99,30 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (!(sender instanceof Player p)) return null;
         switch (args.length) {
+
             case 1 -> {
-                Collection<? extends Player> playerCollection = Bukkit.getOnlinePlayers();
-                playerCollection.forEach(player -> {
-                    if (VanishHandler.isVanish(player)) playerCollection.remove(player);
-                });
                 List<String> playerNames = new ArrayList<>();
-                for (Player col : playerCollection)
-                    playerNames.add(col.getName());
+                Bukkit.getOnlinePlayers().forEach(player -> playerNames.add(player.getName()));
                 return playerNames;
             }
+
             case 2 -> {
-                return List.of(String.valueOf(p.getTargetBlock(null, 100).getLocation().getX()));
+                List<String> possibilities = new ArrayList<>();
+                Bukkit.getOnlinePlayers().forEach(player -> possibilities.add(player.getName()));
+                possibilities.add(String.valueOf(p.getTargetBlock(null, 100).getLocation().getX()));
+                return possibilities;
             }
+
             case 3 -> {
+                if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) return Collections.emptyList();
                 return List.of(String.valueOf(p.getTargetBlock(null, 100).getLocation().getY()));
             }
+
             case 4 -> {
+                if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) return Collections.emptyList();
                 return List.of(String.valueOf(p.getTargetBlock(null, 100).getLocation().getZ()));
             }
-            default -> {
-            }
+
         }
         return null;
     }
