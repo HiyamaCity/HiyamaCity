@@ -101,29 +101,40 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (!(sender instanceof Player p)) return null;
+        Location targetLocation = p.getTargetBlock(null, 100).getLocation();
         switch (args.length) {
 
             case 1 -> {
-                List<String> playerNames = new ArrayList<>();
-                Bukkit.getOnlinePlayers().forEach(player -> playerNames.add(player.getName()));
-                return playerNames;
+                List<String> possibilities = new ArrayList<>();
+                Bukkit.getOnlinePlayers().forEach(player -> possibilities.add(player.getName()));
+                possibilities.add(String.valueOf(targetLocation.getX()));
+                return possibilities;
             }
 
             case 2 -> {
                 List<String> possibilities = new ArrayList<>();
                 Bukkit.getOnlinePlayers().forEach(player -> possibilities.add(player.getName()));
-                possibilities.add(String.valueOf(p.getTargetBlock(null, 100).getLocation().getX()));
+                if (Double.parseDouble(args[0]) == targetLocation.getX())
+                    possibilities.add(String.valueOf(targetLocation.getY()));
+                else possibilities.add(String.valueOf(targetLocation.getX()));
                 return possibilities;
             }
 
             case 3 -> {
                 if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) return Collections.emptyList();
-                return List.of(String.valueOf(p.getTargetBlock(null, 100).getLocation().getY()));
+                List<String> possibilities = new ArrayList<>();
+                if (Double.parseDouble(args[1]) == targetLocation.getY())
+                    possibilities.add(String.valueOf(targetLocation.getZ()));
+                else possibilities.add(String.valueOf(targetLocation.getY()));
+                return possibilities;
             }
 
             case 4 -> {
                 if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) return Collections.emptyList();
-                return List.of(String.valueOf(p.getTargetBlock(null, 100).getLocation().getZ()));
+                List<String> possibilities = new ArrayList<>();
+                if (Double.parseDouble(args[2]) == targetLocation.getZ()) return Collections.emptyList();
+                else possibilities.add(String.valueOf(targetLocation.getZ()));
+                return possibilities;
             }
 
         }
