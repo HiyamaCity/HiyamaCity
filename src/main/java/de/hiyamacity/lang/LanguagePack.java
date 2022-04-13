@@ -37,6 +37,7 @@ public class LanguagePack extends ListResourceBundle {
             {"slapUsage", "§cFehler: Benutze \"/slap <Spielername>\""},
             {"houseRegisterUsage", "§cFehler: Benutze \"/house register <Straße> <Hausnummer> <Stadt> <Postleitzahl> [Besitzer]\""},
             {"teleportUsage", "§cFehler: Benutze \"/tp <Spieler> [Spieler]\" oder \"/tp [Spieler] <x> <y> <z>\""},
+            {"kickUsage", "§cFehler: Benutze \"/kick <Spieler> [Grund]\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -72,6 +73,11 @@ public class LanguagePack extends ListResourceBundle {
             {"teleportOtherToOtherOther1", "§9%player% §7hat §9%target% §7zu dir teleportiert."},
             {"teleportToCoordinates", "§7Du hast dich zu den Koordinaten: §9%x%§7, §9%y%§7, §9%z% §7teleportiert."},
             {"teleportToCoordinatesOtherSelf", "§7Du hast §9%target% §7zu den Koordinaten: §9%x%§7, §9%y%§7, §9%z% §7teleportiert."},
-            {"teleportToCoordinatesOtherOther", "§7Du wurdest von §9%player% §7zu den Koordinaten: §9%x%§7, §9%y%§7, §9%z% §7teleportiert."}
+            {"teleportToCoordinatesOtherOther", "§7Du wurdest von §9%player% §7zu den Koordinaten: §9%x%§7, §9%y%§7, §9%z% §7teleportiert."},
+            {"healSelf", "§aDu hast dich erfolgreich selbst geheilt."},
+            {"kickMessage", "§cDu wurdest von %player% gekickt. \nGrund: %reason%"},
+            {"kickMessageNoReason", "§cDu wurdest gekickt."},
+            {"kickMessageKicked", "§aDu hast %target% gekickt. Grund: %reason%"},
+            {"kickMessageKickedNoReason", "§aDu hast %target% gekickt."}
     };
 }

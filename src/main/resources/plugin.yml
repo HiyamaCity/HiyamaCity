@@ -42,3 +42,7 @@ commands:
   tp:
     description: Allows the player to teleport them or others to specific locations.
     aliases: [ teleport ]
+  heal:
+    description: Allows the player to heal themselves.
+  kick:
+    description: Allows the player to kick other players.

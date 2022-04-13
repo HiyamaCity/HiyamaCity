@@ -18,7 +18,7 @@ public class DeathsCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(sender instanceof Player p)) return true;
         ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(p.getUniqueId());
-
+        // TODO: Überarbeiten
         if (args.length != 1) {
             p.sendMessage(resourceBundle.getString("deathUsage"));
             return true;
