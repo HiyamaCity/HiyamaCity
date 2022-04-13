@@ -132,7 +132,8 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
             case 4 -> {
                 if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) return Collections.emptyList();
                 List<String> possibilities = new ArrayList<>();
-                if (isDouble(args[2]) && Double.parseDouble(args[2]) == targetLocation.getZ()) return Collections.emptyList();
+                if (isDouble(args[2]) && Double.parseDouble(args[2]) == targetLocation.getZ())
+                    return Collections.emptyList();
                 else possibilities.add(String.valueOf(targetLocation.getZ()));
                 return possibilities;
             }
@@ -141,9 +142,12 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
         return null;
     }
 
-    private Location getRelativeLocation(Location loc, String arg0, String arg1, String arg2) {
-        if (!(arg0.startsWith("~") && arg1.startsWith("~") && arg2.startsWith("~"))) return null;
-        return new Location(loc.getWorld(), Double.parseDouble(arg0.substring(1)) + loc.getX(), Double.parseDouble(arg1.substring(1)) + loc.getY(), Double.parseDouble(arg2.substring(1)) + loc.getZ());
+    private Location getRelativeLocation(Location loc, String x, String y, String z) {
+        if (!(x.startsWith("~") && y.startsWith("~") && z.startsWith("~"))) return null;
+        double newX = (x.length() == 1) ? loc.getX() : loc.getX() + Double.parseDouble(x.substring(1));
+        double newY = (y.length() == 1) ? loc.getY() : loc.getY() + Double.parseDouble(y.substring(1));
+        double newZ = (z.length() == 1) ? loc.getZ() : loc.getZ() + Double.parseDouble(z.substring(1));
+        return new Location(loc.getWorld(), newX, newY, newZ, loc.getYaw(), loc.getPitch());
     }
 
     private boolean isDouble(String s) {
