@@ -1,5 +1,6 @@
 package de.hiyamacity.commands.admin;
 
+import de.hiyamacity.items.weapons.Katana;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Shop;
 import de.hiyamacity.objects.ShopType;
@@ -33,7 +34,9 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
 
         switch (ShopType.valueOf(args[0])) {
             case DRINK:
-                Shop shop = new Shop("Hallo", null, new ArrayList<>(), new ShopType[]{ShopType.DRINK}, p.getLocation());
+                ArrayList<Katana> arrayList = new ArrayList<>();
+                arrayList.add(new Katana());
+                Shop shop = new Shop("Hallo", null, arrayList, new ShopType[]{ShopType.DRINK}, p.getLocation());
                 p.sendMessage(shop.toString());
                 break;
             case FOOD:

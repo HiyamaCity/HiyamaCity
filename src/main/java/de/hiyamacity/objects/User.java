@@ -1,7 +1,6 @@
 package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
-import de.hiyamacity.main.Main;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,7 +40,7 @@ public class User {
 
     @Override
     public String toString() {
-        return new GsonBuilder().registerTypeAdapter(User.class, this).create().toJson(this);
+        return new GsonBuilder().serializeNulls().create().toJson(this);
     }
 
     public static User fromJson(String string) {

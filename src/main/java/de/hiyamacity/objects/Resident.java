@@ -26,7 +26,7 @@ public class Resident {
 
     @Override
     public String toString() {
-        return new GsonBuilder().registerTypeAdapter(Resident.class, this).create().toJson(this);
+        return new GsonBuilder().serializeNulls().create().toJson(this);
     }
 
     public static Resident fromJson(String string) {

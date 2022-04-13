@@ -29,7 +29,7 @@ public class Shop {
 
     @Override
     public String toString() {
-        return new GsonBuilder().registerTypeAdapter(this.getClass(), this).create().toJson(this);
+        return new GsonBuilder().serializeNulls().create().toJson(this);
     }
 
     public static Shop fromJson(String string) {
