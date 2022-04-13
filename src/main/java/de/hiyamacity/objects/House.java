@@ -1,6 +1,7 @@
 package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import de.hiyamacity.database.ConnectionPool;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,10 +18,14 @@ import java.util.UUID;
 @Setter
 public class House {
 
+    @Expose
     private UUID houseID;
+    @Expose
     private Location[] doorLocations;
-    transient Resident[] residents;
-    transient Address address;
+    @Expose
+    private Resident[] residents;
+    @Expose
+    private Address address;
 
     public House(UUID owner, UUID houseID, Location[] doorLocations, Address address) {
         this.houseID = houseID;
@@ -46,7 +51,7 @@ public class House {
 
     @Override
     public String toString() {
-        return new GsonBuilder().serializeNulls().create().toJson(this);
+        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
     }
 
     public static House fromJson(String string) {

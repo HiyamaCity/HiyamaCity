@@ -1,6 +1,7 @@
 package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +9,13 @@ import lombok.Setter;
 @Setter
 public class Address {
 
+    @Expose
     private String street;
+    @Expose
     private long postalCode;
+    @Expose
     private String city;
+    @Expose
     private long houseNumber;
 
     public Address(String street, long houseNumber, String city, long postalCode) {
@@ -22,7 +27,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return new GsonBuilder().serializeNulls().create().toJson(this);
+        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
     }
 
     public String getAsAddress() {

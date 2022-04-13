@@ -1,6 +1,7 @@
 package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,9 @@ public class Resident {
         RENTER()
     }
 
+    @Expose
     private UUID uuid;
+    @Expose
     private RenterType renterType;
 
     public Resident(UUID uuid, RenterType renterType) {
@@ -25,7 +28,7 @@ public class Resident {
 
     @Override
     public String toString() {
-        return new GsonBuilder().serializeNulls().create().toJson(this);
+        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
     }
 
     public static Resident fromJson(String string) {
