@@ -11,10 +11,8 @@ public class InfoCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
-        if (!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player p)) return true;
 
-
-        Player p = (Player) sender;
 
         p.sendMessage("ich bin der banger");
 

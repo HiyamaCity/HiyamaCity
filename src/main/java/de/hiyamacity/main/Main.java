@@ -2,10 +2,7 @@ package de.hiyamacity.main;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.hiyamacity.commands.admin.GameModeCommand;
-import de.hiyamacity.commands.admin.HouseCommand;
-import de.hiyamacity.commands.admin.ShopCommand;
-import de.hiyamacity.commands.admin.VanishCommand;
+import de.hiyamacity.commands.admin.*;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.listener.*;
@@ -27,7 +24,7 @@ public class Main extends JavaPlugin {
         return instance;
     }
 
-    public static Gson gson = new GsonBuilder().registerTypeAdapterFactory(new AutoValueAdapterFactory()).serializeNulls().create();
+    public static final Gson gson = new GsonBuilder().registerTypeAdapterFactory(new AutoValueAdapterFactory()).serializeNulls().create();
 
     public void onEnable() {
         instance = this;
@@ -64,6 +61,8 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("house")).setTabCompleter(new HouseCommand());
         Objects.requireNonNull(getCommand("shop")).setExecutor(new ShopCommand());
         Objects.requireNonNull(getCommand("shop")).setTabCompleter(new ShopCommand());
+        getCommand("tp").setExecutor(new TeleportCommand());
+        getCommand("tp").setTabCompleter(new TeleportCommand());
     }
 
     private void loadListeners() {

@@ -9,22 +9,22 @@ import java.util.stream.Stream;
 @Getter
 public enum ShopType {
 
-    FOOD("food"),
-    DRINK("drink"),
-    AGRICULTURE("agriculture"),
-    SOUVENIRS("souvenirs"),
-    ORES("ores"),
-    ARMOR("armor"),
-    PET("pet"),
-    TIMBER("timber"),
-    STONES("stones"),
-    NETHER("nether"),
-    END("end"),
-    DECORATION("decoration"),
-    WORKINGBLOCKS("workingblocks"),
-    WEAPONS("weapons");
+    FOOD(),
+    DRINK(),
+    AGRICULTURE(),
+    SOUVENIRS(),
+    ORES(),
+    ARMOR(),
+    PET(),
+    TIMBER(),
+    STONES(),
+    NETHER(),
+    END(),
+    DECORATION(),
+    BLOCKS(),
+    WEAPONS();
 
-    ShopType(String type) {
+    ShopType() {
 
     }
 

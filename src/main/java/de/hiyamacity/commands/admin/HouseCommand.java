@@ -56,12 +56,14 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                 double y = loc[0].getY();
                 double z = loc[0].getZ();
                 House house = new House(owner, House.generateNonOccupiedUUID(), loc, address);
-                MySqlPointer.registerHouse(owner, house);
+                MySqlPointer.registerHouse(house);
                 p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + x).replace("%y%", "" + y).replace("%z%", "" + z));
 
                 break;
             }
 
+            case "delete":
+                break;
             default:
                 return true;
 

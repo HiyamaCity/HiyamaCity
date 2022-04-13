@@ -1,9 +1,7 @@
 package de.hiyamacity.database;
 
-import de.hiyamacity.objects.Address;
 import de.hiyamacity.objects.House;
 import de.hiyamacity.objects.User;
-import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
@@ -86,7 +84,7 @@ public class MySqlPointer {
         return new User();
     }
 
-    public static void registerHouse(UUID owner, House house) {
+    public static void registerHouse(House house) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO HOUSES (UUID, HOUSE) VALUES (?,?)")) {
                 UUID uuid = House.generateNonOccupiedUUID();

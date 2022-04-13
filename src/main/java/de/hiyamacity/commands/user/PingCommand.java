@@ -15,9 +15,8 @@ public class PingCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
-        if (!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player p)) return true;
 
-        Player p = (Player) sender;
         UUID uuid = p.getUniqueId();
         int ping = ((CraftPlayer) p).getHandle().ping;
 

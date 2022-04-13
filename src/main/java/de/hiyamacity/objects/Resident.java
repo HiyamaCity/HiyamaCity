@@ -1,7 +1,6 @@
 package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
-import de.hiyamacity.main.Main;
 import lombok.Getter;
 import lombok.Setter;
 

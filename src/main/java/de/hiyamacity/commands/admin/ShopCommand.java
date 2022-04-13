@@ -20,8 +20,7 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player p = (Player) sender;
+        if (!(sender instanceof Player p)) return true;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
         if (!p.hasPermission("shop")) return true;
         if (args.length == 0) return true;
@@ -61,7 +60,7 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
                 break;
             case DECORATION:
                 break;
-            case WORKINGBLOCKS:
+            case BLOCKS:
                 break;
             case WEAPONS:
                 break;

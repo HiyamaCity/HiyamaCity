@@ -15,8 +15,7 @@ import java.util.ResourceBundle;
 public class SlapCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player p = (Player) sender;
+        if (!(sender instanceof Player p)) return true;
         ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(p.getUniqueId());
 
         if (args.length != 1) {

@@ -16,10 +16,8 @@ public class StatsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player p)) return true;
 
-
-        Player p = (Player) sender;
 
         User user = MySqlPointer.getUser(p.getUniqueId());
         long hours = user.getPlayedHours();

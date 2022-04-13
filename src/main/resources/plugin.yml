@@ -39,3 +39,6 @@ commands:
     description: Allows the player to handle some stuff in the house system.
   shop:
     description: Allows the player to interact with shops.
+  tp:
+    description: Allows the player to teleport them or others to specific locations.
+    aliases: [ teleport ]
