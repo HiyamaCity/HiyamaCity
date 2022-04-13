@@ -1,8 +1,10 @@
 package de.hiyamacity.commands.admin;
 
+import com.google.gson.GsonBuilder;
 import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Address;
+import de.hiyamacity.objects.DoorLocation;
 import de.hiyamacity.objects.House;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -51,13 +53,10 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
 
-                Location[] loc = new Location[]{targetBlockLocation};
-                double x = loc[0].getX();
-                double y = loc[0].getY();
-                double z = loc[0].getZ();
-                House house = new House(owner, House.generateNonOccupiedUUID(), loc, address);
+                House house = new House(owner, House.generateNonOccupiedUUID(), new DoorLocation[]{new DoorLocation(targetBlockLocation.getWorld().getName(), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ())}, address);
+                System.out.println(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(house));
                 MySqlPointer.registerHouse(house);
-                p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + x).replace("%y%", "" + y).replace("%z%", "" + z));
+                p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + targetBlockLocation.getX()).replace("%y%", "" + targetBlockLocation.getY()).replace("%z%", "" + targetBlockLocation.getZ()));
 
                 break;
             }

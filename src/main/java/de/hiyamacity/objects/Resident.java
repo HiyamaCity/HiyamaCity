@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class Resident {
 
-    public enum RenterType {
+    public enum ResidentType {
         OWNER(),
         RENTER()
     }
@@ -19,11 +19,11 @@ public class Resident {
     @Expose
     private UUID uuid;
     @Expose
-    private RenterType renterType;
+    private ResidentType residentType;
 
-    public Resident(UUID uuid, RenterType renterType) {
+    public Resident(UUID uuid, ResidentType renterType) {
         this.uuid = uuid;
-        this.renterType = renterType;
+        this.residentType = renterType;
     }
 
     @Override
