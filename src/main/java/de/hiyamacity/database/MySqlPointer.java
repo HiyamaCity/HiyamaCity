@@ -86,12 +86,12 @@ public class MySqlPointer {
         return new User();
     }
 
-    public static void registerHouse(UUID owner, Location[] locations, Address address) {
+    public static void registerHouse(UUID owner, House house) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO HOUSES (UUID, HOUSE) VALUES (?,?)")) {
                 UUID uuid = House.generateNonOccupiedUUID();
                 ps.setString(1, uuid.toString());
-                ps.setString(2, new House(owner, uuid, locations, address).toString()); // TODO: StackOverFlowError
+                ps.setString(2, house.toString());
                 ps.executeUpdate();
             }
         } catch (SQLException e) {

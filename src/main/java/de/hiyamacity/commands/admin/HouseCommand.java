@@ -1,8 +1,9 @@
 package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.database.MySqlPointer;
-import de.hiyamacity.objects.Address;
 import de.hiyamacity.lang.LanguageHandler;
+import de.hiyamacity.objects.Address;
+import de.hiyamacity.objects.House;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.data.BlockData;
@@ -24,15 +25,8 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player p = (Player) sender;
+        if (!(sender instanceof Player p)) return true;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-
-        /** TODO: Deactivated because of StackOverFlowError in {@link de.hiyamacity.database.MySqlPointer#registerHouse} */
-        if (true) {
-            p.sendMessage(rs.getString("commandDisabled"));
-            return true;
-        }
 
         if (!p.hasPermission("house")) return true;
         if (args.length < 1) return true;
@@ -51,7 +45,6 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                     owner = Bukkit.getPlayerUniqueId(args[5]);
                 Location targetBlockLocation = p.getTargetBlock(null, 100).getLocation();
                 BlockData blockData = targetBlockLocation.getBlock().getBlockData();
-                p.sendMessage(String.valueOf(blockData instanceof Openable));
 
                 if (!(blockData instanceof Openable)) {
                     p.sendMessage(rs.getString("houseRegisterNonOpenableTargetBlock"));
@@ -59,11 +52,11 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                 }
 
                 Location[] loc = new Location[]{targetBlockLocation};
-                p.sendMessage("" + owner + loc[0] + address);
                 double x = loc[0].getX();
                 double y = loc[0].getY();
                 double z = loc[0].getZ();
-                MySqlPointer.registerHouse(owner, loc, address);
+                House house = new House(owner, House.generateNonOccupiedUUID(), loc, address);
+                MySqlPointer.registerHouse(owner, house);
                 p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + x).replace("%y%", "" + y).replace("%z%", "" + z));
 
                 break;
