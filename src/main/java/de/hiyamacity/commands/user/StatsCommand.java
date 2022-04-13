@@ -22,7 +22,7 @@ public class StatsCommand implements CommandExecutor {
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
         switch (args.length) {
-            case 1 -> {
+            case 0 -> {
                 User user = MySqlPointer.getUser(p.getUniqueId());
                 long hours = user.getPlayedHours();
                 long minutes = user.getPlayedMinutes();
@@ -39,7 +39,7 @@ public class StatsCommand implements CommandExecutor {
                         .replace("%bank%", decimalFormat.format(bank));
                 p.sendMessage(msg);
             }
-            case 2 -> {
+            case 1 -> {
                 if (!p.hasPermission("statsOther")) return true;
                 Player t = Bukkit.getPlayer(args[0]);
                 if (t == null) {

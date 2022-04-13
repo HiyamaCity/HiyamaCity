@@ -114,7 +114,7 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
             case 2 -> {
                 List<String> possibilities = new ArrayList<>();
                 Bukkit.getOnlinePlayers().forEach(player -> possibilities.add(player.getName()));
-                if (Double.parseDouble(args[0]) == targetLocation.getX())
+                if (isDouble(args[0]) && Double.parseDouble(args[0]) == targetLocation.getX())
                     possibilities.add(String.valueOf(targetLocation.getY()));
                 else possibilities.add(String.valueOf(targetLocation.getX()));
                 return possibilities;
@@ -123,7 +123,7 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
             case 3 -> {
                 if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) return Collections.emptyList();
                 List<String> possibilities = new ArrayList<>();
-                if (Double.parseDouble(args[1]) == targetLocation.getY())
+                if (isDouble(args[1]) && Double.parseDouble(args[1]) == targetLocation.getY())
                     possibilities.add(String.valueOf(targetLocation.getZ()));
                 else possibilities.add(String.valueOf(targetLocation.getY()));
                 return possibilities;
@@ -132,7 +132,7 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
             case 4 -> {
                 if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) return Collections.emptyList();
                 List<String> possibilities = new ArrayList<>();
-                if (Double.parseDouble(args[2]) == targetLocation.getZ()) return Collections.emptyList();
+                if (isDouble(args[2]) && Double.parseDouble(args[2]) == targetLocation.getZ()) return Collections.emptyList();
                 else possibilities.add(String.valueOf(targetLocation.getZ()));
                 return possibilities;
             }

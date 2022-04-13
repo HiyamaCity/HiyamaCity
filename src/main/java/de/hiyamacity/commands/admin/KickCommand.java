@@ -46,12 +46,12 @@ public class KickCommand implements CommandExecutor {
                 }
 
                 StringBuilder reason = new StringBuilder();
-                for(int i = 1; i < args.length; i++) {
+                for (int i = 1; i < args.length; i++) {
                     reason.append(args[i]).append(" ");
                 }
 
                 ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                t.kickPlayer(trs.getString("kickMessage").replace("%reason%", reason.toString().trim()));
+                t.kickPlayer(trs.getString("kickMessage").replace("%reason%", reason.toString().trim()).replace("%player%", p.getName()));
                 p.sendMessage(rs.getString("kickMessageKicked").replace("%target%", t.getName()).replace("%reason%", reason.toString().trim()));
 
                 return true;
