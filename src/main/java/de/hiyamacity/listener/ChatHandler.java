@@ -18,7 +18,7 @@ public class ChatHandler implements Listener {
         e.setCancelled(true);
         Player p = e.getPlayer();
         String message = e.getMessage();
-        for (Player nearby : e.getRecipients()) {
+        for (Player nearby : e.getRecipients().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= Distances.CHAT_MESSAGE_FURTHEST)).toList()) {
             double distance = p.getLocation().distanceSquared(nearby.getLocation());
             ResourceBundle rs = LanguageHandler.getResourceBundle(nearby.getUniqueId());
 
