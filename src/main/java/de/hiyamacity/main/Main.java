@@ -1,12 +1,9 @@
 package de.hiyamacity.main;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import de.hiyamacity.commands.admin.*;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.listener.*;
-import de.hiyamacity.util.AutoValueAdapterFactory;
 import de.hiyamacity.util.PlaytimeTracker;
 import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
@@ -23,8 +20,6 @@ public class Main extends JavaPlugin {
     public static Main getInstance() {
         return instance;
     }
-
-    public static final Gson gson = new GsonBuilder().registerTypeAdapterFactory(new AutoValueAdapterFactory()).serializeNulls().create();
 
     public void onEnable() {
         instance = this;
@@ -61,8 +56,8 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("house")).setTabCompleter(new HouseCommand());
         Objects.requireNonNull(getCommand("shop")).setExecutor(new ShopCommand());
         Objects.requireNonNull(getCommand("shop")).setTabCompleter(new ShopCommand());
-        getCommand("tp").setExecutor(new TeleportCommand());
-        getCommand("tp").setTabCompleter(new TeleportCommand());
+        Objects.requireNonNull(getCommand("tp")).setExecutor(new TeleportCommand());
+        Objects.requireNonNull(getCommand("tp")).setTabCompleter(new TeleportCommand());
     }
 
     private void loadListeners() {
@@ -73,8 +68,5 @@ public class Main extends JavaPlugin {
         this.pm.registerEvents(new MOTDHandler(), this);
     }
 
-    public String toJsonString(Object src) {
-        return gson.toJson(src);
-    }
 
 }

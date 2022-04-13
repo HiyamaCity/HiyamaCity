@@ -2,13 +2,17 @@ package de.hiyamacity.listener;
 
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.misc.Distances;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class ChatHandler implements Listener {
 
@@ -18,7 +22,11 @@ public class ChatHandler implements Listener {
         e.setCancelled(true);
         Player p = e.getPlayer();
         String message = e.getMessage();
-        for (Player nearby : e.getRecipients().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= Distances.CHAT_MESSAGE_FURTHEST)).toList()) {
+        List<Player> recipients = e.getRecipients().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= Distances.CHAT_MESSAGE_FURTHEST)).toList();
+        List<String> recipientNames = new ArrayList<>();
+        recipients.forEach(player -> recipientNames.add(player.getName()));
+        Bukkit.getLogger().log(Level.INFO, "[CHAT] " + p.getName() + " -> " + message + " | " + recipientNames);
+        for (Player nearby : recipients) {
             double distance = p.getLocation().distanceSquared(nearby.getLocation());
             ResourceBundle rs = LanguageHandler.getResourceBundle(nearby.getUniqueId());
 
