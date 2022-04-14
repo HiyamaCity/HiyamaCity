@@ -30,7 +30,7 @@ public class ShoutCommand implements CommandExecutor {
         Collection<? extends Player> recipients = Bukkit.getOnlinePlayers().stream().filter(player -> player.getLocation().distanceSquared(p.getLocation()) <= Distances.CHAT_MESSAGE_FURTHEST * 2).toList();
         ArrayList<String> recipientNames = new ArrayList<>();
         recipients.forEach(player -> recipientNames.add(player.getName()));
-        Bukkit.getLogger().log(Level.INFO, "[CHAT] " + p.getName() + " flüstert -> " + message + " | " + recipientNames);
+        Bukkit.getLogger().log(Level.INFO, "[CHAT] " + p.getName() + " schreit -> " + message + " | " + recipientNames);
         for (Player player : recipients) {
             double distanceSquared = player.getLocation().distanceSquared(p.getLocation());
             ResourceBundle prs = LanguageHandler.getResourceBundle(player.getUniqueId());
