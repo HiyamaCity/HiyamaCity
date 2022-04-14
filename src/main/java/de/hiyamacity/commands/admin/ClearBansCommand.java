@@ -14,34 +14,29 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class UnbanCommand implements CommandExecutor {
-
+public class ClearBansCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player || sender instanceof ConsoleCommandSender)) return true;
         ResourceBundle rs = (sender instanceof Player p) ? LanguageHandler.getResourceBundle(p.getUniqueId()) : LanguageHandler.getResourceBundle();
-        if (!sender.hasPermission("unban")) return true;
-
+        if (!sender.hasPermission("clearBans")) return true;
         if (args.length != 1) {
-            sender.sendMessage(rs.getString("unbanUsage"));
+            sender.sendMessage(rs.getString("clearBansUsage"));
             return true;
         }
-
         UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
-
         if (uuid == null) {
             sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
-
-        if (!BanManager.isBanned(uuid)) {
-            sender.sendMessage(rs.getString("playerNotBanned").replace("%target%", args[0]));
+        if (!BanManager.hasBans(uuid)) {
+            sender.sendMessage(rs.getString("playerWasNotBannedYet").replace("%target%", args[0]));
             return true;
         }
 
-        BanManager.unban(uuid);
-        sender.sendMessage(rs.getString("unbanSuccessful").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
+        sender.sendMessage(rs.getString("clearBansSuccessful").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
+        BanManager.clearBans(uuid);
 
         return false;
     }

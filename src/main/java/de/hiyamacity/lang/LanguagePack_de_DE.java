@@ -13,7 +13,7 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"tablistHeader", " \n     §b§lHiyamaCity §r§7- §cFantasy §7& §cReallife Role-play     "},
             {"tablistFooter", "§7%current%§8/§7%max%§a Spieler online.\n "},
             // Errors
-            {"playerNotFound", "§cFehler: Der Spieler %target% wurde nicht gefunden."},
+            {"playerNotFound", "§cFehler: Der Spieler \"%target%\" wurde nicht gefunden."},
             {"playerTooFarAway", "§cFehler: Der angegebene Spieler ist zu weit entfernt."},
             {"commandDisabled", "§cFehler: Dieser Command wurde deaktiviert."},
             {"payNonNegative", "§cFehler: Der angegebene Betrag darf nicht < 0 sein."},
@@ -25,7 +25,8 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"slapSelf", "§cFehler: Du kannst dich nicht selbst schlagen."},
             {"houseRegisterNonOpenableTargetBlock", "§cFehler: Du musst einen Block anschauen der geöffnet werden kann."},
             {"shopUnknownType", "§cFehler: Dein angegebener Shop-Typ ist nicht gültig."},
-            {"playerNotBanned", "§cFehler: Der Spieler %target% ist nicht gebannt!"},
+            {"playerNotBanned", "§cFehler: Der Spieler \"%target%\" ist nicht gebannt."},
+            {"playerWasNotBannedYet", "§cFehler: Der Spieler \"%target%\" wurde noch nie gebannt."},
             // Usages
             {"meUsage", "§cFehler: Benutze \"/me <Aktion>\""},
             {"kissUsage", "§cFehler: Benutze \"/kiss <Spielername>\""},
@@ -43,6 +44,8 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"shoutUsage", "§cFehler: Benutze \"/shout <Nachricht>\""},
             {"banUsage", "§cFehler: Benutze \"/ban <Spieler> [Grund]\""},
             {"unbanUsage", "§cFehler: Benutze \"/unban <Spieler>\""},
+            {"checkBansUsage", "§cFehler: Benutze \"/checkBans <Spieler>\""},
+            {"clearBansUsage", "§cFehler: Benutze \"/clearBans <Spieler>\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -88,6 +91,10 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"banMessage", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"},
             {"banMessageNoReasonSelf", "§7Du hast §9%target%§a erfolgreich §7gebannt."},
             {"banMessageSelf", "§7Du hast §9%target%§a erfolgreich §7gebannt.\n§7Grund: §9%reason%"},
-            {"unbanSuccessful", "§7Du hast §9%target%§a erfolgreich §7entbannt."}
+            {"unbanSuccessful", "§7Du hast §9%target%§a erfolgreich §7entbannt."},
+            {"checkBansHeader", "§8======= §7Ban-Info von §9%target% §8=======\n"},
+            {"checkBansFooter", "§8===========================================\n"},
+            {"checkBansMessage", "\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n§7Tag der Entbannung: §9%banEnd%\n§7Aktiv?: §9%boolean%\n§7Erstellt von: §9%createdBy%\n"},
+            {"clearBansSuccessful", "§7Du hast alle Bans von §9%target%§a erfolgreich §7gelöscht."}
     };
 }

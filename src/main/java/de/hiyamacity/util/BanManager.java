@@ -10,14 +10,18 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class BanHandler {
+public class BanManager {
 
     public static boolean isBanned(UUID uuid) {
         AtomicBoolean isBanned = new AtomicBoolean(false);
         Objects.requireNonNull(MySqlPointer.getUser(uuid)).getBans().forEach(ban -> {
-            if (ban.isBanned()) isBanned.set(true);
+            if (ban.isActive()) isBanned.set(true);
         });
         return isBanned.get();
+    }
+
+    public static boolean hasBans(UUID uuid) {
+        return !Objects.requireNonNull(MySqlPointer.getUser(uuid)).getBans().isEmpty();
     }
 
     public static List<Ban> getBans(UUID uuid) {
@@ -25,10 +29,16 @@ public class BanHandler {
     }
 
     public static void unban(UUID uuid) {
-        User user = Objects.requireNonNull(MySqlPointer.getUser(uuid));
-        user.getBans().forEach(ban -> {
-            if (ban.isBanned()) ban.setBanned(false);
+        User user = MySqlPointer.getUser(uuid);
+        Objects.requireNonNull(user).getBans().forEach(ban -> {
+            if (ban.isActive()) ban.setActive(false);
         });
+        MySqlPointer.updateUser(uuid, user);
+    }
+
+    public static void clearBans(UUID uuid) {
+        User user = Objects.requireNonNull(MySqlPointer.getUser(uuid));
+        user.setBans(new ArrayList<>());
         MySqlPointer.updateUser(uuid, user);
     }
 

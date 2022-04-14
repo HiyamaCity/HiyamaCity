@@ -56,3 +56,9 @@ commands:
     description: Allows the player to ban players.
   unban:
     description: Allows the player to unban players.
+  checkBans:
+    description: Allows the player to check bans.
+    aliases: [ check-bans ]
+  clearBans:
+    description: Allows the player to clear bans.
+    aliases: [ clear-bans ]

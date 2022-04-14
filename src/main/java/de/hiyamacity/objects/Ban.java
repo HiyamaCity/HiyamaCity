@@ -20,27 +20,17 @@ public class Ban {
     @Expose
     private long banEnd;
     @Expose
-    private boolean isBanned = true;
+    private boolean isActive = true;
     @Expose
     private UUID createdBy;
-
-    public Ban(UUID createdBy, String banReason) {
-        this.createdBy = createdBy;
-        this.banReason = banReason;
-    }
 
     public Ban(UUID createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Ban(String reason) {
-        this.banReason = reason;
-    }
-
     public Ban() {
     }
-
-
+    
     @Override
     public String toString() {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);

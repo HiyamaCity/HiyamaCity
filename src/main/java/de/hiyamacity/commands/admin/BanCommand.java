@@ -2,7 +2,7 @@ package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
-import de.hiyamacity.util.BanHandler;
+import de.hiyamacity.util.BanManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -38,10 +38,10 @@ public class BanCommand implements CommandExecutor {
                     return true;
                 }
 
-                if (sender instanceof Player p) BanHandler.ban(uuid, p.getUniqueId());
-                else BanHandler.ban(uuid);
+                if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId());
+                else BanManager.ban(uuid);
                 sender.sendMessage(rs.getString("banMessageNoReasonSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
-                Ban ban = BanHandler.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
+                Ban ban = BanManager.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
                 if (ban == null) return true;
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
@@ -61,10 +61,10 @@ public class BanCommand implements CommandExecutor {
                     return true;
                 }
 
-                if (sender instanceof Player p) BanHandler.ban(uuid, p.getUniqueId(), reason);
-                else BanHandler.ban(uuid, reason);
+                if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId(), reason);
+                else BanManager.ban(uuid, reason);
                 sender.sendMessage(rs.getString("banMessageSelf").replace("%reason%", reason).replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
-                Ban ban = BanHandler.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
+                Ban ban = BanManager.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
                 if (ban == null) return true;
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;

@@ -64,6 +64,8 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("shout")).setExecutor(new ShoutCommand());
         Objects.requireNonNull(getCommand("ban")).setExecutor(new BanCommand());
         Objects.requireNonNull(getCommand("unban")).setExecutor(new UnbanCommand());
+        Objects.requireNonNull(getCommand("checkBans")).setExecutor(new CheckBansCommand());
+        Objects.requireNonNull(getCommand("clearBans")).setExecutor(new ClearBansCommand());
     }
 
     private void loadListeners() {
@@ -73,6 +75,4 @@ public class Main extends JavaPlugin {
         this.pm.registerEvents(new ChatHandler(), this);
         this.pm.registerEvents(new MOTDHandler(), this);
     }
-
-
 }
