@@ -27,6 +27,7 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"shopUnknownType", "§cFehler: Dein angegebener Shop-Typ ist nicht gültig."},
             {"playerNotBanned", "§cFehler: Der Spieler \"%target%\" ist nicht gebannt."},
             {"playerWasNotBannedYet", "§cFehler: Der Spieler \"%target%\" wurde noch nie gebannt."},
+            {"tempBanNumberFormatException", "§cFehler: Deine Zeitangabe ist nicht gültig. Bitte überprüfe deine Eingabe"},
             // Usages
             {"meUsage", "§cFehler: Benutze \"/me <Aktion>\""},
             {"kissUsage", "§cFehler: Benutze \"/kiss <Spielername>\""},
@@ -46,6 +47,7 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"unbanUsage", "§cFehler: Benutze \"/unban <Spieler>\""},
             {"checkBansUsage", "§cFehler: Benutze \"/checkBans <Spieler>\""},
             {"clearBansUsage", "§cFehler: Benutze \"/clearBans <Spieler>\""},
+            {"tempBanUsage", "§cFehler: Benutze \"/tempBan <Spieler> <Zeit> <Grund>\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -93,8 +95,13 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"banMessageSelf", "§7Du hast §9%target%§a erfolgreich §7gebannt.\n§7Grund: §9%reason%"},
             {"unbanSuccessful", "§7Du hast §9%target%§a erfolgreich §7entbannt."},
             {"checkBansHeader", "§8======= §7Ban-Info von §9%target% §8=======\n"},
-            {"checkBansFooter", "§8===========================================\n"},
+            {"checkBansFooter", "\n§8===========================================\n "},
             {"checkBansMessage", "\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n§7Tag der Entbannung: §9%banEnd%\n§7Aktiv?: §9%boolean%\n§7Erstellt von: §9%createdBy%\n"},
-            {"clearBansSuccessful", "§7Du hast alle Bans von §9%target%§a erfolgreich §7gelöscht."}
+            {"clearBansSuccessful", "§7Du hast alle Bans von §9%target%§a erfolgreich §7gelöscht."},
+            {"tempBanMessageNoReason", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n§7Tag der Entbannung: §9%banEnd%\n§7Verbleibende Zeit: §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n)\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"},
+            {"tempBanMessage", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n§7Tag der Entbannung: §9%banEnd%\n§7Verbleibende Zeit: §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n)\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"},
+            {"tempBanTimeExplanation", "§cFehler: Deine Zeitangabe stimmt nicht.\nBenutze: %y% für Jahre, %m% für Monate, %w% für Wochen, %d% für Tage, %h% für Stunden, %min% für Minuten und %s% für Sekunden"},
+            {"tempBanMessageSelf", "§7Du hast §9%target%§a erfolgreich §7für §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n) §7gebannt.\n§7Grund: §9%reason%"},
+            {"tempBanMessageNoReasonSelf", "§7Du hast §9%target%§a erfolgreich §7für §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n) §7gebannt."}
     };
 }

@@ -24,6 +24,10 @@ public class BanManager {
         return !Objects.requireNonNull(MySqlPointer.getUser(uuid)).getBans().isEmpty();
     }
 
+    public static Ban getLatestBan(UUID uuid) {
+        return getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
+    }
+
     public static List<Ban> getBans(UUID uuid) {
         return Objects.requireNonNull(MySqlPointer.getUser(uuid)).getBans();
     }
@@ -87,6 +91,64 @@ public class BanManager {
         if (user == null) return;
         Ban ban = new Ban(banCreatedBy);
         ban.setBanReason(reason);
+        List<Ban> bans = user.getBans();
+        if (bans == null) {
+            bans = new ArrayList<>();
+        }
+        bans.add(ban);
+        user.setBans(bans);
+        MySqlPointer.updateUser(userToBan, user);
+    }
+
+    public static void ban(UUID userToBan, long banEnd) {
+        User user = MySqlPointer.getUser(userToBan);
+        if (user == null) return;
+        Ban ban = new Ban();
+        ban.setBanEnd(banEnd);
+        List<Ban> bans = user.getBans();
+        if (bans == null) {
+            bans = new ArrayList<>();
+        }
+        bans.add(ban);
+        user.setBans(bans);
+        MySqlPointer.updateUser(userToBan, user);
+    }
+
+    public static void ban(UUID userToBan, String reason, long banEnd) {
+        User user = MySqlPointer.getUser(userToBan);
+        if (user == null) return;
+        Ban ban = new Ban();
+        ban.setBanEnd(banEnd);
+        ban.setBanReason(reason);
+        List<Ban> bans = user.getBans();
+        if (bans == null) {
+            bans = new ArrayList<>();
+        }
+        bans.add(ban);
+        user.setBans(bans);
+        MySqlPointer.updateUser(userToBan, user);
+    }
+
+    public static void ban(UUID userToBan, UUID banCreatedBy, long banEnd) {
+        User user = MySqlPointer.getUser(userToBan);
+        if (user == null) return;
+        Ban ban = new Ban(banCreatedBy);
+        ban.setBanEnd(banEnd);
+        List<Ban> bans = user.getBans();
+        if (bans == null) {
+            bans = new ArrayList<>();
+        }
+        bans.add(ban);
+        user.setBans(bans);
+        MySqlPointer.updateUser(userToBan, user);
+    }
+
+    public static void ban(UUID userToBan, UUID banCreatedBy, String reason, long banEnd) {
+        User user = MySqlPointer.getUser(userToBan);
+        if (user == null) return;
+        Ban ban = new Ban(banCreatedBy);
+        ban.setBanReason(reason);
+        ban.setBanEnd(banEnd);
         List<Ban> bans = user.getBans();
         if (bans == null) {
             bans = new ArrayList<>();
