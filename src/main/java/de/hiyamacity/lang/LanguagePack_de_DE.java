@@ -2,7 +2,7 @@ package de.hiyamacity.lang;
 
 import java.util.ListResourceBundle;
 
-public class LanguagePack extends ListResourceBundle {
+public class LanguagePack_de_DE extends ListResourceBundle {
 
     @Override
     protected Object[][] getContents() {
@@ -82,7 +82,7 @@ public class LanguagePack extends ListResourceBundle {
             {"kickMessageNoReason", "§cDu wurdest gekickt."},
             {"kickMessageKicked", "§aDu hast %target% gekickt. Grund: %reason%"},
             {"kickMessageKickedNoReason", "§aDu hast %target% gekickt."},
-            {"banMessageNoReason", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.\n§chttps://hiyamacity.de/forum/"},
-            {"banMessage", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.\n§chttps://hiyamacity.de/forum/"},
+            {"banMessageNoReason", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"},
+            {"banMessage", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"},
     };
 }

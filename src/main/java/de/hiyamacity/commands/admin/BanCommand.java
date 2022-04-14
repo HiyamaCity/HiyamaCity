@@ -15,10 +15,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 public class BanCommand implements CommandExecutor {
 
@@ -42,13 +39,16 @@ public class BanCommand implements CommandExecutor {
                 if (user == null) return true;
                 Ban ban = (sender instanceof Player p) ? new Ban(p.getUniqueId()) : new Ban();
                 List<Ban> bans = user.getBans();
+                if (bans == null) {
+                    bans = new ArrayList<>();
+                }
                 bans.add(ban);
                 user.setBans(bans);
                 MySqlPointer.updateUser(uuid, user);
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);
-                DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.forLanguageTag(rs.getLocale().getLanguage()));
+                DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.forLanguageTag(rs.getLocale().getLanguage()));
                 t.kick(Component.text(trs.getString("banMessageNoReason").replace("%id%", ban.getBanID().toString()).replace("%banStart%", dateFormat.format(ban.getBanStart()))), PlayerKickEvent.Cause.BANNED);
             }
             default -> {
@@ -66,14 +66,17 @@ public class BanCommand implements CommandExecutor {
                 if (user == null) return true;
                 Ban ban = (sender instanceof Player p) ? new Ban(p.getUniqueId(), reason) : new Ban(reason);
                 List<Ban> bans = user.getBans();
+                if (bans == null) {
+                    bans = new ArrayList<>();
+                }
                 bans.add(ban);
                 user.setBans(bans);
                 MySqlPointer.updateUser(uuid, user);
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);
-                DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.forLanguageTag(rs.getLocale().getLanguage()));
-                t.kick(Component.text(trs.getString("banMessageNoReason").replace("%reason%", reason).replace("%id%", ban.getBanID().toString()).replace("%banStart%", dateFormat.format(ban.getBanStart()))), PlayerKickEvent.Cause.BANNED);
+                DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.forLanguageTag(rs.getLocale().getLanguage()));
+                t.kick(Component.text(trs.getString("banMessage").replace("%reason%", reason).replace("%id%", ban.getBanID().toString()).replace("%banStart%", dateFormat.format(ban.getBanStart()))), PlayerKickEvent.Cause.BANNED);
             }
         }
 

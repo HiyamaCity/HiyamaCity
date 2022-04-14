@@ -16,7 +16,7 @@ public class Ban {
     @Expose
     private UUID banID = UUID.randomUUID();
     @Expose
-    private long banStart;
+    private long banStart = System.currentTimeMillis();
     @Expose
     private long banEnd;
     @Expose
