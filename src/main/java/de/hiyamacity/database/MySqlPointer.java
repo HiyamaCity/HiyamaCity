@@ -71,7 +71,7 @@ public class MySqlPointer {
      * @param uuid Unique user ID of the Player.
      * @return Returns a User Object from the Database by its corresponding UUID.
      */
-    public static @NotNull User getUser(UUID uuid) {
+    public static User getUser(UUID uuid) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT PLAYER FROM PLAYERS WHERE UUID = ?")) {
                 ps.setString(1, uuid.toString());
@@ -81,7 +81,7 @@ public class MySqlPointer {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new User();
+        return null;
     }
 
     public static void registerHouse(House house) {

@@ -52,3 +52,5 @@ commands:
   shout:
     description: Allows the player to shout.
     aliases: [ s ]
+  ban:
+    description: Allows the player to ban players.

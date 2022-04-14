@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,29 +21,21 @@ public class User {
     @Expose
     private long playedHours;
     @Expose
-    private long banStart;
-    @Expose
-    private long banEnd;
-    @Expose
     private long kills;
     @Expose
     private long deaths;
     @Expose
-    private boolean isBanned;
-    @Expose
     private boolean isConfirmedTeamspeak;
-    @Expose
-    private String banID;
     @Expose
     private UUID uuid;
     @Expose
     private String tsIdentifier;
     @Expose
-    private String banReason;
-    @Expose
     private String forename;
     @Expose
     private String surname;
+    @Expose
+    private List<Ban> bans;
 
     public User(UUID uuid) {
         this.purse = 4000;
@@ -50,9 +43,6 @@ public class User {
         this.playedMinutes = 0;
         this.playedHours = 0;
         this.uuid = uuid;
-    }
-
-    public User() {
     }
 
     @Override

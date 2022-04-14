@@ -23,7 +23,7 @@ public class ShoutCommand implements CommandExecutor {
         if (!(sender instanceof Player p)) return true;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
         if (args.length == 0) {
-            p.sendMessage(rs.getString("whisperUsage"));
+            p.sendMessage(rs.getString("shoutUsage"));
             return true;
         }
         String message = String.join(" ", args);

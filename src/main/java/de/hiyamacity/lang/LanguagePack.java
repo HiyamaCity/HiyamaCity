@@ -39,6 +39,8 @@ public class LanguagePack extends ListResourceBundle {
             {"teleportUsage", "§cFehler: Benutze \"/tp <Spieler> [Spieler]\" oder \"/tp [Spieler] <x> <y> <z>\""},
             {"kickUsage", "§cFehler: Benutze \"/kick <Spieler> [Grund]\""},
             {"whisperUsage", "§cFehler: Benutze \"/whisper <Nachricht>\""},
+            {"shoutUsage", "§cFehler: Benutze \"/shout <Nachricht>\""},
+            {"banUsage", "§cFehler: Benutze \"/ban <Spieler> [Grund]\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -79,6 +81,8 @@ public class LanguagePack extends ListResourceBundle {
             {"kickMessage", "§cDu wurdest von %player% gekickt. \nGrund: %reason%"},
             {"kickMessageNoReason", "§cDu wurdest gekickt."},
             {"kickMessageKicked", "§aDu hast %target% gekickt. Grund: %reason%"},
-            {"kickMessageKickedNoReason", "§aDu hast %target% gekickt."}
+            {"kickMessageKickedNoReason", "§aDu hast %target% gekickt."},
+            {"banMessageNoReason", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.\n§chttps://hiyamacity.de/forum/"},
+            {"banMessage", "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.\n§chttps://hiyamacity.de/forum/"},
     };
 }

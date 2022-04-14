@@ -27,7 +27,7 @@ public class LanguageHandler {
         return getResourceBundle();
     }
 
-    private static @NotNull ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("de.hiyamacity.lang.LanguagePack", new Locale("en", "US"));
+    public static @NotNull ResourceBundle getResourceBundle() {
+        return ResourceBundle.getBundle("de.hiyamacity.lang.LanguagePack", new Locale("de", "DE"));
     }
 }
