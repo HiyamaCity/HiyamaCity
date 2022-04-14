@@ -7,5 +7,6 @@ public interface Distances {
     double CHAT_MESSAGE_FURTHEST = Math.pow(32, 2);
     double KISS = Math.pow(2, 2);
     double SHOW_FINANCES = Math.pow(4, 2);
+    double WHISPER = Math.pow(4, 2);
 
 }

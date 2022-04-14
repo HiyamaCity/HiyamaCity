@@ -46,3 +46,9 @@ commands:
     description: Allows the player to heal themselves.
   kick:
     description: Allows the player to kick other players.
+  whisper:
+    description: Allows the player to whisper.
+    aliases: [ w ]
+  shout:
+    description: Allows the player to shout.
+    aliases: [ s ]

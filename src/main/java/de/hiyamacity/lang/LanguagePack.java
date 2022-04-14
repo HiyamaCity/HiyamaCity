@@ -38,6 +38,7 @@ public class LanguagePack extends ListResourceBundle {
             {"houseRegisterUsage", "§cFehler: Benutze \"/house register <Straße> <Hausnummer> <Stadt> <Postleitzahl> [Besitzer]\""},
             {"teleportUsage", "§cFehler: Benutze \"/tp <Spieler> [Spieler]\" oder \"/tp [Spieler] <x> <y> <z>\""},
             {"kickUsage", "§cFehler: Benutze \"/kick <Spieler> [Grund]\""},
+            {"whisperUsage", "§cFehler: Benutze \"/whisper <Nachricht>\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -64,7 +65,7 @@ public class LanguagePack extends ListResourceBundle {
             {"playerSay", "%player% sagt: "},
             {"playerAsk", "%player% fragt: "},
             {"playerShout", "%player% schreit: "},
-            {"playerWhisper", "§9%player%§r flüstert: "},
+            {"playerWhisper", "%player% flüstert: "},
             {"houseRegisterSuccessful", "§aDu hast erfolgreich ein neues Haus (%address%) registriert.\nKoordinaten:\n%x%\n%y%\n%z%"},
             {"teleportToOtherSelf", "§7Du hast dich zu §9%target% §7teleportiert."},
             {"teleportToOtherOther", "§9%player% §7hat sich zu dir teleportiert."},

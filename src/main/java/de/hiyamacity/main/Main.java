@@ -60,6 +60,8 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("tp")).setTabCompleter(new TeleportCommand());
         Objects.requireNonNull(getCommand("heal")).setExecutor(new HealCommand());
         Objects.requireNonNull(getCommand("kick")).setExecutor(new KickCommand());
+        Objects.requireNonNull(getCommand("whisper")).setExecutor(new WhisperCommand());
+        Objects.requireNonNull(getCommand("shout")).setExecutor(new ShoutCommand());
     }
 
     private void loadListeners() {

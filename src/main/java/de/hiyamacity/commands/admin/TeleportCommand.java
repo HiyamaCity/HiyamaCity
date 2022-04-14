@@ -48,6 +48,7 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
             case 2 -> {
                 Player t = Bukkit.getPlayer(args[0]);
                 Player t1 = Bukkit.getPlayer(args[1]);
+
                 if (t == null) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
@@ -59,16 +60,16 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
                 }
 
                 t.teleport(t1.getLocation());
-                ResourceBundle t1rs = LanguageHandler.getResourceBundle(t.getUniqueId());
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
                 if (!p.equals(t1)) {
-                    ResourceBundle t2rs = LanguageHandler.getResourceBundle(t1.getUniqueId());
+                    ResourceBundle t1rs = LanguageHandler.getResourceBundle(t1.getUniqueId());
 
                     p.sendMessage(rs.getString("teleportOtherToOtherSelf").replace("%target%", t.getName()).replace("target1", t1.getName()));
-                    t.sendMessage(t1rs.getString("teleportOtherToOtherOther").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
-                    t1.sendMessage(t2rs.getString("teleportOtherToOtherOther1").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
+                    t.sendMessage(trs.getString("teleportOtherToOtherOther").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
+                    t1.sendMessage(t1rs.getString("teleportOtherToOtherOther1").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
                 } else {
                     p.sendMessage(rs.getString("teleportToOtherSelf").replace("%target%", t.getName()));
-                    t.sendMessage(t1rs.getString("teleportToOtherOther").replace("%player%", p.getName()));
+                    t.sendMessage(trs.getString("teleportToOtherOther").replace("%player%", p.getName()));
 
                 }
                 return true;

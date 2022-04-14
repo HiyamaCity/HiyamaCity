@@ -25,7 +25,8 @@ public class ChatHandler implements Listener {
         List<Player> recipients = e.getRecipients().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= Distances.CHAT_MESSAGE_FURTHEST)).toList();
         List<String> recipientNames = new ArrayList<>();
         recipients.forEach(player -> recipientNames.add(player.getName()));
-        Bukkit.getLogger().log(Level.INFO, "[CHAT] " + p.getName() + " -> " + message + " | " + recipientNames);
+        String str = (message.contains("?")) ? "fragt" : "sagt";
+        Bukkit.getLogger().log(Level.INFO, "[CHAT] " + p.getName() + " " + str + " -> " + message + " | " + recipientNames);
         for (Player nearby : recipients) {
             double distance = p.getLocation().distanceSquared(nearby.getLocation());
             ResourceBundle rs = LanguageHandler.getResourceBundle(nearby.getUniqueId());
