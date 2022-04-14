@@ -47,7 +47,7 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"unbanUsage", "§cFehler: Benutze \"/unban <Spieler>\""},
             {"checkBansUsage", "§cFehler: Benutze \"/checkBans <Spieler>\""},
             {"clearBansUsage", "§cFehler: Benutze \"/clearBans <Spieler>\""},
-            {"tempBanUsage", "§cFehler: Benutze \"/tempBan <Spieler> <Zeit> <Grund>\""},
+            {"tempBanUsage", "§cFehler: Benutze \"/tempBan <Spieler> <Zeit> [Grund]\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},

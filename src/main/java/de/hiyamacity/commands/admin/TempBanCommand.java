@@ -28,7 +28,7 @@ public class TempBanCommand implements CommandExecutor {
         ResourceBundle rs = (sender instanceof Player p) ? LanguageHandler.getResourceBundle(p.getUniqueId()) : LanguageHandler.getResourceBundle();
         if (!sender.hasPermission("tempBan")) return true;
 
-        if (args.length <= 2) {
+        if (args.length < 2) {
             sender.sendMessage(rs.getString("tempBanUsage"));
             return true;
         }
