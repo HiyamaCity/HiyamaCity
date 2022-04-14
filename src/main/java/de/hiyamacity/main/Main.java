@@ -63,6 +63,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("whisper")).setExecutor(new WhisperCommand());
         Objects.requireNonNull(getCommand("shout")).setExecutor(new ShoutCommand());
         Objects.requireNonNull(getCommand("ban")).setExecutor(new BanCommand());
+        Objects.requireNonNull(getCommand("unban")).setExecutor(new UnbanCommand());
     }
 
     private void loadListeners() {

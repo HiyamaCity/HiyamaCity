@@ -54,3 +54,5 @@ commands:
     aliases: [ s ]
   ban:
     description: Allows the player to ban players.
+  unban:
+    description: Allows the player to unban players.

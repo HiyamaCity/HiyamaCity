@@ -1,9 +1,8 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
-import de.hiyamacity.objects.User;
+import de.hiyamacity.util.BanHandler;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -15,7 +14,10 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
-import java.util.*;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class BanCommand implements CommandExecutor {
 
@@ -35,16 +37,12 @@ public class BanCommand implements CommandExecutor {
                     sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
-                User user = MySqlPointer.getUser(uuid);
-                if (user == null) return true;
-                Ban ban = (sender instanceof Player p) ? new Ban(p.getUniqueId()) : new Ban();
-                List<Ban> bans = user.getBans();
-                if (bans == null) {
-                    bans = new ArrayList<>();
-                }
-                bans.add(ban);
-                user.setBans(bans);
-                MySqlPointer.updateUser(uuid, user);
+
+                if (sender instanceof Player p) BanHandler.ban(uuid, p.getUniqueId());
+                else BanHandler.ban(uuid);
+                sender.sendMessage(rs.getString("banMessageNoReasonSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
+                Ban ban = BanHandler.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
+                if (ban == null) return true;
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);
@@ -62,16 +60,12 @@ public class BanCommand implements CommandExecutor {
                     sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
-                User user = MySqlPointer.getUser(uuid);
-                if (user == null) return true;
-                Ban ban = (sender instanceof Player p) ? new Ban(p.getUniqueId(), reason) : new Ban(reason);
-                List<Ban> bans = user.getBans();
-                if (bans == null) {
-                    bans = new ArrayList<>();
-                }
-                bans.add(ban);
-                user.setBans(bans);
-                MySqlPointer.updateUser(uuid, user);
+
+                if (sender instanceof Player p) BanHandler.ban(uuid, p.getUniqueId(), reason);
+                else BanHandler.ban(uuid, reason);
+                sender.sendMessage(rs.getString("banMessageSelf").replace("%reason%", reason).replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
+                Ban ban = BanHandler.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
+                if (ban == null) return true;
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);

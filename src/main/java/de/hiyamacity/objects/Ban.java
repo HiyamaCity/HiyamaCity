@@ -20,7 +20,7 @@ public class Ban {
     @Expose
     private long banEnd;
     @Expose
-    private boolean isBanned;
+    private boolean isBanned = true;
     @Expose
     private UUID createdBy;
 
