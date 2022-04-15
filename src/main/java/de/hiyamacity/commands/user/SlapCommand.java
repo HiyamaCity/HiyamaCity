@@ -22,15 +22,19 @@ public class SlapCommand implements CommandExecutor {
             p.sendMessage(resourceBundle.getString("slapUsage"));
             return true;
         }
+
         Player t = Bukkit.getPlayer(args[0]);
+
         if (t == null) {
             p.sendMessage(resourceBundle.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
+
         if (p.getLocation().distanceSquared(t.getLocation()) > Distances.KISS) {
             p.sendMessage(resourceBundle.getString("playerTooFarAway"));
             return true;
         }
+
         if (p.getName().equals(t.getName())) {
             p.sendMessage(resourceBundle.getString("slapSelf"));
             return true;
