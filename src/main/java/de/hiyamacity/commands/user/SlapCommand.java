@@ -35,12 +35,8 @@ public class SlapCommand implements CommandExecutor {
             p.sendMessage(resourceBundle.getString("slapSelf"));
             return true;
         }
-        Location pLoc = new Location(p.getWorld(), p.getLocation().getX(), p.getLocation().getY() + 2, p.getLocation().getZ());
-        Location tLoc = new Location(t.getWorld(), t.getLocation().getX(), t.getLocation().getY() + 2, t.getLocation().getZ());
 
         for (Player o : Bukkit.getOnlinePlayers()) {
-
-
             if (p.getLocation().distanceSquared(t.getLocation()) <= Distances.KISS) {
                 ResourceBundle ors = LanguageHandler.getResourceBundle(o.getUniqueId());
                 o.sendMessage(ors.getString("slap").replace("%player%", p.getName()).replace("%target%", t.getName()));
