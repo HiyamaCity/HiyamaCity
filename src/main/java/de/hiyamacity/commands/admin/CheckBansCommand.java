@@ -33,7 +33,7 @@ public class CheckBansCommand implements CommandExecutor {
             return true;
         }
         if (!BanManager.hasBans(uuid)) {
-            sender.sendMessage(rs.getString("playerWasNotBannedYet"));
+            sender.sendMessage(rs.getString("playerWasNotBannedYet").replace("%target%", args[0]));
             return true;
         }
 

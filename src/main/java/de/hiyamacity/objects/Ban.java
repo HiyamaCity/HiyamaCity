@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class Ban {
     @Expose
     private String banReason;
     @Expose
-    private UUID banID = UUID.randomUUID();
+    private String banID = RandomStringUtils.randomAlphanumeric(12);
     @Expose
     private long banStart = System.currentTimeMillis();
     @Expose
@@ -30,7 +31,7 @@ public class Ban {
 
     public Ban() {
     }
-    
+
     @Override
     public String toString() {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);

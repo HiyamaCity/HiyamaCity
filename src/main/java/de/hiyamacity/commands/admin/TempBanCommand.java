@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DateFormat;
 import java.time.Duration;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -96,10 +97,10 @@ public class TempBanCommand implements CommandExecutor {
         dur = dur.minusMinutes(minutes);
         long seconds = dur.toSeconds();
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.forLanguageTag(rs.getLocale().getLanguage()));
-        sender.sendMessage((ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReasonSelf").replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessageSelf").replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)).replace("%reason%", ban.getBanReason()));
+        sender.sendMessage((ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReasonSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessageSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)).replace("%reason%", ban.getBanReason()));
         Player t = Bukkit.getPlayer(uuid);
         if (t == null) return true;
-        t.kick(Component.text((ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReason").replace("%id%", ban.getBanID().toString()).replace("%banStart%", dateFormat.format(banStart)).replace("%banEnd%", dateFormat.format(banEnd)).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessage").replace("%reason%", ban.getBanReason()).replace("%id%", ban.getBanID().toString()).replace("%banStart%", dateFormat.format(banStart)).replace("%banEnd%", dateFormat.format(banEnd)).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds))), PlayerKickEvent.Cause.BANNED);
+        t.kick(Component.text((ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReason").replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(banStart)).replace("%banEnd%", dateFormat.format(banEnd)).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessage").replace("%reason%", ban.getBanReason()).replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(banStart)).replace("%banEnd%", dateFormat.format(banEnd)).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds))), PlayerKickEvent.Cause.BANNED);
         return false;
     }
 }
