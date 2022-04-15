@@ -46,8 +46,7 @@ public class JoinHandler implements Listener {
 
         if (!BanManager.isBanned(uuid)) return;
         ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
-        List<Ban> bans = BanManager.getBans(uuid);
-        Ban ban = bans.stream().reduce((ban1, ban2) -> ban2).orElse(null);
+        Ban ban = BanManager.getLatestBan(uuid);
         if (ban == null) return;
         if (ban.getBanEnd() != 0 && ban.getBanEnd() < System.currentTimeMillis()) {
             BanManager.unban(uuid);

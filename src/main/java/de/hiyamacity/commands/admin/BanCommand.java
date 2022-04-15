@@ -41,7 +41,7 @@ public class BanCommand implements CommandExecutor {
                 if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId());
                 else BanManager.ban(uuid);
                 sender.sendMessage(rs.getString("banMessageNoReasonSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
-                Ban ban = BanManager.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
+                Ban ban = BanManager.getLatestBan(uuid);
                 if (ban == null) return true;
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
@@ -64,7 +64,7 @@ public class BanCommand implements CommandExecutor {
                 if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId(), reason);
                 else BanManager.ban(uuid, reason);
                 sender.sendMessage(rs.getString("banMessageSelf").replace("%reason%", reason).replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
-                Ban ban = BanManager.getBans(uuid).stream().reduce((ban1, ban2) -> ban2).orElse(null);
+                Ban ban = BanManager.getLatestBan(uuid);
                 if (ban == null) return true;
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
