@@ -57,7 +57,7 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"gmOtherChangedOther", "§a%player% §7hat deinen §aSpielmodus §7zu §a%gamemode% §7geändert."},
             {"paySend", "§7Du hast §9%target% %amount%$ §7zugesteckt."},
             {"payReceive", "§9%player% §7hat dir §9%amount%$ §7zugesteckt."},
-            {"me", "§3※ %player% %message%"},
+            {"me", "§3・ %player% %message%"},
             {"kiss", "§d*§5 %player%§d hat §5%target%§d einen Kuss gegeben."},
             {"dice", "§9%player% §7hat eine §9%result% §7gewürfelt."},
             {"showFinancesSelf", "§7Du hast §9%target% §7deine Finanzen gezeigt."},
