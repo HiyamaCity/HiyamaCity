@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
