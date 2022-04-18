@@ -67,6 +67,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("checkBans")).setExecutor(new CheckBansCommand());
         Objects.requireNonNull(getCommand("clearBans")).setExecutor(new ClearBansCommand());
         Objects.requireNonNull(getCommand("tempBan")).setExecutor(new TempBanCommand());
+        Objects.requireNonNull(getCommand("clearChat")).setExecutor(new ClearChatCommand());
     }
 
     private void loadListeners() {

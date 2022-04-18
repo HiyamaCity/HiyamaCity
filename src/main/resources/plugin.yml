@@ -10,11 +10,11 @@ commands:
     description: Allows the player to see their stats.
   gm:
     description: Allows the player to change their game mode.
-    aliases: [ gamemode ]
+    aliases: [ gameMode ]
   pay:
     description: Allows the player to pay money to other players.
   info:
-    description: Allows the player to get informations.
+    description: Allows the player to get information.
   me:
     description: Allows the player to do actions.
   kiss:
@@ -28,9 +28,9 @@ commands:
     aliases: [ message ]
   show-finances:
     description: Allows the player to show their finances to other players.
-    aliases: [ showfinances ]
+    aliases: [ showFinances ]
   deaths:
-    description: Allows the player to see the deathcount.
+    description: Allows the player to see the death count.
   vanish:
     description: Allows the player to hide themselves and others.
   slap:
@@ -61,4 +61,7 @@ commands:
   clearBans:
     description: Allows the player to clear bans.
   tempBan:
-    description: Allows the player to tempban players.
+    description: Allows the player to tempBan players.
+  clearChat:
+    description: Allows the player to clear the chat.
+    aliases: [ cc ]

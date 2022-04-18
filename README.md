@@ -74,6 +74,8 @@ ______________________
 
 #### Die Jobs können Voll- und Teil-zeitig ausgeübt werden ebenso wie als Nebenjob und als Schwarzarbeit wobei diese dann nicht über das Geldsystem des Servers geregelt wird, sondern unter den Spielern selber.
 
+#### Visitenkarte die anzeigt, welchen Rang (z.B. CEO, etc.) man in dem Beruf hat. Ebenso soll es möglich sein die Jobs zu leveln.
+
 * Nachrichten bzw. Zeitung
     * Informationen über Geschehnisse und anderes.
 * Zeitung austragen

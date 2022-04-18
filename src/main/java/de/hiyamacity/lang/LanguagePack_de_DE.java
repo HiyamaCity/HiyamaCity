@@ -48,6 +48,7 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"checkBansUsage", "§cFehler: Benutze \"/checkBans <Spieler>\""},
             {"clearBansUsage", "§cFehler: Benutze \"/clearBans <Spieler>\""},
             {"tempBanUsage", "§cFehler: Benutze \"/tempBan <Spieler> <Zeit> [Grund]\""},
+            {"clearChatUsage", "§cFehler: Benutze \"/clearChat [Spieler]\""},
             // Messages
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
@@ -103,6 +104,9 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"tempBanTimeExplanation", "§cFehler: Deine Zeitangabe stimmt nicht.\nBenutze: %y% für Jahre, %m% für Monate, %w% für Wochen, %d% für Tage, %h% für Stunden, %min% für Minuten und %s% für Sekunden"},
             {"tempBanMessageSelf", "§7Du hast §9%target%§a erfolgreich §7für §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n) §7gebannt.\n§7Grund: §9%reason%"},
             {"tempBanMessageNoReasonSelf", "§7Du hast §9%target%§a erfolgreich §7für §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n) §7gebannt."},
-            {"levelUp", "§aDu bist ein Level im %skill% aufgestiegen, du bist jetzt Level: %level%!"}
+            {"levelUp", "§aDu bist ein Level im %skill% aufgestiegen, du bist jetzt Level: %level%!"},
+            {"clearChatAllSuccessful", "§aDu hast den Chat gecleart."},
+            {"clearChatOtherSuccessful", "§aDu hast den Chat von %target% gecleart."},
+            {"clearChatBroadcast", "§4§l%player% hat den Chat gecleart."}
     };
 }
