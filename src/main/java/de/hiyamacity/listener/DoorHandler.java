@@ -15,6 +15,7 @@ public class DoorHandler implements Listener {
     public void onEvent(PlayerInteractEvent e) {
         if (!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if (!(Objects.requireNonNull(e.getClickedBlock()).getBlockData() instanceof Openable)) return;
+        if (!House.isLockedDoor(e.getClickedBlock().getLocation())) return;
         if (!House.allowedToOpen(e.getPlayer().getUniqueId(), e.getClickedBlock().getLocation())) e.setCancelled(true);
     }
 }

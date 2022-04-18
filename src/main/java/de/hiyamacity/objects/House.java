@@ -45,21 +45,39 @@ public class House {
         registerHouse();
     }
 
+    public static boolean isLockedDoor(Location loc) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT JSON_EXTRACT(HOUSE, \"$.doorLocations[*].world\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].x\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].y\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].z\") FROM HOUSES")) {
+                System.out.println(ps);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String world = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].world\")").replace("[", "").replace("]", "").replace("\"", "");
+                    String xString = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].x\")").replace("[", "").replace("]", "");
+                    String yString = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].y\")").replace("[", "").replace("]", "");
+                    String zString = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].z\")").replace("[", "").replace("]", "");
+                    Location doorLocation = new Location(Bukkit.getWorld(world), Double.parseDouble(xString), Double.parseDouble(yString), Double.parseDouble(zString));
+                    if (loc.distanceSquared(doorLocation) <= Distances.HOUSE_DOOR_INTERACTION_MARGIN) return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static boolean allowedToOpen(UUID uuid, Location loc) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             List<House> houses = new ArrayList<>();
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.residents[*].uuid\") = ?")) {
                 ps.setString(1, "[\"" + uuid.toString() + "\"]");
-                System.out.println(ps);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     houses.add(House.fromJson(rs.getString("HOUSE")));
                 }
             }
-            System.out.println("Found Houses: " + houses);
             for (House house : houses) {
                 for (DoorLocation doorLocation : house.getDoorLocations()) {
-                    if (new Location(Bukkit.getWorld(doorLocation.getWorld()), doorLocation.getX(), doorLocation.getY(), doorLocation.getZ()).distance(loc) <= Distances.HOUSE_DOOR_INTERACTION_MARGIN)
+                    if (new Location(Bukkit.getWorld(doorLocation.getWorld()), doorLocation.getX(), doorLocation.getY(), doorLocation.getZ()).distanceSquared(loc) <= Distances.HOUSE_DOOR_INTERACTION_MARGIN)
                         return true;
                 }
             }
