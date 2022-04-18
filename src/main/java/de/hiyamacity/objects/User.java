@@ -36,6 +36,8 @@ public class User {
     private String surname;
     @Expose
     private List<Ban> bans;
+    @Expose
+    private List<Skill> skills;
 
     public User(UUID uuid) {
         this.purse = 4000;

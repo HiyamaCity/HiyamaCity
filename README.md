@@ -6,6 +6,16 @@
 
 ______________________
 
+# Skills
+
+#### Verschiedene Skills, die man leveln kann, die einem einen Vorteil verschaffen.
+
+* Social Skill (für nettes Verhalten o.Ä.)
+* Mining Skill
+* Building Skill
+
+______________________
+
 # Spezies
 
 #### Alle Spezies sollen die Möglichkeit haben sich untereinander in einem „Spezies-Chat“ auszutauschen.
