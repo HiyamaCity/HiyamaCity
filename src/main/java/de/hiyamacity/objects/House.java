@@ -49,6 +49,46 @@ public class House {
         return generateNonOccupiedUUID();
     }
 
+    public static void registerHouse(House house) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO HOUSES (UUID, HOUSE) VALUES (?,?)")) {
+                UUID uuid = House.generateNonOccupiedUUID();
+                ps.setString(1, uuid.toString());
+                ps.setString(2, house.toString());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static House getHouse(String houseID) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE FROM HOUSES WHERE UUID = ?")) {
+                ps.setString(1, houseID);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) return House.fromJson(rs.getString("HOUSE"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static House getHouse(UUID owner) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.uuid\") = ?")) {
+                ps.setString(1, owner.toString());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) return House.fromJson(rs.getString("HOUSE"));
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);

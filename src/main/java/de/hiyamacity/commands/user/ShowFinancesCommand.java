@@ -1,6 +1,5 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.misc.Distances;
 import de.hiyamacity.objects.User;
 import de.hiyamacity.util.DecimalSeparator;
@@ -39,7 +38,8 @@ public class ShowFinancesCommand implements CommandExecutor {
             return true;
         }
 
-        User user = MySqlPointer.getUser(p.getUniqueId());
+        User user = User.getUser(p.getUniqueId());
+        if(user == null) return true;
         DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
         p.sendMessage(rs.getString("showFinancesSelf").replace("%target%", t.getName()));
         ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());

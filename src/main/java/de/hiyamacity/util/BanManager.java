@@ -1,6 +1,5 @@
 package de.hiyamacity.util;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.objects.Ban;
 import de.hiyamacity.objects.User;
 
@@ -14,14 +13,14 @@ public class BanManager {
 
     public static boolean isBanned(UUID uuid) {
         AtomicBoolean isBanned = new AtomicBoolean(false);
-        Objects.requireNonNull(MySqlPointer.getUser(uuid)).getBans().forEach(ban -> {
+        Objects.requireNonNull(User.getUser(uuid)).getBans().forEach(ban -> {
             if (ban.isActive()) isBanned.set(true);
         });
         return isBanned.get();
     }
 
     public static boolean hasBans(UUID uuid) {
-        return !Objects.requireNonNull(MySqlPointer.getUser(uuid)).getBans().isEmpty();
+        return !Objects.requireNonNull(User.getUser(uuid)).getBans().isEmpty();
     }
 
     public static Ban getLatestBan(UUID uuid) {
@@ -29,25 +28,25 @@ public class BanManager {
     }
 
     public static List<Ban> getBans(UUID uuid) {
-        return Objects.requireNonNull(MySqlPointer.getUser(uuid)).getBans();
+        return Objects.requireNonNull(User.getUser(uuid)).getBans();
     }
 
     public static void unban(UUID uuid) {
-        User user = MySqlPointer.getUser(uuid);
+        User user = User.getUser(uuid);
         Objects.requireNonNull(user).getBans().forEach(ban -> {
             if (ban.isActive()) ban.setActive(false);
         });
-        MySqlPointer.updateUser(uuid, user);
+        User.updateUser(uuid, user);
     }
 
     public static void clearBans(UUID uuid) {
-        User user = Objects.requireNonNull(MySqlPointer.getUser(uuid));
+        User user = Objects.requireNonNull(User.getUser(uuid));
         user.setBans(new ArrayList<>());
-        MySqlPointer.updateUser(uuid, user);
+        User.updateUser(uuid, user);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban(banCreatedBy);
         List<Ban> bans = user.getBans();
@@ -56,11 +55,11 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 
     public static void ban(UUID userToBan) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban();
         List<Ban> bans = user.getBans();
@@ -69,11 +68,11 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 
     public static void ban(UUID userToBan, String reason) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban();
         ban.setBanReason(reason);
@@ -83,11 +82,11 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy, String reason) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban(banCreatedBy);
         ban.setBanReason(reason);
@@ -97,11 +96,11 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 
     public static void ban(UUID userToBan, long banEnd) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban();
         ban.setBanEnd(banEnd);
@@ -111,11 +110,11 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 
     public static void ban(UUID userToBan, String reason, long banEnd) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban();
         ban.setBanEnd(banEnd);
@@ -126,11 +125,11 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy, long banEnd) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban(banCreatedBy);
         ban.setBanEnd(banEnd);
@@ -140,11 +139,11 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy, String reason, long banEnd) {
-        User user = MySqlPointer.getUser(userToBan);
+        User user = User.getUser(userToBan);
         if (user == null) return;
         Ban ban = new Ban(banCreatedBy);
         ban.setBanReason(reason);
@@ -155,6 +154,6 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        MySqlPointer.updateUser(userToBan, user);
+        User.updateUser(userToBan, user);
     }
 }

@@ -1,6 +1,5 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.objects.User;
 import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
@@ -30,7 +29,7 @@ public class DeathsCommand implements CommandExecutor {
             return true;
         }
 
-        User user = MySqlPointer.getUser(t.getUniqueId());
+        User user = User.getUser(t.getUniqueId());
         if (user == null) return true;
         long deaths = user.getDeaths();
 

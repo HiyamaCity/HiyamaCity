@@ -1,6 +1,5 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Address;
 import de.hiyamacity.objects.DoorLocation;
@@ -53,7 +52,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                 }
 
                 House house = new House(owner, House.generateNonOccupiedUUID(), new DoorLocation[]{new DoorLocation(targetBlockLocation.getWorld().getName(), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ())}, address);
-                MySqlPointer.registerHouse(house);
+                House.registerHouse(house);
                 p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + targetBlockLocation.getX()).replace("%y%", "" + targetBlockLocation.getY()).replace("%z%", "" + targetBlockLocation.getZ()));
 
                 break;

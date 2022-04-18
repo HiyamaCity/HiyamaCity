@@ -1,6 +1,5 @@
 package de.hiyamacity.util;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.main.Main;
 import de.hiyamacity.objects.User;
 import org.bukkit.Bukkit;
@@ -14,7 +13,8 @@ public class PlaytimeTracker {
             @Override
             public void run() {
                 Bukkit.getOnlinePlayers().forEach(player -> {
-                    User user = MySqlPointer.getUser(player.getUniqueId());
+                    User user = User.getUser(player.getUniqueId());
+                    if (user == null) return;
                     long minutes = user.getPlayedMinutes();
                     long hours = user.getPlayedHours();
 
@@ -25,7 +25,7 @@ public class PlaytimeTracker {
                         user.setPlayedHours(hours);
                     }
                     user.setPlayedMinutes(minutes);
-                    MySqlPointer.updateUser(player.getUniqueId(), user);
+                    User.updateUser(player.getUniqueId(), user);
                 });
             }
         };

@@ -1,6 +1,5 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.misc.Distances;
 import de.hiyamacity.objects.User;
 import de.hiyamacity.lang.LanguageHandler;
@@ -48,9 +47,9 @@ public class PayCommand implements CommandExecutor {
             return true;
         }
 
-        User pUser = MySqlPointer.getUser(p.getUniqueId());
-        User tUser = MySqlPointer.getUser(t.getUniqueId());
-
+        User pUser = User.getUser(p.getUniqueId());
+        User tUser = User.getUser(t.getUniqueId());
+        if (pUser == null || tUser == null) return true;
         long moneyUser = pUser.getPurse();
         if (moneyUser < amount) {
             p.sendMessage(rs.getString("payInsufficientAmount"));
@@ -65,8 +64,8 @@ public class PayCommand implements CommandExecutor {
         t.sendMessage(trs.getString("payReceive").replace("%player%", p.getName()).replace("%amount%", "" + amount));
         t.sendMessage("§a+" + amount + "$");
 
-        MySqlPointer.updateUser(p.getUniqueId(), pUser);
-        MySqlPointer.updateUser(t.getUniqueId(), tUser);
+        User.updateUser(p.getUniqueId(), pUser);
+        User.updateUser(t.getUniqueId(), tUser);
 
         return false;
     }

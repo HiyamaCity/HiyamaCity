@@ -1,6 +1,5 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.objects.User;
 import de.hiyamacity.util.DecimalSeparator;
 import de.hiyamacity.lang.LanguageHandler;
@@ -23,7 +22,8 @@ public class StatsCommand implements CommandExecutor {
 
         switch (args.length) {
             case 0 -> {
-                User user = MySqlPointer.getUser(p.getUniqueId());
+                User user = User.getUser(p.getUniqueId());
+                if(user == null) return true;
                 long hours = user.getPlayedHours();
                 long minutes = user.getPlayedMinutes();
                 long money = user.getPurse();
@@ -46,7 +46,8 @@ public class StatsCommand implements CommandExecutor {
                     p.sendMessage(rs.getString("playerNotFound"));
                     return true;
                 }
-                User user = MySqlPointer.getUser(t.getUniqueId());
+                User user = User.getUser(t.getUniqueId());
+                if(user == null) return true;
                 long hours = user.getPlayedHours();
                 long minutes = user.getPlayedMinutes();
                 long money = user.getPurse();

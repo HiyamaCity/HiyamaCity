@@ -1,6 +1,5 @@
 package de.hiyamacity.listener;
 
-import de.hiyamacity.database.MySqlPointer;
 import de.hiyamacity.objects.User;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,8 +11,9 @@ public class DeathHandler implements Listener {
     @EventHandler
     public void onEvent(PlayerDeathEvent e) {
         e.setDeathMessage("");
-        User user = MySqlPointer.getUser(e.getEntity().getUniqueId());
+        User user = User.getUser(e.getEntity().getUniqueId());
+        if(user == null) return;
         user.setDeaths(user.getDeaths() + 1);
-        MySqlPointer.updateUser(e.getEntity().getUniqueId(), user);
+        User.updateUser(e.getEntity().getUniqueId(), user);
     }
 }
