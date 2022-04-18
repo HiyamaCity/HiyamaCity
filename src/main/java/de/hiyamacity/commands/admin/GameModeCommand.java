@@ -28,6 +28,11 @@ public class GameModeCommand implements CommandExecutor {
             return true;
         }
 
+        if (!isInt(args[0])) {
+            p.sendMessage(rs.getString("NaN"));
+            return true;
+        }
+
         if (Integer.parseInt(args[0]) > 3 || args[0].startsWith("-")) {
             p.sendMessage(rs.getString("gmInvalidGameMode"));
             return true;
@@ -61,6 +66,15 @@ public class GameModeCommand implements CommandExecutor {
             }
         }
 
+        return false;
+    }
+
+    private boolean isInt(String str) {
+        try {
+            int i = Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException ignored) {
+        }
         return false;
     }
 }

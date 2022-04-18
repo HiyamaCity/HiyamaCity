@@ -48,7 +48,6 @@ public class House {
     public static boolean isLockedDoor(Location loc) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT JSON_EXTRACT(HOUSE, \"$.doorLocations[*].world\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].x\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].y\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].z\") FROM HOUSES")) {
-                System.out.println(ps);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     String world = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].world\")").replace("[", "").replace("]", "").replace("\"", "");
@@ -86,6 +85,11 @@ public class House {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean addressOccupied(Address address) {
+        // TODO: Query Database if Address is already taken.
+        return true;
     }
 
     /**
@@ -126,10 +130,10 @@ public class House {
      * @param houseID houseID queried in the Database to return the corresponding House object.
      * @return Returns a House object corresponding to its houseID.
      */
-    public House getHouse(String houseID) {
+    public static House getHouse(UUID houseID) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE FROM HOUSES WHERE UUID = ?")) {
-                ps.setString(1, houseID);
+                ps.setString(1, houseID.toString());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) return House.fromJson(rs.getString("HOUSE"));
             }
@@ -140,17 +144,18 @@ public class House {
     }
 
     /**
-     * @param owner UUID of the Houses' owner queried in the Database to return the corresponding House object.
-     * @return Returns a House object corresponding to its houseID.
+     * @param resident UUID of the Houses' resident queried in the Database to return the corresponding House object.
+     * @return Returns a List of House objects corresponding to its houseID.
      */
-    public House getHouse(UUID owner) {
+    public static List<House> getHouses(UUID resident) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.uuid\") = ?")) {
-                ps.setString(1, owner.toString());
+            List<House> houses = new ArrayList<>();
+            try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.residents[*].uuid\") = ?")) {
+                ps.setString(1, "[\"" + resident.toString() + "\"]");
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) return House.fromJson(rs.getString("HOUSE"));
+                while (rs.next()) houses.add(House.fromJson(rs.getString("HOUSE")));
+                return houses;
             }
-            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         }

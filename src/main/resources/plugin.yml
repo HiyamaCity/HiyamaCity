@@ -10,7 +10,7 @@ commands:
     description: Allows the player to see their stats.
   gm:
     description: Allows the player to change their game mode.
-    aliases: [ gameMode ]
+    aliases: [ gamemode ]
   pay:
     description: Allows the player to pay money to other players.
   info:

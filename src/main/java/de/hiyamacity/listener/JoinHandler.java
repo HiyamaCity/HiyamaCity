@@ -32,6 +32,7 @@ public class JoinHandler implements Listener {
     @EventHandler
     public void onEvent(PlayerQuitEvent e) {
         e.setQuitMessage("");
+        TabListHandler.updateTab();
     }
 
     @EventHandler
