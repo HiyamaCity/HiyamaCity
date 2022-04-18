@@ -10,8 +10,8 @@ public class LanguagePack_de_DE extends ListResourceBundle {
     }
 
     private final Object[][] contents = {
-            {"tablistHeader", " \n     §b§lHiyamaCity §r§7- §cFantasy §7& §cReallife Role-play     "},
-            {"tablistFooter", "§7%current%§8/§7%max%§a Spieler online.\n "},
+            {"tabListHeader", " \n     §b§lHiyamaCity §r§7- §cFantasy §7& §cReal life Role-play     "},
+            {"tabListFooter", "§7%current%§8/§7%max%§a Spieler online.\n "},
             // Errors
             {"playerNotFound", "§cFehler: Der Spieler \"%target%\" wurde nicht gefunden."},
             {"playerTooFarAway", "§cFehler: Der angegebene Spieler ist zu weit entfernt."},
@@ -34,7 +34,7 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"messageUsage", "§cFehler: Benutze \"/m <Spielername> <Nachricht>\""},
             {"gmUsage", "§cFehler: Benutze \"/gm <0-3> [Spielername]\""},
             {"payUsage", "§cFehler: Benutze \"/pay <Spielername> <Betrag>\""},
-            {"showFinancesUsage", "§cFehler: Benutze \"/showfinances <Spielername>\""},
+            {"showFinancesUsage", "§cFehler: Benutze \"/showFinances <Spielername>\""},
             {"deathUsage", "§cFehler: Benutze \"/deaths <Spielernamen>\""},
             {"vanishUsage", "§cFehler: Benutze \"/vanish <Spielername>\""},
             {"slapUsage", "§cFehler: Benutze \"/slap <Spielername>\""},
@@ -53,9 +53,9 @@ public class LanguagePack_de_DE extends ListResourceBundle {
             {"pingMessage", "§9%target% §7hat einen Ping von §9%ping%§7ms."},
             {"statsMessage", "§8==============================\n§7Spielername: §9%target%\n§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n§8=============================="},
             {"gmPrefix", "§8[§aSpielmodus§8]§7"},
-            {"gmSelfChanged", "§7Dein §aSpielmodus §7wurde zu §a%gamemode% §7geändert."},
-            {"gmSelfChangedOther", "§7Du hast den §aSpielmodus §7von §a%target% §7zu §a%gamemode% §7geändert."},
-            {"gmOtherChangedOther", "§a%player% §7hat deinen §aSpielmodus §7zu §a%gamemode% §7geändert."},
+            {"gmSelfChanged", "§7Dein §aSpielmodus §7wurde zu §a%gameMode% §7geändert."},
+            {"gmSelfChangedOther", "§7Du hast den §aSpielmodus §7von §a%target% §7zu §a%gameMode% §7geändert."},
+            {"gmOtherChangedOther", "§a%player% §7hat deinen §aSpielmodus §7zu §a%gameMode% §7geändert."},
             {"paySend", "§7Du hast §9%target% %amount%$ §7zugesteckt."},
             {"payReceive", "§9%player% §7hat dir §9%amount%$ §7zugesteckt."},
             {"me", "§3・ %player% %message%"},

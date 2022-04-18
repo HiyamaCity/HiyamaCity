@@ -44,7 +44,7 @@ public class GameModeCommand implements CommandExecutor {
         switch (args.length) {
             case 1 -> {
                 if (gm == null) break;
-                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChanged").replace("%gamemode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)));
+                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChanged").replace("%gameMode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)));
                 p.setGameMode(gm);
             }
             case 2 -> {
@@ -54,9 +54,9 @@ public class GameModeCommand implements CommandExecutor {
                     return true;
                 }
                 assert gm != null;
-                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChangedOther").replace("%gamemode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%target%", t.getName()));
+                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChangedOther").replace("%gameMode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%target%", t.getName()));
                 ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                t.sendMessage(trs.getString("gmPrefix") + " " + trs.getString("gmOtherChangedOther").replace("%gamemode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%player%", p.getName()));
+                t.sendMessage(trs.getString("gmPrefix") + " " + trs.getString("gmOtherChangedOther").replace("%gameMode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%player%", p.getName()));
                 t.setGameMode(gm);
             }
         }

@@ -8,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ResourceBundle;
 
-public class TablistHandler {
+public class TabListHandler {
 
     public static void updateTab() {
         BukkitRunnable runnable = new BukkitRunnable() {
@@ -25,6 +25,6 @@ public class TablistHandler {
     private static void initTab(Player p) {
         int playerCount = Bukkit.getOnlinePlayers().size() - VanishHandler.getVanishPlayerCount();
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-        p.setPlayerListHeaderFooter(rs.getString("tablistHeader"), rs.getString("tablistFooter").replace("%current%", "" + playerCount).replace("%max%", "" + Bukkit.getMaxPlayers()));
+        p.setPlayerListHeaderFooter(rs.getString("tabListHeader"), rs.getString("tabListFooter").replace("%current%", "" + playerCount).replace("%max%", "" + Bukkit.getMaxPlayers()));
     }
 }

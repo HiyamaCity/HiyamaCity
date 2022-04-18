@@ -25,7 +25,7 @@ public class JoinHandler implements Listener {
         e.setJoinMessage("");
         Player p = e.getPlayer();
         VanishHandler.updateVanish(p);
-        TablistHandler.updateTab();
+        TabListHandler.updateTab();
         RankHandler.applyPrefixes();
     }
 

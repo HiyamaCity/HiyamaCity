@@ -20,14 +20,14 @@ public class VanishHandler {
 
     public static void reveal(Player p) {
         vanishPlayers.remove(p);
-        TablistHandler.updateTab();
+        TabListHandler.updateTab();
         for (Player all : Bukkit.getOnlinePlayers())
             all.showPlayer(Main.getInstance(), p);
     }
 
     public static void vanish(Player p) {
         vanishPlayers.add(p);
-        TablistHandler.updateTab();
+        TabListHandler.updateTab();
         for (Player all : Bukkit.getOnlinePlayers())
             if (!all.hasPermission("vanish.bypass"))
                 all.hidePlayer(Main.getInstance(), p);
