@@ -122,7 +122,7 @@ ______________________
     * Material (Abbaubar)
 * Hacken (für Bauern)
 
-# Ingame-Käufe
+# In game-Käufe
 
 * Haustiere (Pet Slot)
 * Hausumbau
@@ -137,7 +137,7 @@ ______________________
 
 # Bewusstlosigkeit
 
-#### Man stirbt nicht direkt, sondern liegt erst für eine geraume Zeit auf dem Boden, in welcher man noch wiederbelebt werden kann z.B. durch Sanitäter oder Spieler welche medizinisches Grundwissen haben.
+#### Man stirbt nicht direkt, sondern liegt erst für eine geraume Zeit auf dem Boden, in welcher man noch wiederbelebt werden kann z.B. durch Sanitäter oder Spieler, welche medizinisches Grundwissen haben.
 
 # Börse
 

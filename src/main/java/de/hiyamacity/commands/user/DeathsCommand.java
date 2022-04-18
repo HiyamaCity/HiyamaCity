@@ -31,6 +31,7 @@ public class DeathsCommand implements CommandExecutor {
         }
 
         User user = MySqlPointer.getUser(t.getUniqueId());
+        if (user == null) return true;
         long deaths = user.getDeaths();
 
         p.sendMessage(resourceBundle.getString("deathCount").replace("%amount%", "" + deaths).replace("%target%", t.getName()));

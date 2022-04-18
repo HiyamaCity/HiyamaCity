@@ -57,7 +57,7 @@ public class Skill {
     /**
      * @return Returns the XP needed for the next level.
      */
-    public int calculateXpForNextLevel() {
+    public int getNeededXpForNextLevel() {
         return levelHashMap.get(this.level) - this.xp;
     }
 
