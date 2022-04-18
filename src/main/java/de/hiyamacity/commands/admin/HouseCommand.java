@@ -51,8 +51,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
 
-                House house = new House(owner, House.generateNonOccupiedUUID(), new DoorLocation[]{new DoorLocation(targetBlockLocation.getWorld().getName(), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ())}, address);
-                House.registerHouse(house);
+                House house = new House(owner, new DoorLocation[]{new DoorLocation(targetBlockLocation.getWorld().getName(), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ())}, address);
                 p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + targetBlockLocation.getX()).replace("%y%", "" + targetBlockLocation.getY()).replace("%z%", "" + targetBlockLocation.getZ()));
 
                 break;

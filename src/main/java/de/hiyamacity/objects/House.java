@@ -5,8 +5,6 @@ import com.google.gson.annotations.Expose;
 import de.hiyamacity.database.ConnectionPool;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Location;
-import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +17,7 @@ import java.util.UUID;
 public class House {
 
     @Expose
-    private UUID houseID;
+    private UUID houseID = generateNonOccupiedUUID();
     @Expose
     private DoorLocation[] doorLocations;
     @Expose
@@ -27,14 +25,24 @@ public class House {
     @Expose
     private Address address;
 
-    public House(UUID owner, UUID houseID, DoorLocation[] doorLocations, Address address) {
-        this.houseID = houseID;
+    /**
+     * Instantiates a new House object and registers it in the Database.
+     *
+     * @param owner         UUID of the House Owner.
+     * @param doorLocations DoorLocation Array containing the coordinates for the locations of the doors.
+     * @param address       Address containing the address for the new House.
+     */
+    public House(UUID owner, DoorLocation[] doorLocations, Address address) {
         this.doorLocations = doorLocations;
         this.address = address;
         this.residents = new Resident[]{new Resident(owner, Resident.ResidentType.OWNER)};
+        registerHouse();
     }
 
-    public static @NotNull UUID generateNonOccupiedUUID() {
+    /**
+     * @return Returns a UUID that is not occupied in the Database
+     */
+    private static UUID generateNonOccupiedUUID() {
         UUID uuid = UUID.randomUUID();
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM HOUSES WHERE UUID = ?")) {
@@ -46,15 +54,18 @@ public class House {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return generateNonOccupiedUUID();
+        return null;
     }
 
-    public static void registerHouse(House house) {
+
+    /**
+     * Registers a new House in the Database.
+     */
+    private void registerHouse() {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO HOUSES (UUID, HOUSE) VALUES (?,?)")) {
-                UUID uuid = House.generateNonOccupiedUUID();
-                ps.setString(1, uuid.toString());
-                ps.setString(2, house.toString());
+                ps.setString(1, this.getHouseID().toString());
+                ps.setString(2, this.toString());
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -62,7 +73,11 @@ public class House {
         }
     }
 
-    public static House getHouse(String houseID) {
+    /**
+     * @param houseID houseID queried in the Database to return the corresponding House object.
+     * @return Returns a House object corresponding to its houseID.
+     */
+    public House getHouse(String houseID) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE FROM HOUSES WHERE UUID = ?")) {
                 ps.setString(1, houseID);
@@ -75,7 +90,11 @@ public class House {
         return null;
     }
 
-    public static House getHouse(UUID owner) {
+    /**
+     * @param owner UUID of the Houses' owner queried in the Database to return the corresponding House object.
+     * @return Returns a House object corresponding to its houseID.
+     */
+    public House getHouse(UUID owner) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.uuid\") = ?")) {
                 ps.setString(1, owner.toString());
