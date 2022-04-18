@@ -94,7 +94,7 @@ public class User {
      * Updates a known user to a new User Object. Used for Object manipulation.
      *
      * @param uuid Unique user ID of the Player.
-     * @param user Updates the User Object in the Database.
+     * @param user New User Object that is now corresponding to the Player.
      */
     public static void updateUser(UUID uuid, User user) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
