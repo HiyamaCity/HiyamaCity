@@ -6,6 +6,12 @@
 
 ______________________
 
+# Spieler
+
+* Personalausweis
+
+______________________
+
 # Skills
 
 #### Verschiedene Skills, die man leveln kann, die einem einen Vorteil verschaffen.
@@ -62,6 +68,8 @@ ______________________
 * Business für Spieler (Läden die man kaufen kann)
     * Hotels
 
+______________________
+
 # Jobs
 
 #### Die Jobs können Voll- und Teil-zeitig ausgeübt werden ebenso wie als Nebenjob und als Schwarzarbeit wobei diese dann nicht über das Geldsystem des Servers geregelt wird, sondern unter den Spielern selber.
@@ -96,6 +104,8 @@ ______________________
 * Alchemist
     * Tränke brauen und diese verkaufen.
 
+______________________
+
 # Teammitglieder
 
 * Social-Media-Team
@@ -103,14 +113,20 @@ ______________________
 * Event-Team
 * Support-Team
 
+______________________
+
 # Geldsystem
 
 * Name vom Geld
+
+______________________
 
 # Fortbewegung
 
 * Pferde
 * Elytra
+
+______________________
 
 # Items
 
@@ -121,6 +137,8 @@ ______________________
     * Gewicht
     * Material (Abbaubar)
 * Hacken (für Bauern)
+
+______________________
 
 # In game-Käufe
 
@@ -135,12 +153,20 @@ ______________________
 * Immobilien Slots
 * Bundles?
 
+______________________
+
 # Bewusstlosigkeit
 
 #### Man stirbt nicht direkt, sondern liegt erst für eine geraume Zeit auf dem Boden, in welcher man noch wiederbelebt werden kann z.B. durch Sanitäter oder Spieler, welche medizinisches Grundwissen haben.
+
+______________________
 
 # Börse
 
 #### Handel mit Gold o.Ä.
 
+______________________
+
 # Tutorial
+
+______________________
