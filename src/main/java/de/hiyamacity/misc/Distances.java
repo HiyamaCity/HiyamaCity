@@ -8,5 +8,6 @@ public interface Distances {
     double KISS = Math.pow(2, 2);
     double SHOW_FINANCES = Math.pow(4, 2);
     double WHISPER = Math.pow(4, 2);
+    double HOUSE_DOOR_INTERACTION_MARGIN = Math.pow(2, 2);
 
 }

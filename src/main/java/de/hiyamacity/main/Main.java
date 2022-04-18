@@ -76,5 +76,6 @@ public class Main extends JavaPlugin {
         this.pm.registerEvents(new DeathHandler(), this);
         this.pm.registerEvents(new ChatHandler(), this);
         this.pm.registerEvents(new MOTDHandler(), this);
+        this.pm.registerEvents(new DoorHandler(), this);
     }
 }
