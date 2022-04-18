@@ -171,4 +171,6 @@ ______________________
 
 # Tutorial
 
+#### Am Ende des Tutorials soll man seinen Personalausweis ausfüllen bzw. seinen RP-Charakter erstellen.
+
 ______________________
