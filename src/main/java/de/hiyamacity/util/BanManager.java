@@ -13,14 +13,19 @@ public class BanManager {
 
     public static boolean isBanned(UUID uuid) {
         AtomicBoolean isBanned = new AtomicBoolean(false);
-        Objects.requireNonNull(User.getUser(uuid)).getBans().forEach(ban -> {
+        User user = User.getUser(uuid);
+        if (user == null) return false;
+        List<Ban> bans = user.getBans();
+        bans.forEach(ban -> {
             if (ban.isActive()) isBanned.set(true);
         });
         return isBanned.get();
     }
 
     public static boolean hasBans(UUID uuid) {
-        return !Objects.requireNonNull(User.getUser(uuid)).getBans().isEmpty();
+        User user = User.getUser(uuid);
+        if (user == null) return false;
+        return !user.getBans().isEmpty();
     }
 
     public static Ban getLatestBan(UUID uuid) {
