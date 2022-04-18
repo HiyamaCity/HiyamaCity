@@ -14,7 +14,7 @@ ______________________
 
 # Skills
 
-#### Verschiedene Skills, die man leveln kann, die einem einen Vorteil verschaffen.
+## Verschiedene Skills, die man leveln kann, die einem einen Vorteil verschaffen.
 
 * Social Skill (für nettes Verhalten o.Ä.)
 * Mining Skill
@@ -24,41 +24,9 @@ ______________________
 
 # Spezies
 
-#### Alle Spezies sollen die Möglichkeit haben sich untereinander in einem „Spezies-Chat“ auszutauschen.
+## Alle Spezies sollen die Möglichkeit haben sich untereinander in einem „Spezies-Chat“ auszutauschen.
 
-## Dämonen
-
-* Können Zivilisten in ihre Spezies verwandeln? (Nur High-Class-Devils bzw. Leader)
-* Hören alles gleich Laut? (Bietet dadurch die Möglichkeit Spieler von weiter wegzuhören, nimmt aber dafür die
-  Möglichkeit anhand von Lautstärke die Entfernung von Spielern einzuschätzen.)
-* Wenn sie sich in der Nähe von Engeln befinden erleiden sie Nebeneffekte wie Kopfschmerzen oder andere Arten von
-  schmerzen, welche sie dazu zwingen, sich von Engeln fernzuhalten.
-
-______________________
-
-## Engel
-
-* Können licht basierte Waffen erschaffen, welche höheren Schaden gegenüber Dämonen verursachen?
-* Können Menschen und ihresgleichen heilen (Nur High-Class-Angels bzw. Leader) und kümmern sich um die seelische
-  Gesundheit der Spieler (ähnlich wie eine Kirche z.B. Beichtstuhl o.Ä)?
-
-______________________
-
-## Gefallene Engel
-
-* Engel, welche jemanden getötet haben und danach gestorben sind (egal wie lange der Mord her ist).
-* Müssen Engel davon überzeugen auch schlechte Dinge zu tun? (Spieler verletzen o.Ä.)
-* Können die Erinnerungen an die letzten 5min von anderen Spielern löschen. (Müssen dann im Role play kooperieren)
-
-______________________
-
-## Elfen
-
-* Können die Natur „heilen“ und beispielsweise Bäume wachsen lassen etc.
-
-______________________
-
-## Mensch
+#### Mensch
 
 ______________________
 
@@ -72,9 +40,9 @@ ______________________
 
 # Jobs
 
-#### Die Jobs können Voll- und Teil-zeitig ausgeübt werden ebenso wie als Nebenjob und als Schwarzarbeit wobei diese dann nicht über das Geldsystem des Servers geregelt wird, sondern unter den Spielern selber.
+## Die Jobs können Voll- und Teil-zeitig ausgeübt werden ebenso wie als Nebenjob und als Schwarzarbeit wobei diese dann nicht über das Geldsystem des Servers geregelt wird, sondern unter den Spielern selber.
 
-#### Visitenkarte die anzeigt, welchen Rang (z.B. CEO, etc.) man in dem Beruf hat. Ebenso soll es möglich sein die Jobs zu leveln.
+## Visitenkarte die anzeigt, welchen Rang (z.B. CEO, etc.) man in dem Beruf hat. Ebenso soll es möglich sein die Jobs zu leveln.
 
 * Nachrichten bzw. Zeitung
     * Informationen über Geschehnisse und anderes.
@@ -159,18 +127,18 @@ ______________________
 
 # Bewusstlosigkeit
 
-#### Man stirbt nicht direkt, sondern liegt erst für eine geraume Zeit auf dem Boden, in welcher man noch wiederbelebt werden kann z.B. durch Sanitäter oder Spieler, welche medizinisches Grundwissen haben.
+## Man stirbt nicht direkt, sondern liegt erst für eine geraume Zeit auf dem Boden, in welcher man noch wiederbelebt werden kann z.B. durch Sanitäter oder Spieler, welche medizinisches Grundwissen haben.
 
 ______________________
 
 # Börse
 
-#### Handel mit Gold o.Ä.
+## Handel mit Gold o.Ä.
 
 ______________________
 
 # Tutorial
 
-#### Am Ende des Tutorials soll man seinen Personalausweis ausfüllen bzw. seinen RP-Charakter erstellen.
+## Am Ende des Tutorials soll man seinen Personalausweis ausfüllen bzw. seinen RP-Charakter erstellen.
 
 ______________________
