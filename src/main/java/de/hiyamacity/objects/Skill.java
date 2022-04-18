@@ -46,7 +46,7 @@ public class Skill {
     @Expose
     private int xp = 0;
     @Expose
-    private double cumulativeXP = 0;
+    private long cumulativeXP = 0;
     @Expose
     private SkillType skillType;
 

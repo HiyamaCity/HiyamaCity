@@ -34,45 +34,27 @@ public class User {
     @Expose
     private long deaths;
     @Expose
-    private boolean isConfirmedTeamspeak;
-    @Expose
     private UUID uuid;
     @Expose
-    private String tsIdentifier;
-    @Expose
-    private String forename;
-    @Expose
-    private String surname;
+    private IdentityCard identityCard;
     @Expose
     private List<Ban> bans;
     @Expose
     private List<Skill> skills;
 
+    /**
+     * Instantiates a new User object and registers it in the Database paired with its corresponding UUID.
+     *
+     * @param uuid Identifier by which is queried in the Database and which allows the object to be associated with a Player on the Server.
+     */
     public User(UUID uuid) {
         this.purse = 4000;
         this.bank = 2000;
         this.playedMinutes = 0;
         this.playedHours = 0;
         this.uuid = uuid;
+        registerUser();
     }
-
-    /**
-     * Adds Experience to a specific SkillType and sends a message to the Player (if online) that they leveled up.
-     *
-     * @param skillType SkillType of the Skill to add Experience to.
-     * @param amount    Amount of Experience to add.
-     */
-    public void addXP(Skill.SkillType skillType, int amount) {
-        Skill skill = this.getSkills().stream().filter(filteredSkill -> filteredSkill.getSkillType().equals(skillType)).toList().get(0);
-        if (skill.addXP(amount)) {
-            UUID uuid = this.uuid;
-            ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
-            Player p = Bukkit.getPlayer(uuid);
-            if (p == null) return;
-            p.sendMessage(rs.getString("levelUp").replace("%skill%", skill.toString()).replace("%level%", String.valueOf(skill.getLevel())));
-        }
-    }
-
 
     /**
      * @param uuid Unique user ID of the Player.
@@ -93,16 +75,13 @@ public class User {
 
     /**
      * Registers a new User Object and its corresponding UUID in the Database.
-     *
-     * @param uuid Unique user ID of the Player.
-     * @param user New Instance of the User class.
      */
-    public static void registerUser(UUID uuid, User user) {
-        if (isUserExist(uuid)) return;
+    private void registerUser() {
+        if (isUserExist(this.uuid)) return;
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO PLAYERS (UUID, PLAYER) VALUES (?,?)")) {
                 ps.setString(1, uuid.toString());
-                ps.setString(2, user.toString());
+                ps.setString(2, this.toString());
                 ps.executeUpdate();
             }
 
@@ -138,12 +117,29 @@ public class User {
             try (PreparedStatement ps = con.prepareStatement("SELECT PLAYER FROM PLAYERS WHERE UUID = ?")) {
                 ps.setString(1, uuid.toString());
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) return User.fromJson(rs.getString("PLAYER"));
+                if (rs.next()) return fromJson(rs.getString("PLAYER"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Adds Experience to a specific SkillType and sends a message to the Player (if online) that they leveled up.
+     *
+     * @param skillType SkillType of the Skill to add Experience to.
+     * @param amount    Amount of Experience to add.
+     */
+    public void addXP(Skill.SkillType skillType, int amount) {
+        Skill skill = this.getSkills().stream().filter(filteredSkill -> filteredSkill.getSkillType().equals(skillType)).toList().get(0);
+        if (skill.addXP(amount)) {
+            UUID uuid = this.uuid;
+            ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
+            Player p = Bukkit.getPlayer(uuid);
+            if (p == null) return;
+            p.sendMessage(rs.getString("levelUp").replace("%skill%", skill.toString()).replace("%level%", String.valueOf(skill.getLevel())));
+        }
     }
 
     @Override
