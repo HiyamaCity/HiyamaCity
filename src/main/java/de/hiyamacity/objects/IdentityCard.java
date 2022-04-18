@@ -15,7 +15,7 @@ public class IdentityCard {
     @Expose
     private String forename;
     @Expose
-    private String lastname;
+    private String surname;
     @Expose
     private Color favoriteColor;
     @Expose
@@ -23,9 +23,9 @@ public class IdentityCard {
     @Expose
     private List<Address> residentialAddresses;
 
-    public IdentityCard(String forename, String lastname, LocalDate dayOfBirth) {
+    public IdentityCard(String forename, String surname, LocalDate dayOfBirth) {
         this.forename = forename;
-        this.lastname = lastname;
+        this.surname = surname;
         this.dayOfBirth = dayOfBirth;
     }
 
