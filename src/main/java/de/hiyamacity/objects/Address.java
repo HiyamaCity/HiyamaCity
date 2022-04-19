@@ -2,8 +2,14 @@ package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import de.hiyamacity.database.ConnectionPool;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Getter
 @Setter
@@ -25,6 +31,27 @@ public class Address {
         this.postalCode = postalCode;
     }
 
+    /**
+     * @param address Address that is queried.
+     * @return Returns whether an Address exists or not.
+     */
+    public static boolean isAddressExists(Address address) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.address.street\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.postalCode\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.city\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.houseNumber\") = ?")) {
+                ps.setString(1, "[\"" + address.getStreet() + "\"]");
+                ps.setString(2, "[\"" + address.getPostalCode() + "\"]");
+                ps.setString(3, "[\"" + address.getCity() + "\"]");
+                ps.setString(4, "[\"" + address.getHouseNumber() + "\"");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                    return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
@@ -32,9 +59,5 @@ public class Address {
 
     public String getAsAddress() {
         return this.getStreet() + ", " + this.getHouseNumber() + " " + this.getPostalCode() + ", " + this.getCity();
-    }
-
-    public static Address fromJson(String string) {
-        return new GsonBuilder().create().fromJson(string, Address.class);
     }
 }

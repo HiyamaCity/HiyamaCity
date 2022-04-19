@@ -39,7 +39,6 @@ public class JoinHandler implements Listener {
     public void onEvent(AsyncPlayerPreLoginEvent e) {
         UUID uuid = e.getUniqueId();
         if (!User.isUserExist(uuid)) new User(uuid);
-
         if (!BanManager.isBanned(uuid)) return;
         ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
         Ban ban = BanManager.getLatestBan(uuid);

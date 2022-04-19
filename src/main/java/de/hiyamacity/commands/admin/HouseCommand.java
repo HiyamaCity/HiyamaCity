@@ -31,7 +31,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
         if (!p.hasPermission("house")) return true;
         if (args.length < 1) return true;
         switch (args[0].toLowerCase()) {
-            case "register": {
+            case "register" -> {
 
                 if (args.length < 5 || args.length > 6) {
                     p.sendMessage(rs.getString("houseRegisterUsage"));
@@ -56,14 +56,14 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                 }}, address);
                 p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + targetBlockLocation.getX()).replace("%y%", "" + targetBlockLocation.getY()).replace("%z%", "" + targetBlockLocation.getZ()));
 
-                break;
             }
 
-            case "delete":
-                break;
-            default:
-                return true;
+            case "delete" -> {
+            }
 
+            default -> {
+                return true;
+            }
 
         }
         return false;

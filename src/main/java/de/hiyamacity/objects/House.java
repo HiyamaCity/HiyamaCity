@@ -45,6 +45,10 @@ public class House {
         registerHouse();
     }
 
+    /**
+     * @param loc Location of Openable.
+     * @return Returns if that Block is associated with a door in the Database.
+     */
     public static boolean isLockedDoor(Location loc) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT JSON_EXTRACT(HOUSE, \"$.doorLocations[*].world\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].x\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].y\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].z\") FROM HOUSES")) {
@@ -64,6 +68,11 @@ public class House {
         return false;
     }
 
+    /**
+     * @param uuid UUID of the Person that tried to open something.
+     * @param loc  Location of the clicked Block.
+     * @return Returns if the Player is allowed to open that door.
+     */
     public static boolean allowedToOpen(UUID uuid, Location loc) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             List<House> houses = new ArrayList<>();
@@ -85,11 +94,6 @@ public class House {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public static boolean addressOccupied(Address address) {
-        // TODO: Query Database if Address is already taken.
-        return true;
     }
 
     /**
@@ -127,6 +131,31 @@ public class House {
     }
 
     /**
+     * @param loc Location by which is queried in the Database.
+     * @return Returns a House object queried by its location.
+     */
+    public static House getHouse(Location loc) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT HOUSE, JSON_EXTRACT(HOUSE, \"$.doorLocations[*].world\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].x\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].y\"), JSON_EXTRACT(HOUSE, \"$.doorLocations[*].z\") FROM HOUSES")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String world = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].world\")").replace("[", "").replace("]", "").replace("\"", "");
+                    String xString = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].x\")").replace("[", "").replace("]", "");
+                    String yString = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].y\")").replace("[", "").replace("]", "");
+                    String zString = rs.getString("JSON_EXTRACT(HOUSE, \"$.doorLocations[*].z\")").replace("[", "").replace("]", "");
+                    Location doorLocation = new Location(Bukkit.getWorld(world), Double.parseDouble(xString), Double.parseDouble(yString), Double.parseDouble(zString));
+                    if (loc.distanceSquared(doorLocation) <= Distances.HOUSE_DOOR_INTERACTION_MARGIN)
+                        return House.fromJson(rs.getString("HOUSE"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
      * @param houseID houseID queried in the Database to return the corresponding House object.
      * @return Returns a House object corresponding to its houseID.
      */
@@ -160,6 +189,41 @@ public class House {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Deletes a House by its HouseID.
+     *
+     * @param houseID HouseID of the House to delete.
+     */
+    public static void deleteHouse(UUID houseID) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE * FROM HOUSES WHERE UUID = ?")) {
+                ps.setString(1, houseID.toString());
+                ps.executeQuery();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deletes a House by its Address.
+     *
+     * @param address Address of the House to delete.
+     */
+    public static void deleteHouse(Address address) {
+        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE * FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.address.street\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.postalCode\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.city\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.houseNumber\") = ?")) {
+                ps.setString(1, "[\"" + address.getStreet() + "\"]");
+                ps.setString(2, "[\"" + address.getPostalCode() + "\"]");
+                ps.setString(3, "[\"" + address.getCity() + "\"]");
+                ps.setString(4, "[\"" + address.getHouseNumber() + "\"");
+                ps.executeQuery();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
