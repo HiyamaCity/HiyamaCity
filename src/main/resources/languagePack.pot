@@ -1,0 +1,326 @@
+#
+# Joel <joel@hiyamacity.de>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: HiyamaCity 1.0\n"
+"Report-Msgid-Bugs-To: info@hiyamacity.de\n"
+"Last-Translator: Joel <joel@hiyamacity.de>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: German <>\n"
+"PO-Revision-Date: 2022-04-22 06:00+0200\n"
+"X-Generator: Gtranslator 42.0\n"
+
+#: src/main/de/hiyamacity/util/TabListHandler.java:28
+msgid
+" \n"
+"     §b§lHiyamaCity §r§7- §cFantasy §7& §cReallife Roleplay     "
+msgstr ""
+
+#: src/main/de/hiyamacity/util/TabListHandler.java:28
+msgid
+"§7{0}§8/§7{1}§a Spieler online.\n"
+" "
+msgstr ""
+
+msgid "§cFehler: Der Spieler {0} wurde nicht gefunden."
+msgstr ""
+
+msgid "§cFehler: Der angegebene Spieler ist zu weit entfernt."
+msgstr ""
+
+msgid "§cFehler: {0} ist keine Zahl."
+msgstr ""
+
+msgid "§cFehler: Dieser Command wurde deaktiviert."
+msgstr ""
+
+msgid "§cFehler: Der angegebene Betrag darf nicht < 0 sein."
+msgstr ""
+
+msgid "§cFehler: Du kannst nicht mehr Geld abgeben als du dabei hast."
+msgstr ""
+
+msgid "§cFehler: Du kannst dir selber kein Geld zustecken."
+msgstr ""
+
+msgid "§cFehler: Dein angegebener GameMode muss ≤ 0 ≤ 3 sein."
+msgstr ""
+
+msgid "§cFehler: Du kannst dich nicht selber küssen."
+msgstr ""
+
+msgid "§cFehler: Du kannst dir selbst keine Nachricht schicken."
+msgstr ""
+
+msgid "§cFehler: Du kannst dich nicht selbst schlagen."
+msgstr ""
+
+msgid "§cFehler: Du musst einen Block anschauen der geöffnet werden kann."
+msgstr ""
+
+msgid "§cFehler: {0} ist kein gültiger Shop-Typ."
+msgstr ""
+
+msgid "§cFehler: Der Spieler {0} ist nicht gebannt."
+msgstr ""
+
+msgid "§cFehler: Der Spieler {0} wurde noch nie gebannt."
+msgstr ""
+
+msgid "§cFehler: {0} ist keine gültige Zeitangabe."
+msgstr ""
+
+msgid "§cFehler: Benutze \"/me <Aktion>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/kiss <Spielername>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/m <Spielername> <Nachricht>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/gm <0-3> [Spielername]\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/pay <Spielername> <Betrag>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/showFinances <Spielername>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/deaths <Spielernamen>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/vanish <Spielername>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/slap <Spielername>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/house register <Straße> <Hausnummer> <Stadt> <Postleitzahl> [Besitzer]\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/tp <Spieler> [Spieler]\" oder \"/tp [Spieler] <x> <y> <z>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/kick <Spieler> [Grund]\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/whisper <Nachricht>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/shout <Nachricht>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/ban <Spieler> [Grund]\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/unban <Spieler>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/checkBans <Spieler>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/clearBans <Spieler>\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/tempBan <Spieler> <Zeit> [Grund]\""
+msgstr ""
+
+msgid "§cFehler: Benutze \"/clearChat [Spieler]\""
+msgstr ""
+
+msgid "§9{0} §7hat einen Ping von §9{1}§7ms."
+msgstr ""
+
+msgid "§9Du §7hast einen Ping von §9{0}§7ms."
+msgstr ""
+
+msgid
+"§8==============================\n"
+"§7Spielername: §9%target%\n"
+"§7Spielzeit §9%hours%§7 std. §9%minutes%§7 min.\n"
+"§7Portemonnaie: §9%money%§7$, Bank: §9%bank%§7$.\n"
+"§8=============================="
+msgstr ""
+
+msgid "§8[§aSpielmodus§8] §7Dein §aSpielmodus §7wurde zu §a{0} §7geändert."
+msgstr ""
+
+msgid "§8[§aSpielmodus§8] §7Du hast den §aSpielmodus §7von §a{0} §7zu §a{1} §7geändert."
+msgstr ""
+
+msgid "§8[§aSpielmodus§8] §a{0} §7hat deinen §aSpielmodus §7zu §a{1} §7geändert."
+msgstr ""
+
+msgid "§7Du hast §9{0} §9{1}$ §7zugesteckt."
+msgstr ""
+
+msgid "§9{0} §7hat dir §9{1}$ §7zugesteckt."
+msgstr ""
+
+msgctxt "Nachricht die beim /me Command an alle Spieler in der Nähe gesendet wird."
+msgid "§3・ {0} {1}"
+msgstr ""
+
+msgid "§d*§5 {0}§d hat §5{1}§d einen Kuss gegeben."
+msgstr ""
+
+msgid "§9{0} §7hat eine §9{1} §7gewürfelt."
+msgstr ""
+
+msgid "§7Du hast §9{0} §7in dein Portemonnaie schauen lassen."
+msgstr ""
+
+msgid
+"§9{0}§7 gibt dir einen Einblick ins Portemonnaie von sich.\n"
+"§7Portemonnaie: §9{1}§7$."
+msgstr ""
+
+msgid "§7[§9Du §7-> §9{0}§7] §r{1}"
+msgstr ""
+
+msgid "§7[§9{0} -> §9Dir§7] §r{1}"
+msgstr ""
+
+msgid "§9{0} §7hat §9{1} §7Tod."
+msgid_plural "§9{0} §7hat §9{1} §7Tode."
+msgstr[0] ""
+
+msgid "§7Du bist nun§a unsichtbar§7, niemand kann dich sehen..."
+msgstr ""
+
+msgid "§7Du bist nun wieder§c sichtbar§7, jeder kann dich sehen..."
+msgstr ""
+
+msgid "§7Du hast §9{0}§a unsichtbar §7gemacht..."
+msgstr ""
+
+msgid "§7Du hast §9%target% §7wieder§c sichtbar §7gemacht..."
+msgstr ""
+
+msgid "§9{0} §7hat dich§a unsichtbar §7gemacht..."
+msgstr ""
+
+msgid "§9{0} hat dich wieder§c sichtbar §7gemacht..."
+msgstr ""
+
+msgid "{0} sagt: "
+msgstr ""
+
+msgid "{0} fragt: "
+msgstr ""
+
+msgid "{0} flüstert: "
+msgstr ""
+
+msgid "{0} schreit: "
+msgstr ""
+
+msgid
+"§aDu hast erfolgreich ein neues Haus ({0}) registriert.\n"
+"Koordinaten:\n "
+"{1}\n"
+"{2}\n"
+"{3}"
+msgstr ""
+
+msgid "§7Du hast dich zu §9%target% §7teleportiert."
+msgstr ""
+
+msgid "§9%player% §7hat sich zu dir teleportiert."
+msgstr ""
+
+msgid "§7Du hast §9%target% §7zu §9%target1% §7teleportiert."
+msgstr ""
+
+msgid "§9%player% §7hat dich zu §9%target1% §7teleportiert."
+msgstr ""
+
+msgid "§9%player% §7hat §9%target% §7zu dir teleportiert."
+msgstr ""
+
+msgid "§9%z% §7teleportiert."
+msgstr ""
+
+msgid "§9%z% §7teleportiert."
+msgstr ""
+
+msgid "§9%z% §7teleportiert."
+msgstr ""
+
+msgid "§aDu hast dich erfolgreich selbst geheilt."
+msgstr ""
+
+msgid "§cDu wurdest von %player% gekickt. \nGrund: %reason%"
+msgstr ""
+
+msgid "§cDu wurdest gekickt."
+msgstr ""
+
+msgid "§aDu hast %target% gekickt. Grund: %reason%"
+msgstr ""
+
+msgid "§aDu hast %target% gekickt."
+msgstr ""
+
+msgid "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"
+msgstr ""
+
+msgid "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Grund: §9%reason%\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"
+msgstr ""
+
+msgid "§7Du hast §9%target%§a erfolgreich §7gebannt."
+msgstr ""
+
+msgid "§7Du hast §9%target%§a erfolgreich §7gebannt.\n§7Grund: §9%reason%"
+msgstr ""
+
+msgid "§7Du hast §9%target%§a erfolgreich §7entbannt."
+msgstr ""
+
+msgid "§8======= §7Ban-Info von §9%target% §8=======\n"
+msgstr ""
+
+msgid "\n§8===========================================\n "
+msgstr ""
+
+msgid "\n§7Grund: §9%reason%\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n§7Tag der Entbannung: §9%banEnd%\n§7Aktiv?: §9%boolean%\n§7Erstellt von: §9%createdBy%\n"
+msgstr ""
+
+msgid "§7Du hast alle Bans von §9%target%§a erfolgreich §7gelöscht."
+msgstr ""
+
+msgid "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n§7Tag der Entbannung: §9%banEnd%\n\n§7Verbleibende Zeit: §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n)\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"
+msgstr ""
+
+msgid "§cDieser Account wurde von HiyamaCity gesperrt.\n\n§7Grund: §9%reason%\n\n§7Ban-ID: §9%id%\n§7Tag des Bannes: §9%banStart%\n§7Tag der Entbannung: §9%banEnd%\n\n§7Verbleibende Zeit: §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n)\n\n§cWir bieten dir die Möglichkeit einen Entbannungsantrag in unserem Forum zu stellen.§c\nhttps://hiyamacity.de/forum/"
+msgstr ""
+
+msgid "%min% für Minuten und %s% für Sekunden"
+msgstr ""
+
+msgid "§7Du hast §9%target%§a erfolgreich §7für §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n) §7gebannt.\n§7Grund: §9%reason%"
+msgstr ""
+
+msgid "§7Du hast §9%target%§a erfolgreich §7für §9%d% §7Tag(e) §9%h% §7Stunde(n) §9%m% §7Minute(n) §9%s% §7Sekunde(n) §7gebannt."
+msgstr ""
+
+msgid "Du bist jetzt Level: %level%!"
+msgstr ""
+
+msgid "§aDu hast den Chat gecleart."
+msgstr ""
+
+msgid "§aDu hast den Chat von %target% gecleart."
+msgstr ""
+
+msgid "§4§l%player% hat den Chat gecleart." msgstr ""
+msgid "§7Verbleibende Zeit: {0} Tage"
+msgid_plural "§7Verbleibende Zeit: {0}"
+msgstr[0] ""

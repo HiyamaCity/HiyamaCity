@@ -13,6 +13,7 @@ import java.util.UUID;
 
 public class LanguageHandler {
 
+
     public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM LANGUAGE WHERE UUID = ?")) {
