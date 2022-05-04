@@ -1,9 +1,7 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.items.weapons.Katana;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Shop;
-import de.hiyamacity.objects.ShopType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,48 +22,9 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
         if (!p.hasPermission("shop")) return true;
         if (args.length == 0) return true;
         args[0] = args[0].toUpperCase();
-        List<String> pos = ShopType.getAllTypes();
-        if (!pos.contains(args[0])) {
+        if (!Shop.ShopType.getAllTypes().contains(args[0])) {
             p.sendMessage(rs.getString("shopUnknownType"));
             return true;
-        }
-
-        switch (ShopType.valueOf(args[0])) {
-            case DRINK:
-                ArrayList<Katana> arrayList = new ArrayList<>();
-                arrayList.add(new Katana());
-                Shop shop = new Shop("Hallo", null, arrayList, new ShopType[]{ShopType.DRINK}, p.getLocation());
-                p.sendMessage(shop.toString());
-                break;
-            case FOOD:
-                break;
-            case AGRICULTURE:
-                break;
-            case SOUVENIRS:
-                break;
-            case ORES:
-                break;
-            case ARMOR:
-                break;
-            case PET:
-                break;
-            case TIMBER:
-                break;
-            case STONES:
-                break;
-            case NETHER:
-                break;
-            case END:
-                break;
-            case DECORATION:
-                break;
-            case BLOCKS:
-                break;
-            case WEAPONS:
-                break;
-            default:
-                break;
-
         }
 
         return false;
@@ -74,7 +32,7 @@ public class ShopCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        if (args.length == 1) return ShopType.getAllTypes();
+        if (args.length == 1) return Shop.ShopType.getAllTypes();
         return null;
     }
 }

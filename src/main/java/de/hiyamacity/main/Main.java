@@ -4,7 +4,6 @@ import de.hiyamacity.commands.admin.*;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.listener.*;
-import de.hiyamacity.objects.CollectItem;
 import de.hiyamacity.util.PlaytimeTracker;
 import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
@@ -69,7 +68,6 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("clearBans")).setExecutor(new ClearBansCommand());
         Objects.requireNonNull(getCommand("tempBan")).setExecutor(new TempBanCommand());
         Objects.requireNonNull(getCommand("clearChat")).setExecutor(new ClearChatCommand());
-        Objects.requireNonNull(getCommand("CollectItem")).setExecutor(new CollectItem());
     }
 
     private void loadListeners() {

@@ -3,6 +3,7 @@ package de.hiyamacity.objects;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import de.hiyamacity.database.ConnectionPool;
+import de.hiyamacity.items.collectables.Collectable;
 import de.hiyamacity.lang.LanguageHandler;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,8 @@ public class User {
     private List<Ban> bans;
     @Expose
     private List<Skill> skills;
+    @Expose
+    private List<Collectable> collectableList;
 
     /**
      * Instantiates a new User object and registers it in the Database paired with its corresponding UUID.
