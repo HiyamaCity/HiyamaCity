@@ -25,7 +25,7 @@ public class PlaytimeTracker {
                         user.setPlayedHours(hours);
                     }
                     user.setPlayedMinutes(minutes);
-                    User.updateUser(player.getUniqueId(), user);
+                    user.update(player.getUniqueId());
                 });
             }
         };

@@ -12,8 +12,8 @@ public class DeathHandler implements Listener {
     public void onEvent(PlayerDeathEvent e) {
         e.setDeathMessage("");
         User user = User.getUser(e.getEntity().getUniqueId());
-        if(user == null) return;
+        if (user == null) return;
         user.setDeaths(user.getDeaths() + 1);
-        User.updateUser(e.getEntity().getUniqueId(), user);
+        user.update(e.getEntity().getUniqueId());
     }
 }

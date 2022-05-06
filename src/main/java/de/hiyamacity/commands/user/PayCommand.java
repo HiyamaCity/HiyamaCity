@@ -64,8 +64,8 @@ public class PayCommand implements CommandExecutor {
         t.sendMessage(trs.getString("payReceive").replace("%player%", p.getName()).replace("%amount%", "" + amount));
         t.sendMessage("§a+" + amount + "$");
 
-        User.updateUser(p.getUniqueId(), pUser);
-        User.updateUser(t.getUniqueId(), tUser);
+        pUser.update(p.getUniqueId());
+        tUser.update(t.getUniqueId());
 
         return false;
     }

@@ -41,13 +41,14 @@ public class BanManager {
         Objects.requireNonNull(user).getBans().forEach(ban -> {
             if (ban.isActive()) ban.setActive(false);
         });
-        User.updateUser(uuid, user);
+        user.update(uuid);
+        
     }
 
     public static void clearBans(UUID uuid) {
         User user = Objects.requireNonNull(User.getUser(uuid));
         user.setBans(new ArrayList<>());
-        User.updateUser(uuid, user);
+        user.update(uuid);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy) {
@@ -60,7 +61,7 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 
     public static void ban(UUID userToBan) {
@@ -73,7 +74,7 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 
     public static void ban(UUID userToBan, String reason) {
@@ -87,7 +88,7 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy, String reason) {
@@ -101,7 +102,7 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 
     public static void ban(UUID userToBan, long banEnd) {
@@ -115,7 +116,7 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 
     public static void ban(UUID userToBan, String reason, long banEnd) {
@@ -130,7 +131,7 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy, long banEnd) {
@@ -144,7 +145,7 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 
     public static void ban(UUID userToBan, UUID banCreatedBy, String reason, long banEnd) {
@@ -159,6 +160,6 @@ public class BanManager {
         }
         bans.add(ban);
         user.setBans(bans);
-        User.updateUser(userToBan, user);
+        user.update(userToBan);
     }
 }
