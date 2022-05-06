@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="tabListHeader">
+        §b§lHiyamaCity §r§7- §cFantasy §7&amp; §cReal life Role-play
+    </entry>
+    <entry key="tabListFooter">§7%current%§8/§7%max%§a Spieler online.
+    </entry>
+    <!-- Errors -->
+    <entry key="playerNotFound">§cFehler: Der Spieler "%target%" wurde nicht gefunden.</entry>
+    <entry key="playerTooFarAway">§cFehler: Der angegebene Spieler ist zu weit entfernt.</entry>
+    <entry key="NaN">§cFehler: Keine Zahl angegeben.</entry>
+    <entry key="commandDisabled">§cFehler: Dieser Command wurde deaktiviert.</entry>
+    <entry key="payNonNegative">§cFehler: Der angegebene Betrag darf nicht &lt; 0 sein.</entry>
+    <entry key="payInsufficientAmount">§cFehler: Du kannst nicht mehr Geld abgeben als du dabei hast.</entry>
+    <entry key="payCantPaySelf">§cFehler: Du kannst dir selber kein Geld zustecken.</entry>
+    <entry key="gmInvalidGameMode">§cFehler: Dein angegebener GameMode muss ≤ 0 ≤ 3 sein.</entry>
+    <entry key="kissSelf">§cFehler: Du kannst dich nicht selber küssen.</entry>
+    <entry key="messageNotToYourself">§cFehler: Du kannst dir selbst keine Nachricht schicken</entry>
+    <entry key="slapSelf">§cFehler: Du kannst dich nicht selbst schlagen.</entry>
+    <entry key="houseRegisterNonOpenableTargetBlock">§cFehler: Du musst einen Block anschauen der geöffnet werden
+        kann.
+    </entry>
+    <entry key="shopUnknownType">§cFehler: Dein angegebener Shop-Typ ist nicht gültig.</entry>
+    <entry key="playerNotBanned">§cFehler: Der Spieler %target% ist nicht gebannt.</entry>
+    <entry key="playerWasNotBannedYet">§cFehler: Der Spieler %target% wurde noch nie gebannt.</entry>
+    <entry key="tempBanNumberFormatException">§cFehler: Deine Zeitangabe ist nicht gültig. Bitte überprüfe deine
+        Eingabe.
+    </entry>
+</properties>

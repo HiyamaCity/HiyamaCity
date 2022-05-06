@@ -115,6 +115,7 @@ public class User {
      * @return Returns a User Object from the Database by its corresponding UUID.
      */
     public static User getUser(UUID uuid) {
+        if (!isUserExist(uuid)) return null;
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT PLAYER FROM PLAYERS WHERE UUID = ?")) {
                 ps.setString(1, uuid.toString());

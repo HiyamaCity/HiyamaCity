@@ -20,7 +20,8 @@ public class LanguageHandler {
                 ps.setString(1, uuid.toString());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next())
-                    return ResourceBundle.getBundle("de.hiyamacity.lang.LanguagePack", new Locale(rs.getString("LANG"), rs.getString("COUNTRY")));
+                    return ResourceBundle.getBundle("strings",
+                            new Locale(rs.getString("LANG"), rs.getString("COUNTRY")), new XMLResourceBundleControl());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,6 +30,6 @@ public class LanguageHandler {
     }
 
     public static @NotNull ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("de.hiyamacity.lang.LanguagePack", new Locale("de", "DE"));
+        return ResourceBundle.getBundle("strings", new Locale("de", "DE"), new XMLResourceBundleControl());
     }
 }
