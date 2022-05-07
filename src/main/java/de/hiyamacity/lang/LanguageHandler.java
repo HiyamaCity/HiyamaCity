@@ -13,6 +13,7 @@ import java.util.UUID;
 
 public class LanguageHandler {
 
+    public static Locale[] availableLocales;
 
     public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
