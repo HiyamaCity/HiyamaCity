@@ -2,7 +2,7 @@ package de.hiyamacity.listener;
 
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
-import de.hiyamacity.objects.user.User;
+import de.hiyamacity.objects.User;
 import de.hiyamacity.util.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

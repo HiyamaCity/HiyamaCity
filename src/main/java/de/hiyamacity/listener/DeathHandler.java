@@ -1,6 +1,6 @@
 package de.hiyamacity.listener;
 
-import de.hiyamacity.objects.user.User;
+import de.hiyamacity.objects.User;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;

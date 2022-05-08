@@ -1,6 +1,6 @@
 package de.hiyamacity.lang;
 
-import de.hiyamacity.objects.user.User;
+import de.hiyamacity.objects.User;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

@@ -1,6 +1,6 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.objects.user.User;
+import de.hiyamacity.objects.User;
 import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

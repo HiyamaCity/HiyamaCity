@@ -1,9 +1,9 @@
 package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.lang.LanguageHandler;
-import de.hiyamacity.objects.house.Address;
-import de.hiyamacity.objects.house.DoorLocation;
-import de.hiyamacity.objects.house.House;
+import de.hiyamacity.objects.Address;
+import de.hiyamacity.objects.DoorLocation;
+import de.hiyamacity.objects.House;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.data.BlockData;

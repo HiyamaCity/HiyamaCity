@@ -1,6 +1,6 @@
 package de.hiyamacity.listener;
 
-import de.hiyamacity.objects.house.House;
+import de.hiyamacity.objects.House;
 import org.bukkit.block.data.Openable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

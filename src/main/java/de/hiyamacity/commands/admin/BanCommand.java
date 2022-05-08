@@ -2,7 +2,7 @@ package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
-import de.hiyamacity.objects.user.User;
+import de.hiyamacity.objects.User;
 import de.hiyamacity.util.BanManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
