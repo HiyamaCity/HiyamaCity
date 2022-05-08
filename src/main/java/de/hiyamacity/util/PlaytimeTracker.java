@@ -1,7 +1,7 @@
 package de.hiyamacity.util;
 
 import de.hiyamacity.main.Main;
-import de.hiyamacity.objects.User;
+import de.hiyamacity.objects.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 

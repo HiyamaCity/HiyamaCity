@@ -2,7 +2,7 @@ package de.hiyamacity.listener;
 
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
-import de.hiyamacity.objects.User;
+import de.hiyamacity.objects.user.User;
 import de.hiyamacity.util.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -47,7 +47,9 @@ public class JoinHandler implements Listener {
             BanManager.unban(uuid);
             return;
         }
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.forLanguageTag(rs.getLocale().getLanguage()));
+        User user = User.getUser(uuid);
+        Locale locale = (user == null || user.getLocale() == null) ? LanguageHandler.defaultLocale : user.getLocale().getJavaUtilLocale();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
         String reason = (ban.getBanReason() == null) ? "" : ban.getBanReason();
         String id = (ban.getBanID() == null) ? "" : ban.getBanID();
         String banStart = (ban.getBanStart() == 0) ? "" : dateFormat.format(ban.getBanStart());

@@ -1,36 +1,29 @@
 package de.hiyamacity.lang;
 
-import de.hiyamacity.database.ConnectionPool;
+import de.hiyamacity.objects.user.User;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class LanguageHandler {
-
-    public static Locale[] availableLocales;
+    public static final Locale defaultLocale = Locale.GERMAN;
+    public static final Locale[] availableLocales = new Locale[]{defaultLocale};
 
     public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
-        try (Connection con = ConnectionPool.getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM LANGUAGE WHERE UUID = ?")) {
-                ps.setString(1, uuid.toString());
-                ResultSet rs = ps.executeQuery();
-                if (rs.next())
-                    return ResourceBundle.getBundle("strings",
-                            new Locale(rs.getString("LANG"), rs.getString("COUNTRY")), new XMLResourceBundleControl());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return getResourceBundle();
+        User user = User.getUser(uuid);
+        if (user == null || user.getLocale() == null) return getResourceBundle();
+        return ResourceBundle.getBundle("LanguagePack", user.getLocale().getJavaUtilLocale());
     }
 
     public static @NotNull ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("strings", new Locale("de", "DE"), new XMLResourceBundleControl());
+        return ResourceBundle.getBundle("LanguagePack", defaultLocale);
     }
+
+    public static boolean isSupported(Locale locale) {
+        return Arrays.stream(availableLocales).toList().contains(locale);
+    }
+
 }

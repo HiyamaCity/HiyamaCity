@@ -1,6 +1,7 @@
 package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.lang.LanguageHandler;
+import de.hiyamacity.objects.user.User;
 import de.hiyamacity.util.BanManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -36,12 +37,13 @@ public class CheckBansCommand implements CommandExecutor {
             sender.sendMessage(rs.getString("playerWasNotBannedYet").replace("%target%", args[0]));
             return true;
         }
-
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.forLanguageTag(rs.getLocale().getLanguage()));
+        User user = User.getUser(uuid);
+        Locale locale = (user == null || user.getLocale() == null) ? LanguageHandler.defaultLocale : user.getLocale().getJavaUtilLocale();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
         sender.sendMessage(rs.getString("checkBansHeader").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
         BanManager.getBans(uuid).forEach(ban -> sender.sendMessage(rs.getString("checkBansMessage")
                 .replace("%reason%", (ban.getBanReason() == null) ? "" : ban.getBanReason())
-                .replace("%id%", (ban.getBanID() == null) ? "" : ban.getBanID().toString())
+                .replace("%id%", (ban.getBanID() == null) ? "" : ban.getBanID())
                 .replace("%banStart%", (ban.getBanStart() == 0) ? "" : dateFormat.format(ban.getBanStart()))
                 .replace("%banEnd%", (ban.getBanEnd() == 0) ? "" : dateFormat.format(ban.getBanEnd()))
                 .replace("%boolean%", String.valueOf(ban.isActive()))

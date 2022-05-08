@@ -1,7 +1,7 @@
 package de.hiyamacity.util;
 
 import de.hiyamacity.objects.Ban;
-import de.hiyamacity.objects.User;
+import de.hiyamacity.objects.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,6 +3,7 @@ package de.hiyamacity.commands.admin;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
 import de.hiyamacity.objects.TimeUnits;
+import de.hiyamacity.objects.user.User;
 import de.hiyamacity.util.BanManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -96,7 +97,9 @@ public class TempBanCommand implements CommandExecutor {
         long minutes = dur.toMinutes();
         dur = dur.minusMinutes(minutes);
         long seconds = dur.toSeconds();
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.forLanguageTag(rs.getLocale().getLanguage()));
+        User user = User.getUser(uuid);
+        Locale locale = (user == null || user.getLocale() == null) ? LanguageHandler.defaultLocale : user.getLocale().getJavaUtilLocale();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
         sender.sendMessage((ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReasonSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessageSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)).replace("%reason%", ban.getBanReason()));
         Player t = Bukkit.getPlayer(uuid);
         if (t == null) return true;
