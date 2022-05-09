@@ -21,6 +21,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class User {
+
     /**
      * The amount of money that the user carries in their pocket.
      */

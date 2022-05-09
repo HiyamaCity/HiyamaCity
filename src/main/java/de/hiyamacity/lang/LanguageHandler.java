@@ -15,11 +15,11 @@ public class LanguageHandler {
     public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
         User user = User.getUser(uuid);
         if (user == null || user.getLocale() == null) return getResourceBundle();
-        return ResourceBundle.getBundle("LanguagePack", user.getLocale().getJavaUtilLocale());
+        return ResourceBundle.getBundle("i18n", user.getLocale().getJavaUtilLocale());
     }
 
     public static @NotNull ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("LanguagePack", defaultLocale);
+        return ResourceBundle.getBundle("i18n", defaultLocale);
     }
 
     public static boolean isSupported(Locale locale) {
