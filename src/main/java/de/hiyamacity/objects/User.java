@@ -21,31 +21,83 @@ import java.util.UUID;
 @Getter
 @Setter
 public class User {
-
+    /**
+     * The amount of money that the user carries in their pocket.
+     */
     @Expose
     private long purse;
+    /**
+     * The amount of money that the user has stored in the bank.
+     */
     @Expose
     private long bank;
+    /**
+     * The amount of minutes played on the server.
+     */
     @Expose
     private long playedMinutes;
+    /**
+     * The amount of hours played on the server.
+     */
     @Expose
     private long playedHours;
+    /**
+     * The amount of kills that the user made.
+     */
     @Expose
     private long kills;
+    /**
+     * The amount of deaths that the user suffered.
+     */
     @Expose
     private long deaths;
+    /**
+     * The unique user id of the user.
+     *
+     * @see UUID
+     */
     @Expose
     private UUID uuid;
+    /**
+     * The identity card of the user.
+     *
+     * @see IdentityCard
+     */
     @Expose
     private IdentityCard identityCard;
+    /**
+     * The locale that the user specified.
+     *
+     * @see Locale
+     */
     @Expose
     private Locale locale;
+    /**
+     * List of bans that the user experienced.
+     *
+     * @see Ban
+     */
     @Expose
     private List<Ban> bans;
+    /**
+     * List of skills that the user has.
+     *
+     * @see Skill
+     */
     @Expose
     private List<Skill> skills;
+    /**
+     * List of collected items.
+     *
+     * @see Collectable
+     */
     @Expose
-    private List<Collectable> collectableList;
+    private List<Collectable> collectables;
+    /**
+     * List of credits that the user has taken from the bank.
+     *
+     * @see BankCredit
+     */
     @Expose
     private List<BankCredit> bankCredits;
 
