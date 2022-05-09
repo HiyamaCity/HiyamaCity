@@ -9,10 +9,8 @@ import org.bukkit.inventory.ItemStack;
 public class HiyamaCityItem {
 
     private final ItemStack itemStack;
-    private final int shopPrice;
 
-    public HiyamaCityItem(ItemStack itemStack, int shopPrice) {
+    public HiyamaCityItem(ItemStack itemStack) {
         this.itemStack = itemStack;
-        this.shopPrice = shopPrice;
     }
 }
