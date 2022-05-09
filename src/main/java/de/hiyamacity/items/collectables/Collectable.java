@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemStack;
 @Setter
 public class Collectable extends HiyamaCityItem {
 
+    /**
+     * Whether the item has been collected.
+     */
     private boolean collected;
 
     public Collectable(ItemStack itemStack) {
