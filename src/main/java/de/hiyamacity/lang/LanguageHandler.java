@@ -9,17 +9,22 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class LanguageHandler {
-    public static final Locale defaultLocale = Locale.GERMAN;
+    public static final Locale defaultLocale = Locale.GERMANY;
     public static final Locale[] availableLocales = new Locale[]{defaultLocale};
+    public static final String baseName = "i18n";
 
     public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
         User user = User.getUser(uuid);
         if (user == null || user.getLocale() == null) return getResourceBundle();
-        return ResourceBundle.getBundle("i18n", user.getLocale().getJavaUtilLocale());
+        return ResourceBundle.getBundle(baseName, user.getLocale().getJavaUtilLocale());
     }
 
     public static @NotNull ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("i18n", defaultLocale);
+        return ResourceBundle.getBundle(baseName, defaultLocale);
+    }
+
+    public static @NotNull ResourceBundle getResourceBundle(Locale locale) {
+        return ResourceBundle.getBundle(baseName, locale);
     }
 
     public static boolean isSupported(Locale locale) {
