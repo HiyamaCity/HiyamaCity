@@ -39,6 +39,8 @@ public class User {
     @Expose
     private IdentityCard identityCard;
     @Expose
+    private Locale locale;
+    @Expose
     private List<Ban> bans;
     @Expose
     private List<Skill> skills;
@@ -46,8 +48,6 @@ public class User {
     private List<Collectable> collectableList;
     @Expose
     private List<BankCredit> bankCredits;
-    @Expose
-    private Locale locale;
 
     /**
      * Instantiates a new User object and registers it in the Database paired with its corresponding UUID.
