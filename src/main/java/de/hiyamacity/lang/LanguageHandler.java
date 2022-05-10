@@ -9,8 +9,8 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class LanguageHandler {
-    public static final Locale defaultLocale = Locale.GERMANY;
-    public static final Locale[] availableLocales = new Locale[]{defaultLocale};
+    public static final Locale defaultLocale = Locale.GERMAN;
+    public static final Locale[] availableLocales = new Locale[]{defaultLocale, Locale.ENGLISH};
     public static final String baseName = "i18n";
 
     public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
