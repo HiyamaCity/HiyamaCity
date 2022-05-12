@@ -4,7 +4,7 @@ import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +18,7 @@ public class PingCommand implements CommandExecutor {
         if (!(sender instanceof Player p)) return true;
 
         UUID uuid = p.getUniqueId();
-        int ping = ((CraftPlayer) p).getHandle().ping;
+        int ping = p.getPing();
 
         sender.sendMessage(LanguageHandler.getResourceBundle(uuid).getString("pingMessage").replace("%target%", p.getName()).replace("%ping%", "" + ping));
 

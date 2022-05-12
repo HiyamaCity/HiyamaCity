@@ -16,6 +16,7 @@ public class BanManager {
         User user = User.getUser(uuid);
         if (user == null) return false;
         List<Ban> bans = user.getBans();
+        if (bans == null) return false;
         bans.forEach(ban -> {
             if (ban.isActive()) isBanned.set(true);
         });
@@ -42,7 +43,7 @@ public class BanManager {
             if (ban.isActive()) ban.setActive(false);
         });
         user.update(uuid);
-        
+
     }
 
     public static void clearBans(UUID uuid) {

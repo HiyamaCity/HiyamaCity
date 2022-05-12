@@ -22,7 +22,7 @@ public class GameModeCommand implements CommandExecutor {
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
 
-        if (!p.hasPermission("system.gm")) /* TODO: Unknown Command zurückgeben. */ return true;
+        if (!p.hasPermission("system.gm")) return true;
         if (args.length == 0) {
             p.sendMessage(rs.getString("gmUsage"));
             return true;
