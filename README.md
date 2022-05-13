@@ -1,3 +1,14 @@
+# **Das Konzept**
+
+Die Welt verfügt über verschiedene Provinzen die von unterschiedlichen Gruppen besiedelt und beherrscht werden. Es steht
+einem frei wohin man gehen möchte, jedoch kann es sein, dass andere Spieler euch nicht in ihre Provinz lassen. Hier
+steigt der Role play Aspekt ein, als Spieler habt ihr die Möglichkeit untereinander zu interagieren, sei es durch
+Worte oder durch Waffen, das steht euch komplett frei (Beachtet jedoch, dass es auch hier Regeln gibt). Ihr könnt Geld
+verdienen durch verschiedene Berufe oder durch Aufträge welche ihr als Spieler untereinander ausmachen könnt.
+
+Leider ist das Konzept noch nicht ganz vollendet und es fehlen noch einige Ideen, wir sind immer offen für neue Ideen
+und Verbesserungsvorschläge.
+
 # Provinzen
 
 * Verschiedene Reiche der Fraktionen auf der Map.

@@ -10,19 +10,21 @@ public class DateHandler {
 
     /**
      * @param dateString Date e.g. dd.MM.yyyy
-     * @return Returns LocalDate parsed from the given String
+     * @param locale     Locale
+     * @return Returns LocalDate parsed from the given String and Locale
      */
-    public static LocalDate getLocalDate(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.GERMANY);
+    public static LocalDate getLocalDate(String dateString, Locale locale) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", locale);
         return LocalDate.parse(dateString, formatter);
     }
 
     /**
      * @param dateLong Date in Millis
-     * @return Returns LocalDate parsed from the given String
+     * @param locale   Locale
+     * @return Returns LocalDate parsed from the given String and Locale
      */
-    public static LocalDate getLocalDate(long dateLong) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.GERMANY);
+    public static LocalDate getLocalDate(long dateLong, Locale locale) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", locale);
         return LocalDate.parse(String.valueOf(dateLong), formatter);
     }
 

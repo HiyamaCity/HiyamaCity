@@ -25,9 +25,6 @@ public class ConnectionPool {
             try (PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS PLAYERS (UUID VARCHAR(40), PLAYER JSON)")) {
                 ps.executeUpdate();
             }
-            try (PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS LANGUAGE (UUID VARCHAR(40), COUNTRY VARCHAR(255), LANG VARCHAR(255))")) {
-                ps.executeUpdate();
-            }
             try (PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS HOUSES (UUID VARCHAR(40), HOUSE JSON)")) {
                 ps.executeUpdate();
             }
@@ -38,7 +35,7 @@ public class ConnectionPool {
 
     public static void initDatabaseConnectionPool() {
         dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?useJDBCCompliantTimezoneShift=true&&serverTimezone=UTC&&useUnicode=true&autoReconnect=true");
+        dataSource.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?useJDBCCompliantTimezoneShift=true&&serverTimezone=Europe/Berlin&&useUnicode=true&autoReconnect=true");
         dataSource.setUsername(username);
         dataSource.setPassword(password);
     }

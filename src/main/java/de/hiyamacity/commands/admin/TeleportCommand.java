@@ -68,8 +68,8 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
                     t.sendMessage(trs.getString("teleportOtherToOtherOther").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
                     t1.sendMessage(t1rs.getString("teleportOtherToOtherOther1").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
                 } else {
-                    p.sendMessage(rs.getString("teleportToOtherSelf").replace("%target%", t.getName()));
-                    t.sendMessage(trs.getString("teleportToOtherOther").replace("%player%", p.getName()));
+                    p.sendMessage(rs.getString("teleportOtherSelf").replace("%target%", t.getName()));
+                    t.sendMessage(trs.getString("teleportOtherOther").replace("%player%", p.getName()));
 
                 }
                 return true;

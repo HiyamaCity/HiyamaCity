@@ -4,6 +4,7 @@ import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
 import de.hiyamacity.objects.User;
 import de.hiyamacity.util.*;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,9 +14,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.text.DateFormat;
 import java.time.Duration;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
 public class JoinHandler implements Listener {
@@ -27,12 +30,25 @@ public class JoinHandler implements Listener {
         VanishHandler.updateVanish(p);
         TabListHandler.updateTab();
         RankHandler.applyPrefixes();
+
+        List<? extends Player> playerList = Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("admin")).toList();
+        playerList.forEach(player -> {
+            if (e.getPlayer().getName().equals(player.getName())) return;
+            player.sendMessage(LanguageHandler.getResourceBundle(player.getUniqueId()).getString("joinMessage").replace("%player%", e.getPlayer().getName()));
+        });
+
     }
 
     @EventHandler
     public void onEvent(PlayerQuitEvent e) {
         e.setQuitMessage("");
         TabListHandler.updateTab();
+
+        List<? extends Player> playerList = Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("admin")).toList();
+        playerList.forEach(player -> {
+            if (e.getPlayer().getName().equals(player.getName())) return;
+            player.sendMessage(LanguageHandler.getResourceBundle(player.getUniqueId()).getString("quitMessage").replace("%player%", e.getPlayer().getName()));
+        });
     }
 
     @EventHandler
@@ -67,5 +83,12 @@ public class JoinHandler implements Listener {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, (ban.getBanReason() == null) ? rs.getString("banMessageNoReason").replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(ban.getBanStart())) : rs.getString("banMessage").replace("%reason%", ban.getBanReason()).replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(ban.getBanStart())));
         else
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, (ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReason").replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessage").replace("%reason%", reason).replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)));
+    }
+
+    private void sendAdminMessage(String message) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (!p.hasPermission("adminBroadcast")) return;
+            p.sendMessage(message);
+        }
     }
 }

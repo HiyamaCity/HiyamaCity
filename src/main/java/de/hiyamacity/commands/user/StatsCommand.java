@@ -23,7 +23,7 @@ public class StatsCommand implements CommandExecutor {
         switch (args.length) {
             case 0 -> {
                 User user = User.getUser(p.getUniqueId());
-                if(user == null) return true;
+                if (user == null) return true;
                 long hours = user.getPlayedHours();
                 long minutes = user.getPlayedMinutes();
                 long money = user.getPurse();
@@ -43,11 +43,11 @@ public class StatsCommand implements CommandExecutor {
                 if (!p.hasPermission("statsOther")) return true;
                 Player t = Bukkit.getPlayer(args[0]);
                 if (t == null) {
-                    p.sendMessage(rs.getString("playerNotFound"));
+                    p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
                 User user = User.getUser(t.getUniqueId());
-                if(user == null) return true;
+                if (user == null) return true;
                 long hours = user.getPlayedHours();
                 long minutes = user.getPlayedMinutes();
                 long money = user.getPurse();

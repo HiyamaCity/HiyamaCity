@@ -65,3 +65,5 @@ commands:
   clearChat:
     description: Allows the player to clear the chat.
     aliases: [ cc ]
+  all:
+    description: Allows the player to message all players.
