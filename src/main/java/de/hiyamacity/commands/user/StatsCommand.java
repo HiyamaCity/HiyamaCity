@@ -4,6 +4,7 @@ import de.hiyamacity.objects.User;
 import de.hiyamacity.util.DecimalSeparator;
 import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,7 +12,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class StatsCommand implements CommandExecutor {
 
@@ -41,12 +44,12 @@ public class StatsCommand implements CommandExecutor {
             }
             case 1 -> {
                 if (!p.hasPermission("statsOther")) return true;
-                Player t = Bukkit.getPlayer(args[0]);
-                if (t == null) {
+                UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
+                if (uuid == null) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
-                User user = User.getUser(t.getUniqueId());
+                User user = User.getUser(uuid);
                 if (user == null) return true;
                 long hours = user.getPlayedHours();
                 long minutes = user.getPlayedMinutes();
@@ -56,7 +59,7 @@ public class StatsCommand implements CommandExecutor {
                 DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
 
                 String msg = LanguageHandler.getResourceBundle(p.getUniqueId()).getString("statsMessage")
-                        .replace("%target%", t.getName())
+                        .replace("%target%", (Bukkit.getPlayer(uuid) == null) ? Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName()) : Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName())
                         .replace("%hours%", decimalFormat.format(hours))
                         .replace("%minutes%", decimalFormat.format(minutes))
                         .replace("%money%", decimalFormat.format(money))
