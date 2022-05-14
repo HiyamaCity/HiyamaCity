@@ -1,1 +1,1 @@
-# __***Hiyama City | Minecraft 1.18.2 Fantasy & Real life Role play Server***__
+# __***Hiyama City | Fantasy & Real life Role play Server***__
