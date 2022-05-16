@@ -15,6 +15,7 @@ public class PlaytimeTracker {
                 Bukkit.getOnlinePlayers().forEach(player -> {
                     User user = User.getUser(player.getUniqueId());
                     if (user == null) return;
+                    if (user.isAfk()) return;
                     long minutes = user.getPlayedMinutes();
                     long hours = user.getPlayedHours();
 
@@ -25,7 +26,7 @@ public class PlaytimeTracker {
                         user.setPlayedHours(hours);
                     }
                     user.setPlayedMinutes(minutes);
-                    user.update(player.getUniqueId());
+                    user.update();
                 });
             }
         };

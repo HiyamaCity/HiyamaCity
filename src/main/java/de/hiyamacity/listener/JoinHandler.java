@@ -84,11 +84,4 @@ public class JoinHandler implements Listener {
         else
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, (ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReason").replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessage").replace("%reason%", reason).replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)));
     }
-
-    private void sendAdminMessage(String message) {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!p.hasPermission("adminBroadcast")) return;
-            p.sendMessage(message);
-        }
-    }
 }

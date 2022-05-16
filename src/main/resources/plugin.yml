@@ -67,3 +67,5 @@ commands:
     aliases: [ cc ]
   all:
     description: Allows the player to message all players.
+  afk:
+    description: Allows the player to enter afk mode.

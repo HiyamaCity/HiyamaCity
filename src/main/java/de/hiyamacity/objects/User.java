@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -101,6 +102,10 @@ public class User {
      */
     @Expose
     private List<BankCredit> bankCredits;
+    @Expose
+    private Location nonAfkLocation;
+    @Expose
+    private boolean isAfk;
 
     /**
      * Instantiates a new User object and registers it in the Database paired with its corresponding UUID.
@@ -152,14 +157,12 @@ public class User {
 
     /**
      * Updates the User Object in the Database. Used for Object manipulation.
-     *
-     * @param uuid Unique user ID of the Player.
      */
-    public void update(UUID uuid) {
+    public void update() {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("UPDATE PLAYERS SET PLAYER = ? WHERE UUID = ?")) {
                 ps.setString(1, this.toString());
-                ps.setString(2, uuid.toString());
+                ps.setString(2, this.uuid.toString());
                 ps.executeUpdate();
             }
         } catch (SQLException e) {

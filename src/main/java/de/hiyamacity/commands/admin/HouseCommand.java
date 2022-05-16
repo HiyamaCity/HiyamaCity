@@ -2,7 +2,6 @@ package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Address;
-import de.hiyamacity.objects.DoorLocation;
 import de.hiyamacity.objects.House;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -52,7 +51,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
                 }
 
                 new House(owner, new ArrayList<>() {{
-                    add(new DoorLocation(targetBlockLocation.getWorld().getName(), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ()));
+                    add(new de.hiyamacity.objects.Location(new Location(Bukkit.getWorld(targetBlockLocation.getWorld().getName()), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ())));
                 }}, address);
                 p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + targetBlockLocation.getX()).replace("%y%", "" + targetBlockLocation.getY()).replace("%z%", "" + targetBlockLocation.getZ()));
 

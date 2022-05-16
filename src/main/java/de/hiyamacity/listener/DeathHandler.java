@@ -14,6 +14,6 @@ public class DeathHandler implements Listener {
         User user = User.getUser(e.getEntity().getUniqueId());
         if (user == null) return;
         user.setDeaths(user.getDeaths() + 1);
-        user.update(e.getEntity().getUniqueId());
+        user.update();
     }
 }

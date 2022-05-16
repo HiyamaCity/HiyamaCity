@@ -24,7 +24,7 @@ public class House {
     @Expose
     private UUID houseID = generateNonOccupiedUUID();
     @Expose
-    private List<DoorLocation> doorLocations;
+    private List<de.hiyamacity.objects.Location> doorLocations;
     @Expose
     private List<Resident> residents;
     @Expose
@@ -37,7 +37,7 @@ public class House {
      * @param doorLocations DoorLocation Array containing the coordinates for the locations of the doors.
      * @param address       Address containing the address for the new House.
      */
-    public House(UUID owner, List<DoorLocation> doorLocations, Address address) {
+    public House(UUID owner, List<de.hiyamacity.objects.Location> doorLocations, Address address) {
         this.doorLocations = doorLocations;
         this.address = address;
         this.residents = new ArrayList<>();
@@ -84,7 +84,7 @@ public class House {
                 }
             }
             for (House house : houses) {
-                for (DoorLocation doorLocation : house.getDoorLocations()) {
+                for (de.hiyamacity.objects.Location doorLocation : house.getDoorLocations()) {
                     if (new Location(Bukkit.getWorld(doorLocation.getWorld()), doorLocation.getX(), doorLocation.getY(), doorLocation.getZ()).distanceSquared(loc) <= Distances.HOUSE_DOOR_INTERACTION_MARGIN)
                         return true;
                 }
