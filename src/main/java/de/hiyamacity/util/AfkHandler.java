@@ -19,7 +19,7 @@ public class AfkHandler {
         Player p = Bukkit.getPlayer(user.getUuid());
         if (p == null) return;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-
+        // TODO: doesn't work properly
         if (user.isAfk()) {
             user.setNonAfkLocation(new de.hiyamacity.objects.Location(p.getLocation()));
             p.sendMessage(p.getLocation().toString());
