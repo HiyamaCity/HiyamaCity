@@ -28,7 +28,7 @@ public class AfkHandler {
             p.teleport((user.getNonAfkLocation() == null) ? fallBackLocation : user.getNonAfkLocation().getAsBukkitLocation());
             user.setNonAfkLocation(null);
         }
-
         user.update();
+        RankHandler.applyPrefixes();
     }
 }

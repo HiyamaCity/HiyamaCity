@@ -33,7 +33,7 @@ public class Location {
     }
 
     public org.bukkit.Location getAsBukkitLocation() {
-        return new org.bukkit.Location(Bukkit.getWorld((this.getWorld() == null) ? "world" : this.getWorld()), this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+        return new org.bukkit.Location(Bukkit.getWorld(this.getWorld()), this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
     }
 
     @Override
