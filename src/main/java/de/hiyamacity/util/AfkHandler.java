@@ -19,16 +19,12 @@ public class AfkHandler {
         Player p = Bukkit.getPlayer(user.getUuid());
         if (p == null) return;
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-        // TODO: doesn't work properly
         if (user.isAfk()) {
             user.setNonAfkLocation(new de.hiyamacity.objects.Location(p.getLocation()));
-            p.sendMessage(p.getLocation().toString());
-            p.sendMessage(user.getNonAfkLocation().toString());
             p.sendMessage(rs.getString("afkJoin"));
             p.teleport(afkLocation);
         } else {
             p.sendMessage(rs.getString("afkQuit"));
-            p.sendMessage(user.getNonAfkLocation().toString());
             p.teleport((user.getNonAfkLocation() == null) ? fallBackLocation : user.getNonAfkLocation().getAsBukkitLocation());
             user.setNonAfkLocation(null);
         }

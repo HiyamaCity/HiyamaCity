@@ -1,6 +1,7 @@
 package de.hiyamacity.objects;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -9,11 +10,17 @@ import org.bukkit.Bukkit;
 @Setter
 public class Location {
 
+    @Expose
     private String world;
+    @Expose
     private double x;
+    @Expose
     private double y;
+    @Expose
     private double z;
+    @Expose
     private float yaw;
+    @Expose
     private float pitch;
 
     public Location(org.bukkit.Location loc) {
