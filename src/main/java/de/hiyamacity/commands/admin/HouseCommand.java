@@ -57,7 +57,8 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 
             }
 
-            case "delete" -> {
+            case "delete", "list" -> {
+
             }
 
             default -> {
