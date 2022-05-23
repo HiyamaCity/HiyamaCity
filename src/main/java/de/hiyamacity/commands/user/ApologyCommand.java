@@ -9,15 +9,15 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ResourceBundle;
-
-public class MessageCommand implements CommandExecutor {
+// Übung von Ina
+public class ApologyCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player p)) return true;
+       if(!( sender instanceof Player p)) return true;
         ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(p.getUniqueId());
 
         if (args.length < 2) {
-            p.sendMessage(resourceBundle.getString("messageUsage"));
+            p.sendMessage(resourceBundle.getString("apologyUsage"));
             return true;
         }
 
@@ -29,25 +29,18 @@ public class MessageCommand implements CommandExecutor {
         }
 
         if (p.getName().equals(t.getName())) {
-            p.sendMessage(resourceBundle.getString("messageNotToYourself"));
+            p.sendMessage(resourceBundle.getString("apologyNotToYourself"));
             return true;
         }
 
-        //     0       1     2    3   4   5   6   7    8
-        // /message <Name> Hallo ich bin cool du aber auch
-
         StringBuilder msg = new StringBuilder();
 
-        // i + 1 -> args.length
         for (int i = 1; i < args.length; i++) {
             msg.append(args[i]).append(" ");
         }
 
-        String message = msg.toString().trim();
 
-        p.sendMessage(resourceBundle.getString("messageSelf").replace("%target%", t.getName()).replace("%msg%", message));
-        ResourceBundle targetResourceBundle = LanguageHandler.getResourceBundle(t.getUniqueId());
-        t.sendMessage(targetResourceBundle.getString("messageOther").replace("%player%", p.getName()).replace("%msg%", message));
+
 
         return false;
     }

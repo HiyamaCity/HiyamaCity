@@ -69,3 +69,6 @@ commands:
     description: Allows the player to message all players.
   afk:
     description: Allows the player to enter afk mode.
+  apology:
+    description: Allows the player to aplpogize to another player
+    aliases: [ apologize ]

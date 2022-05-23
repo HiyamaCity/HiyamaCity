@@ -70,6 +70,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("clearChat")).setExecutor(new ClearChatCommand());
         Objects.requireNonNull(getCommand("all")).setExecutor(new AllCommand());
         Objects.requireNonNull(getCommand("afk")).setExecutor(new AfkCommand());
+        Objects.requireNonNull(getCommand("apology")).setExecutor(new ApologyCommand());
     }
 
     private void loadListeners() {
