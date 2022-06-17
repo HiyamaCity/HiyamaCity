@@ -11,7 +11,7 @@ public class MOTDHandler implements Listener {
 
     @EventHandler
     public void onEvent(PaperServerListPingEvent e) {
-        e.setNumPlayers(Bukkit.getOnlinePlayers().size() - VanishHandler.getVanishPlayerCount());
+        e.setNumPlayers(Bukkit.getOnlinePlayers().size() - VanishHandler.getVanishedPlayersCount());
         e.setMotd("§d§l✧ §bHiyamaCity §8| §7Fantasy & Real life Role-play §8| §6[1.18.2]\n" +
                 " §7» §e§lIndev");
     }

@@ -37,7 +37,7 @@ public class VanishHandler {
         return vanishPlayers.contains(p);
     }
 
-    public static int getVanishPlayerCount() {
+    public static int getVanishedPlayersCount() {
         return vanishPlayers.size();
     }
 

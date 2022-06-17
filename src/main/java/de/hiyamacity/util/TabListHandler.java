@@ -23,7 +23,7 @@ public class TabListHandler {
 
     @SuppressWarnings("deprecation")
     private static void initTab(Player p) {
-        int playerCount = Bukkit.getOnlinePlayers().size() - VanishHandler.getVanishPlayerCount();
+        int playerCount = Bukkit.getOnlinePlayers().size() - VanishHandler.getVanishedPlayersCount();
         ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
         p.setPlayerListHeaderFooter(rs.getString("tabListHeader"), rs.getString("tabListFooter").replace("%current%", "" + playerCount).replace("%max%", "" + Bukkit.getMaxPlayers()));
     }
