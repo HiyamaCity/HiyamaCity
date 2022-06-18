@@ -106,6 +106,8 @@ public class User {
     private Location nonAfkLocation;
     @Expose
     private boolean isAfk;
+    @Expose
+    private List<Contract> contracts;
 
     /**
      * Instantiates a new User object and registers it in the Database paired with its corresponding UUID.
