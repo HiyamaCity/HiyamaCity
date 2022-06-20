@@ -12,7 +12,6 @@ import java.util.UUID;
 public class Request {
 
     public enum RequestType {
-
         CONTRACT
     }
 
