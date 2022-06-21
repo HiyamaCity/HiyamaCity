@@ -1,5 +1,5 @@
 # **Hiyama City**
-## a fantasy and story role playing plugin for Minecraft
+## a fantasy and real life role playing plugin for Minecraft
 
 ### Inhaltsverzeichnis
 
