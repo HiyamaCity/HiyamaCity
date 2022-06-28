@@ -3,10 +3,7 @@ package de.hiyamacity.lang;
 import de.hiyamacity.objects.User;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 public class LanguageHandler {
     public static final Locale defaultLocale = Locale.GERMAN;
@@ -14,9 +11,9 @@ public class LanguageHandler {
     public static final String baseName = "i18n";
 
     public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
-        User user = User.getUser(uuid);
-        if (user == null || user.getLocale() == null) return getResourceBundle();
-        return ResourceBundle.getBundle(baseName, user.getLocale().getJavaUtilLocale());
+        Optional<User> user = User.getUser(uuid);
+        if (user.map(User::getLocale).isEmpty()) return getResourceBundle();
+        return ResourceBundle.getBundle(baseName, user.map(User::getLocale).orElse(null).getJavaUtilLocale());
     }
 
     public static @NotNull ResourceBundle getResourceBundle() {

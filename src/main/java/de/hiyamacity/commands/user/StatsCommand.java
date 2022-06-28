@@ -4,7 +4,6 @@ import de.hiyamacity.objects.User;
 import de.hiyamacity.util.DecimalSeparator;
 import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -25,12 +25,11 @@ public class StatsCommand implements CommandExecutor {
 
         switch (args.length) {
             case 0 -> {
-                User user = User.getUser(p.getUniqueId());
-                if (user == null) return true;
-                long hours = user.getPlayedHours();
-                long minutes = user.getPlayedMinutes();
-                long money = user.getPurse();
-                long bank = user.getBank();
+                Optional<User> user = User.getUser(p.getUniqueId());
+                long hours = user.map(User::getPlayedHours).orElse(Long.MIN_VALUE);
+                long minutes = user.map(User::getPlayedMinutes).orElse(Long.MIN_VALUE);
+                long money = user.map(User::getPurse).orElse(Long.MIN_VALUE);
+                long bank = user.map(User::getBank).orElse(Long.MIN_VALUE);
 
                 DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
 
@@ -49,12 +48,11 @@ public class StatsCommand implements CommandExecutor {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
-                User user = User.getUser(uuid);
-                if (user == null) return true;
-                long hours = user.getPlayedHours();
-                long minutes = user.getPlayedMinutes();
-                long money = user.getPurse();
-                long bank = user.getBank();
+                Optional<User> user = User.getUser(p.getUniqueId());
+                long hours = user.map(User::getPlayedHours).orElse(Long.MIN_VALUE);
+                long minutes = user.map(User::getPlayedMinutes).orElse(Long.MIN_VALUE);
+                long money = user.map(User::getPurse).orElse(Long.MIN_VALUE);
+                long bank = user.map(User::getBank).orElse(Long.MIN_VALUE);
 
                 DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
 

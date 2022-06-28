@@ -5,6 +5,8 @@ import de.hiyamacity.objects.User;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Optional;
+
 public class PlaytimeTracker {
 
     public static void startPlaytimeTracker() {
@@ -13,20 +15,24 @@ public class PlaytimeTracker {
             @Override
             public void run() {
                 Bukkit.getOnlinePlayers().forEach(player -> {
-                    User user = User.getUser(player.getUniqueId());
-                    if (user == null) return;
-                    if (user.isAfk()) return;
-                    long minutes = user.getPlayedMinutes();
-                    long hours = user.getPlayedHours();
+                    Optional<User> user = User.getUser(player.getUniqueId());
+
+                    if (user.map(User::isAfk).orElse(false)) return;
+                    long minutes = user.map(User::getPlayedMinutes).orElse(Long.MIN_VALUE);
+                    long hours = user.map(User::getPlayedHours).orElse(Long.MIN_VALUE);
 
                     minutes++;
                     if (minutes >= 60) {
                         minutes = 0;
                         hours++;
-                        user.setPlayedHours(hours);
+                        long finalHours = hours;
+                        user.ifPresent(user1 -> user1.setPlayedHours(finalHours));
                     }
-                    user.setPlayedMinutes(minutes);
-                    user.update();
+                    long finalMinutes = minutes;
+                    user.ifPresent(user1 -> {
+                        user1.setPlayedMinutes(finalMinutes);
+                        user1.update();
+                    });
                 });
             }
         };

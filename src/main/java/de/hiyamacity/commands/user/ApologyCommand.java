@@ -34,11 +34,13 @@ public class ApologyCommand implements CommandExecutor {
             return true;
         }
 
-        StringBuilder msg = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 1; i < args.length; i++) {
-            msg.append(args[i]).append(" ");
+            stringBuilder.append(args[i]).append(" ");
         }
+
+        String msg = stringBuilder.toString();
 
         return false;
     }

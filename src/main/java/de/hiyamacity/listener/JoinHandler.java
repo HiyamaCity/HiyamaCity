@@ -14,11 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.text.DateFormat;
 import java.time.Duration;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class JoinHandler implements Listener {
@@ -57,20 +53,19 @@ public class JoinHandler implements Listener {
         if (!User.isUserExist(uuid)) new User(uuid);
         if (!BanManager.isBanned(uuid)) return;
         ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
-        Ban ban = BanManager.getLatestBan(uuid);
-        if (ban == null) return;
-        if (ban.getBanEnd() != 0 && ban.getBanEnd() < System.currentTimeMillis()) {
-            BanManager.unban(uuid);
-            return;
-        }
-        User user = User.getUser(uuid);
-        Locale locale = (user == null || user.getLocale() == null) ? LanguageHandler.defaultLocale : user.getLocale().getJavaUtilLocale();
+        Optional<Ban> ban = BanManager.getLatestBan(uuid);
+        ban.ifPresent(ban1 -> {
+            if (ban1.getBanEnd() < System.currentTimeMillis())
+                BanManager.unban(uuid);
+        });
+        Optional<User> user = User.getUser(uuid);
+        Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
-        String reason = (ban.getBanReason() == null) ? "" : ban.getBanReason();
-        String id = (ban.getBanID() == null) ? "" : ban.getBanID();
-        String banStart = (ban.getBanStart() == 0) ? "" : dateFormat.format(ban.getBanStart());
-        String banEnd = (ban.getBanEnd() == 0) ? "" : dateFormat.format(ban.getBanEnd());
-        long remainingTime = ban.getBanEnd() - System.currentTimeMillis();
+        String reason = ban.map(Ban::getBanReason).orElse("");
+        String id = ban.map(Ban::getBanID).orElse("");
+        String banStart = dateFormat.format(ban.map(Ban::getBanStart).orElse(Long.MIN_VALUE));
+        String banEnd = dateFormat.format(ban.map(Ban::getBanEnd).orElse(Long.MIN_VALUE));
+        long remainingTime = ban.map(Ban::getBanEnd).orElse(Long.MIN_VALUE) - System.currentTimeMillis();
         Duration duration = Duration.ofMillis(remainingTime);
         long days = duration.toDays();
         duration = duration.minusDays(days);
@@ -79,9 +74,9 @@ public class JoinHandler implements Listener {
         long minutes = duration.toMinutes();
         duration = duration.minusMinutes(minutes);
         long seconds = duration.toSeconds();
-        if (ban.getBanEnd() == 0)
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, (ban.getBanReason() == null) ? rs.getString("banMessageNoReason").replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(ban.getBanStart())) : rs.getString("banMessage").replace("%reason%", ban.getBanReason()).replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(ban.getBanStart())));
+        if (ban.map(Ban::getBanEnd).orElse(Long.MIN_VALUE) == 0)
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, (ban.map(Ban::getBanReason).orElse(null) == null) ? rs.getString("banMessageNoReason").replace("%id%", ban.map(Ban::getBanID).orElse(null)).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart))) : rs.getString("banMessage").replace("%reason%", ban.map(Ban::getBanReason).orElse(null)).replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart))));
         else
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, (ban.getBanReason() == null) ? rs.getString("tempBanMessageNoReason").replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessage").replace("%reason%", reason).replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)));
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, (ban.map(Ban::getBanReason).orElse(null) == null) ? rs.getString("tempBanMessageNoReason").replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessage").replace("%reason%", reason).replace("%id%", id).replace("%banStart%", banStart).replace("%banEnd%", banEnd).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)));
     }
 }

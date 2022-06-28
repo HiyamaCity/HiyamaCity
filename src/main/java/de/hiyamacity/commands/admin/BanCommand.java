@@ -15,10 +15,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 public class BanCommand implements CommandExecutor {
 
@@ -42,15 +39,14 @@ public class BanCommand implements CommandExecutor {
                 if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId());
                 else BanManager.ban(uuid);
                 sender.sendMessage(rs.getString("banMessageNoReasonSelf").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
-                Ban ban = BanManager.getLatestBan(uuid);
-                if (ban == null) return true;
+                Optional<Ban> ban = BanManager.getLatestBan(uuid);
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);
-                User user = User.getUser(uuid);
-                Locale locale = (user == null || user.getLocale() == null) ? LanguageHandler.defaultLocale : user.getLocale().getJavaUtilLocale();
+                Optional<User> user = User.getUser(uuid);
+                Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
                 DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
-                t.kick(Component.text(trs.getString("banMessageNoReason").replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(ban.getBanStart()))), PlayerKickEvent.Cause.BANNED);
+                t.kick(Component.text(trs.getString("banMessageNoReason").replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED);
             }
             default -> {
                 StringBuilder stringBuilder = new StringBuilder();
@@ -67,15 +63,14 @@ public class BanCommand implements CommandExecutor {
                 if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId(), reason);
                 else BanManager.ban(uuid, reason);
                 sender.sendMessage(rs.getString("banMessageSelf").replace("%reason%", reason).replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
-                Ban ban = BanManager.getLatestBan(uuid);
-                if (ban == null) return true;
+                Optional<Ban> ban = BanManager.getLatestBan(uuid);
                 Player t = Bukkit.getPlayer(uuid);
                 if (t == null) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);
-                User user = User.getUser(uuid);
-                Locale locale = (user == null || user.getLocale() == null) ? LanguageHandler.defaultLocale : user.getLocale().getJavaUtilLocale();
+                Optional<User> user = User.getUser(uuid);
+                Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
                 DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
-                t.kick(Component.text(trs.getString("banMessage").replace("%reason%", reason).replace("%id%", ban.getBanID()).replace("%banStart%", dateFormat.format(ban.getBanStart()))), PlayerKickEvent.Cause.BANNED);
+                t.kick(Component.text(trs.getString("banMessage").replace("%reason%", reason).replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED);
             }
         }
 

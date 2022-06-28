@@ -9,13 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -176,18 +176,18 @@ public class User {
      * @param uuid Unique user ID of the Player.
      * @return Returns a User Object from the Database by its corresponding UUID.
      */
-    public static User getUser(UUID uuid) {
-        if (!isUserExist(uuid)) return null;
+    public static Optional<User> getUser(UUID uuid) {
+        if (!isUserExist(uuid)) return Optional.empty();
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT PLAYER FROM PLAYERS WHERE UUID = ?")) {
                 ps.setString(1, uuid.toString());
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) return fromJson(rs.getString("PLAYER"));
+                if (rs.next()) return Optional.ofNullable(fromJson(rs.getString("PLAYER")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     /**

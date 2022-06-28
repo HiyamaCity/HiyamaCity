@@ -17,7 +17,6 @@ public class RequestHandler {
     @Getter
     private static HashMap<UUID, ? extends Request> requests;
 
-
     public static <T extends Request> void sendRequest(T request) {
         if (request == null) return;
         if (request.getRequestedAt() == 0 || request.getRequester() == null || request.getRequestType() == null || request.getRecipient() == null)

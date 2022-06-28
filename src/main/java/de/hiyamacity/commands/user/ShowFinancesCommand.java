@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ShowFinancesCommand implements CommandExecutor {
@@ -38,12 +39,11 @@ public class ShowFinancesCommand implements CommandExecutor {
             return true;
         }
 
-        User user = User.getUser(p.getUniqueId());
-        if(user == null) return true;
+        Optional<User> user = User.getUser(p.getUniqueId());
         DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
         p.sendMessage(rs.getString("showFinancesSelf").replace("%target%", t.getName()));
         ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-        t.sendMessage(trs.getString("showFinancesOther").replace("%player%", p.getName()).replace("%money%", decimalFormat.format(user.getPurse())));
+        t.sendMessage(trs.getString("showFinancesOther").replace("%player%", p.getName()).replace("%money%", decimalFormat.format(user.map(User::getPurse).orElse(Long.MIN_VALUE))));
 
         return false;
     }

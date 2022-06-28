@@ -6,6 +6,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.Optional;
+
 @SuppressWarnings("deprecation")
 public class RankHandler {
 
@@ -39,9 +41,8 @@ public class RankHandler {
     public static void applyPrefixes() {
         Bukkit.getOnlinePlayers().forEach(player -> {
             Team team;
-            User user = User.getUser(player.getUniqueId());
-            assert user != null;
-            if (user.isAfk()) team = sb.getTeam(AFK_TEAM);
+            Optional<User> user = User.getUser(player.getUniqueId());
+            if (user.map(User::isAfk).orElse(false)) team = sb.getTeam(AFK_TEAM);
             else if (player.hasPermission("admin")) team = sb.getTeam(ADMIN_TEAM);
             else team = sb.getTeam(PLAYER_TEAM);
             assert team != null;

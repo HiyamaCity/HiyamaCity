@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DeathsCommand implements CommandExecutor {
@@ -29,9 +30,8 @@ public class DeathsCommand implements CommandExecutor {
             return true;
         }
 
-        User user = User.getUser(t.getUniqueId());
-        if (user == null) return true;
-        long deaths = user.getDeaths();
+        Optional<User> user = User.getUser(t.getUniqueId());
+        long deaths = user.map(User::getDeaths).orElse(Long.MIN_VALUE);
 
         p.sendMessage(resourceBundle.getString("deathCount").replace("%amount%", "" + deaths).replace("%target%", t.getName()));
 

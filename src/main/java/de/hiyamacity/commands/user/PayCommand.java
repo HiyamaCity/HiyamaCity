@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PayCommand implements CommandExecutor {
@@ -47,25 +48,25 @@ public class PayCommand implements CommandExecutor {
             return true;
         }
 
-        User pUser = User.getUser(p.getUniqueId());
-        User tUser = User.getUser(t.getUniqueId());
-        if (pUser == null || tUser == null) return true;
-        long moneyUser = pUser.getPurse();
+        Optional<User> pUser = User.getUser(p.getUniqueId());
+        Optional<User> tUser = User.getUser(t.getUniqueId());
+        if (pUser.isEmpty() || tUser.isEmpty()) return true;
+        long moneyUser = pUser.map(User::getPurse).orElse(Long.MIN_VALUE);
         if (moneyUser < amount) {
             p.sendMessage(rs.getString("payInsufficientAmount"));
             return true;
         }
 
-        pUser.setPurse(pUser.getPurse() - amount);
+        pUser.ifPresent(user -> user.setPurse(user.getPurse() - amount));
         p.sendMessage(rs.getString("paySend").replace("%target%", t.getName()).replace("%amount%", "" + amount));
         p.sendMessage("§c-" + amount + "$");
-        tUser.setPurse(tUser.getPurse() + amount);
+        tUser.ifPresent(user -> user.setPurse(user.getPurse() + amount));
         ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
         t.sendMessage(trs.getString("payReceive").replace("%player%", p.getName()).replace("%amount%", "" + amount));
         t.sendMessage("§a+" + amount + "$");
 
-        pUser.update();
-        tUser.update();
+        pUser.ifPresent(User::update);
+        tUser.ifPresent(User::update);
 
         return false;
     }

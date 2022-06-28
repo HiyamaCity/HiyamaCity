@@ -3,7 +3,6 @@ package de.hiyamacity.commands.user;
 import de.hiyamacity.misc.Distances;
 import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

@@ -2,7 +2,6 @@ package de.hiyamacity.commands.user;
 
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Contract;
-import org.apache.commons.codec.language.bm.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
