@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class VanishCommand implements CommandExecutor {
@@ -31,20 +32,20 @@ public class VanishCommand implements CommandExecutor {
                 return true;
             }
             case 1 -> {
-                Player t = Bukkit.getPlayer(args[0]);
-                if (t == null) {
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
+                if (t.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
-                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                if (!VanishHandler.isVanish(t)) {
-                    VanishHandler.vanish(t);
-                    p.sendMessage(rs.getString("vanishSelfActivateOther").replace("%target%", t.getName()));
-                    t.sendMessage(trs.getString("vanishOtherActivate").replace("%player%", p.getName()));
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+                if (!VanishHandler.isVanish(t.orElse(null))) {
+                    VanishHandler.vanish(t.orElse(null));
+                    p.sendMessage(rs.getString("vanishSelfActivateOther").replace("%target%", t.map(Player::getName).orElse(null)));
+                    t.ifPresent(player -> player.sendMessage(trs.getString("vanishOtherActivate").replace("%player%", p.getName())));
                 } else {
-                    VanishHandler.reveal(t);
-                    p.sendMessage(rs.getString("vanishSelfDeactivateOther").replace("%target%", t.getName()));
-                    t.sendMessage(trs.getString("vanishOtherDeactivate").replace("%player%", p.getName()));
+                    VanishHandler.reveal(t.orElse(null));
+                    p.sendMessage(rs.getString("vanishSelfDeactivateOther").replace("%target%", t.map(Player::getName).orElse(null)));
+                    t.ifPresent(player -> player.sendMessage(trs.getString("vanishOtherDeactivate").replace("%player%", p.getName())));
                 }
                 return true;
             }

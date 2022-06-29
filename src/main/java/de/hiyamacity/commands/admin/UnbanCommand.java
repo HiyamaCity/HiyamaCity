@@ -28,20 +28,20 @@ public class UnbanCommand implements CommandExecutor {
             return true;
         }
 
-        UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
+        Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
 
-        if (uuid == null) {
+        if (uuid.isEmpty()) {
             sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
 
-        if (!BanManager.isBanned(uuid)) {
+        if (!BanManager.isBanned(uuid.orElse(null))) {
             sender.sendMessage(rs.getString("playerNotBanned").replace("%target%", args[0]));
             return true;
         }
 
-        BanManager.unban(uuid);
-        sender.sendMessage(rs.getString("unbanSuccessful").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid)).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid).getName()).orElse(""))));
+        BanManager.unban(uuid.orElse(null));
+        sender.sendMessage(rs.getString("unbanSuccessful").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))));
         return false;
     }
 }

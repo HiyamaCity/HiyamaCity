@@ -28,22 +28,22 @@ public class ShowFinancesCommand implements CommandExecutor {
             return true;
         }
 
-        Player t = Bukkit.getPlayer(args[0]);
-        if (t == null) {
+        Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
+        if (t.isEmpty()) {
             p.sendMessage(rs.getString("playerNotFound").replace("%target%", p.getName()));
             return true;
         }
 
-        if (p.getLocation().distanceSquared(t.getLocation()) > Distances.SHOW_FINANCES) {
+        if (p.getLocation().distanceSquared(t.map(Player::getLocation).orElse(null)) > Distances.SHOW_FINANCES) {
             p.sendMessage(rs.getString("playerTooFarAway"));
             return true;
         }
 
         Optional<User> user = User.getUser(p.getUniqueId());
         DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
-        p.sendMessage(rs.getString("showFinancesSelf").replace("%target%", t.getName()));
-        ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-        t.sendMessage(trs.getString("showFinancesOther").replace("%player%", p.getName()).replace("%money%", decimalFormat.format(user.map(User::getPurse).orElse(Long.MIN_VALUE))));
+        p.sendMessage(rs.getString("showFinancesSelf").replace("%target%", t.map(Player::getName).orElse(null)));
+        ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+        t.ifPresent(player -> player.sendMessage(trs.getString("showFinancesOther").replace("%player%", p.getName()).replace("%money%", decimalFormat.format(user.map(User::getPurse).orElse(Long.MIN_VALUE)))));
 
         return false;
     }

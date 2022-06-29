@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MessageCommand implements CommandExecutor {
@@ -21,20 +22,18 @@ public class MessageCommand implements CommandExecutor {
             return true;
         }
 
-        Player t = Bukkit.getPlayer(args[0]);
+        Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
 
-        if (t == null) {
+        if (t.isEmpty()) {
             p.sendMessage(resourceBundle.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
 
-        if (p.getName().equals(t.getName())) {
+        if (p.getName().equals(t.map(Player::getName).orElse(null))) {
             p.sendMessage(resourceBundle.getString("messageNotToYourself"));
             return true;
         }
 
-        //     0       1     2    3   4   5   6   7    8
-        // /message <Name> Hallo ich bin cool du aber auch
 
         StringBuilder msg = new StringBuilder();
 
@@ -45,9 +44,9 @@ public class MessageCommand implements CommandExecutor {
 
         String message = msg.toString().trim();
 
-        p.sendMessage(resourceBundle.getString("messageSelf").replace("%target%", t.getName()).replace("%msg%", message));
-        ResourceBundle targetResourceBundle = LanguageHandler.getResourceBundle(t.getUniqueId());
-        t.sendMessage(targetResourceBundle.getString("messageOther").replace("%player%", p.getName()).replace("%msg%", message));
+        p.sendMessage(resourceBundle.getString("messageSelf").replace("%target%", t.map(Player::getName).orElse(null)).replace("%msg%", message));
+        ResourceBundle targetResourceBundle = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+        t.ifPresent(player -> player.sendMessage(targetResourceBundle.getString("messageOther").replace("%player%", p.getName()).replace("%msg%", message)));
 
         return false;
     }

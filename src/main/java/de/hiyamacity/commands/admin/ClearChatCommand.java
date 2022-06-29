@@ -9,6 +9,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ClearChatCommand implements CommandExecutor {
@@ -29,13 +30,13 @@ public class ClearChatCommand implements CommandExecutor {
                 return true;
             }
             case 1 -> {
-                Player t = Bukkit.getPlayer(args[0]);
-                if (t == null) {
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
+                if (t.isEmpty()) {
                     sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
-                clearChat(t);
-                sender.sendMessage(rs.getString("clearChatOtherSuccessful").replace("%target%", t.getName()));
+                clearChat(t.orElse(null));
+                sender.sendMessage(rs.getString("clearChatOtherSuccessful").replace("%target%", t.map(Player::getName).orElse("")));
                 return true;
             }
             default -> {

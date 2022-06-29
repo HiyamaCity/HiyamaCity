@@ -24,16 +24,16 @@ public class DeathsCommand implements CommandExecutor {
             return true;
         }
 
-        Player t = Bukkit.getPlayer(args[0]);
-        if (t == null) {
+        Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
+        if (t.isEmpty()) {
             p.sendMessage(resourceBundle.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
 
-        Optional<User> user = User.getUser(t.getUniqueId());
+        Optional<User> user = User.getUser(t.map(Player::getUniqueId).orElse(null));
         long deaths = user.map(User::getDeaths).orElse(Long.MIN_VALUE);
 
-        p.sendMessage(resourceBundle.getString("deathCount").replace("%amount%", "" + deaths).replace("%target%", t.getName()));
+        p.sendMessage(resourceBundle.getString("deathCount").replace("%amount%", "" + deaths).replace("%target%", t.map(Player::getName).orElse(null)));
 
         return false;
     }

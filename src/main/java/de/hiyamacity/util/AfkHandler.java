@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AfkHandler {
@@ -16,16 +17,20 @@ public class AfkHandler {
     public static void toggleAfk(User user) {
         if (user == null) return;
         user.setAfk(!user.isAfk());
-        Player p = Bukkit.getPlayer(user.getUuid());
-        if (p == null) return;
-        ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
+        Optional<Player> p = Optional.ofNullable(Bukkit.getPlayer(user.getUuid()));
+        if (p.isEmpty()) return;
+        ResourceBundle rs = LanguageHandler.getResourceBundle(p.map(Player::getUniqueId).orElse(null));
         if (user.isAfk()) {
-            user.setNonAfkLocation(new de.hiyamacity.objects.Location(p.getLocation()));
-            p.sendMessage(rs.getString("afkJoin"));
-            p.teleport(afkLocation);
+            user.setNonAfkLocation(new de.hiyamacity.objects.Location(p.map(Player::getLocation).orElse(fallBackLocation)));
+            p.ifPresent(player -> {
+                player.sendMessage(rs.getString("afkJoin"));
+                player.teleport(afkLocation);
+            });
         } else {
-            p.sendMessage(rs.getString("afkQuit"));
-            p.teleport((user.getNonAfkLocation() == null) ? fallBackLocation : user.getNonAfkLocation().getAsBukkitLocation());
+            p.ifPresent(player -> {
+                player.sendMessage(rs.getString("afkQuit"));
+                player.teleport((user.getNonAfkLocation() == null) ? fallBackLocation : user.getNonAfkLocation().getAsBukkitLocation());
+            });
             user.setNonAfkLocation(null);
         }
         user.update();

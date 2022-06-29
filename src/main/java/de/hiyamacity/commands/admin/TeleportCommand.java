@@ -12,10 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class TeleportCommand implements CommandExecutor, TabCompleter {
 
@@ -30,66 +27,65 @@ public class TeleportCommand implements CommandExecutor, TabCompleter {
         if (!p.hasPermission("teleport")) return true;
         switch (args.length) {
             case 1 -> {
-                Player t = Bukkit.getPlayer(args[0]);
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
 
-                if (t == null) {
+                if (t.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
 
-                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                p.teleport(t.getLocation());
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+                p.teleport(t.map(Player::getLocation).orElse(null));
 
-                p.sendMessage(rs.getString("teleportToOtherSelf").replace("%target%", t.getName()));
+                p.sendMessage(rs.getString("teleportToOtherSelf").replace("%target%", t.map(Player::getName).orElse("")));
                 if (!VanishHandler.isVanish(p))
-                    t.sendMessage(trs.getString("teleportToOtherOther").replace("%player%", p.getName()));
+                    t.ifPresent(player -> player.sendMessage(trs.getString("teleportToOtherOther").replace("%player%", p.getName())));
                 return true;
             }
             case 2 -> {
-                Player t = Bukkit.getPlayer(args[0]);
-                Player t1 = Bukkit.getPlayer(args[1]);
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
+                Optional<Player> t1 = Optional.ofNullable(Bukkit.getPlayer(args[1]));
 
-                if (t == null) {
+                if (t.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
 
-                if (t1 == null) {
+                if (t1.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[1]));
                     return true;
                 }
 
-                t.teleport(t1.getLocation());
-                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                if (!p.equals(t1)) {
-                    ResourceBundle t1rs = LanguageHandler.getResourceBundle(t1.getUniqueId());
+                t.ifPresent(player -> player.teleport(t1.map(Player::getLocation).orElse(null)));
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+                if (!p.equals(t1.orElse(null))) {
+                    ResourceBundle t1rs = LanguageHandler.getResourceBundle(t1.map(Player::getUniqueId).orElse(null));
 
-                    p.sendMessage(rs.getString("teleportOtherToOtherSelf").replace("%target%", t.getName()).replace("target1", t1.getName()));
-                    t.sendMessage(trs.getString("teleportOtherToOtherOther").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
-                    t1.sendMessage(t1rs.getString("teleportOtherToOtherOther1").replace("%player%", p.getName()).replace("%target1%", t1.getName()));
+                    p.sendMessage(rs.getString("teleportOtherToOtherSelf").replace("%target%", t.map(Player::getName).orElse("")).replace("target1", t1.map(Player::getName).orElse("")));
+                    t.ifPresent(player -> player.sendMessage(trs.getString("teleportOtherToOtherOther").replace("%player%", p.getName()).replace("%target1%", t1.map(Player::getName).orElse(""))));
+                    t1.ifPresent(player -> player.sendMessage(t1rs.getString("teleportOtherToOtherOther1").replace("%player%", p.getName()).replace("%target1%", t1.map(Player::getName).orElse(""))));
                 } else {
-                    p.sendMessage(rs.getString("teleportOtherSelf").replace("%target%", t.getName()));
-                    t.sendMessage(trs.getString("teleportOtherOther").replace("%player%", p.getName()));
+                    p.sendMessage(rs.getString("teleportOtherSelf").replace("%target%", t.map(Player::getName).orElse("")));
+                    t.ifPresent(player -> player.sendMessage(trs.getString("teleportOtherOther").replace("%player%", p.getName())));
 
                 }
                 return true;
             }
             case 3 -> {
-                Location loc = (isDouble(args[0]) && isDouble(args[1]) && isDouble(args[2]) ? new Location(p.getWorld(), Double.parseDouble(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2])) : getRelativeLocation(p.getLocation(), args[0], args[1], args[2]));
-                if (loc == null) return true;
-                p.teleport(loc);
-                p.sendMessage(rs.getString("teleportToCoordinates").replace("%x%", "" + loc.getX()).replace("%y%", "" + loc.getY()).replace("%z%", "" + loc.getZ()));
+                Optional<Location> loc = Optional.ofNullable((isDouble(args[0]) && isDouble(args[1]) && isDouble(args[2]) ? new Location(p.getWorld(), Double.parseDouble(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2])) : getRelativeLocation(p.getLocation(), args[0], args[1], args[2])));
+                if (loc.isEmpty()) return true;
+                p.teleport(loc.orElse(null));
+                p.sendMessage(rs.getString("teleportToCoordinates").replace("%x%", "" + loc.map(Location::getX)).replace("%y%", "" + loc.map(Location::getY)).replace("%z%", "" + loc.map(Location::getY)));
                 return true;
             }
             case 4 -> {
-                Location loc = (isDouble(args[1]) && isDouble(args[2]) && isDouble(args[3]) ? new Location(p.getWorld(), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3])) : getRelativeLocation(p.getLocation(), args[1], args[2], args[3]));
-                if (loc == null) return true;
-                Player t = Bukkit.getPlayer(args[0]);
-                if (t == null) return true;
-                t.teleport(loc);
-                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                p.sendMessage(rs.getString("teleportToCoordinatesOtherSelf").replace("%target%", t.getName()).replace("%x%", "" + loc.getX()).replace("%y%", "" + loc.getY()).replace("%z%", "" + loc.getZ()));
-                t.sendMessage(trs.getString("teleportToCoordinatesOtherOther").replace("%player%", p.getName()).replace("%x%", "" + loc.getX()).replace("%y%", "" + loc.getY()).replace("%z%", "" + loc.getZ()));
+                Optional<Location> loc = Optional.of((isDouble(args[1]) && isDouble(args[2]) && isDouble(args[3]) ? new Location(p.getWorld(), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3])) : Optional.ofNullable(getRelativeLocation(p.getLocation(), args[1], args[2], args[3])).orElse(p.getLocation())));
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
+                if (t.isEmpty()) return true;
+                t.ifPresent(player -> player.teleport(loc.orElse(null)));
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+                p.sendMessage(rs.getString("teleportToCoordinatesOtherSelf").replace("%target%", t.map(Player::getName).orElse("")).replace("%x%", "" + loc.map(Location::getX)).replace("%y%", "" + loc.map(Location::getY)).replace("%z%", "" + loc.map(Location::getZ)));
+                t.ifPresent(player -> player.sendMessage(trs.getString("teleportToCoordinatesOtherOther").replace("%player%", p.getName()).replace("%x%", "" + loc.map(Location::getX)).replace("%y%", "" + loc.map(Location::getY)).replace("%z%", "" + loc.map(Location::getZ))));
                 return true;
             }
             default -> {

@@ -26,20 +26,20 @@ public class CheckBansCommand implements CommandExecutor {
             sender.sendMessage(rs.getString("checkBansUsage"));
             return true;
         }
-        UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
-        if (uuid == null) {
+        Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
+        if (uuid.isEmpty()) {
             sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
-        if (!BanManager.hasBans(uuid)) {
+        if (!BanManager.hasBans(uuid.orElse(null))) {
             sender.sendMessage(rs.getString("playerWasNotBannedYet").replace("%target%", args[0]));
             return true;
         }
-        Optional<User> user = User.getUser(uuid);
+        Optional<User> user = User.getUser(uuid.orElse(null));
         Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
-        sender.sendMessage(rs.getString("checkBansHeader").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid)).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid).getName()).orElse(""))));
-        BanManager.getBans(uuid).ifPresent(bans -> bans.forEach(ban -> sender.sendMessage(rs.getString("checkBansMessage").replace("%reason%", (ban.getBanReason() == null) ? "" : ban.getBanReason()).replace("%id%", (ban.getBanID() == null) ? "" : ban.getBanID()).replace("%banStart%", (ban.getBanStart() == 0) ? "" : dateFormat.format(ban.getBanStart())).replace("%banEnd%", (ban.getBanEnd() == 0) ? "" : dateFormat.format(ban.getBanEnd())).replace("%boolean%", String.valueOf(ban.isActive())).replace("%createdBy%", Optional.ofNullable(Bukkit.getPlayer(ban.getCreatedBy())).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(ban.getCreatedBy()).getName()).orElse(""))))));
+        sender.sendMessage(rs.getString("checkBansHeader").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))));
+        BanManager.getBans(uuid.orElse(null)).ifPresent(bans -> bans.forEach(ban -> sender.sendMessage(rs.getString("checkBansMessage").replace("%reason%", (ban.getBanReason() == null) ? "" : ban.getBanReason()).replace("%id%", (ban.getBanID() == null) ? "" : ban.getBanID()).replace("%banStart%", (ban.getBanStart() == 0) ? "" : dateFormat.format(ban.getBanStart())).replace("%banEnd%", (ban.getBanEnd() == 0) ? "" : dateFormat.format(ban.getBanEnd())).replace("%boolean%", String.valueOf(ban.isActive())).replace("%createdBy%", Optional.ofNullable(Bukkit.getPlayer(ban.getCreatedBy())).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(ban.getCreatedBy()).getName()).orElse(""))))));
         sender.sendMessage(rs.getString("checkBansFooter"));
 
         return false;

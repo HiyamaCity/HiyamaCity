@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -32,15 +33,14 @@ public class ContractCommand implements CommandExecutor {
             msg.append(args[i]).append(" ");
         }
 
-        Player t = Bukkit.getPlayer(args[0]);
+        Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
 
-        if (t == null) {
+        if (t.isEmpty()) {
             p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
 
-        Contract contract = new Contract(p.getUniqueId(), t.getUniqueId(), msg.toString().trim());
-
+        Contract contract = new Contract(p.getUniqueId(), t.map(Player::getUniqueId).orElse(null), msg.toString().trim());
 
         return false;
     }

@@ -26,18 +26,18 @@ public class ClearBansCommand implements CommandExecutor {
             sender.sendMessage(rs.getString("clearBansUsage"));
             return true;
         }
-        UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
-        if (uuid == null) {
+        Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
+        if (uuid.isEmpty()) {
             sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
-        if (!BanManager.hasBans(uuid)) {
+        if (!BanManager.hasBans(uuid.orElse(null))) {
             sender.sendMessage(rs.getString("playerWasNotBannedYet").replace("%target%", args[0]));
             return true;
         }
 
-        sender.sendMessage(rs.getString("clearBansSuccessful").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid)).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid).getName()).orElse(""))));
-        BanManager.clearBans(uuid);
+        sender.sendMessage(rs.getString("clearBansSuccessful").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))));
+        BanManager.clearBans(uuid.orElse(null));
 
         return false;
     }

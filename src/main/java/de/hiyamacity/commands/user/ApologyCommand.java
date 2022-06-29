@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 // Übung von Ina
@@ -22,14 +23,14 @@ public class ApologyCommand implements CommandExecutor {
             return true;
         }
 
-        Player t = Bukkit.getPlayer(args[0]);
+        Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
 
-        if (t == null) {
+        if (t.isEmpty()) {
             p.sendMessage(resourceBundle.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
 
-        if (p.getName().equals(t.getName())) {
+        if (p.getName().equals(t.map(Player::getName).orElse(null))) {
             p.sendMessage(resourceBundle.getString("apologyNotToYourself"));
             return true;
         }

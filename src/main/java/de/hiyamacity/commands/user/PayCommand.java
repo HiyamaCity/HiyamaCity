@@ -24,19 +24,19 @@ public class PayCommand implements CommandExecutor {
             p.sendMessage(rs.getString("payUsage"));
             return true;
         }
-        Player t = Bukkit.getPlayer(args[0]);
+        Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
 
-        if (t == null) {
+        if (t.isEmpty()) {
             p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
             return true;
         }
 
-        if (p.getName().equals(t.getName())) {
+        if (p.getName().equals(t.map(Player::getName).orElse(null))) {
             p.sendMessage(rs.getString("payCantPaySelf"));
             return true;
         }
 
-        if (p.getLocation().distanceSquared(t.getLocation()) > Distances.CHAT_MESSAGE_NEAREST) {
+        if (p.getLocation().distanceSquared(t.map(Player::getLocation).orElse(null)) > Distances.CHAT_MESSAGE_NEAREST) {
             p.sendMessage(rs.getString("playerTooFarAway"));
             return true;
         }
@@ -49,7 +49,7 @@ public class PayCommand implements CommandExecutor {
         }
 
         Optional<User> pUser = User.getUser(p.getUniqueId());
-        Optional<User> tUser = User.getUser(t.getUniqueId());
+        Optional<User> tUser = User.getUser(t.map(Player::getUniqueId).orElse(null));
         if (pUser.isEmpty() || tUser.isEmpty()) return true;
         long moneyUser = pUser.map(User::getPurse).orElse(Long.MIN_VALUE);
         if (moneyUser < amount) {
@@ -58,12 +58,12 @@ public class PayCommand implements CommandExecutor {
         }
 
         pUser.ifPresent(user -> user.setPurse(user.getPurse() - amount));
-        p.sendMessage(rs.getString("paySend").replace("%target%", t.getName()).replace("%amount%", "" + amount));
+        p.sendMessage(rs.getString("paySend").replace("%target%", t.map(Player::getName).orElse(null)).replace("%amount%", "" + amount));
         p.sendMessage("§c-" + amount + "$");
         tUser.ifPresent(user -> user.setPurse(user.getPurse() + amount));
-        ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-        t.sendMessage(trs.getString("payReceive").replace("%player%", p.getName()).replace("%amount%", "" + amount));
-        t.sendMessage("§a+" + amount + "$");
+        ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+        t.ifPresent(player -> player.sendMessage(trs.getString("payReceive").replace("%player%", p.getName()).replace("%amount%", "" + amount)));
+        t.ifPresent(player -> player.sendMessage("§a+" + amount + "$"));
 
         pUser.ifPresent(User::update);
         tUser.ifPresent(User::update);

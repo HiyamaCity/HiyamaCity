@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class KickCommand implements CommandExecutor {
@@ -26,23 +27,23 @@ public class KickCommand implements CommandExecutor {
                 return true;
             }
             case 1 -> {
-                Player t = Bukkit.getPlayer(args[0]);
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
 
-                if (t == null) {
+                if (t.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
 
-                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                t.kick(Component.text(trs.getString("kickMessageNoReason")), PlayerKickEvent.Cause.KICK_COMMAND);
-                p.sendMessage(rs.getString("kickMessageKickedNoReason").replace("%target%", t.getName()));
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+                p.sendMessage(rs.getString("kickMessageKickedNoReason").replace("%target%", t.map(Player::getName).orElse("")));
+                t.ifPresent(player -> player.kick(Component.text(trs.getString("kickMessageNoReason")), PlayerKickEvent.Cause.KICK_COMMAND));
 
                 return true;
             }
             default -> {
-                Player t = Bukkit.getPlayer(args[0]);
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[0]));
 
-                if (t == null) {
+                if (t.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
@@ -52,9 +53,9 @@ public class KickCommand implements CommandExecutor {
                     reason.append(args[i]).append(" ");
                 }
 
-                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                t.kick(Component.text(trs.getString("kickMessage").replace("%reason%", reason.toString().trim()).replace("%player%", p.getName())), PlayerKickEvent.Cause.KICK_COMMAND);
-                p.sendMessage(rs.getString("kickMessageKicked").replace("%target%", t.getName()).replace("%reason%", reason.toString().trim()));
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+                p.sendMessage(rs.getString("kickMessageKicked").replace("%target%", t.map(Player::getName).orElse("")).replace("%reason%", reason.toString().trim()));
+                t.ifPresent(player -> player.kick(Component.text(trs.getString("kickMessage").replace("%reason%", reason.toString().trim()).replace("%player%", p.getName())), PlayerKickEvent.Cause.KICK_COMMAND));
 
                 return true;
             }

@@ -201,9 +201,8 @@ public class User {
         if (skill.addXP(amount)) {
             UUID uuid = this.uuid;
             ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
-            Player p = Bukkit.getPlayer(uuid);
-            if (p == null) return;
-            p.sendMessage(rs.getString("levelUp").replace("%skill%", skill.toString()).replace("%level%", String.valueOf(skill.getLevel())));
+            Optional<Player> p = Optional.ofNullable(Bukkit.getPlayer(uuid));
+            p.ifPresent(player -> player.sendMessage(rs.getString("levelUp").replace("%skill%", skill.toString()).replace("%level%", String.valueOf(skill.getLevel()))));
         }
     }
 

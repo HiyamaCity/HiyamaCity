@@ -30,23 +30,23 @@ public class BanCommand implements CommandExecutor {
                 return true;
             }
             case 1 -> {
-                UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
-                if (uuid == null) {
+                Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
+                if (uuid.isEmpty()) {
                     sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
 
-                if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId());
-                else BanManager.ban(uuid);
-                sender.sendMessage(rs.getString("banMessageNoReasonSelf").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid)).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid).getName()).orElse(""))));
-                Optional<Ban> ban = BanManager.getLatestBan(uuid);
-                Player t = Bukkit.getPlayer(uuid);
-                if (t == null) return true;
-                ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);
-                Optional<User> user = User.getUser(uuid);
+                if (sender instanceof Player p) BanManager.ban(uuid.orElse(null), p.getUniqueId());
+                else BanManager.ban(uuid.orElse(null));
+                sender.sendMessage(rs.getString("banMessageNoReasonSelf").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))));
+                Optional<Ban> ban = BanManager.getLatestBan(uuid.orElse(null));
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null)));
+                if (t.isEmpty()) return true;
+                ResourceBundle trs = LanguageHandler.getResourceBundle(uuid.orElse(null));
+                Optional<User> user = User.getUser(uuid.orElse(null));
                 Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
                 DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
-                t.kick(Component.text(trs.getString("banMessageNoReason").replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED);
+                t.ifPresent(player -> player.kick(Component.text(trs.getString("banMessageNoReason").replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED));
             }
             default -> {
                 StringBuilder stringBuilder = new StringBuilder();
@@ -54,23 +54,23 @@ public class BanCommand implements CommandExecutor {
                     stringBuilder.append(args[i]).append(" ");
                 }
                 String reason = stringBuilder.toString().trim();
-                UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
-                if (uuid == null) {
+                Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
+                if (uuid.isEmpty()) {
                     sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
 
-                if (sender instanceof Player p) BanManager.ban(uuid, p.getUniqueId(), reason);
-                else BanManager.ban(uuid, reason);
-                sender.sendMessage(rs.getString("banMessageSelf").replace("%reason%", reason).replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid)).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid).getName()).orElse(""))));
-                Optional<Ban> ban = BanManager.getLatestBan(uuid);
-                Player t = Bukkit.getPlayer(uuid);
-                if (t == null) return true;
-                ResourceBundle trs = LanguageHandler.getResourceBundle(uuid);
-                Optional<User> user = User.getUser(uuid);
+                if (sender instanceof Player p) BanManager.ban(uuid.orElse(null), p.getUniqueId(), reason);
+                else BanManager.ban(uuid.orElse(null), reason);
+                sender.sendMessage(rs.getString("banMessageSelf").replace("%reason%", reason).replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))));
+                Optional<Ban> ban = BanManager.getLatestBan(uuid.orElse(null));
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null)));
+                if (t.isEmpty()) return true;
+                ResourceBundle trs = LanguageHandler.getResourceBundle(uuid.orElse(null));
+                Optional<User> user = User.getUser(uuid.orElse(null));
                 Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
                 DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
-                t.kick(Component.text(trs.getString("banMessage").replace("%reason%", reason).replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED);
+                t.ifPresent(player -> player.kick(Component.text(trs.getString("banMessage").replace("%reason%", reason).replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED));
             }
         }
 

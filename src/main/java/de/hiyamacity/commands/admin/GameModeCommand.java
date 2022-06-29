@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GameModeCommand implements CommandExecutor {
@@ -38,31 +39,29 @@ public class GameModeCommand implements CommandExecutor {
             return true;
         }
 
-        GameMode gm = switch (Integer.parseInt(args[0])) {
-            case 0 -> GameMode.SURVIVAL;
-            case 1 -> GameMode.CREATIVE;
-            case 2 -> GameMode.ADVENTURE;
-            case 3 -> GameMode.SPECTATOR;
-            default -> null;
+        Optional<GameMode> gm = switch (Integer.parseInt(args[0])) {
+            case 0 -> Optional.of(GameMode.SURVIVAL);
+            case 1 -> Optional.of(GameMode.CREATIVE);
+            case 2 -> Optional.of(GameMode.ADVENTURE);
+            case 3 -> Optional.of(GameMode.SPECTATOR);
+            default -> Optional.empty();
         };
-
+        if(gm.isEmpty()) return true;
         switch (args.length) {
             case 1 -> {
-                if (gm == null) break;
-                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChanged").replace("%gameMode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)));
-                p.setGameMode(gm);
+                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChanged").replace("%gameMode%", gm.map(GameMode::name).orElse("").toLowerCase().substring(0, 1).toUpperCase() + gm.map(GameMode::name).orElse("").toLowerCase().substring(1)));
+                p.setGameMode(gm.orElse(null));
             }
             case 2 -> {
-                Player t = Bukkit.getPlayer(args[1]);
-                if (t == null) {
+                Optional<Player> t = Optional.ofNullable(Bukkit.getPlayer(args[1]));
+                if (t.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[1]));
                     return true;
                 }
-                assert gm != null;
-                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChangedOther").replace("%gameMode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%target%", t.getName()));
-                ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
-                t.sendMessage(trs.getString("gmPrefix") + " " + trs.getString("gmOtherChangedOther").replace("%gameMode%", gm.name().toLowerCase().substring(0, 1).toUpperCase() + gm.name().toLowerCase().substring(1)).replace("%player%", p.getName()));
-                t.setGameMode(gm);
+                p.sendMessage(rs.getString("gmPrefix") + " " + rs.getString("gmSelfChangedOther").replace("%gameMode%", gm.map(GameMode::name).orElse("").toLowerCase().substring(0, 1).toUpperCase() + gm.map(GameMode::name).orElse("").toLowerCase().substring(1)).replace("%target%", t.map(Player::getName).orElse("")));
+                ResourceBundle trs = LanguageHandler.getResourceBundle(t.map(Player::getUniqueId).orElse(null));
+                t.ifPresent(player -> player.sendMessage(trs.getString("gmPrefix") + " " + trs.getString("gmOtherChangedOther").replace("%gameMode%", gm.map(GameMode::name).orElse("").toLowerCase().substring(0, 1).toUpperCase() + gm.map(GameMode::name).orElse("").toLowerCase().substring(1)).replace("%player%", p.getName())));
+                t.ifPresent(player -> player.setGameMode(gm.orElse(null)));
             }
         }
 
