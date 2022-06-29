@@ -1,15 +1,17 @@
 package de.hiyamacity.util;
 
 import de.hiyamacity.main.Main;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class VanishHandler {
 
-    private static final Collection<Player> vanishPlayers = new ArrayList<>();
+    @Getter
+    private static final List<Player> vanishPlayers = new ArrayList<>();
 
     public static void updateVanish(Player p) {
         for (Player vanish : vanishPlayers)
@@ -40,5 +42,4 @@ public class VanishHandler {
     public static int getVanishedPlayersCount() {
         return vanishPlayers.size();
     }
-
 }

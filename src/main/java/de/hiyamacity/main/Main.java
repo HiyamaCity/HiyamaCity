@@ -71,6 +71,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("all")).setExecutor(new AllCommand());
         Objects.requireNonNull(getCommand("afk")).setExecutor(new AfkCommand());
         Objects.requireNonNull(getCommand("apology")).setExecutor(new ApologyCommand());
+        Objects.requireNonNull(getCommand("ooc")).setExecutor(new OocCommand());
     }
 
     private void loadListeners() {
@@ -80,5 +81,6 @@ public class Main extends JavaPlugin {
         this.pm.registerEvents(new ChatHandler(), this);
         this.pm.registerEvents(new MOTDHandler(), this);
         this.pm.registerEvents(new DoorHandler(), this);
+        this.pm.registerEvents(new CommandHandler(), this);
     }
 }
