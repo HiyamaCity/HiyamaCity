@@ -70,5 +70,7 @@ commands:
   afk:
     description: Allows the player to enter afk mode.
   apology:
-    description: Allows the player to aplpogize to another player
+    description: Allows the player to apologize to another player.
     aliases: [ apologize ]
+  ooc:
+    description: Allows the player to text out of their role play character.
