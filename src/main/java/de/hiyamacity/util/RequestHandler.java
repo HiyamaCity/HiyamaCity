@@ -17,8 +17,8 @@ public class RequestHandler {
     private static HashMap<UUID, Request<?>> requests;
 
     public static void sendRequest(Request<?> request) {
-        Optional<Request<?>> optional = Optional.ofNullable(request);
-        if (optional.isEmpty() || !requests.containsKey(request.getRequester())) return;
+        Optional<Request<?>> requestOptional = Optional.ofNullable(request);
+        if (requestOptional.isEmpty() || !requests.containsKey(request.getRequester())) return;
         Request<?> requestFromList = requests.get(request.getRequester());
         if (requestFromList.getRequester().equals(request.getRequester())) {
             Optional<Player> p = Optional.ofNullable(Bukkit.getPlayer(request.getRequester()));
