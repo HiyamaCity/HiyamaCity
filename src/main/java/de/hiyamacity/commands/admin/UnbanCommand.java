@@ -10,7 +10,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -41,8 +41,7 @@ public class UnbanCommand implements CommandExecutor {
         }
 
         BanManager.unban(uuid);
-        sender.sendMessage(rs.getString("unbanSuccessful").replace("%target%", (Bukkit.getPlayer(uuid) != null) ? Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName() : Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName())));
-
+        sender.sendMessage(rs.getString("unbanSuccessful").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid)).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid).getName()).orElse(""))));
         return false;
     }
 }

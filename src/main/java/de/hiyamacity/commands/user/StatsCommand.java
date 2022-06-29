@@ -4,6 +4,7 @@ import de.hiyamacity.objects.User;
 import de.hiyamacity.util.DecimalSeparator;
 import de.hiyamacity.lang.LanguageHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,38 +27,42 @@ public class StatsCommand implements CommandExecutor {
         switch (args.length) {
             case 0 -> {
                 Optional<User> user = User.getUser(p.getUniqueId());
-                long hours = user.map(User::getPlayedHours).orElse(Long.MIN_VALUE);
-                long minutes = user.map(User::getPlayedMinutes).orElse(Long.MIN_VALUE);
-                long money = user.map(User::getPurse).orElse(Long.MIN_VALUE);
-                long bank = user.map(User::getBank).orElse(Long.MIN_VALUE);
+                if (user.isEmpty()) {
+                    p.sendMessage(rs.getString("playerNotFound").replace("%target%", p.getName()));
+                    return true;
+                }
+                long hours = user.map(User::getPlayedHours).orElse(0L);
+                long minutes = user.map(User::getPlayedMinutes).orElse(0L);
+                long money = user.map(User::getPurse).orElse(0L);
+                long bank = user.map(User::getBank).orElse(0L);
 
                 DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
 
-                String msg = LanguageHandler.getResourceBundle(p.getUniqueId()).getString("statsMessage")
-                        .replace("%target%", p.getName())
-                        .replace("%hours%", decimalFormat.format(hours))
-                        .replace("%minutes%", decimalFormat.format(minutes))
-                        .replace("%money%", decimalFormat.format(money))
-                        .replace("%bank%", decimalFormat.format(bank));
+                String msg = LanguageHandler.getResourceBundle(p.getUniqueId()).getString("statsMessage").replace("%target%", p.getName()).replace("%hours%", decimalFormat.format(hours)).replace("%minutes%", decimalFormat.format(minutes)).replace("%money%", decimalFormat.format(money)).replace("%bank%", decimalFormat.format(bank));
                 p.sendMessage(msg);
             }
             case 1 -> {
                 if (!p.hasPermission("statsOther")) return true;
-                UUID uuid = Bukkit.getPlayerUniqueId(args[0]);
-                if (uuid == null) {
+                Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
+                if (uuid.isEmpty()) {
                     p.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
                     return true;
                 }
-                Optional<User> user = User.getUser(p.getUniqueId());
-                long hours = user.map(User::getPlayedHours).orElse(Long.MIN_VALUE);
-                long minutes = user.map(User::getPlayedMinutes).orElse(Long.MIN_VALUE);
-                long money = user.map(User::getPurse).orElse(Long.MIN_VALUE);
-                long bank = user.map(User::getBank).orElse(Long.MIN_VALUE);
+                Optional<User> user = User.getUser(uuid.orElse(null));
+                if (user.isEmpty()) {
+                    p.sendMessage(rs.getString("errorFetchingUser").replace("%target%", args[0]));
+                    return true;
+                }
+                long hours = user.map(User::getPlayedHours).orElse(0L);
+                long minutes = user.map(User::getPlayedMinutes).orElse(0L);
+                long money = user.map(User::getPurse).orElse(0L);
+                long bank = user.map(User::getBank).orElse(0L);
 
                 DecimalFormat decimalFormat = DecimalSeparator.prepareFormat(',', '.', false, (byte) 0);
 
-                String msg = LanguageHandler.getResourceBundle(p.getUniqueId()).getString("statsMessage")
-                        .replace("%target%", (Bukkit.getPlayer(uuid) == null) ? Objects.requireNonNull(Bukkit.getOfflinePlayer(uuid).getName()) : Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName())
+                Optional<Player> optionalPlayer = Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null)));
+                String msg = rs.getString("statsMessage")
+                        .replace("%target%", optionalPlayer.map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse("")))
                         .replace("%hours%", decimalFormat.format(hours))
                         .replace("%minutes%", decimalFormat.format(minutes))
                         .replace("%money%", decimalFormat.format(money))
