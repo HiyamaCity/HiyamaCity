@@ -52,6 +52,7 @@ public class RequestHandler {
             if (request.getRecipient().equals(requestTarget)) foundRequestContainingTarget.add(request);
         });
         Optional<? extends Request<?>> requestOptional = Optional.of(foundRequestContainingTarget.get(foundRequestContainingTarget.size() - 1));
+        foundRequestContainingTarget.clear();
         requestOptional.ifPresent(request -> {
             requests.remove(request.getRequester());
             Optional<Player> requester = Optional.ofNullable(Bukkit.getPlayer(request.getRequester()));
@@ -66,16 +67,17 @@ public class RequestHandler {
             });
             switch (request.getRequestType()) {
                 case CONTRACT -> {
+                    Contract contract = (Contract) request;
                     Optional<User> optionalRequester = User.getUser(requester.map(Player::getUniqueId).orElse(null));
                     Optional<User> optionalRecipient = User.getUser(recipient.map(Player::getUniqueId).orElse(null));
                     optionalRequester.ifPresent(user -> {
                         Optional<List<Contract>> contracts = Optional.ofNullable(user.getContracts());
-                        contracts.ifPresent(contracts1 -> contracts1.add((Contract) request));
+                        contracts.ifPresent(contractList -> contractList.add(contract));
                         user.update();
                     });
                     optionalRecipient.ifPresent(user -> {
                         Optional<List<Contract>> contracts = Optional.ofNullable(user.getContracts());
-                        contracts.ifPresent(contracts1 -> contracts1.add((Contract) request));
+                        contracts.ifPresent(contractList -> contractList.add(contract));
                         user.update();
                     });
                 }
