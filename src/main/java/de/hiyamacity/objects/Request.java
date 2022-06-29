@@ -9,7 +9,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Request {
+public class Request <T> {
+
+
 
     public enum RequestType {
         CONTRACT
