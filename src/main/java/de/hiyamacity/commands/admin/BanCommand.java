@@ -44,7 +44,7 @@ public class BanCommand implements CommandExecutor {
                 if (t.isEmpty()) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid.orElse(null));
                 Optional<User> user = User.getUser(uuid.orElse(null));
-                Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
+                Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.getDefaultLocale());
                 DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
                 t.ifPresent(player -> player.kick(Component.text(trs.getString("banMessageNoReason").replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED));
             }
@@ -68,7 +68,7 @@ public class BanCommand implements CommandExecutor {
                 if (t.isEmpty()) return true;
                 ResourceBundle trs = LanguageHandler.getResourceBundle(uuid.orElse(null));
                 Optional<User> user = User.getUser(uuid.orElse(null));
-                Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
+                Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.getDefaultLocale());
                 DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
                 t.ifPresent(player -> player.kick(Component.text(trs.getString("banMessage").replace("%reason%", reason).replace("%id%", ban.map(Ban::getBanID).orElse("")).replace("%banStart%", dateFormat.format(ban.map(Ban::getBanStart)))), PlayerKickEvent.Cause.BANNED));
             }

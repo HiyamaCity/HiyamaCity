@@ -96,7 +96,7 @@ public class TempBanCommand implements CommandExecutor {
         dur = dur.minusMinutes(minutes);
         long seconds = dur.toSeconds();
         Optional<User> user = User.getUser(uuid.orElse(null));
-        Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
+        Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.getDefaultLocale());
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
         sender.sendMessage((ban.map(Ban::getBanReason).orElse(null) == null) ? rs.getString("tempBanMessageNoReasonSelf").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)) : rs.getString("tempBanMessageSelf").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))).replace("%d%", String.valueOf(days)).replace("%h%", String.valueOf(hours)).replace("%m%", String.valueOf(minutes)).replace("%s%", String.valueOf(seconds)).replace("%reason%", ban.map(Ban::getBanReason).orElse(null)));
         Player t = Bukkit.getPlayer(uuid.orElse(null));
