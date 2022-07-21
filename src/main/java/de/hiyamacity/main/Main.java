@@ -72,6 +72,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("afk")).setExecutor(new AfkCommand());
         Objects.requireNonNull(getCommand("apology")).setExecutor(new ApologyCommand());
         Objects.requireNonNull(getCommand("ooc")).setExecutor(new OocCommand());
+        Objects.requireNonNull(getCommand("seen")).setExecutor(new SeenCommand());
     }
 
     private void loadListeners() {

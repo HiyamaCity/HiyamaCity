@@ -59,7 +59,7 @@ public class JoinHandler implements Listener {
                 BanManager.unban(uuid);
         });
         Optional<User> user = User.getUser(uuid);
-        Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.defaultLocale);
+        Locale locale = user.map(User::getLocale).map(de.hiyamacity.objects.Locale::getJavaUtilLocale).orElse(LanguageHandler.getDefaultLocale());
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, locale);
         String reason = ban.map(Ban::getBanReason).orElse("");
         String id = ban.map(Ban::getBanID).orElse("");

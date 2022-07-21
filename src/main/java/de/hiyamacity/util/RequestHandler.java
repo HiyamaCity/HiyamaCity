@@ -40,6 +40,7 @@ public class RequestHandler {
                         player.sendMessage(rs.getString("requestReceive").replace("%player%", p.map(Player::getName).orElse("")));
                     });
                 }
+                case TELEPORT, JOIN -> {}
                 default -> {
                 }
             }

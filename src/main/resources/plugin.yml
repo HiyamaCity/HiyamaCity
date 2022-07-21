@@ -74,3 +74,5 @@ commands:
     aliases: [ apologize ]
   ooc:
     description: Allows the player to text out of their role play character.
+  seen:
+    description: Allows the player to see when a player was seen.

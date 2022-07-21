@@ -14,7 +14,7 @@ public class Request <T> {
 
 
     public enum RequestType {
-        CONTRACT
+        CONTRACT, TELEPORT, JOIN
     }
 
     @Expose
