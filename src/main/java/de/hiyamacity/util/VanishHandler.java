@@ -10,36 +10,52 @@ import java.util.List;
 
 public class VanishHandler {
 
-    @Getter
-    private static final List<Player> vanishPlayers = new ArrayList<>();
+	@Getter
+	private static final List<Player> vanishPlayers = new ArrayList<>();
 
-    public static void updateVanish(Player p) {
-        for (Player vanish : vanishPlayers)
-            if (!vanish.hasPermission("vanish.bypass"))
-                p.hidePlayer(Main.getInstance(), vanish);
+	/**
+	 * @param player Hides the <code>vanishedPlayers</code> for <code>player</code>.
+	 */
+	public static void updateVanish(Player player) {
+		for (Player vanish : vanishPlayers)
+			if (!vanish.hasPermission("vanish.bypass"))
+				player.hidePlayer(Main.getInstance(), vanish);
+	}
 
-    }
+	/**
+	 * @param player The <code>player</code> that gets <code>revealed</code> for the other players.
+	 */
+	public static void reveal(Player player) {
+		vanishPlayers.remove(player);
+		TabListHandler.updateTab();
+		for (Player all : Bukkit.getOnlinePlayers())
+			all.showPlayer(Main.getInstance(), player);
+	}
 
-    public static void reveal(Player p) {
-        vanishPlayers.remove(p);
-        TabListHandler.updateTab();
-        for (Player all : Bukkit.getOnlinePlayers())
-            all.showPlayer(Main.getInstance(), p);
-    }
+	/**
+	 * @param player The <code>player</code> that gets <code>vanished</code> for the other players.
+	 */
+	public static void vanish(Player player) {
+		vanishPlayers.add(player);
+		TabListHandler.updateTab();
+		for (Player all : Bukkit.getOnlinePlayers())
+			if (!all.hasPermission("vanish.bypass"))
+				all.hidePlayer(Main.getInstance(), player);
+	}
 
-    public static void vanish(Player p) {
-        vanishPlayers.add(p);
-        TabListHandler.updateTab();
-        for (Player all : Bukkit.getOnlinePlayers())
-            if (!all.hasPermission("vanish.bypass"))
-                all.hidePlayer(Main.getInstance(), p);
-    }
+	/**
+	 * @param player The <code>player</code> that gets checked.
+	 *
+	 * @return true when the given player is vanished.
+	 */
+	public static boolean isVanish(Player player) {
+		return vanishPlayers.contains(player);
+	}
 
-    public static boolean isVanish(Player p) {
-        return vanishPlayers.contains(p);
-    }
-
-    public static int getVanishedPlayersCount() {
-        return vanishPlayers.size();
-    }
+	/**
+	 * @return Amount of the vanished players.
+	 */
+	public static int getVanishedPlayersCount() {
+		return vanishPlayers.size();
+	}
 }
