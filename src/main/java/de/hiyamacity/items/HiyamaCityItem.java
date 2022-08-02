@@ -1,5 +1,6 @@
 package de.hiyamacity.items;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.hiyamacity.main.Main;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +33,7 @@ public class HiyamaCityItem extends ItemStack {
         return this;
     }
 
+    @JsonIgnore
     public String getCustomData(String key) {
         return getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Main.getInstance(), key), PersistentDataType.STRING);
     }

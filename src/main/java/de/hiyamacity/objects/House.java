@@ -22,7 +22,7 @@ import java.util.UUID;
 public class House {
 
     @Expose
-    private UUID houseID = generateNonOccupiedUUID();
+    private UUID houseID;
     @Expose
     private List<de.hiyamacity.objects.Location> doorLocations;
     @Expose
@@ -37,12 +37,15 @@ public class House {
      * @param doorLocations DoorLocation Array containing the coordinates for the locations of the doors.
      * @param address       Address containing the address for the new House.
      */
-    public House(UUID owner, List<de.hiyamacity.objects.Location> doorLocations, Address address) {
+    public House(UUID houseID, UUID owner, List<de.hiyamacity.objects.Location> doorLocations, Address address) {
+        this.houseID = houseID;
         this.doorLocations = doorLocations;
         this.address = address;
         this.residents = new ArrayList<>();
         this.residents.add(new Resident(owner, Resident.ResidentType.OWNER));
-        registerHouse();
+    }
+
+    public House() {
     }
 
     /**
@@ -99,7 +102,7 @@ public class House {
     /**
      * @return Returns a UUID that is not occupied in the Database
      */
-    private static UUID generateNonOccupiedUUID() {
+    public static UUID generateNonOccupiedUUID() {
         UUID uuid = UUID.randomUUID();
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM HOUSES WHERE UUID = ?")) {
@@ -118,7 +121,7 @@ public class House {
     /**
      * Registers a new House in the Database.
      */
-    private void registerHouse() {
+    public void registerHouse() {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO HOUSES (UUID, HOUSE) VALUES (?,?)")) {
                 ps.setString(1, this.getHouseID().toString());
@@ -153,8 +156,7 @@ public class House {
         }
         return null;
     }
-
-
+    
     /**
      * @param houseID houseID queried in the Database to return the corresponding House object.
      * @return Returns a House object corresponding to its houseID.
