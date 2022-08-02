@@ -116,4 +116,5 @@ public class ObjectTests {
 		assertEquals(address.getHouseNumber(), 69);
 
 	}
+	
 }
