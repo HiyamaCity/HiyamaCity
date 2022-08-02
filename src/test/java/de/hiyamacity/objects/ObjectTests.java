@@ -40,8 +40,8 @@ public class ObjectTests {
 			e.printStackTrace();
 		}
 
+		// Testing the parsed user object.
 		assertNotNull(user);
-
 		assertEquals(user.getPurse(), 4000);
 		assertEquals(user.getBank(), 2000);
 		assertEquals(user.getPlayedMinutes(), 0);
