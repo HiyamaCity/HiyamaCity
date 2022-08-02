@@ -26,6 +26,9 @@ public class Resident {
         this.residentType = renterType;
     }
 
+    public Resident() {
+    }
+
     @Override
     public String toString() {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);

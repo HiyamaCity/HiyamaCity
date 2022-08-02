@@ -22,61 +22,61 @@ import java.util.UUID;
 
 public class HouseCommand implements CommandExecutor, TabCompleter {
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player p)) return true;
-        ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+		if (!(sender instanceof Player p)) return true;
+		ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
-        if (!p.hasPermission("house")) return true;
-        if (args.length < 1) return true;
-        switch (args[0].toLowerCase()) {
-            case "register" -> {
+		if (!p.hasPermission("house")) return true;
+		if (args.length < 1) return true;
+		switch (args[0].toLowerCase()) {
+			case "register" -> {
 
-                if (args.length < 5 || args.length > 6) {
-                    p.sendMessage(rs.getString("houseRegisterUsage"));
-                    return true;
-                }
+				if (args.length < 5 || args.length > 6) {
+					p.sendMessage(rs.getString("houseRegisterUsage"));
+					return true;
+				}
 
-                Address address = new Address(firstLetterCapital(args[1]), Long.parseLong(args[2]), firstLetterCapital(args[3]), Long.parseLong(args[4]));
-                UUID owner = null;
+				Address address = new Address(firstLetterCapital(args[1]), Long.parseLong(args[2]), firstLetterCapital(args[3]), Long.parseLong(args[4]));
+				UUID owner = null;
 
-                if (args.length == 6 && Bukkit.getPlayerUniqueId(args[5]) != null)
-                    owner = Bukkit.getPlayerUniqueId(args[5]);
-                Location targetBlockLocation = p.getTargetBlock(null, 100).getLocation();
-                BlockData blockData = targetBlockLocation.getBlock().getBlockData();
+				if (args.length == 6 && Bukkit.getPlayerUniqueId(args[5]) != null)
+					owner = Bukkit.getPlayerUniqueId(args[5]);
+				Location targetBlockLocation = p.getTargetBlock(null, 100).getLocation();
+				BlockData blockData = targetBlockLocation.getBlock().getBlockData();
 
-                if (!(blockData instanceof Openable)) {
-                    p.sendMessage(rs.getString("houseRegisterNonOpenableTargetBlock"));
-                    return true;
-                }
+				if (!(blockData instanceof Openable)) {
+					p.sendMessage(rs.getString("houseRegisterNonOpenableTargetBlock"));
+					return true;
+				}
 
-                new House(owner, new ArrayList<>() {{
-                    add(new de.hiyamacity.objects.Location(new Location(Bukkit.getWorld(targetBlockLocation.getWorld().getName()), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ())));
-                }}, address);
-                p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + targetBlockLocation.getX()).replace("%y%", "" + targetBlockLocation.getY()).replace("%z%", "" + targetBlockLocation.getZ()));
+				new House(House.generateNonOccupiedUUID(), owner, new ArrayList<>() {{
+					add(new de.hiyamacity.objects.Location(new Location(Bukkit.getWorld(targetBlockLocation.getWorld().getName()), targetBlockLocation.getX(), targetBlockLocation.getY(), targetBlockLocation.getZ())));
+				}}, address).registerHouse();
+				p.sendMessage(rs.getString("houseRegisterSuccessful").replace("%address%", address.getAsAddress()).replace("%x%", "" + targetBlockLocation.getX()).replace("%y%", "" + targetBlockLocation.getY()).replace("%z%", "" + targetBlockLocation.getZ()));
 
-            }
+			}
 
-            case "delete", "list" -> {
+			case "delete", "list" -> {
 
-            }
+			}
 
-            default -> {
-                return true;
-            }
+			default -> {
+				return true;
+			}
 
-        }
-        return false;
-    }
+		}
+		return false;
+	}
 
-    @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (args.length == 1) return new ArrayList<>(List.of("register"));
-        return null;
-    }
+	@Override
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+		if (args.length == 1) return new ArrayList<>(List.of("register"));
+		return null;
+	}
 
-    private String firstLetterCapital(String str) {
-        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-    }
+	private String firstLetterCapital(String str) {
+		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+	}
 
 }
