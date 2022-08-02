@@ -56,14 +56,14 @@ public class ObjectTests {
 	public void TestHouseJsonCreationWorkingCorrectly() {
 
 		// Example JSON string for comparison.
-		final String resultJson = "{\"houseID\":\"%houseID%\",\"doorLocations\":[{\"world\":null,\"x\":1.0,\"y\":1.0,\"z\":1.0,\"yaw\":0.0,\"pitch\":0.0}],\"residents\":[{\"uuid\":\"%uuid%\",\"residentType\":\"OWNER\"}],\"address\":{\"street\":\"Street\",\"postalCode\":696969,\"city\":\"City\",\"houseNumber\":69}}";
+		final String resultJson = "{\"houseID\":\"%houseID%\",\"doorLocations\":[{\"world\":null,\"x\":1.0,\"y\":2.0,\"z\":3.0,\"yaw\":0.0,\"pitch\":0.0}],\"residents\":[{\"uuid\":\"%uuid%\",\"residentType\":\"OWNER\"}],\"address\":{\"street\":\"Street\",\"postalCode\":696969,\"city\":\"City\",\"houseNumber\":69}}";
 
 		// Generating random UUIDs for testing.
 		UUID houseID = UUID.randomUUID();
 		UUID uuid = UUID.randomUUID();
 
 		// Creating a new location list for the house constructor.
-		List<Location> doorLocationList = List.of(new Location(1, 1, 1));
+		List<Location> doorLocationList = List.of(new Location(1, 2, 3));
 
 		// Instantiating a new house object with predefined parameters..
 		House house = new House(houseID, uuid, doorLocationList, new Address("Street", 69, "City", 696969));
@@ -92,7 +92,7 @@ public class ObjectTests {
 
 		// testing raw node value
 		assertNotNull(jsonHouse);
-		assertEquals(jsonHouse.getHouseID(), houseID);
+		assertEquals(jsonHouse.getHouseID(), house.getHouseID());
 		Location doorLocation = jsonHouse.getDoorLocations().get(0);
 		Resident residents = jsonHouse.getResidents().get(0);
 		Address address = jsonHouse.getAddress();
@@ -100,8 +100,8 @@ public class ObjectTests {
 		// doorLocations node testing
 		assertNull(doorLocation.getWorld());
 		assertEquals(doorLocation.getX(), 1);
-		assertEquals(doorLocation.getY(), 1);
-		assertEquals(doorLocation.getZ(), 1);
+		assertEquals(doorLocation.getY(), 2);
+		assertEquals(doorLocation.getZ(), 3);
 		assertEquals(doorLocation.getYaw(), 0);
 		assertEquals(doorLocation.getPitch(), 0);
 
@@ -116,5 +116,39 @@ public class ObjectTests {
 		assertEquals(address.getHouseNumber(), 69);
 
 	}
-	
+
+	@Test
+	public void TestBanJsonCreationWorkingCorrectly() {
+
+		// Create random uuid and ban for testing.
+		UUID uuid = UUID.randomUUID();
+		Ban ban = new Ban(uuid);
+
+		String banJson = null;
+		try {
+			banJson = objectMapper.writeValueAsString(ban);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		assertNotNull(banJson);
+
+		Ban jsonBan = null;
+
+		try {
+			jsonBan = objectMapper.readValue(banJson, Ban.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		assertNotNull(jsonBan);
+		assertTrue(jsonBan.isActive());
+		assertEquals(jsonBan.getBanReason(), ban.getBanReason());
+		assertEquals(jsonBan.getBanID(), ban.getBanID());
+		assertEquals(jsonBan.getBanStart(), ban.getBanStart());
+		assertEquals(jsonBan.getBanEnd(), ban.getBanEnd());
+		assertEquals(jsonBan.getCreatedBy(), ban.getCreatedBy());
+
+	}
+
 }
