@@ -1,7 +1,14 @@
 package de.hiyamacity.objects;
 
+import be.seeseemelk.mockbukkit.MockBukkit;
+import be.seeseemelk.mockbukkit.ServerMock;
+import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.hiyamacity.main.Main;
+import org.bukkit.entity.Player;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,10 +18,28 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjectTests {
 
+	private ServerMock server;
+
+	@BeforeEach
+	public void setUp() {
+		server = MockBukkit.mock();
+		Main plugin = MockBukkit.load(Main.class);
+	}
+
+	@AfterEach
+	public void tearDown() {
+		MockBukkit.unmock();
+	}
+
 	final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Test
 	public void TestUserJsonCreationWorkingCorrectly() {
+		
+		/* !!! NOTICE: This Test needs a running MySQL Server on localhost to be successful !!! */
+		PlayerMock playerMock = server.addPlayer();
+		Player player = playerMock.getPlayer();
+		assertNotNull(player);
 
 		// Generating a random UUID and instantiating a user object.
 		UUID randomUUID = UUID.randomUUID();

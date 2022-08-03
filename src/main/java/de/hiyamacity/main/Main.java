@@ -7,12 +7,24 @@ import de.hiyamacity.listener.*;
 import de.hiyamacity.util.PlaytimeTracker;
 import de.hiyamacity.util.RankHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 
+import java.io.File;
 import java.util.Objects;
 
 public class Main extends JavaPlugin {
+
+	// The following two constructors are only for MockBukkit testing.
+	public Main() {
+		super();
+	}
+
+	protected Main(JavaPluginLoader loader, PluginDescriptionFile descriptionFile, File dataFolder, File file) {
+		super(loader, descriptionFile, dataFolder, file);
+	}
 
 	final PluginManager pm = Bukkit.getPluginManager();
 	private static Main instance;
