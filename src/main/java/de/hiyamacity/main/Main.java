@@ -18,12 +18,10 @@ import java.util.Objects;
 public class Main extends JavaPlugin {
 
 	// The following two constructors are only for MockBukkit testing.
-	@SuppressWarnings("unused")
 	public Main() {
 		super();
 	}
 
-	@SuppressWarnings("unused")
 	protected Main(JavaPluginLoader loader, PluginDescriptionFile descriptionFile, File dataFolder, File file) {
 		super(loader, descriptionFile, dataFolder, file);
 	}
