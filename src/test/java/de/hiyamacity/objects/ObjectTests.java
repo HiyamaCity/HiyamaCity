@@ -35,7 +35,7 @@ public class ObjectTests {
 
 	@Test
 	public void TestUserJsonCreationWorkingCorrectly() {
-		
+
 		/* !!! NOTICE: This Test needs a running MySQL Server on localhost to be successful !!! */
 		PlayerMock playerMock = server.addPlayer();
 		Player player = playerMock.getPlayer();
