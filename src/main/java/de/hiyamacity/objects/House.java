@@ -217,10 +217,10 @@ public class House {
     public static void deleteHouse(Address address) {
         try (Connection con = ConnectionPool.getDataSource().getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("DELETE * FROM HOUSES WHERE JSON_EXTRACT(HOUSE, \"$.address.street\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.postalCode\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.city\") = ? AND JSON_EXTRACT(HOUSE, \"$.address.houseNumber\") = ?")) {
-                ps.setString(1, "[\"" + address.getStreet() + "\"]");
-                ps.setString(2, "[\"" + address.getPostalCode() + "\"]");
-                ps.setString(3, "[\"" + address.getCity() + "\"]");
-                ps.setString(4, "[\"" + address.getHouseNumber() + "\"");
+                ps.setString(1, "[\"" + address.street() + "\"]");
+                ps.setString(2, "[\"" + address.postalCode() + "\"]");
+                ps.setString(3, "[\"" + address.city() + "\"]");
+                ps.setString(4, "[\"" + address.houseNumber() + "\"");
                 ps.executeQuery();
             }
         } catch (SQLException e) {

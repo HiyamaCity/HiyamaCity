@@ -12,28 +12,28 @@ import java.util.UUID;
 @Setter
 public class Ban {
 
-    @Expose
-    private String banReason;
-    @Expose
-    private String banID = RandomStringUtils.randomAlphanumeric(12);
-    @Expose
-    private long banStart = System.currentTimeMillis();
-    @Expose
-    private long banEnd;
-    @Expose
-    private boolean isActive = true;
-    @Expose
-    private UUID createdBy;
+	@Expose
+	private String banReason;
+	@Expose
+	private String banID = RandomStringUtils.randomAlphanumeric(12);
+	@Expose
+	private long banStart = System.currentTimeMillis();
+	@Expose
+	private long banEnd;
+	@Expose
+	private boolean isActive = true;
+	@Expose
+	private UUID createdBy;
 
-    public Ban(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
+	public Ban(UUID createdBy) {
+		this.createdBy = createdBy;
+	}
 
-    public Ban() {
-    }
+	public Ban() {
+	}
 
-    @Override
-    public String toString() {
-        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-    }
+	@Override
+	public String toString() {
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+	}
 }

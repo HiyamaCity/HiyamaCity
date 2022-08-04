@@ -3,7 +3,10 @@ package de.hiyamacity.listener;
 import de.hiyamacity.lang.LanguageHandler;
 import de.hiyamacity.objects.Ban;
 import de.hiyamacity.objects.User;
-import de.hiyamacity.util.*;
+import de.hiyamacity.util.BanManager;
+import de.hiyamacity.util.RankHandler;
+import de.hiyamacity.util.TabListHandler;
+import de.hiyamacity.util.VanishHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,10 +32,9 @@ public class JoinHandler implements Listener {
 
 		List<? extends Player> playerList = Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("admin")).toList();
 		playerList.forEach(player -> {
-			if (e.getPlayer().getName().equals(player.getName())) return;
+			if (p.getName().equals(player.getName())) return;
 			player.sendMessage(LanguageHandler.getResourceBundle(player.getUniqueId()).getString("joinMessage").replace("%player%", e.getPlayer().getName()));
 		});
-
 	}
 
 	@EventHandler
@@ -50,7 +52,7 @@ public class JoinHandler implements Listener {
 	@EventHandler
 	public void onEvent(AsyncPlayerPreLoginEvent e) {
 		UUID uuid = e.getUniqueId();
-		if (!User.isUserExist(uuid)) new User(uuid).registerUser();
+		if (!User.isUserExist(uuid)) new User(uuid);
 		if (!BanManager.isBanned(uuid)) return;
 		ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 		Optional<Ban> ban = BanManager.getLatestBan(uuid);

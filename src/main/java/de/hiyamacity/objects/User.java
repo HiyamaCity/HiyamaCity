@@ -87,11 +87,6 @@ public class User {
 	 */
 	@Expose
 	private List<Skill> skills;
-	/**
-	 * List of credits that the user has taken from the bank.
-	 *
-	 * @see BankCredit
-	 */
 	@Expose
 	private List<BankCredit> bankCredits;
 	@Expose
@@ -102,7 +97,7 @@ public class User {
 	private List<Contract> contracts;
 
 	/**
-	 * Instantiates a new User object.
+	 * Instantiates a new User object that gets registered in the Database with it's corresponding UUID.
 	 *
 	 * @param uuid Identifier by which is queried in the Database and which allows the object to be associated with a Player on the Server.
 	 */
@@ -112,6 +107,7 @@ public class User {
 		this.playedMinutes = 0;
 		this.playedHours = 0;
 		this.uuid = uuid;
+		register();
 	}
 
 	public User() {
@@ -138,7 +134,7 @@ public class User {
 	/**
 	 * Registers a new User Object and its corresponding UUID in the Database.
 	 */
-	public void registerUser() {
+	private void register() {
 		if (isUserExist(this.uuid)) return;
 		try (Connection con = ConnectionPool.getDataSource().getConnection()) {
 			try (PreparedStatement ps = con.prepareStatement("INSERT INTO PLAYERS (UUID, PLAYER) VALUES (?,?)")) {
@@ -199,6 +195,18 @@ public class User {
 			ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 			Optional<Player> p = Optional.ofNullable(Bukkit.getPlayer(uuid));
 			p.ifPresent(player -> player.sendMessage(rs.getString("levelUp").replace("%skill%", skill.toString()).replace("%level%", String.valueOf(skill.getLevel()))));
+		}
+	}
+
+	public void delete() {
+		if (!isUserExist(this.uuid)) return;
+		try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+			try (PreparedStatement ps = con.prepareStatement("DELETE FROM PLAYERS WHERE UUID = ?")) {
+				ps.setString(1, this.uuid.toString());
+				ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

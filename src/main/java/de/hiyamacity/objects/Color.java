@@ -9,25 +9,34 @@ import lombok.Setter;
 @Setter
 public class Color {
 
-    @Expose
-    private int r;
-    @Expose
-    private int g;
-    @Expose
-    private int b;
+	@Expose
+	private int r;
+	@Expose
+	private int g;
+	@Expose
+	private int b;
+	@Expose
+	private int a;
 
-    public Color(int r, int g, int b) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-    }
+	public Color(int r, int g, int b, int a) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+		this.a = a;
+	}
 
-    @Override
-    public String toString() {
-        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-    }
+	public Color(int r, int g, int b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
 
-    public Color fromJson(String string) {
-        return new GsonBuilder().create().fromJson(string, Color.class);
-    }
+	@Override
+	public String toString() {
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+	}
+
+	public Color fromJson(String string) {
+		return new GsonBuilder().create().fromJson(string, Color.class);
+	}
 }

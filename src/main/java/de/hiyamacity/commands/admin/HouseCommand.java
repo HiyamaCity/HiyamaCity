@@ -37,7 +37,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 					return true;
 				}
 
-				Address address = new Address(firstLetterCapital(args[1]), Long.parseLong(args[2]), firstLetterCapital(args[3]), Long.parseLong(args[4]));
+				Address address = new Address(firstLetterCapital(args[1]), Integer.parseInt(args[2]), Long.parseLong(args[4]), firstLetterCapital(args[3]));
 				UUID owner = null;
 
 				if (args.length == 6 && Bukkit.getPlayerUniqueId(args[5]) != null)

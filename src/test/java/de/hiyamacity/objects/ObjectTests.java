@@ -7,49 +7,52 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.hiyamacity.main.Main;
 import org.bukkit.entity.Player;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjectTests {
 
-	private ServerMock server;
+	private static ServerMock server;
+	private static Main plugin;
 
-	@BeforeEach
-	public void setUp() {
+	@BeforeAll
+	public static void setUp() {
 		server = MockBukkit.mock();
-		Main plugin = MockBukkit.load(Main.class);
+		plugin = MockBukkit.load(Main.class);
 	}
 
-	@AfterEach
-	public void tearDown() {
+	@AfterAll
+	public static void tearDown() {
 		MockBukkit.unmock();
 	}
 
 	final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Test
-	public void TestUserJsonCreationWorkingCorrectly() {
+	public void TestIfUserJsonCreationIsWorkingCorrectly() {
 
 		/* !!! NOTICE: This Test needs a running MySQL Server on localhost to be successful !!! */
 		PlayerMock playerMock = server.addPlayer();
 		Player player = playerMock.getPlayer();
+
+		// Making sure the mocked player isn't null.
 		assertNotNull(player);
 
-		// Generating a random UUID and instantiating a user object.
-		UUID randomUUID = UUID.randomUUID();
-		User randomUser = new User(randomUUID);
-
+		// Generating and instantiating a user object that is registered in the Database with its corresponding UUID..
+		UUID uuid = player.getUniqueId();
+		Optional<User> newUser = User.getUser(uuid);
 		String userJson = null;
 
 		try {
 			// Converting the user object into a JSON string.
-			userJson = objectMapper.writeValueAsString(randomUser);
+			userJson = objectMapper.writeValueAsString(newUser.orElse(null));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -73,15 +76,19 @@ public class ObjectTests {
 		assertEquals(user.getPlayedHours(), 0);
 		assertEquals(user.getKills(), 0);
 		assertEquals(user.getDeaths(), 0);
-		assertEquals(user.getUuid(), randomUUID);
+		assertEquals(user.getUuid(), uuid);
 		assertFalse(user.isAfk());
+
+		// Cleaning up the database
+		user.delete();
 	}
 
+
 	@Test
-	public void TestHouseJsonCreationWorkingCorrectly() {
+	public void TestIfHouseJsonCreationIsWorkingCorrectly() {
 
 		// Example JSON string for comparison.
-		final String resultJson = "{\"houseID\":\"%houseID%\",\"doorLocations\":[{\"world\":null,\"x\":1.0,\"y\":2.0,\"z\":3.0,\"yaw\":0.0,\"pitch\":0.0}],\"residents\":[{\"uuid\":\"%uuid%\",\"residentType\":\"OWNER\"}],\"address\":{\"street\":\"Street\",\"postalCode\":696969,\"city\":\"City\",\"houseNumber\":69}}";
+		final String resultJson = "{\"houseID\":\"%houseID%\",\"doorLocations\":[{\"world\":null,\"x\":1.0,\"y\":2.0,\"z\":3.0,\"yaw\":0.0,\"pitch\":0.0}],\"residents\":[{\"uuid\":\"%uuid%\",\"residentType\":\"OWNER\"}],\"address\":{\"street\":\"Street\",\"houseNumber\":69,\"postalCode\":696969,\"city\":\"City\"}}";
 
 		// Generating random UUIDs for testing.
 		UUID houseID = UUID.randomUUID();
@@ -91,7 +98,7 @@ public class ObjectTests {
 		List<Location> doorLocationList = List.of(new Location(1, 2, 3));
 
 		// Instantiating a new house object with predefined parameters..
-		House house = new House(houseID, uuid, doorLocationList, new Address("Street", 69, "City", 696969));
+		House house = new House(houseID, uuid, doorLocationList, new Address("Street", 69, 696969, "City"));
 
 		String houseJson = null;
 
@@ -135,15 +142,16 @@ public class ObjectTests {
 		assertEquals(residents.getResidentType(), Resident.ResidentType.OWNER);
 
 		// address node testing
-		assertEquals(address.getStreet(), "Street");
-		assertEquals(address.getPostalCode(), 696969);
-		assertEquals(address.getCity(), "City");
-		assertEquals(address.getHouseNumber(), 69);
+		assertEquals(address.street(), "Street");
+		assertEquals(address.postalCode(), 696969);
+		assertEquals(address.city(), "City");
+		assertEquals(address.houseNumber(), 69);
 
+		// TODO: Hash code check
 	}
 
 	@Test
-	public void TestBanJsonCreationWorkingCorrectly() {
+	public void TestIfBanJsonCreationIsWorkingCorrectly() {
 
 		// Create random uuid and ban for testing.
 		UUID uuid = UUID.randomUUID();
@@ -176,4 +184,31 @@ public class ObjectTests {
 
 	}
 
+	@Test
+	public void TestIfAddressJsonCreationIsWorkingCorrectly() {
+
+		// Creating testing Address.
+		Address address = new Address("Street", 69, 696969, "City");
+
+		// Testing if the address is null.
+		assertNotNull(address);
+
+		Address address1;
+
+		try {
+			// Creating a copy of the address after parsing it from a JSON string.
+			address1 = objectMapper.readValue(objectMapper.writeValueAsString(address), Address.class);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+
+		// Testing if the object got created correctly.
+		assertEquals(address.getAsAddress(), address1.getAsAddress());
+		assertEquals(address.street(), address1.street());
+		assertEquals(address.houseNumber(), address1.houseNumber());
+		assertEquals(address.postalCode(), address1.postalCode());
+		assertEquals(address.city(), address1.city());
+		assertEquals(address.hashCode(), address1.hashCode());
+
+	}
 }
