@@ -1,3 +1,4 @@
+![ProjectStorage](https://img.shields.io/github/repo-size/AhegaHOE/HiyamaCity?color=420696&label=Project%20Storage)
 # **Hiyama City**
 ## a fantasy and real life role playing plugin for Minecraft
 
