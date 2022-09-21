@@ -50,11 +50,11 @@ public class ConnectionPool {
 
     public static void writeFile() {
         cfg.options().copyDefaults(true);
-        cfg.addDefault("host", "localhost");
+        cfg.addDefault("host", "db");
         cfg.addDefault("port", 3306);
         cfg.addDefault("database", "mc");
         cfg.addDefault("username", "root");
-        cfg.addDefault("password", "");
+        cfg.addDefault("password", "password");
         try {
             cfg.save(configFile);
         } catch (IOException e) {
