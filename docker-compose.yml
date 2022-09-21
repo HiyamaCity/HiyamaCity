@@ -1,32 +1,30 @@
-version: "3"
-
+version: '3'
 services:
   db:
-    image: mysql/mysql-server
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: "mc"
-      MYSQL_ROOT_PASSWORD: ""
+    image: mysql
+    command: '--default-authentication-plugin=mysql_native_password'
     restart: always
-    entrypoint: 
-      sh -c "
-            echo 'CREATE DATABASE IF NOT EXISTS mc;'
-            "
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: mc
+    ports:
+      - '3306:3306'
+    expose:
+      - "3306"
+    volumes:
+      - "./database:/var/lib/mysql"
   mc:
     image: itzg/minecraft-server
     ports:
-      - "25565:25565"
+      - '25565:25565'
     environment:
-      EULA: "TRUE"
-      TYPE: "PAPER"
-      PAPERBUILD: "387"
-      VERSION: ${VERSION}
+      EULA: 'TRUE'
+      TYPE: PAPER
+      PAPERBUILD: '388'
+      MEMORY: 12G
+      VERSION: '${VERSION}'
     tty: true
     stdin_open: true
     restart: unless-stopped
     volumes:
-      - ./${VERSION}:/data
-volumes:
-  db:
-    driver: local
+      - './${VERSION}:/data'
