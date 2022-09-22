@@ -6,13 +6,13 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "password"
-      MYSQL_DATABASE: mc
     ports:
       - '3306:3306'
     expose:
       - "3306"
     volumes:
       - "./database:/var/lib/mysql"
+      - "./init:/docker-entrypoint-initdb.d"
   mc:
     image: itzg/minecraft-server
     ports:
