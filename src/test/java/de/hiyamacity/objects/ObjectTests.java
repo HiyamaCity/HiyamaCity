@@ -21,6 +21,7 @@ public class ObjectTests {
 
 	private static ServerMock server;
 	private static Main plugin;
+	final ObjectMapper objectMapper = new ObjectMapper();
 
 	@BeforeAll
 	public static void setUp() {
@@ -32,8 +33,6 @@ public class ObjectTests {
 	public static void tearDown() {
 		MockBukkit.unmock();
 	}
-
-	final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Test
 	public void TestIfUserJsonCreationIsWorkingCorrectly() {

@@ -11,31 +11,30 @@ import java.util.UUID;
 @Setter
 public class Resident {
 
-    public enum ResidentType {
-        OWNER(),
-        RENTER()
-    }
+	@Expose
+	private UUID uuid;
+	@Expose
+	private ResidentType residentType;
+	public Resident(UUID uuid, ResidentType renterType) {
+		this.uuid = uuid;
+		this.residentType = renterType;
+	}
 
-    @Expose
-    private UUID uuid;
-    @Expose
-    private ResidentType residentType;
+	public Resident() {
+	}
 
-    public Resident(UUID uuid, ResidentType renterType) {
-        this.uuid = uuid;
-        this.residentType = renterType;
-    }
+	public static Resident fromJson(String string) {
+		return new GsonBuilder().create().fromJson(string, Resident.class);
+	}
 
-    public Resident() {
-    }
+	@Override
+	public String toString() {
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+	}
 
-    @Override
-    public String toString() {
-        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-    }
-
-    public static Resident fromJson(String string) {
-        return new GsonBuilder().create().fromJson(string, Resident.class);
-    }
+	public enum ResidentType {
+		OWNER(),
+		RENTER()
+	}
 
 }

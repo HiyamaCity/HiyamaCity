@@ -11,16 +11,16 @@ import java.util.UUID;
 @Setter
 public class Contract extends Request<Contract> {
 
-    @Expose
-    private String conditions;
+	@Expose
+	private String conditions;
 
-    public Contract(UUID creator, UUID contracted, String conditions) {
-        super(creator, contracted, System.currentTimeMillis(), RequestType.CONTRACT);
-        this.conditions = conditions;
-    }
+	public Contract(UUID creator, UUID contracted, String conditions) {
+		super(creator, contracted, System.currentTimeMillis(), RequestType.CONTRACT);
+		this.conditions = conditions;
+	}
 
-    @Override
-    public String toString() {
-        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-    }
+	@Override
+	public String toString() {
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+	}
 }

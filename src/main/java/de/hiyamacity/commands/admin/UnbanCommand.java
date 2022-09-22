@@ -17,31 +17,31 @@ import java.util.UUID;
 public class UnbanCommand implements CommandExecutor {
 
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player || sender instanceof ConsoleCommandSender)) return true;
-        ResourceBundle rs = (sender instanceof Player p) ? LanguageHandler.getResourceBundle(p.getUniqueId()) : LanguageHandler.getResourceBundle();
-        if (!sender.hasPermission("unban")) return true;
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+		if (!(sender instanceof Player || sender instanceof ConsoleCommandSender)) return true;
+		ResourceBundle rs = (sender instanceof Player p) ? LanguageHandler.getResourceBundle(p.getUniqueId()) : LanguageHandler.getResourceBundle();
+		if (!sender.hasPermission("unban")) return true;
 
-        if (args.length != 1) {
-            sender.sendMessage(rs.getString("unbanUsage"));
-            return true;
-        }
+		if (args.length != 1) {
+			sender.sendMessage(rs.getString("unbanUsage"));
+			return true;
+		}
 
-        Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
+		Optional<UUID> uuid = Optional.ofNullable(Bukkit.getPlayerUniqueId(args[0]));
 
-        if (uuid.isEmpty()) {
-            sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
-            return true;
-        }
+		if (uuid.isEmpty()) {
+			sender.sendMessage(rs.getString("playerNotFound").replace("%target%", args[0]));
+			return true;
+		}
 
-        if (!BanManager.isBanned(uuid.orElse(null))) {
-            sender.sendMessage(rs.getString("playerNotBanned").replace("%target%", args[0]));
-            return true;
-        }
+		if (!BanManager.isBanned(uuid.orElse(null))) {
+			sender.sendMessage(rs.getString("playerNotBanned").replace("%target%", args[0]));
+			return true;
+		}
 
-        BanManager.unban(uuid.orElse(null));
-        sender.sendMessage(rs.getString("unbanSuccessful").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))));
-        return false;
-    }
+		BanManager.unban(uuid.orElse(null));
+		sender.sendMessage(rs.getString("unbanSuccessful").replace("%target%", Optional.ofNullable(Bukkit.getPlayer(uuid.orElse(null))).map(Player::getName).orElseGet(() -> Optional.ofNullable(Bukkit.getOfflinePlayer(uuid.orElse(null)).getName()).orElse(""))));
+		return false;
+	}
 }

@@ -12,11 +12,11 @@ import java.util.Optional;
 
 public class AfkCommand implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player p)) return true;
-        Optional<User> user = User.getUser(p.getUniqueId());
-        user.ifPresent(AfkHandler::toggleAfk);
-        return false;
-    }
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+		if (!(sender instanceof Player p)) return true;
+		Optional<User> user = User.getUser(p.getUniqueId());
+		user.ifPresent(AfkHandler::toggleAfk);
+		return false;
+	}
 }

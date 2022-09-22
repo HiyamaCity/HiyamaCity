@@ -9,10 +9,10 @@ import org.bukkit.event.Listener;
 @SuppressWarnings("deprecation")
 public class MOTDHandler implements Listener {
 
-    @EventHandler
-    public void onEvent(PaperServerListPingEvent e) {
-        e.setNumPlayers(Bukkit.getOnlinePlayers().size() - VanishHandler.getVanishedPlayersCount());
-        e.setMotd("§d§l✧ §bHiyamaCity §8| §7Fantasy & Real life Role-play §8| §6[1.18.2]\n" +
-                " §7» §e§lIndev");
-    }
+	@EventHandler
+	public void onEvent(PaperServerListPingEvent e) {
+		e.setNumPlayers(Bukkit.getOnlinePlayers().size() - VanishHandler.getVanishedPlayersCount());
+		e.setMotd("§d§l✧ §bHiyamaCity §8| §7Fantasy & Real life Role-play §8| §6[1.18.2]\n" +
+				" §7» §e§lIndev");
+	}
 }

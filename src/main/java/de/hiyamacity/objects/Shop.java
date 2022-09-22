@@ -15,59 +15,58 @@ import java.util.stream.Stream;
 @Getter
 public class Shop {
 
-    @Getter
-    public enum ShopType {
+	@Expose
+	private String name;
+	@Expose
+	private UUID[] owner;
+	@Expose
+	private ShopType[] shopType;
+	@Expose
+	private Location location;
+	public Shop(String name, UUID[] owner, ShopType[] shopType, Location location) {
+		this.name = name;
+		this.owner = owner;
+		this.shopType = shopType;
+		this.location = location;
+	}
 
-        FOOD(),
-        DRINK(),
-        AGRICULTURE(),
-        SOUVENIRS(),
-        ORES(),
-        ARMOR(),
-        PET(),
-        TIMBER(),
-        STONES(),
-        NETHER(),
-        END(),
-        DECORATION(),
-        BLOCKS(),
-        WEAPONS();
+	public static Shop fromJson(String string) {
+		return new GsonBuilder().create().fromJson(string, Shop.class);
+	}
 
-        ShopType() {
+	@Override
+	public String toString() {
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+	}
 
-        }
+	@Getter
+	public enum ShopType {
 
-        public static List<String> getAllTypes() {
-            return Stream.of(ShopType.values())
-                    .map(ShopType::name)
-                    .collect(Collectors.toList());
-        }
+		FOOD(),
+		DRINK(),
+		AGRICULTURE(),
+		SOUVENIRS(),
+		ORES(),
+		ARMOR(),
+		PET(),
+		TIMBER(),
+		STONES(),
+		NETHER(),
+		END(),
+		DECORATION(),
+		BLOCKS(),
+		WEAPONS();
 
-    }
+		ShopType() {
 
-    @Expose
-    private String name;
-    @Expose
-    private UUID[] owner;
-    @Expose
-    private ShopType[] shopType;
-    @Expose
-    private Location location;
+		}
 
-    public Shop(String name, UUID[] owner, ShopType[] shopType, Location location) {
-        this.name = name;
-        this.owner = owner;
-        this.shopType = shopType;
-        this.location = location;
-    }
+		public static List<String> getAllTypes() {
+			return Stream.of(ShopType.values())
+					.map(ShopType::name)
+					.collect(Collectors.toList());
+		}
 
-    @Override
-    public String toString() {
-        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-    }
-
-    public static Shop fromJson(String string) {
-        return new GsonBuilder().create().fromJson(string, Shop.class);
-    }
+	}
 
 }

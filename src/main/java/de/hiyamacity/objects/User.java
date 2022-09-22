@@ -132,6 +132,29 @@ public class User {
 	}
 
 	/**
+	 * @param uuid Unique user ID of the Player.
+	 *
+	 * @return Returns a User Object from the Database by its corresponding UUID.
+	 */
+	public static Optional<User> getUser(UUID uuid) {
+		if (!isUserExist(uuid)) return Optional.empty();
+		try (Connection con = ConnectionPool.getDataSource().getConnection()) {
+			try (PreparedStatement ps = con.prepareStatement("SELECT PLAYER FROM PLAYERS WHERE UUID = ?")) {
+				ps.setString(1, uuid.toString());
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) return Optional.ofNullable(fromJson(rs.getString("PLAYER")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Optional.empty();
+	}
+
+	public static User fromJson(String string) {
+		return new GsonBuilder().create().fromJson(string, User.class);
+	}
+
+	/**
 	 * Registers a new User Object and its corresponding UUID in the Database.
 	 */
 	private void register() {
@@ -161,25 +184,6 @@ public class User {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * @param uuid Unique user ID of the Player.
-	 *
-	 * @return Returns a User Object from the Database by its corresponding UUID.
-	 */
-	public static Optional<User> getUser(UUID uuid) {
-		if (!isUserExist(uuid)) return Optional.empty();
-		try (Connection con = ConnectionPool.getDataSource().getConnection()) {
-			try (PreparedStatement ps = con.prepareStatement("SELECT PLAYER FROM PLAYERS WHERE UUID = ?")) {
-				ps.setString(1, uuid.toString());
-				ResultSet rs = ps.executeQuery();
-				if (rs.next()) return Optional.ofNullable(fromJson(rs.getString("PLAYER")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return Optional.empty();
 	}
 
 	/**
@@ -213,10 +217,6 @@ public class User {
 	@Override
 	public String toString() {
 		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-	}
-
-	public static User fromJson(String string) {
-		return new GsonBuilder().create().fromJson(string, User.class);
 	}
 
 }

@@ -11,16 +11,16 @@ import java.util.UUID;
 
 public class PingCommand implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
-        if (!(sender instanceof Player p)) return true;
+		if (!(sender instanceof Player p)) return true;
 
-        UUID uuid = p.getUniqueId();
-        int ping = p.getPing();
+		UUID uuid = p.getUniqueId();
+		int ping = p.getPing();
 
-        sender.sendMessage(LanguageHandler.getResourceBundle(uuid).getString("pingMessage").replace("%target%", p.getName()).replace("%ping%", "" + ping));
+		sender.sendMessage(LanguageHandler.getResourceBundle(uuid).getString("pingMessage").replace("%target%", p.getName()).replace("%ping%", "" + ping));
 
-        return false;
-    }
+		return false;
+	}
 }

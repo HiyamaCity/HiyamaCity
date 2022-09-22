@@ -17,17 +17,16 @@ import java.util.Objects;
 
 public class Main extends JavaPlugin {
 
+	private static Main instance;
+	final PluginManager pm = Bukkit.getPluginManager();
+
 	// The following two constructors are only for MockBukkit testing.
 	public Main() {
 		super();
 	}
-
 	protected Main(JavaPluginLoader loader, PluginDescriptionFile descriptionFile, File dataFolder, File file) {
 		super(loader, descriptionFile, dataFolder, file);
 	}
-
-	final PluginManager pm = Bukkit.getPluginManager();
-	private static Main instance;
 
 	public static Main getInstance() {
 		return instance;

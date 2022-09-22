@@ -14,11 +14,11 @@ import java.util.Locale;
 public class TimeCommand implements CommandExecutor {
 
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
-        DateFormat format = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.forLanguageTag(LanguageHandler.getResourceBundle(((Player) sender).getUniqueId()).getLocale().toLanguageTag()));
-        sender.sendMessage(ChatColor.BLUE + format.format(System.currentTimeMillis()));
-        return false;
-    }
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+		if (!(sender instanceof Player)) return true;
+		DateFormat format = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.forLanguageTag(LanguageHandler.getResourceBundle(((Player) sender).getUniqueId()).getLocale().toLanguageTag()));
+		sender.sendMessage(ChatColor.BLUE + format.format(System.currentTimeMillis()));
+		return false;
+	}
 }

@@ -8,15 +8,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class InfoCommand implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
-        if (!(sender instanceof Player p)) return true;
-
-
-        p.sendMessage("ich bin der banger");
+		if (!(sender instanceof Player p)) return true;
 
 
-        return false;
-    }
+		p.sendMessage("ich bin der banger");
+
+
+		return false;
+	}
 }

@@ -11,29 +11,29 @@ import java.util.List;
 @Setter
 public class IdentityCard {
 
-    @Expose
-    private String forename;
-    @Expose
-    private String surname;
-    @Expose
-    private Color favoriteColor;
-    @Expose
-    private DayOfBirth dayOfBirth;
-    @Expose
-    private List<Address> residentialAddresses;
+	@Expose
+	private String forename;
+	@Expose
+	private String surname;
+	@Expose
+	private Color favoriteColor;
+	@Expose
+	private DayOfBirth dayOfBirth;
+	@Expose
+	private List<Address> residentialAddresses;
 
-    public IdentityCard(String forename, String surname, DayOfBirth dayOfBirth) {
-        this.forename = forename;
-        this.surname = surname;
-        this.dayOfBirth = dayOfBirth;
-    }
+	public IdentityCard(String forename, String surname, DayOfBirth dayOfBirth) {
+		this.forename = forename;
+		this.surname = surname;
+		this.dayOfBirth = dayOfBirth;
+	}
 
-    @Override
-    public String toString() {
-        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-    }
+	@Override
+	public String toString() {
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+	}
 
-    public IdentityCard fromJson(String string) {
-        return new GsonBuilder().create().fromJson(string, IdentityCard.class);
-    }
+	public IdentityCard fromJson(String string) {
+		return new GsonBuilder().create().fromJson(string, IdentityCard.class);
+	}
 }

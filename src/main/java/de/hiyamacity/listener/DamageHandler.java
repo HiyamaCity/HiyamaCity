@@ -7,8 +7,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class DamageHandler implements Listener {
 
-    @EventHandler
-    public void onEvent(EntityDamageByEntityEvent e) {
-        if (!(e.getDamager() instanceof Player p)) return;
-    }
+	@EventHandler
+	public void onEvent(EntityDamageByEntityEvent e) {
+		if (!(e.getDamager() instanceof Player p)) return;
+	}
 }

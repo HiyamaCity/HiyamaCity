@@ -9,21 +9,21 @@ import lombok.Setter;
 @Setter
 public class DayOfBirth {
 
-    @Expose
-    private int day;
-    @Expose
-    private int month;
-    @Expose
-    private int year;
+	@Expose
+	private int day;
+	@Expose
+	private int month;
+	@Expose
+	private int year;
 
-    public DayOfBirth(int day, int month, int year) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-    }
+	public DayOfBirth(int day, int month, int year) {
+		this.day = day;
+		this.month = month;
+		this.year = year;
+	}
 
-    @Override
-    public String toString() {
-        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
-    }
+	@Override
+	public String toString() {
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+	}
 }

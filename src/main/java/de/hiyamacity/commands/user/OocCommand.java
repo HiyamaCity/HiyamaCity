@@ -16,24 +16,24 @@ import java.util.ResourceBundle;
 public class OocCommand implements CommandExecutor {
 
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player p)) return true;
-        ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-        if (args.length < 1) {
-            p.sendMessage(rs.getString("oocChatUsage"));
-            return true;
-        }
-        StringBuilder msgBuilder = new StringBuilder();
-        for (String arg : args) {
-            msgBuilder.append(arg).append(" ");
-        }
-        String msg = msgBuilder.toString().trim();
-        List<Player> recipients = new ArrayList<>(Bukkit.getOnlinePlayers().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= Distances.CHAT_MESSAGE_NEAREST)).toList());
-        recipients.forEach(player -> {
-            ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(player.getUniqueId());
-            player.sendMessage(resourceBundle.getString("oocChat").replace("%player%", p.getName()).replace("%msg%", msg));
-        });
-        return false;
-    }
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+		if (!(sender instanceof Player p)) return true;
+		ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
+		if (args.length < 1) {
+			p.sendMessage(rs.getString("oocChatUsage"));
+			return true;
+		}
+		StringBuilder msgBuilder = new StringBuilder();
+		for (String arg : args) {
+			msgBuilder.append(arg).append(" ");
+		}
+		String msg = msgBuilder.toString().trim();
+		List<Player> recipients = new ArrayList<>(Bukkit.getOnlinePlayers().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= Distances.CHAT_MESSAGE_NEAREST)).toList());
+		recipients.forEach(player -> {
+			ResourceBundle resourceBundle = LanguageHandler.getResourceBundle(player.getUniqueId());
+			player.sendMessage(resourceBundle.getString("oocChat").replace("%player%", p.getName()).replace("%msg%", msg));
+		});
+		return false;
+	}
 }
