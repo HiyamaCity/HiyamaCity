@@ -1,26 +1,23 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Location {
 
-	@Expose
 	private String world;
-	@Expose
 	private double x;
-	@Expose
 	private double y;
-	@Expose
 	private double z;
-	@Expose
 	private float yaw;
-	@Expose
 	private float pitch;
 
 	public Location(org.bukkit.Location loc) {
@@ -32,29 +29,10 @@ public class Location {
 		this.pitch = loc.getPitch();
 	}
 
-	public Location(String world, double x, double y, double z, float yaw, float pitch) {
-		this.world = world;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.yaw = yaw;
-		this.pitch = pitch;
-	}
-
-	public Location(String world, double x, double y, double z) {
-		this.world = world;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-
 	public Location(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-	}
-
-	public Location() {
 	}
 
 	public static org.bukkit.Location getAsBukkitLocation(Location loc) {
@@ -63,7 +41,7 @@ public class Location {
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().serializeNulls().excludeFieldsWithoutExposeAnnotation().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
 
 }

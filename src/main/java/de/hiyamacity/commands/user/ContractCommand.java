@@ -1,7 +1,6 @@
 package de.hiyamacity.commands.user;
 
 import de.hiyamacity.lang.LanguageHandler;
-import de.hiyamacity.objects.Contract;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -40,7 +39,7 @@ public class ContractCommand implements CommandExecutor {
 			return true;
 		}
 
-		Contract contract = new Contract(p.getUniqueId(), t.map(Player::getUniqueId).orElse(null), msg.toString().trim());
+		//Contract contract = new Contract(p.getUniqueId(), t.map(Player::getUniqueId).orElse(null), msg.toString().trim());
 
 		return false;
 	}

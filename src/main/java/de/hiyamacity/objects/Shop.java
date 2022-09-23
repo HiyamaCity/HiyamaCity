@@ -1,8 +1,9 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Location;
 
@@ -13,30 +14,18 @@ import java.util.stream.Stream;
 
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Shop {
 
-	@Expose
 	private String name;
-	@Expose
 	private UUID[] owner;
-	@Expose
 	private ShopType[] shopType;
-	@Expose
 	private Location location;
-	public Shop(String name, UUID[] owner, ShopType[] shopType, Location location) {
-		this.name = name;
-		this.owner = owner;
-		this.shopType = shopType;
-		this.location = location;
-	}
-
-	public static Shop fromJson(String string) {
-		return new GsonBuilder().create().fromJson(string, Shop.class);
-	}
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
 
 	@Getter

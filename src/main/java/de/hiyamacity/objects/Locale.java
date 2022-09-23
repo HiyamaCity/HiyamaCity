@@ -1,23 +1,19 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Locale {
 
-	@Expose
 	private String language;
-	@Expose
 	private String country;
-
-	public Locale(String language, String country) {
-		this.language = language;
-		this.country = country;
-	}
 
 	public java.util.Locale getJavaUtilLocale() {
 		return new java.util.Locale(this.getLanguage(), this.getCountry());
@@ -25,6 +21,6 @@ public class Locale {
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().serializeNulls().excludeFieldsWithoutExposeAnnotation().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
 }

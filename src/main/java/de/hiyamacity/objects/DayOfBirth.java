@@ -1,29 +1,24 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class DayOfBirth {
 
-	@Expose
 	private int day;
-	@Expose
 	private int month;
-	@Expose
 	private int year;
-
-	public DayOfBirth(int day, int month, int year) {
-		this.day = day;
-		this.month = month;
-		this.year = year;
-	}
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
+	
 }

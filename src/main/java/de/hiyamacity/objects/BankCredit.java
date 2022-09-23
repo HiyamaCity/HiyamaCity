@@ -1,28 +1,28 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BankCredit {
 
 	/**
 	 * Credited Amount
 	 */
-	@Expose
 	private long creditAmount;
 	/**
 	 * Amount that has been paid back for the credit.
 	 */
-	@Expose
 	private long paidBackAmount;
 	/**
 	 * Whether the credit is completely paid back.
 	 */
-	@Expose
 	private boolean closed;
 
 	public BankCredit(long creditAmount) {
@@ -33,6 +33,6 @@ public class BankCredit {
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().serializeNulls().excludeFieldsWithoutExposeAnnotation().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
 }

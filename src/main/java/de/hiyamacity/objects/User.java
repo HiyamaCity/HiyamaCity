@@ -1,10 +1,11 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.lang.LanguageHandler;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,81 +21,67 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
 	/**
 	 * The amount of money that the user carries in their pocket.
 	 */
-	@Expose
 	private long purse;
 	/**
 	 * The amount of money that the user has stored in the bank.
 	 */
-	@Expose
 	private long bank;
 	/**
 	 * The amount of minutes played on the server.
 	 */
-	@Expose
 	private long playedMinutes;
 	/**
 	 * The amount of hours played on the server.
 	 */
-	@Expose
 	private long playedHours;
 	/**
 	 * The amount of kills that the user made.
 	 */
-	@Expose
 	private long kills;
 	/**
 	 * The amount of deaths that the user suffered.
 	 */
-	@Expose
 	private long deaths;
 	/**
 	 * The unique user id of the user.
 	 *
 	 * @see UUID
 	 */
-	@Expose
 	private UUID uuid;
 	/**
 	 * The identity card of the user.
 	 *
 	 * @see IdentityCard
 	 */
-	@Expose
 	private IdentityCard identityCard;
 	/**
 	 * The locale that the user specified.
 	 *
 	 * @see Locale
 	 */
-	@Expose
 	private Locale locale;
 	/**
 	 * List of bans that the user experienced.
 	 *
 	 * @see Ban
 	 */
-	@Expose
 	private List<Ban> bans;
 	/**
 	 * List of skills that the user has.
 	 *
 	 * @see Skill
 	 */
-	@Expose
 	private List<Skill> skills;
-	@Expose
 	private List<BankCredit> bankCredits;
-	@Expose
 	private Location nonAfkLocation;
-	@Expose
 	private boolean isAfk;
-	@Expose
-	private List<Contract> contracts;
 
 	/**
 	 * Instantiates a new User object that gets registered in the Database with it's corresponding UUID.
@@ -108,9 +95,6 @@ public class User {
 		this.playedHours = 0;
 		this.uuid = uuid;
 		register();
-	}
-
-	public User() {
 	}
 
 	/**
@@ -151,7 +135,7 @@ public class User {
 	}
 
 	public static User fromJson(String string) {
-		return new GsonBuilder().create().fromJson(string, User.class);
+		return JsonHandler.getJsonAsObject(string, User.class);
 	}
 
 	/**
@@ -216,7 +200,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
 
 }

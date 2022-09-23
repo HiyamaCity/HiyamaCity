@@ -1,14 +1,17 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashMap;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Skill {
 
 	private HashMap<Integer, Integer> levelHashMap = new HashMap<>() {{
@@ -33,14 +36,11 @@ public class Skill {
 		put(19, get(19 - 1) * 2);
 		put(20, get(20 - 1) * 2);
 	}};
-	@Expose
 	private int level = 1;
-	@Expose
 	private int xp = 0;
-	@Expose
 	private long cumulativeXP = 0;
-	@Expose
 	private SkillType skillType;
+
 	public Skill(SkillType skillType) {
 		this.skillType = skillType;
 	}
@@ -77,7 +77,7 @@ public class Skill {
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
 
 	@Getter

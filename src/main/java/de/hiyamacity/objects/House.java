@@ -1,10 +1,11 @@
 package de.hiyamacity.objects;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
 import de.hiyamacity.database.ConnectionPool;
 import de.hiyamacity.misc.Distances;
+import de.hiyamacity.util.JsonHandler;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,15 +20,13 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class House {
 
-	@Expose
 	private UUID houseID;
-	@Expose
 	private List<de.hiyamacity.objects.Location> doorLocations;
-	@Expose
 	private List<Resident> residents;
-	@Expose
 	private Address address;
 
 	/**
@@ -43,9 +42,6 @@ public class House {
 		this.address = address;
 		this.residents = new ArrayList<>();
 		this.residents.add(new Resident(owner, Resident.ResidentType.OWNER));
-	}
-
-	public House() {
 	}
 
 	/**
@@ -218,7 +214,7 @@ public class House {
 	}
 
 	public static House fromJson(String string) {
-		return new GsonBuilder().create().fromJson(string, House.class);
+		return JsonHandler.getJsonAsObject(string, House.class);
 	}
 
 	/**
@@ -238,6 +234,6 @@ public class House {
 
 	@Override
 	public String toString() {
-		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create().toJson(this);
+		return JsonHandler.getObjectAsJson(this);
 	}
 }
