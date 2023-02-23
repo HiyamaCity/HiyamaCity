@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class AfkHandler {
 
-	private static final Location afkLocation = new Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
+	private static @NotNull final Location afkLocation = new Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
 
 	private static @NotNull final Location fallBackLocation = new Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
 
