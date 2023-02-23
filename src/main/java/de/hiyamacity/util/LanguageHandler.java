@@ -11,7 +11,8 @@ import java.util.UUID;
 
 public class LanguageHandler {
 
-	private static final String baseName = "i18n";
+	private static final Locale defaultLocale = Locale.GERMAN;
+	private static final String baseName = "de.hiyamacity.lang.i18n";
 
 	public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
 		if(uuid == null) return getResourceBundle();
@@ -22,7 +23,7 @@ public class LanguageHandler {
 	}
 
 	public static @NotNull ResourceBundle getResourceBundle() {
-		return ResourceBundle.getBundle(baseName);
+		return ResourceBundle.getBundle(baseName, defaultLocale);
 	}
 
 }

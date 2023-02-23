@@ -9,4 +9,7 @@ softdepend:
   - jakarta
 commands: 
   afk:
+    
+  pay:
+    
   

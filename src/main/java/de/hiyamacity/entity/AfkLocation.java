@@ -48,7 +48,7 @@ public class AfkLocation {
 	private User user;
 
 	public Location toBukkitLocation() {
-		return new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.pitch, this.yaw);
+		return new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
 	}
 	
 	public AfkLocation fromBukkitLocation(Location location) {
@@ -56,8 +56,8 @@ public class AfkLocation {
 		this.x = location.getX();
 		this.y = location.getY();
 		this.z = location.getZ();
-		this.pitch = location.getPitch();
 		this.yaw = location.getYaw();
+		this.pitch = location.getPitch();
 		return this;
 	}
 

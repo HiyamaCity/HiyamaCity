@@ -16,6 +16,7 @@ public class RankHandler {
 	private static final String PLAYER_TEAM = "00001PLAYER";
 	private static final String AFK_TEAM = "99999AFK";
 
+	@SuppressWarnings("deprecation")
 	public static void initScoreboard() {
 
 		Team adminTeam = sb.registerNewTeam(ADMIN_TEAM);
@@ -37,6 +38,8 @@ public class RankHandler {
 
 		updateRanks();
 	}
+
+	@SuppressWarnings("deprecation")
 	public static void updateRanks() {
 		Bukkit.getOnlinePlayers().forEach(player -> {
 			Team team;
