@@ -1,78 +1,12 @@
-name: HiyamaCityScript
-version: 1.0
-main: de.hiyamacity.main.Main
+name: HiyamaCity
+main: de.hiyamacity.Main
+version: 2.0
+api-version: 1.18
+database: true
+prefix: HiyamaCity
 author: AhegaHOE
-api-version: 1.16
-commands:
-  ping:
-    description: Allows the player to check their ping.
-  stats:
-    description: Allows the player to see their stats.
-  gm:
-    description: Allows the player to change their game mode.
-    aliases: [ gamemode ]
-  pay:
-    description: Allows the player to pay money to other players.
-  info:
-    description: Allows the player to get information.
-  me:
-    description: Allows the player to do actions.
-  kiss:
-    description: Allows the player to kiss other players.
-  time:
-    description: Allows the player to get the current time.
-  dice:
-    description: Allows the player to roll a dice.
-  m:
-    description: Allows the player to message other players.
-    aliases: [ message ]
-  show-finances:
-    description: Allows the player to show their finances to other players.
-    aliases: [ showFinances ]
-  deaths:
-    description: Allows the player to see the death count.
-  vanish:
-    description: Allows the player to hide themselves and others.
-  slap:
-    description: Allows the player to slap themselves and others.
-  house:
-    description: Allows the player to handle some stuff in the house system.
-  shop:
-    description: Allows the player to interact with shops.
-  tp:
-    description: Allows the player to teleport them or others to specific locations.
-    aliases: [ teleport ]
-  heal:
-    description: Allows the player to heal themselves.
-  kick:
-    description: Allows the player to kick other players.
-  whisper:
-    description: Allows the player to whisper.
-    aliases: [ w ]
-  shout:
-    description: Allows the player to shout.
-    aliases: [ s ]
-  ban:
-    description: Allows the player to ban players.
-  unban:
-    description: Allows the player to unban players.
-  checkBans:
-    description: Allows the player to check bans.
-  clearBans:
-    description: Allows the player to clear bans.
-  tempBan:
-    description: Allows the player to tempBan players.
-  clearChat:
-    description: Allows the player to clear the chat.
-    aliases: [ cc ]
-  all:
-    description: Allows the player to message all players.
+softdepend:
+  - jakarta
+commands: 
   afk:
-    description: Allows the player to enter afk mode.
-  apology:
-    description: Allows the player to apologize to another player.
-    aliases: [ apologize ]
-  ooc:
-    description: Allows the player to text out of their role play character.
-  seen:
-    description: Allows the player to see when a player was seen.
+    usage: /afk
