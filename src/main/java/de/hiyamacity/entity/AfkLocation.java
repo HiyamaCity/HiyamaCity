@@ -44,8 +44,7 @@ public class AfkLocation {
 	@Column(name = "yaw", nullable = false)
 	private float yaw;
 
-	@OneToOne(orphanRemoval = true)
-	@JoinColumn(name = "user_id")
+	@OneToOne(mappedBy = "nonAfkLocation")
 	private User user;
 
 	public Location toBukkitLocation() {

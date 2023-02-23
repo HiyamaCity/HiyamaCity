@@ -1,6 +1,6 @@
 package de.hiyamacity.util;
 
-import de.hiyamacity.dao.UserDao;
+import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.User;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,7 +40,7 @@ public class RankHandler {
 	public static void updateRanks() {
 		Bukkit.getOnlinePlayers().forEach(player -> {
 			Team team;
-			Optional<User> user = UserDao.getUserByPlayerUUID(player.getUniqueId());
+			Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueID(player.getUniqueId());
 			if (user.map(User::isAfk).orElse(false)) team = sb.getTeam(AFK_TEAM);
 			else if (player.hasPermission("admin")) team = sb.getTeam(ADMIN_TEAM);
 			else team = sb.getTeam(PLAYER_TEAM);

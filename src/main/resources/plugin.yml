@@ -1,7 +1,7 @@
 name: HiyamaCity
 main: de.hiyamacity.Main
 version: 2.0
-api-version: 1.18
+api-version: 1.19
 database: true
 prefix: HiyamaCity
 author: AhegaHOE
@@ -9,4 +9,4 @@ softdepend:
   - jakarta
 commands: 
   afk:
-    usage: /afk
+  

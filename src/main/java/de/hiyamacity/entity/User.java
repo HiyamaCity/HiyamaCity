@@ -54,7 +54,8 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "house_id"))
 	private Set<House> rented_houses = new LinkedHashSet<>();
 
-	@OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "afk_location_id")
 	private AfkLocation nonAfkLocation;
 
 	@Override

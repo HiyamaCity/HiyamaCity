@@ -1,6 +1,7 @@
 package de.hiyamacity.util;
 
-import de.hiyamacity.dao.UserDao;
+import de.hiyamacity.dao.AfkLocationDAOImpl;
+import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.AfkLocation;
 import de.hiyamacity.entity.User;
 import org.bukkit.Bukkit;
@@ -15,38 +16,49 @@ import java.util.UUID;
 
 public class AfkHandler {
 
-	private static @NotNull final Location afkLocation = new Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
+	private static @NotNull
+	final Location afkLocation = new Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
 
-	private static @NotNull final Location fallBackLocation = new Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
+	private static @NotNull
+	final Location fallBackLocation = new Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
 
 	public static void toggleAfk(@NotNull UUID uuid) {
-		Optional<User> userOptional = UserDao.getUserByPlayerUUID(uuid);
+		UserDAOImpl userDAO = new UserDAOImpl();
+		Optional<User> userOptional = userDAO.getUserByPlayerUniqueID(uuid);
 		Optional<Player> playerOptional = Optional.ofNullable(Bukkit.getPlayer(uuid));
+		ResourceBundle rs = LanguageHandler.getResourceBundle(playerOptional.map(Entity::getUniqueId).orElse(null));
 		userOptional.ifPresent(user -> {
-			user.setAfk(!user.isAfk()); // Toggle AFK
-			ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
-			
-			// user.isAfk is true when the player wasn't afk.
-			if(user.isAfk()) {
-				AfkLocation nonAfkLocation = new AfkLocation().fromBukkitLocation(playerOptional.map(Entity::getLocation).orElse(fallBackLocation));
-				playerOptional.ifPresent(p -> p.sendMessage(nonAfkLocation.toString()));
+			boolean afk = !user.isAfk();
+			user.setAfk(afk);
+			afk = user.isAfk();
+
+			if (afk) {
+				AfkLocationDAOImpl afkLocationDAO = new AfkLocationDAOImpl();
+				AfkLocation nonAfkLocation = new AfkLocation().fromBukkitLocation(playerOptional.map(Player::getLocation).orElse(fallBackLocation));
+				nonAfkLocation = afkLocationDAO.create(nonAfkLocation);
+				
+				if (nonAfkLocation == new AfkLocation().fromBukkitLocation(fallBackLocation)) {
+					playerOptional.ifPresent(p -> p.sendMessage(rs.getString("afkFallBackLocationInfo")));
+				}
+
 				user.setNonAfkLocation(nonAfkLocation);
 				playerOptional.ifPresent(p -> {
 					p.teleport(afkLocation);
 					p.sendMessage(rs.getString("afkJoin"));
 				});
+				
 			} else {
-				Location nonAfkLocation = (user.getNonAfkLocation() == null) ? fallBackLocation : user.getNonAfkLocation().toBukkitLocation();
+				Location nonAfkLocation = user.getNonAfkLocation().toBukkitLocation();
+
 				playerOptional.ifPresent(p -> {
 					p.teleport(nonAfkLocation);
-					p.sendMessage(rs.getString("afkLeave"));
+					p.sendMessage(rs.getString("afkQuit"));
 				});
 				user.setNonAfkLocation(null);
 			}
 
-			UserDao.updateUser(user);
-			RankHandler.updateRanks();
-			
+			userDAO.update(user);
+
 		});
 	}
 

@@ -14,17 +14,15 @@ public class AfkCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-		if (!(commandSender instanceof Player)) {
+		if (!(commandSender instanceof final Player p)) {
 			final ResourceBundle rs = LanguageHandler.getResourceBundle();
 			commandSender.sendMessage(rs.getString("playerCommand"));
+			return true;
 		}
-
-		assert commandSender instanceof Player;
-		final Player p = (Player) commandSender;
 
 		AfkHandler.toggleAfk(p.getUniqueId());
 
-		return false;
+		return true;
 	}
 
 }

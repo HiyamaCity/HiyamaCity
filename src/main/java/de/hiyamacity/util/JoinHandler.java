@@ -1,8 +1,7 @@
 package de.hiyamacity.util;
 
-import de.hiyamacity.dao.UserDao;
+import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.User;
-import jakarta.persistence.Version;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,11 +19,12 @@ public class JoinHandler implements Listener {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 
-		Optional<User> userOptional = UserDao.getUserByPlayerUUID(uuid);
+		UserDAOImpl userDAO = new UserDAOImpl();
+		Optional<User> userOptional = userDAO.getUserByPlayerUniqueID(uuid);
 		if (userOptional.isEmpty()) {
 			User user = new User();
 			user.setPlayerUniqueID(uuid);
-			UserDao.updateUser(user);
+			userDAO.create(user);
 		}
 
 		RankHandler.updateRanks();

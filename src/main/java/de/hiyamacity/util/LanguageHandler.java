@@ -1,8 +1,7 @@
 package de.hiyamacity.util;
 
-import de.hiyamacity.dao.UserDao;
+import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.User;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -14,8 +13,9 @@ public class LanguageHandler {
 
 	private static final String baseName = "i18n";
 
-	public static @NotNull ResourceBundle getResourceBundle(@NotNull UUID uuid) {
-		Optional<User> user = UserDao.getUserByPlayerUUID(uuid);
+	public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
+		if(uuid == null) return getResourceBundle();
+		Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueID(uuid);
 		Locale locale = user.map(User::getLocale).orElse(Locale.GERMAN);
 		if (locale == null) return getResourceBundle();
 		else return ResourceBundle.getBundle(baseName, locale);
