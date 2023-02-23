@@ -21,9 +21,11 @@ public class i18n_de extends ListResourceBundle {
 				{"playerTooFarAway", "§cDer Spieler {0} ist zu weit entfernt...\nDie maximale Distanz für diesen Befehl beträgt: {1} Blöcke."},
 				{"payNonNegative", "§cDein ernst?! Du versuchst jemandem negatives Geld zu geben? Du bist ein Dieb... Sowas macht man nicht!"},
 				{"payInsufficientFunds", "§cDu versuchst mehr Geld auszugeben als du hast... Pass auf dass du nicht bei der Schufa auffällig wirst..."},
-				{"paySend", "§7Du hast §9{0}{1} §7an §9{2} §7gegeben."},
-				{"payReceive", "§9{0} §7hat dir §9{1}{2} §7gegeben."},
-				{"currencySymbol", "€"}
+				{"paySend", "§7Du hast §9{0, number}{1} §7an §9{2} §7gegeben."},
+				{"payReceive", "§9{0} §7hat dir §9{1, number}{2} §7gegeben."},
+				{"currencySymbol", "€"},
+				{"userFetchFailed", "§cEs ist ein Fehler beim abfragen deiner Daten aufgetreten..."},
+				{"printMoney", "§7Du hast §9{0, number}{1} §7in deinem Portemonnaie."}
 		};
 	}
 }

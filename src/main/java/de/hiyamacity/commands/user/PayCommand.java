@@ -95,7 +95,8 @@ public class PayCommand implements CommandExecutor {
 			userDAO.update(user);
 			
 			String message = rs.getString("paySend");
-			message = MessageFormat.format(message, amount, rs.getString("currencySymbol"), target.getName());
+			MessageFormat messageFormat = new MessageFormat(message, user.getLocale());
+			message = messageFormat.format(new Object[]{amount, rs.getString("currencySymbol"), target.getName()});
 			p.sendMessage(message);
 		});
 		
@@ -105,7 +106,8 @@ public class PayCommand implements CommandExecutor {
 
 			ResourceBundle targetResourceBundle = LanguageHandler.getResourceBundle(target.getUniqueId());
 			String message = targetResourceBundle.getString("payReceive");
-			message = MessageFormat.format(message, p.getName(), amount, targetResourceBundle.getString("currencySymbol"));
+			MessageFormat messageFormat = new MessageFormat(message, user.getLocale());
+			message = messageFormat.format(new Object[]{p.getName(), amount, targetResourceBundle.getString("currencySymbol")});
 			target.sendMessage(message);
 		});
 		

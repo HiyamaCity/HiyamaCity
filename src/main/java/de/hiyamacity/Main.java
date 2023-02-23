@@ -1,6 +1,7 @@
 package de.hiyamacity;
 
 import de.hiyamacity.commands.user.AfkCommand;
+import de.hiyamacity.commands.user.MoneyCommand;
 import de.hiyamacity.commands.user.PayCommand;
 import de.hiyamacity.dao.GeneralDAO;
 import de.hiyamacity.util.ChatHandler;
@@ -34,6 +35,7 @@ public class Main extends JavaPlugin {
 	public void loadCommands() {
 		getCommand("afk").setExecutor(new AfkCommand());
 		getCommand("pay").setExecutor(new PayCommand());
+		getCommand("money").setExecutor(new MoneyCommand());
 	}
 
 	public void loadListeners() {
