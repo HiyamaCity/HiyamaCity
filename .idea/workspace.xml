@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="QoL improvements (design)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/user/PlaytimeCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/PlaytimeDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/Playtime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/PlaytimeTracker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="correct playtime formatting">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/BankAccountDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/user/BankCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/user/BankCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/BankAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/BankAccount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +147,7 @@
       <workItem from="1677158442583" duration="3340000" />
       <workItem from="1677162314852" duration="39000" />
       <workItem from="1677167001918" duration="2343000" />
-      <workItem from="1677178041066" duration="37092000" />
+      <workItem from="1677178041066" duration="40496000" />
     </task>
     <task id="LOCAL-00001" summary="hibernate working">
       <created>1677162347037</created>
@@ -203,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677206678072</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="correct playtime formatting">
+      <created>1677216493066</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677216493066</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,7 +229,8 @@
     <MESSAGE value="pay command formatting and money command working" />
     <MESSAGE value="partially finished bank command and finished atm command" />
     <MESSAGE value="QoL improvements (design)" />
-    <option name="LAST_COMMIT_MESSAGE" value="QoL improvements (design)" />
+    <MESSAGE value="correct playtime formatting" />
+    <option name="LAST_COMMIT_MESSAGE" value="correct playtime formatting" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

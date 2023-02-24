@@ -24,7 +24,4 @@ public class BankAccount {
 	@Column(name = "amount", nullable = false)
 	private long amount;
 
-	@OneToOne(mappedBy = "bankAccount", orphanRemoval = true)
-	private User user;
-
 }

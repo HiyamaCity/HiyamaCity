@@ -1,8 +1,10 @@
 package de.hiyamacity.commands.user;
 
 import de.hiyamacity.dao.ATMDAOImpl;
+import de.hiyamacity.dao.BankAccountDAOImpl;
 import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.ATM;
+import de.hiyamacity.entity.BankAccount;
 import de.hiyamacity.entity.User;
 import de.hiyamacity.util.Distances;
 import de.hiyamacity.util.LanguageHandler;
@@ -24,11 +26,11 @@ import java.util.UUID;
 import static de.hiyamacity.util.Util.isLong;
 
 public class BankCommand implements CommandExecutor, TabCompleter {
-	
-	// TODO: Add user bank account and maximum withdraw amount.
+
+	// TODO: Rework Withdrawal and Deposit
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if(!(sender instanceof Player p)) {
+		if (!(sender instanceof Player p)) {
 			ResourceBundle rs = LanguageHandler.getResourceBundle();
 			sender.sendMessage(rs.getString("playerCommand"));
 			return true;
@@ -37,56 +39,71 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		final UUID uuid = p.getUniqueId();
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 
-		if(args.length > 3 || args.length < 1) {
+		if (args.length > 3 || args.length < 1) {
 			p.sendMessage(rs.getString("bankUsage"));
 			return true;
 		}
-		
+
 		final Optional<ATM> nearestATM = getNearestValidATM(p.getEyeLocation());
 		final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueID(uuid);
-		
-		if(nearestATM.isEmpty()) {
+
+		if (nearestATM.isEmpty()) {
 			p.sendMessage(rs.getString("atmNotFound"));
 			return true;
 		}
-		
-		if(optionalUser.isEmpty()) {
+
+		if (optionalUser.isEmpty()) {
 			p.sendMessage(rs.getString("userFetchFailed"));
 			return true;
 		}
-		
+
 		final User user = optionalUser.get();
+		BankAccount bankAccount = user.getBankAccount();
+		BankAccountDAOImpl bankAccountDAO = new BankAccountDAOImpl();
+
+		if (bankAccount == null) {
+			bankAccount = new BankAccount();
+			bankAccountDAO.create(bankAccount);
+		}
+
 		final ATM atm = nearestATM.get();
-		
+
 		switch (args[0].toLowerCase()) {
 			case "abbuchen" -> {
-				if(args.length != 2) {
+				if (args.length != 2) {
 					p.sendMessage("bankWithdrawDepositUsage");
 					return true;
 				}
 
-				if(!isLong(args[1])) {
+				if (!isLong(args[1])) {
 					p.sendMessage(rs.getString("inputNaN"));
 					return true;
 				}
-				
+
 				final long amount = Long.parseLong(args[1]);
 				final long atmAmount = atm.getAmount();
 				final long userAmount = user.getPurse();
-				
-				if(amount <= 0) {
+
+				if (amount <= 0) {
 					p.sendMessage(rs.getString("bankNonNegative"));
 					return true;
 				}
-				
-				if(atmAmount < amount) {
+
+				if (atmAmount < amount) {
 					p.sendMessage(rs.getString("bankWithdrawNotEnoughMoneyInATM"));
 					return true;
 				}
-				
+
+				if (bankAccount.getAmount() < amount) {
+					p.sendMessage(rs.getString("bankWithdrawNotEnoughMoneyOnBank"));
+					return true;
+				}
+
+				bankAccount.setAmount(bankAccount.getAmount() - amount);
 				atm.setAmount(atmAmount - amount);
 				user.setPurse(userAmount + amount);
-				
+
+				bankAccountDAO.update(bankAccount);
 				new ATMDAOImpl().update(atm);
 				new UserDAOImpl().update(user);
 
@@ -96,39 +113,41 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				p.sendMessage(message);
 			}
 			case "einzahlen" -> {
-				if(args.length != 2) {
+				if (args.length != 2) {
 					p.sendMessage("bankWithdrawDepositUsage");
 					return true;
 				}
 
-				if(!isLong(args[1])) {
+				if (!isLong(args[1])) {
 					p.sendMessage(rs.getString("inputNaN"));
 					return true;
 				}
-				
+
 				long amount = Long.parseLong(args[1]);
 				final long atmAmount = atm.getAmount();
 				final long atmMaximum = atm.getMaximumAmount();
 				final long userAmount = user.getPurse();
 
-				if(amount <= 0) {
+				if (amount <= 0) {
 					p.sendMessage(rs.getString("bankNonNegative"));
 					return true;
 				}
 
-				if(userAmount < amount) {
+				if (userAmount < amount) {
 					p.sendMessage(rs.getString("payInsufficientFunds"));
 					return true;
 				}
-				
+
 				long oldAmount = amount;
-				if(atmMaximum < atmAmount + amount) {
+				if (atmMaximum < atmAmount + amount) {
 					amount = atmMaximum - atmAmount;
 				}
 
-				atm.setAmount(atmAmount + amount);
+				bankAccount.setAmount(bankAccount.getAmount() + oldAmount);
 				user.setPurse(userAmount - oldAmount);
+				atm.setAmount(atmAmount + amount);
 
+				bankAccountDAO.update(bankAccount);
 				new ATMDAOImpl().update(atm);
 				new UserDAOImpl().update(user);
 
@@ -138,27 +157,36 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				p.sendMessage(message);
 			}
 			case "info" -> {
-				
+				if (args.length != 1) {
+					p.sendMessage(rs.getString("bankInfoUsage"));
+					return true;
+				}
+
+				String message = rs.getString("bankInfo");
+				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+				message = messageFormat.format(new Object[]{p.getName(), bankAccount.getAmount(), rs.getString("currencySymbol"), atm.getAmount(), rs.getString("currencySymbol")});
+				p.sendMessage(message);
 			}
 			case "überweisen" -> {
-				
+
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	private Optional<ATM> getNearestValidATM(@NotNull Location location) {
 		List<ATM> atms = new ATMDAOImpl().getATMs();
 		for (ATM atm : atms) {
-			if(atm.getLocation().toBukkitLocation().distanceSquared(location) <= Distances.ATM_DISTANCE) return Optional.of(atm);
+			if (atm.getLocation().toBukkitLocation().distanceSquared(location) <= Distances.ATM_DISTANCE)
+				return Optional.of(atm);
 		}
 		return Optional.empty();
 	}
 
 	@Override
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if(args.length == 1) return List.of("abbuchen", "einzahlen", "info", "überweisen");
+		if (args.length == 1) return List.of("abbuchen", "einzahlen", "info", "überweisen");
 		return null;
 	}
 }

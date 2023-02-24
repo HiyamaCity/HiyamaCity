@@ -40,7 +40,10 @@ public class i18n_de extends ListResourceBundle {
 				{"bankDeposit", "§7Du hast §9{0}{1}§7 erfolgreich§a eingezahlt."},
 				{"inputNaN", "§cFehler: Die von dir angegebene Zahl ist ungültig. Bitte überprüfe deine Eingabe."},
 				{"playtimeUsage", "/playtime [Spieler]"},
-				{"playtimeMessage", "§6Spielzeit von {0}: §7{1, choice, 0#{1} Stunden|1#{1} Stunde|1<{1, number, integer} Stunden}, {2, choice, 0#{2} Minuten|1#{2} Minute|1<{2, number, integer} Minuten}"}
+				{"playtimeMessage", "§6Spielzeit von {0}: §7{1, choice, 0#{1} Stunden|1#{1} Stunde|1<{1, number, integer} Stunden}, {2, choice, 0#{2} Minuten|1#{2} Minute|1<{2, number, integer} Minuten}"},
+				{"bankInfoUsage", "/bank info"},
+				{"bankInfo", "§6Informationen zum Bankkonto von {0}\n	§7* Kontostand: §9{1}{2}\n	§7* Verbleibendes Geld im Bankautomat: §9{3}{4}"},
+				{"bankWithdrawNotEnoughMoneyOnBank", "§cFehler: Du kannst nicht mehr von deinem Konto abbuchen als drauf ist."}
 		};
 	}
 }
