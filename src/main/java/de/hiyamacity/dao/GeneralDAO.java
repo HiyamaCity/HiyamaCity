@@ -3,18 +3,12 @@ package de.hiyamacity.dao;
 import de.hiyamacity.Main;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 public class GeneralDAO<T, S> {
 	
-	@Getter public static @NotNull final EntityManagerFactory entityManagerFactory;
-	
-	static {
-		Thread.currentThread().setContextClassLoader(Main.class.getClassLoader());
-		entityManagerFactory = Persistence.createEntityManagerFactory("default");
-	}
+	@Getter public static @NotNull final EntityManagerFactory entityManagerFactory = Main.getEntityManagerFactory();
 	
 	public @NotNull T create(@NotNull T type) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
