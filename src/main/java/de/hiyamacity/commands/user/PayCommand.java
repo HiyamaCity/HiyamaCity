@@ -73,8 +73,8 @@ public class PayCommand implements CommandExecutor {
 		}
 
 		final UserDAOImpl userDAO = new UserDAOImpl();
-		final Optional<User> senderUser = userDAO.getUserByPlayerUniqueID(uuid);
-		final Optional<User> targetUser = userDAO.getUserByPlayerUniqueID(target.getUniqueId());
+		final Optional<User> senderUser = userDAO.getUserByPlayerUniqueId(uuid);
+		final Optional<User> targetUser = userDAO.getUserByPlayerUniqueId(target.getUniqueId());
 		
 		if(senderUser.isEmpty()) {
 			String message = rs.getString("databasePlayerNotFound");

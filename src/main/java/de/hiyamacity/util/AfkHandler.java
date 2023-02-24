@@ -23,7 +23,7 @@ public class AfkHandler {
 
 	public static void toggleAfk(@NotNull UUID uuid) {
 		UserDAOImpl userDAO = new UserDAOImpl();
-		Optional<User> userOptional = userDAO.getUserByPlayerUniqueID(uuid);
+		Optional<User> userOptional = userDAO.getUserByPlayerUniqueId(uuid);
 		Optional<Player> playerOptional = Optional.ofNullable(Bukkit.getPlayer(uuid));
 		ResourceBundle rs = LanguageHandler.getResourceBundle(playerOptional.map(Entity::getUniqueId).orElse(null));
 		userOptional.ifPresent(user -> {

@@ -26,7 +26,7 @@ public class MoneyCommand implements CommandExecutor {
 		final UUID uuid = p.getUniqueId();
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 		final UserDAOImpl userDAO = new UserDAOImpl();
-		Optional<User> userOptional = userDAO.getUserByPlayerUniqueID(uuid);
+		Optional<User> userOptional = userDAO.getUserByPlayerUniqueId(uuid);
 
 		if (userOptional.isEmpty()) {
 			p.sendMessage(rs.getString("userFetchFailed"));

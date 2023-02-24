@@ -43,7 +43,7 @@ public class RankHandler {
 	public static void updateRanks() {
 		Bukkit.getOnlinePlayers().forEach(player -> {
 			Team team;
-			Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueID(player.getUniqueId());
+			Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueId(player.getUniqueId());
 			if (user.map(User::isAfk).orElse(false)) team = sb.getTeam(AFK_TEAM);
 			else if (player.hasPermission("admin")) team = sb.getTeam(ADMIN_TEAM);
 			else team = sb.getTeam(PLAYER_TEAM);

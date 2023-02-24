@@ -30,7 +30,7 @@ public class UserDAOImpl extends GeneralDAO<User, UUID> implements DAO<User> {
 		return super.delete(classType, primaryKey);
 	}
 	
-	public Optional<User> getUserByPlayerUniqueID(@NotNull UUID uuid) {
+	public Optional<User> getUserByPlayerUniqueId(@NotNull UUID uuid) {
 		EntityManager entityManager = GeneralDAO.getEntityManagerFactory().createEntityManager();
 		try {
 			Optional<User> userOptional = Optional.ofNullable((User) entityManager.createQuery("SELECT user from User user where user.playerUniqueID = ?1").setParameter(1, uuid).getSingleResult()); 

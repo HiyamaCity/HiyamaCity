@@ -22,7 +22,7 @@ public class PlaytimeTracker {
 					
 					UserDAOImpl userDAO = new UserDAOImpl();
 					PlaytimeDAOImpl playtimeDAO = new PlaytimeDAOImpl();
-					Optional<User> optionalUser = userDAO.getUserByPlayerUniqueID(player.getUniqueId());
+					Optional<User> optionalUser = userDAO.getUserByPlayerUniqueId(player.getUniqueId());
 					optionalUser.ifPresent(user -> {
 
 						if(user.isAfk()) return;

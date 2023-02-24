@@ -35,7 +35,7 @@ public class PlaytimeCommand implements CommandExecutor {
 		}
 
 		if(args.length == 0) {
-			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueID(p.getUniqueId());
+			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueId(p.getUniqueId());
 
 			if(optionalUser.isEmpty()) {
 				p.sendMessage(rs.getString("userFetchFailed"));
@@ -67,7 +67,7 @@ public class PlaytimeCommand implements CommandExecutor {
 			}
 			
 			final Player targetPlayer = targetOptional.get();
-			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueID(targetPlayer.getUniqueId());
+			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueId(targetPlayer.getUniqueId());
 			
 			if(optionalUser.isEmpty()) {
 				p.sendMessage(rs.getString("userFetchFailed"));

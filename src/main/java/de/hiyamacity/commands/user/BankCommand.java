@@ -45,7 +45,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final Optional<ATM> nearestATM = getNearestValidATM(p.getEyeLocation());
-		final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueID(uuid);
+		final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueId(uuid);
 
 		if (nearestATM.isEmpty()) {
 			p.sendMessage(rs.getString("atmNotFound"));

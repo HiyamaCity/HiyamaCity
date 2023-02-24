@@ -24,7 +24,7 @@ public class JoinHandler implements Listener {
 		UUID uuid = p.getUniqueId();
 
 		UserDAOImpl userDAO = new UserDAOImpl();
-		Optional<User> userOptional = userDAO.getUserByPlayerUniqueID(uuid);
+		Optional<User> userOptional = userDAO.getUserByPlayerUniqueId(uuid);
 		if (userOptional.isEmpty()) {
 			User user = createDefaultUser(uuid);
 			userDAO.create(user);

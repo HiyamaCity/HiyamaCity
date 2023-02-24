@@ -16,7 +16,7 @@ public class LanguageHandler {
 
 	public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
 		if(uuid == null) return getResourceBundle();
-		Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueID(uuid);
+		Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueId(uuid);
 		Locale locale = user.map(User::getLocale).orElse(Locale.GERMAN);
 		if (locale == null) return getResourceBundle();
 		else return ResourceBundle.getBundle(baseName, locale);
