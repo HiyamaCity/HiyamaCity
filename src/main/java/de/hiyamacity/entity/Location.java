@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 @Entity
-@Table(name = "afk_location")
+@Table(name = "locations")
 @Getter
 @Setter
 @NoArgsConstructor

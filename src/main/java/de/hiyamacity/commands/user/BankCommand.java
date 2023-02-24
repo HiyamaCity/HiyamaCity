@@ -15,10 +15,13 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
+
+import static de.hiyamacity.util.Util.isLong;
 
 public class BankCommand implements CommandExecutor, TabCompleter {
 	
@@ -61,12 +64,22 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 					p.sendMessage("bankWithdrawDepositUsage");
 					return true;
 				}
+
+				if(!isLong(args[1])) {
+					p.sendMessage(rs.getString("inputNaN"));
+					return true;
+				}
 				
 				final long amount = Long.parseLong(args[1]);
 				final long atmAmount = atm.getAmount();
 				final long userAmount = user.getPurse();
 				
-				if(atmAmount <= amount) {
+				if(amount <= 0) {
+					p.sendMessage(rs.getString("bankNonNegative"));
+					return true;
+				}
+				
+				if(atmAmount < amount) {
 					p.sendMessage(rs.getString("bankWithdrawNotEnoughMoneyInATM"));
 					return true;
 				}
@@ -76,6 +89,11 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				
 				new ATMDAOImpl().update(atm);
 				new UserDAOImpl().update(user);
+
+				String message = rs.getString("bankWithdraw");
+				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+				message = messageFormat.format(new Object[]{amount, rs.getString("currencySymbol")});
+				p.sendMessage(message);
 			}
 			case "einzahlen" -> {
 				if(args.length != 2) {
@@ -83,26 +101,41 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 					return true;
 				}
 
+				if(!isLong(args[1])) {
+					p.sendMessage(rs.getString("inputNaN"));
+					return true;
+				}
+				
 				long amount = Long.parseLong(args[1]);
 				final long atmAmount = atm.getAmount();
 				final long atmMaximum = atm.getMaximumAmount();
 				final long userAmount = user.getPurse();
+
+				if(amount <= 0) {
+					p.sendMessage(rs.getString("bankNonNegative"));
+					return true;
+				}
 
 				if(userAmount < amount) {
 					p.sendMessage(rs.getString("payInsufficientFunds"));
 					return true;
 				}
 				
+				long oldAmount = amount;
 				if(atmMaximum < atmAmount + amount) {
 					amount = atmMaximum - atmAmount;
 				}
 
 				atm.setAmount(atmAmount + amount);
-				user.setPurse(userAmount - amount);
+				user.setPurse(userAmount - oldAmount);
 
 				new ATMDAOImpl().update(atm);
 				new UserDAOImpl().update(user);
-				
+
+				String message = rs.getString("bankDeposit");
+				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+				message = messageFormat.format(new Object[]{oldAmount, rs.getString("currencySymbol")});
+				p.sendMessage(message);
 			}
 			case "info" -> {
 				

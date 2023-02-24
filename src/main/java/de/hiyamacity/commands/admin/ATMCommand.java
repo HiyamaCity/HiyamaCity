@@ -19,6 +19,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import static de.hiyamacity.util.Util.isLong;
+
 public class ATMCommand implements CommandExecutor, TabCompleter {
 	
 	@Override
@@ -91,6 +93,12 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				}
 				
 				final Optional<ATM> currentATM = getLookingAtATM(p.getEyeLocation().getBlock().getLocation());
+
+				if(!isLong(args[2])) {
+					p.sendMessage(rs.getString("inputNaN"));
+					return true;
+				}
+				
 				final long amount = Long.parseLong(args[2]);
 				final ATMDAOImpl atmDAO = new ATMDAOImpl();
 				
@@ -100,8 +108,10 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				}
 
 				final ATM atm = currentATM.get();
+				final long oldAmount = atm.getAmount();
+				final long oldMaximum = atm.getMaximumAmount();
 				
-				switch (args[1]) {
+				switch (args[1].toLowerCase()) {
 					case "amount" -> atm.setAmount(amount);
 					case "maximum" -> atm.setMaximumAmount(amount);
 					default -> {
@@ -112,10 +122,20 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				
 				atmDAO.update(atm);
 				
-				String message = rs.getString("atmAdminModify");
-				message = MessageFormat.format(message, atm.getId());
-				p.sendMessage(message);
-				
+				switch (args[1].toLowerCase()) {
+					case "amount" -> {
+						String message = rs.getString("atmAdminModify");
+						MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+						message = messageFormat.format(new Object[]{atm.getId(), "amount", oldAmount, atm.getAmount()});
+						p.sendMessage(message);
+					}
+					case "maximum" -> {
+						String message = rs.getString("atmAdminModify");
+						MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+						message = messageFormat.format(new Object[]{atm.getId(), "maximum", oldMaximum, atm.getMaximumAmount()});
+						p.sendMessage(message);
+					}
+				}
 			}
 			default -> {
 				p.sendMessage(rs.getString("atmAdminPlainUsage"));

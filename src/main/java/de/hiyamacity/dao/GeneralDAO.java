@@ -7,9 +7,7 @@ import jakarta.persistence.Persistence;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-
-public class GeneralDAO<T> {
+public class GeneralDAO<T, S> {
 	
 	@Getter public static @NotNull final EntityManagerFactory entityManagerFactory;
 	
@@ -30,7 +28,7 @@ public class GeneralDAO<T> {
 		return type;
 	}
 	
-	public T read(@NotNull Class<T> classType, @NotNull UUID primaryKey) {
+	public T read(@NotNull Class<T> classType, @NotNull S primaryKey) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		return entityManager.find(classType, primaryKey);
 	}
@@ -40,13 +38,14 @@ public class GeneralDAO<T> {
 
 		entityManager.getTransaction().begin();
 		entityManager.merge(type);
+		entityManager.flush();
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		
 		return type;
 	}
 
-	public boolean delete(@NotNull Class<T> classType, @NotNull UUID primaryKey) {
+	public boolean delete(@NotNull Class<T> classType, @NotNull S primaryKey) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -55,6 +54,7 @@ public class GeneralDAO<T> {
 		if(type == null) return false;
 		
 		entityManager.remove(type);
+		entityManager.flush();
 		
 		entityManager.getTransaction().commit();
 		entityManager.close();

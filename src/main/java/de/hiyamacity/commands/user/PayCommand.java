@@ -16,6 +16,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import static de.hiyamacity.util.Util.isLong;
+
 public class PayCommand implements CommandExecutor {
 
 	final double PAY_DISTANCE = Distances.KISS;
@@ -55,6 +57,11 @@ public class PayCommand implements CommandExecutor {
 			String message = rs.getString("playerTooFarAway");
 			message = MessageFormat.format(message, target.getName(), Math.sqrt(PAY_DISTANCE));
 			p.sendMessage(message);
+			return true;
+		}
+
+		if(!isLong(args[1])) {
+			p.sendMessage(rs.getString("inputNaN"));
 			return true;
 		}
 		
