@@ -14,10 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 import static de.hiyamacity.util.Util.isLong;
 
@@ -50,7 +47,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				
 				final ATMDAOImpl atmDAO = new ATMDAOImpl();
 				final ATM atm = new ATM();
-				final de.hiyamacity.entity.Location location = new de.hiyamacity.entity.Location().fromBukkitLocation(p.getEyeLocation().getBlock().getLocation());
+				final de.hiyamacity.entity.Location location = new de.hiyamacity.entity.Location().fromBukkitLocation(getATMLocation(p));
 				final LocationDAOImpl locationDAO = new LocationDAOImpl();
 				locationDAO.create(location);
 				
@@ -70,7 +67,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 					return true;
 				}
 
-				final Optional<ATM> currentATM = getLookingAtATM(p.getEyeLocation().getBlock().getLocation());
+				final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
 				final ATMDAOImpl atmDAO = new ATMDAOImpl();
 				
 				if(currentATM.isEmpty()) {
@@ -92,7 +89,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 					return true;
 				}
 				
-				final Optional<ATM> currentATM = getLookingAtATM(p.getEyeLocation().getBlock().getLocation());
+				final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
 
 				if(!isLong(args[2])) {
 					p.sendMessage(rs.getString("inputNaN"));
@@ -137,6 +134,10 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 					}
 				}
 			}
+			case "info" -> {
+				final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
+				p.sendMessage(currentATM.toString());
+			}
 			default -> {
 				p.sendMessage(rs.getString("atmAdminPlainUsage"));
 				return true;
@@ -154,11 +155,15 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 		}
 		return Optional.empty();
 	}
+	
+	private Location getATMLocation(@NotNull Player p) {
+		return p.getTargetBlock(null, 5).getLocation();
+	}
 
 	@Override
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if(args.length == 1) return List.of("create", "delete", "modify");
-		else if(args.length == 2 || !args[0].contains("create") || !args[0].contains("delete")) return List.of("amount", "maximum");
+		if(args.length == 1) return List.of("create", "delete", "modify", "info");
+		else if(args.length == 2 || !args[0].contains("create") || !args[0].contains("delete") || !args[0].contains("info")) return List.of("amount", "maximum");
 		else return null;
 	}
 }

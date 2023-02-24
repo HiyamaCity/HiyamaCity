@@ -27,7 +27,7 @@ public class i18n_de extends ListResourceBundle {
 				{"currencySymbol", "€"},
 				{"userFetchFailed", "§cEs ist ein Fehler beim abfragen der Daten aufgetreten..."},
 				{"printMoney", "§7Du hast §9{0, number}{1} §7in deinem Portemonnaie."},
-				{"atmAdminPlainUsage", "/atm [create | delete | modify]"},
+				{"atmAdminPlainUsage", "/atm [create | delete | modify | info]"},
 				{"atmAdminModifyUsage", "/atm modify [current | maximum] [new value]"},
 				{"atmAdminCreate", "§7ATM-§9{0}§a erfolgreich§7 erstellt.\n§9X: {1}, Y: {2}, Z: {3}"},
 				{"atmAdminDelete", "§7ATM-§9{0}§a erfolgreich§7 gelöscht.\n§9X: {1}, Y: {2}, Z: {3}"}, 

@@ -1,10 +1,8 @@
 package de.hiyamacity.entity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "atms")
@@ -29,4 +27,9 @@ public class ATM {
 	@Column(name = "maximum_amount", nullable = false)
 	private long maximumAmount;
 
+	@SneakyThrows
+	@Override
+	public String toString() {
+		return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+	}
 }
