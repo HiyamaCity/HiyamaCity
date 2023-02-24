@@ -8,6 +8,7 @@ import de.hiyamacity.entity.BankAccount;
 import de.hiyamacity.entity.User;
 import de.hiyamacity.util.Distances;
 import de.hiyamacity.util.LanguageHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -61,21 +62,21 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		BankAccountDAOImpl bankAccountDAO = new BankAccountDAOImpl();
 		UserDAOImpl userDAO = new UserDAOImpl();
 		BankAccount bankAccount = new BankAccount();
-		
-		if(user.getBankAccount() == null) {
+
+		if (user.getBankAccount() == null) {
 			bankAccount.setAmount(4000);
 			bankAccountDAO.create(bankAccount);
 			user.setBankAccount(bankAccount);
 			userDAO.update(user);
 		}
-		
+
 		bankAccount = user.getBankAccount();
 		final ATM atm = nearestATM.get();
 
 		switch (args[0].toLowerCase()) {
 			case "abbuchen" -> {
 				if (args.length != 2) {
-					p.sendMessage("bankWithdrawDepositUsage");
+					p.sendMessage(rs.getString("bankWithdrawDepositUsage"));
 					return true;
 				}
 
@@ -110,7 +111,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				bankAccountDAO.update(bankAccount);
 				new ATMDAOImpl().update(atm);
 				userDAO.update(user);
-				
+
 				String message = rs.getString("bankWithdraw");
 				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
 				message = messageFormat.format(new Object[]{amount, rs.getString("currencySymbol")});
@@ -118,7 +119,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 			}
 			case "einzahlen" -> {
 				if (args.length != 2) {
-					p.sendMessage("bankWithdrawDepositUsage");
+					p.sendMessage(rs.getString("bankWithdrawDepositUsage"));
 					return true;
 				}
 
@@ -172,6 +173,71 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				p.sendMessage(message);
 			}
 			case "überweisen" -> {
+				if (args.length != 3) {
+					p.sendMessage(rs.getString("bankTransferUsage"));
+					return true;
+				}
+
+				if (!isLong(args[2])) {
+					p.sendMessage(rs.getString("inputNaN"));
+					return true;
+				}
+
+				final Optional<Player> targetOptional = Optional.ofNullable(Bukkit.getPlayer(args[1]));
+
+				if (targetOptional.isEmpty()) {
+					String message = rs.getString("playerNotFound");
+					message = MessageFormat.format(message, args[1]);
+					p.sendMessage(message);
+					return true;
+				}
+
+				final Player target = targetOptional.get();
+				
+				if(p.getName().equals(target.getName())) {
+					p.sendMessage(rs.getString("bankTransferSelf"));
+					return true;
+				}
+				
+				final Optional<User> optionalTargetUser = userDAO.getUserByPlayerUniqueId(target.getUniqueId());
+
+				if (optionalTargetUser.isEmpty()) {
+					p.sendMessage(rs.getString("userFetchFailed"));
+					return true;
+				}
+
+				final User targetUser = optionalTargetUser.get();
+				final long amount = Long.parseLong(args[2]);
+				final BankAccount userBankAccount = user.getBankAccount();
+				final BankAccount targetBankAccount = targetUser.getBankAccount();
+				final long targetBankAmount = targetBankAccount.getAmount();
+				final long userBankAmount = userBankAccount.getAmount();
+
+				if (amount <= 0) {
+					p.sendMessage(rs.getString("bankNonNegative"));
+					return true;
+				}
+				
+				if (userBankAmount < amount) {
+					p.sendMessage(rs.getString("payInsufficientFunds"));
+					return true;
+				}
+
+				userBankAccount.setAmount(userBankAmount - amount);
+				bankAccountDAO.update(userBankAccount);
+				targetBankAccount.setAmount(targetBankAmount + amount);
+				bankAccountDAO.update(targetBankAccount);
+
+				String message = rs.getString("bankTransferSend");
+				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+				message = messageFormat.format(new Object[]{amount, rs.getString("currencySymbol"), target.getName()});
+				p.sendMessage(message);
+
+				final ResourceBundle trs = LanguageHandler.getResourceBundle(target.getUniqueId());
+				message = rs.getString("bankTransferReceive");
+				MessageFormat format = new MessageFormat(message, trs.getLocale());
+				message = format.format(new Object[]{p.getName(), amount, trs.getString("currencySymbol")});
+				target.sendMessage(message);
 
 			}
 		}

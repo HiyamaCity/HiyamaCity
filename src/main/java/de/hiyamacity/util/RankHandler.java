@@ -23,9 +23,9 @@ public class RankHandler {
 		Team playerTeam = sb.registerNewTeam(PLAYER_TEAM);
 		Team afkTeam = sb.registerNewTeam(AFK_TEAM);
 
-		adminTeam.setPrefix("§4Mentor §7• §4");
+		adminTeam.setPrefix("§5Mentor §7• §5");
 		adminTeam.setSuffix("§r");
-		adminTeam.setColor(ChatColor.DARK_RED);
+		adminTeam.setColor(ChatColor.DARK_PURPLE);
 
 		playerTeam.setPrefix("§7");
 		playerTeam.setSuffix("§r");

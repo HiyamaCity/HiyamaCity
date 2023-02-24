@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
@@ -38,6 +39,15 @@ public class JoinHandler implements Listener {
 		message = MessageFormat.format(message, p.getName());
 		p.sendMessage(message);
 
+	}
+	
+	@EventHandler
+	@SuppressWarnings("deprecation")
+	public void onQuit(PlayerQuitEvent e) {
+		e.setQuitMessage("");
+
+		RankHandler.updateRanks();
+		TabListHandler.updateTab();
 	}
 
 	private @NotNull User createDefaultUser(@NotNull UUID uuid) {

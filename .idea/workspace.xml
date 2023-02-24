@@ -7,7 +7,10 @@
     <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="fixed atm to check if the block that is looked at is an instance of WallSign">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/ATMCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/ATMCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/user/BankCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/user/BankCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/JoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/JoinHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/RankHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/RankHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,29 +77,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/AhegaHOE/IdeaProjects/hibernatetest/src/main/resources/META-INF/persistence.xml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.24367817",
-    "settings.editor.selected.configurable": "inlay.hints",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/AhegaHOE/IdeaProjects/hibernatetest/src/main/resources/META-INF/persistence.xml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.24367817&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\AhegaHOE\IdeaProjects\hibernatetest\src\main\java" />
@@ -145,7 +148,8 @@
       <workItem from="1677158442583" duration="3340000" />
       <workItem from="1677162314852" duration="39000" />
       <workItem from="1677167001918" duration="2343000" />
-      <workItem from="1677178041066" duration="49021000" />
+      <workItem from="1677178041066" duration="55854000" />
+      <workItem from="1677276209911" duration="1589000" />
     </task>
     <task id="LOCAL-00001" summary="hibernate working">
       <created>1677162347037</created>
@@ -245,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677250145608</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fixed atm to check if the block that is looked at is an instance of WallSign">
+      <created>1677250808672</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677250808672</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
