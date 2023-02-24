@@ -15,14 +15,14 @@ public class PlaytimeTracker {
 
 	public static void startPlaytimeTracker() {
 
-		BukkitRunnable runnable = new BukkitRunnable() {
+		final BukkitRunnable runnable = new BukkitRunnable() {
 			@Override
 			public void run() {
 				Bukkit.getOnlinePlayers().forEach(player -> {
 					
-					UserDAOImpl userDAO = new UserDAOImpl();
-					PlaytimeDAOImpl playtimeDAO = new PlaytimeDAOImpl();
-					Optional<User> optionalUser = userDAO.getUserByPlayerUniqueId(player.getUniqueId());
+					final UserDAOImpl userDAO = new UserDAOImpl();
+					final PlaytimeDAOImpl playtimeDAO = new PlaytimeDAOImpl();
+					final Optional<User> optionalUser = userDAO.getUserByPlayerUniqueId(player.getUniqueId());
 					optionalUser.ifPresent(user -> {
 
 						if(user.isAfk()) return;
