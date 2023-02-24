@@ -25,7 +25,16 @@ public class i18n_de extends ListResourceBundle {
 				{"payReceive", "§9{0} §7hat dir §9{1, number}{2} §7gegeben."},
 				{"currencySymbol", "€"},
 				{"userFetchFailed", "§cEs ist ein Fehler beim abfragen deiner Daten aufgetreten..."},
-				{"printMoney", "§7Du hast §9{0, number}{1} §7in deinem Portemonnaie."}
+				{"printMoney", "§7Du hast §9{0, number}{1} §7in deinem Portemonnaie."},
+				{"atmAdminPlainUsage", "/atm [create | delete | modify]"},
+				{"atmAdminModifyUsage", "/atm modify [current | maximum] [new value]"},
+				{"atmAdminCreate", "§7ATM-§9{0}§a erfolgreich§7 erstellt.\n§9X: {1}, Y: {2}, Z: {3}"},
+				{"atmAdminDelete", "§7ATM-§9{0}§a erfolgreich§7 gelöscht.\n§9X: {1}, Y: {2}, Z: {3}"}, 
+				{"atmNotFound", "§cFehler: Es wurde kein ATM gefunden."},
+				{"atmAdminModify", "§7ATM-§9{0}§a erfolgreich§7 modifiziert."},
+				{"bankWithdrawDepositUsage", "/bank [abbuchen | einzahlen] [Anzahl]"},
+				{"bankUsage", "/bank [abbuchen | einzahlen | info | überweisen]"},
+				{"bankWithdrawNotEnoughMoneyInATM", "§cFehler: Du kannst nicht mehr Geld abbuchen als in dem ATM liegt."},
 		};
 	}
 }

@@ -56,7 +56,7 @@ public class User {
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "afk_location_id")
-	private AfkLocation nonAfkLocation;
+	private Location nonAfkLocation;
 
 	@Override
 	public boolean equals(Object o) {

@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 
 import java.util.UUID;
 import java.util.logging.Level;
@@ -20,7 +19,7 @@ import java.util.logging.Level;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AfkLocation {
+public class Location {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false)
@@ -44,14 +43,11 @@ public class AfkLocation {
 	@Column(name = "yaw", nullable = false)
 	private float yaw;
 
-	@OneToOne(mappedBy = "nonAfkLocation")
-	private User user;
-
-	public Location toBukkitLocation() {
-		return new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
+	public org.bukkit.Location toBukkitLocation() {
+		return new org.bukkit.Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
 	}
 	
-	public AfkLocation fromBukkitLocation(Location location) {
+	public Location fromBukkitLocation(org.bukkit.Location location) {
 		this.world = location.getWorld().getName();
 		this.x = location.getX();
 		this.y = location.getY();

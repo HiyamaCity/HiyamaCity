@@ -1,11 +1,10 @@
 package de.hiyamacity.util;
 
-import de.hiyamacity.dao.AfkLocationDAOImpl;
+import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.dao.UserDAOImpl;
-import de.hiyamacity.entity.AfkLocation;
+import de.hiyamacity.entity.Location;
 import de.hiyamacity.entity.User;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -17,10 +16,10 @@ import java.util.UUID;
 public class AfkHandler {
 
 	private static @NotNull
-	final Location afkLocation = new Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
+	final org.bukkit.Location afkLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
 
 	private static @NotNull
-	final Location fallBackLocation = new Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
+	final org.bukkit.Location fallBackLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
 
 	public static void toggleAfk(@NotNull UUID uuid) {
 		UserDAOImpl userDAO = new UserDAOImpl();
@@ -33,11 +32,11 @@ public class AfkHandler {
 			afk = user.isAfk();
 
 			if (afk) {
-				AfkLocationDAOImpl afkLocationDAO = new AfkLocationDAOImpl();
-				AfkLocation nonAfkLocation = new AfkLocation().fromBukkitLocation(playerOptional.map(Player::getLocation).orElse(fallBackLocation));
+				LocationDAOImpl afkLocationDAO = new LocationDAOImpl();
+				Location nonAfkLocation = new Location().fromBukkitLocation(playerOptional.map(Player::getLocation).orElse(fallBackLocation));
 				nonAfkLocation = afkLocationDAO.create(nonAfkLocation);
 				
-				if (nonAfkLocation == new AfkLocation().fromBukkitLocation(fallBackLocation)) {
+				if (nonAfkLocation == new Location().fromBukkitLocation(fallBackLocation)) {
 					playerOptional.ifPresent(p -> p.sendMessage(rs.getString("afkFallBackLocationInfo")));
 				}
 
@@ -48,7 +47,7 @@ public class AfkHandler {
 				});
 				
 			} else {
-				Location nonAfkLocation = user.getNonAfkLocation().toBukkitLocation();
+				org.bukkit.Location nonAfkLocation = user.getNonAfkLocation().toBukkitLocation();
 
 				playerOptional.ifPresent(p -> {
 					p.teleport(nonAfkLocation);

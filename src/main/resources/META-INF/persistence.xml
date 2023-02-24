@@ -10,7 +10,7 @@
         <class>de.hiyamacity.entity.RoleplayCharacter</class>
         <class>de.hiyamacity.entity.BankAccount</class>
         <class>de.hiyamacity.entity.House</class>
-        <class>de.hiyamacity.entity.AfkLocation</class>
+        <class>de.hiyamacity.entity.Location</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://db:3306/mc"/>
