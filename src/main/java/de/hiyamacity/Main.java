@@ -1,13 +1,11 @@
 package de.hiyamacity;
 
 import de.hiyamacity.commands.admin.ATMCommand;
-import de.hiyamacity.commands.user.AfkCommand;
-import de.hiyamacity.commands.user.BankCommand;
-import de.hiyamacity.commands.user.MoneyCommand;
-import de.hiyamacity.commands.user.PayCommand;
+import de.hiyamacity.commands.user.*;
 import de.hiyamacity.dao.GeneralDAO;
 import de.hiyamacity.util.ChatHandler;
 import de.hiyamacity.util.JoinHandler;
+import de.hiyamacity.util.PlaytimeTracker;
 import de.hiyamacity.util.RankHandler;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -23,6 +21,7 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		RankHandler.initScoreboard();
+		PlaytimeTracker.startPlaytimeTracker();
 
 		loadListeners();
 		loadCommands();
@@ -42,6 +41,7 @@ public class Main extends JavaPlugin {
 		getCommand("atm").setTabCompleter(new ATMCommand());
 		getCommand("bank").setExecutor(new BankCommand());
 		getCommand("bank").setTabCompleter(new BankCommand());
+		getCommand("playtime").setExecutor(new PlaytimeCommand());
 	}
 
 	public void loadListeners() {

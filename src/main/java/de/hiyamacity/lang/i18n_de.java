@@ -25,7 +25,7 @@ public class i18n_de extends ListResourceBundle {
 				{"paySend", "§7Du hast §9{0, number}{1} §7an §9{2} §7gegeben."},
 				{"payReceive", "§9{0} §7hat dir §9{1, number}{2} §7gegeben."},
 				{"currencySymbol", "€"},
-				{"userFetchFailed", "§cEs ist ein Fehler beim abfragen deiner Daten aufgetreten..."},
+				{"userFetchFailed", "§cEs ist ein Fehler beim abfragen der Daten aufgetreten..."},
 				{"printMoney", "§7Du hast §9{0, number}{1} §7in deinem Portemonnaie."},
 				{"atmAdminPlainUsage", "/atm [create | delete | modify]"},
 				{"atmAdminModifyUsage", "/atm modify [current | maximum] [new value]"},
@@ -38,7 +38,9 @@ public class i18n_de extends ListResourceBundle {
 				{"bankWithdrawNotEnoughMoneyInATM", "§cFehler: Du kannst nicht mehr Geld abbuchen als in dem ATM liegt."},
 				{"bankWithdraw", "§7Du hast §9{0}{1}§7 erfolgreich§c abgebucht."},
 				{"bankDeposit", "§7Du hast §9{0}{1}§7 erfolgreich§a eingezahlt."},
-				{"inputNaN", "§cFehler: Die von dir angegebene Zahl ist ungültig. Bitte überprüfe deine Eingabe."}
+				{"inputNaN", "§cFehler: Die von dir angegebene Zahl ist ungültig. Bitte überprüfe deine Eingabe."},
+				{"playtimeUsage", "/playtime [Spieler]"},
+				{"playtimeMessage", "§6Spielzeit von {0}: §7{1, choice, 0#{1} Stunden|1#{1} Stunde|1<{1, number, integer} Stunden}, {2, choice, 0#{2} Minuten|1#{2} Minute|1<{2, number, integer} Minuten}"}
 		};
 	}
 }

@@ -58,6 +58,10 @@ public class User {
 	@JoinColumn(name = "afk_location_id")
 	private Location nonAfkLocation;
 
+	@OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+	@JoinColumn(name = "playtime_id")
+	private Playtime playtime;
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
