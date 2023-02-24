@@ -5,6 +5,7 @@ import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.entity.ATM;
 import de.hiyamacity.util.LanguageHandler;
 import org.bukkit.Location;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.UUID;
 
 import static de.hiyamacity.util.Util.isLong;
 
@@ -49,6 +53,12 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				final ATM atm = new ATM();
 				final de.hiyamacity.entity.Location location = new de.hiyamacity.entity.Location().fromBukkitLocation(getATMLocation(p));
 				final LocationDAOImpl locationDAO = new LocationDAOImpl();
+				
+				if(!(location.toBukkitLocation().getBlock().getBlockData() instanceof WallSign)) {
+					p.sendMessage(rs.getString("atmLookAtSign"));
+					return true;
+				}
+				
 				locationDAO.create(location);
 				
 				atm.setLocation(location);

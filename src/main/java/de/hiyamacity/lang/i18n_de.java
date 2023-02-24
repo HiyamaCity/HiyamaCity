@@ -45,7 +45,8 @@ public class i18n_de extends ListResourceBundle {
 				{"bankInfo", "§6Informationen zum Bankkonto von {0}\n   §7* Kontostand: §9{1}{2}\n   §7* Verbleibendes Geld im Bankautomat: §9{3}{4}"},
 				{"bankWithdrawNotEnoughMoneyOnBank", "§cFehler: Du kannst nicht mehr von deinem Konto abbuchen als drauf ist."},
 				{"tabListHeader", "\n     §b§lHiyamaCity §r§7- §cFantasy §7& §cReal life Role-play     "},
-				{"tabListFooter", "§7{0}§8/§7{1}§a Spieler online.\n "}
+				{"tabListFooter", "§7{0}§8/§7{1}§a Spieler online.\n "},
+				{"atmLookAtSign", "§cFehler: ATM konnte nicht erstellt werden da der Block den du anschaust kein Schild ist."}
 		};
 	}
 }

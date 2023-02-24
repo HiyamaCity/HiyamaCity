@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="moved entityManagerFactory creation into Main static method to reduce server lag for the first one to join after a restart">
+    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="fixed atm to check if the block that is looked at is an instance of WallSign">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/ATMCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/ATMCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/ATM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/ATM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,7 +145,7 @@
       <workItem from="1677158442583" duration="3340000" />
       <workItem from="1677162314852" duration="39000" />
       <workItem from="1677167001918" duration="2343000" />
-      <workItem from="1677178041066" duration="48096000" />
+      <workItem from="1677178041066" duration="49021000" />
     </task>
     <task id="LOCAL-00001" summary="hibernate working">
       <created>1677162347037</created>
@@ -239,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677249347796</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixed atm to use target block location instead of eye location">
+      <created>1677250145608</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1677250145608</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +275,9 @@
     <MESSAGE value="renamed method" />
     <MESSAGE value="made variables final" />
     <MESSAGE value="moved entityManagerFactory creation into Main static method to reduce server lag for the first one to join after a restart" />
-    <option name="LAST_COMMIT_MESSAGE" value="moved entityManagerFactory creation into Main static method to reduce server lag for the first one to join after a restart" />
+    <MESSAGE value="fixed atm to use target block location instead of eye location" />
+    <MESSAGE value="fixed atm to check if the block that is looked at is an instance of WallSign" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed atm to check if the block that is looked at is an instance of WallSign" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
