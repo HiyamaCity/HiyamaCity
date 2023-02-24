@@ -31,6 +31,7 @@ public class JoinHandler implements Listener {
 		}
 
 		RankHandler.updateRanks();
+		TabListHandler.updateTab();
 
 		ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 		String message = rs.getString("welcomeMessage");

@@ -57,6 +57,8 @@ public class AfkHandler {
 			}
 
 			userDAO.update(user);
+			RankHandler.updateRanks();
+			TabListHandler.updateTab();
 
 		});
 	}

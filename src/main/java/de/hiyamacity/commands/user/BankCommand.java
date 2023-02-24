@@ -58,14 +58,18 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final User user = optionalUser.get();
-		BankAccount bankAccount = user.getBankAccount();
 		BankAccountDAOImpl bankAccountDAO = new BankAccountDAOImpl();
-
-		if (bankAccount == null) {
-			bankAccount = new BankAccount();
+		UserDAOImpl userDAO = new UserDAOImpl();
+		BankAccount bankAccount = new BankAccount();
+		
+		if(user.getBankAccount() == null) {
+			bankAccount.setAmount(4000);
 			bankAccountDAO.create(bankAccount);
+			user.setBankAccount(bankAccount);
+			userDAO.update(user);
 		}
-
+		
+		bankAccount = user.getBankAccount();
 		final ATM atm = nearestATM.get();
 
 		switch (args[0].toLowerCase()) {
@@ -105,8 +109,8 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 				bankAccountDAO.update(bankAccount);
 				new ATMDAOImpl().update(atm);
-				new UserDAOImpl().update(user);
-
+				userDAO.update(user);
+				
 				String message = rs.getString("bankWithdraw");
 				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
 				message = messageFormat.format(new Object[]{amount, rs.getString("currencySymbol")});
@@ -149,7 +153,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 				bankAccountDAO.update(bankAccount);
 				new ATMDAOImpl().update(atm);
-				new UserDAOImpl().update(user);
+				userDAO.update(user);
 
 				String message = rs.getString("bankDeposit");
 				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
