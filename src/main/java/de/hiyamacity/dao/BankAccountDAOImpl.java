@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class BankAccountDAOImpl extends GeneralDAO<BankAccount, UUID> implements DAO<BankAccount> {
+public class BankAccountDAOImpl extends GeneralDAO<BankAccount, UUID> implements DAO<BankAccount, UUID> {
 
 	@Override
 	public @NotNull BankAccount create(@NotNull BankAccount type) {

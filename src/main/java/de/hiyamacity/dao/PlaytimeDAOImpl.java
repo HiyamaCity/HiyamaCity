@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class PlaytimeDAOImpl extends GeneralDAO<Playtime, UUID> implements DAO<Playtime> {
+public class PlaytimeDAOImpl extends GeneralDAO<Playtime, UUID> implements DAO<Playtime, UUID> {
 
 	@Override
 	public @NotNull Playtime create(@NotNull Playtime type) {

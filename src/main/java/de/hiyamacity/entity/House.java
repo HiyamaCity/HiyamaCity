@@ -29,4 +29,10 @@ public class House {
 	@ManyToMany(mappedBy = "rented_houses")
 	private Set<User> renters = new LinkedHashSet<>();
 
+	@Column(name = "house_hold_cash", nullable = false)
+	private long houseHoldCash;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Location> doorLocations = new LinkedHashSet<>();
+
 }

@@ -2,24 +2,14 @@ package de.hiyamacity.dao;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
+public interface DAO<T, S> {
 
-public interface DAO<T> {
+	T create(@NotNull T type);
 
-	default T create(@NotNull T type) {
-		return null;
-	}
+	T read(@NotNull Class<T> classType, @NotNull S primaryKey);
 
-	default T read(@NotNull Class<T> classType, @NotNull UUID primaryKey) {
-		return null;
-	}
+	T update(@NotNull T type);
 
-	default T update(@NotNull T type) {
-		return null;
-	}
-
-	default boolean delete(@NotNull Class<T> classType, @NotNull UUID primaryKey) {
-		return false;
-	}
+	boolean delete(@NotNull Class<T> classType, @NotNull S primaryKey);
 
 }

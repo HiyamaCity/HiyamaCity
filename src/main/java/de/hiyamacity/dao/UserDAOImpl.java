@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UserDAOImpl extends GeneralDAO<User, UUID> implements DAO<User> {
+public class UserDAOImpl extends GeneralDAO<User, UUID> implements DAO<User, UUID> {
 
 	@Override
 	public @NotNull User create(@NotNull User type) {

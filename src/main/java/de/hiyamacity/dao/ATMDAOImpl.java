@@ -6,14 +6,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ATMDAOImpl extends GeneralDAO<ATM, Long> implements DAO<ATM> {
+public class ATMDAOImpl extends GeneralDAO<ATM, Long> implements DAO<ATM, Long> {
 	
 	@Override
 	public @NotNull ATM create(@NotNull ATM type) {
 		return super.create(type);
 	}
 	
-	public ATM read(@NotNull Class<ATM> classType, @NotNull long primaryKey) {
+	public ATM read(@NotNull Class<ATM> classType, long primaryKey) {
 		return super.read(classType, primaryKey);
 	}
 
@@ -22,7 +22,7 @@ public class ATMDAOImpl extends GeneralDAO<ATM, Long> implements DAO<ATM> {
 		return super.update(type);
 	}
 	
-	public boolean delete(@NotNull Class<ATM> classType, @NotNull long primaryKey) {
+	public boolean delete(@NotNull Class<ATM> classType, long primaryKey) {
 		return super.delete(classType, primaryKey);
 	}
 	

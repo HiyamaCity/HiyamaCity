@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class LocationDAOImpl extends GeneralDAO<Location, UUID> implements DAO<Location> {
+public class LocationDAOImpl extends GeneralDAO<Location, UUID> implements DAO<Location, UUID> {
 
 	@Override
 	public @NotNull Location create(@NotNull Location type) {

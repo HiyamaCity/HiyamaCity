@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="fixed atm to check if the block that is looked at is an instance of WallSign">
+    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="Closes #37">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/HouseCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/HouseDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/ATMCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/ATMCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/user/BankCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/user/BankCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/JoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/JoinHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/RankHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/RankHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/ATMDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/ATMDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/BankAccountDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/BankAccountDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/LocationDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/LocationDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/PlaytimeDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/PlaytimeDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/House.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/House.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +153,8 @@
       <workItem from="1677162314852" duration="39000" />
       <workItem from="1677167001918" duration="2343000" />
       <workItem from="1677178041066" duration="55854000" />
-      <workItem from="1677276209911" duration="1589000" />
+      <workItem from="1677276209911" duration="4397000" />
+      <workItem from="1677335537488" duration="4503000" />
     </task>
     <task id="LOCAL-00001" summary="hibernate working">
       <created>1677162347037</created>
@@ -256,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677250808672</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Closes #37">
+      <created>1677278808815</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1677278808815</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +300,8 @@
     <MESSAGE value="moved entityManagerFactory creation into Main static method to reduce server lag for the first one to join after a restart" />
     <MESSAGE value="fixed atm to use target block location instead of eye location" />
     <MESSAGE value="fixed atm to check if the block that is looked at is an instance of WallSign" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed atm to check if the block that is looked at is an instance of WallSign" />
+    <MESSAGE value="Closes #37" />
+    <option name="LAST_COMMIT_MESSAGE" value="Closes #37" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
