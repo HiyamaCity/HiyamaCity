@@ -50,7 +50,16 @@ public class i18n_de extends ListResourceBundle {
 				{"bankTransferUsage", "/bank überweisen [Spieler] [Menge]"},
 				{"bankTransferSend", "§7Du hast §9{0}{1}§7 an§9 {2}§7 überwiesen."},
 				{"bankTransferReceive", "§9{0}§7 hat dir §9{1}{2}§7 überweisen."},
-				{"bankTransferSelf", "§cFehler: Du kannst dir selbst kein Geld überweisen."}
+				{"bankTransferSelf", "§cFehler: Du kannst dir selbst kein Geld überweisen."},
+				{"houseUsage", "/house [create | delete | modify | info]"},
+				{"houseCreateUsage", "/house create"},
+				{"houseDeleteUsage", "/house delete"},
+				{"houseCreateSuccessful", "§7Haus-§9{0}§7, mit Hausschild-Position: §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7,§a erfolgreich§7 erstellt."},
+				{"houseNotFound", "§cFehler: Es wurde kein Haus gefunden..."},
+				{"houseDeleteUnsuccessful", "§cFehler: Beim löschen des Hauses ist ein fehler aufgetreten."},
+				{"houseDeleteSuccessful", "§7Haus-§9{0}§7, mit Hausschild-Position: §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7,§a erfolgreich§7 gelöscht."},
+				{"houseLookAtSign", "§cFehler: Haus konnte nicht erstellt werden... Kein gültiges Wandschild gefunden."},
+				{"houseSignAlreadyRegistered", "§cFehler: Bei diesem Hausschild ist bereits ein Haus registriert."}
 		};
 	}
 }

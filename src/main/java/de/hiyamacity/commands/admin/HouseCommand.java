@@ -1,10 +1,13 @@
 package de.hiyamacity.commands.admin;
 
+import de.hiyamacity.dao.HouseDAOImpl;
+import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.entity.House;
 import de.hiyamacity.entity.User;
 import de.hiyamacity.util.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.MessageFormat;
 import java.util.*;
 
 public class HouseCommand implements CommandExecutor, TabCompleter {
@@ -26,19 +30,95 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 
 		final UUID uuid = p.getUniqueId();
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
-		
-		if(!p.hasPermission("hiyamacity.house")) {
+
+		if (!p.hasPermission("hiyamacity.house")) {
 			return true;
+		}
+
+		if (args.length < 1 || args.length > 3) {
+			p.sendMessage(rs.getString("houseUsage"));
+			return true;
+		}
+
+		switch (args[0].toLowerCase()) {
+			case "create" -> {
+				if (args.length != 1) {
+					p.sendMessage("houseCreateUsage");
+					return true;
+				}
+
+				final de.hiyamacity.entity.Location houseSignLocation = new de.hiyamacity.entity.Location().fromBukkitLocation(getHouseSignLocation(p));
+				final House createdHouse = new House();
+				final HouseDAOImpl houseDAO = new HouseDAOImpl();
+				final LocationDAOImpl locationDAO = new LocationDAOImpl();
+
+				if (!(houseSignLocation.toBukkitLocation().getBlock().getBlockData() instanceof WallSign)) {
+					p.sendMessage(rs.getString("houseLookAtSign"));
+					return true;
+				}
+
+				final List<de.hiyamacity.entity.Location> houseSignLocationExists = locationDAO.findByBukkitLocation(houseSignLocation.toBukkitLocation());
+
+				if (!houseSignLocationExists.isEmpty()) {
+					p.sendMessage(rs.getString("houseSignAlreadyRegistered"));
+					return true;
+				}
+
+				locationDAO.create(houseSignLocation);
+				createdHouse.setSignLocation(houseSignLocation);
+				houseDAO.create(createdHouse);
+
+				String message = rs.getString("houseCreateSuccessful");
+				message = MessageFormat.format(message, createdHouse.getId(), houseSignLocation.getX(), houseSignLocation.getY(), houseSignLocation.getZ());
+				p.sendMessage(message);
+
+			}
+			case "delete" -> {
+				if (args.length != 1) {
+					p.sendMessage("houseDeleteUsage");
+					return true;
+				}
+
+				final Location houseSignLocation = getHouseSignLocation(p);
+				final List<de.hiyamacity.entity.Location> optionalLocation = new LocationDAOImpl().findByBukkitLocation(houseSignLocation);
+
+				if (optionalLocation.isEmpty()) {
+					p.sendMessage(rs.getString("houseNotFound"));
+					return true;
+				}
+
+				optionalLocation.forEach(loc -> {
+					final Optional<House> houseOptional = getHouse(loc.toBukkitLocation());
+					final HouseDAOImpl houseDAO = new HouseDAOImpl();
+
+					if (houseOptional.isEmpty()) {
+						p.sendMessage(rs.getString("houseNotFound"));
+						return;
+					}
+
+					final House house = houseOptional.get();
+					boolean success = houseDAO.delete(House.class, house.getId());
+
+					if (!success) {
+						p.sendMessage(rs.getString("houseDeleteUnsuccessful"));
+						return;
+					}
+
+					String message = rs.getString("houseDeleteSuccessful");
+					message = MessageFormat.format(message, house.getId(), houseSignLocation.getX(), houseSignLocation.getY(), houseSignLocation.getZ());
+					p.sendMessage(message);
+				});
+			}
 		}
 
 		// house [create | delete | modify | info]
 		// house create
 		// house delete
 		// house info
-		// house modify [door | owner | renter] [add | remove | clear]
-		// house modify [door] [add | remove]
-		// house modify [owner | renter] [add | remove] [spieler]
-		// house modify [door | owner | renter] [clear]
+		// house modify [id] [door | owner | renter] [add | remove | clear]
+		// house modify [id] [door] [add | remove]
+		// house modify [id] [owner | renter] [add | remove] [spieler]
+		// house modify [id] [door | owner | renter] [clear]
 
 		return false;
 	}
@@ -49,27 +129,21 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 			return null;
 		}
 
-		// house
-		if (args.length == 0) return List.of(
-				"create", "delete", "modify", "info"
-		);
+		if (args.length == 1) return List.of("create", "delete", "modify", "info");
 
-		// house modify
-		if (args.length == 1 && args[0].contains("modify")) {
-			return List.of(
-					"door", "owner", "renter"
-			);
-		}
-
-		// house modify door
 		if (args.length == 2 && args[0].contains("modify")) {
-			return List.of(
-					"add", "remove", "clear"
-			);
+			return getAllHouseIDs().stream().map(Object::toString).toList();
 		}
 
-		// house modify owner add
-		if (args.length == 3 && args[0].contains("modify") && !args[1].contains("door")) {
+		if (args.length == 3 && args[0].contains("modify")) {
+			return List.of("door", "owner", "renter");
+		}
+
+		if (args.length == 4 && args[0].contains("modify")) {
+			return List.of("add", "remove", "clear");
+		}
+
+		if (args.length == 5 && args[0].contains("modify") && !args[2].contains("door")) {
 			switch (args[2].toLowerCase()) {
 				case "add" -> {
 					final Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
@@ -94,7 +168,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 						}
 					}};
 				}
-				
+
 				case "remove" -> {
 					final Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
 					final Optional<House> houseOptional = getHouse(p.getTargetBlock(null, 5).getLocation());
@@ -117,7 +191,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 						}
 					}};
 				}
-				
+
 				default -> {
 					return null;
 				}
@@ -133,7 +207,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 	 * @return the corresponding house to the location
 	 */
 	private Optional<House> getHouse(@NotNull Location location) {
-		// TODO: Method stub
-		return Optional.empty();
+		return new HouseDAOImpl().getHouseBySignLocation(location);
 	}
+
+	private Location getHouseSignLocation(@NotNull Player p) {
+		return p.getTargetBlock(null, 5).getLocation();
+	}
+
+	private List<Long> getAllHouseIDs() {
+		return new HouseDAOImpl().findAll().stream().map(House::getId).toList();
+	}
+
 }

@@ -1,6 +1,7 @@
 package de.hiyamacity;
 
 import de.hiyamacity.commands.admin.ATMCommand;
+import de.hiyamacity.commands.admin.HouseCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.dao.GeneralDAO;
 import de.hiyamacity.util.ChatHandler;
@@ -52,6 +53,8 @@ public class Main extends JavaPlugin {
 		getCommand("bank").setExecutor(new BankCommand());
 		getCommand("bank").setTabCompleter(new BankCommand());
 		getCommand("playtime").setExecutor(new PlaytimeCommand());
+		getCommand("house").setExecutor(new HouseCommand());
+		getCommand("house").setTabCompleter(new HouseCommand());
 	}
 
 	public void loadListeners() {

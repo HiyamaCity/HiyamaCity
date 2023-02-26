@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "houses")
@@ -21,7 +20,7 @@ public class House {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false)
-	private UUID id;
+	private long id;
 
 	@ManyToMany(mappedBy = "owned_houses")
 	private Set<User> owners = new LinkedHashSet<>();
@@ -34,5 +33,9 @@ public class House {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Location> doorLocations = new LinkedHashSet<>();
+
+	@OneToOne(optional = false, orphanRemoval = true)
+	@JoinColumn(name = "sign_location_id", nullable = false, unique = true)
+	private Location signLocation;
 
 }
