@@ -66,6 +66,12 @@ public class DoorHandler implements Listener {
 		return Optional.empty();
 	}
 
+	/**
+	 * @param p     the player
+	 * @param house the house of which the doors are checked
+	 *
+	 * @return true if the player is allowed to open the door
+	 */
 	private boolean isAllowedToOpenDoor(@NotNull Player p, @NotNull House house) {
 		final Set<User> inhabitants = new HashSet<>() {{
 			addAll(house.getRenters());
