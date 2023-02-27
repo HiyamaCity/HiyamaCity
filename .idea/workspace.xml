@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="WIP: HouseCommand">
+    <list default="true" id="10ee084a-ec6a-4503-a90c-24657d324a3d" name="Changes" comment="WIP: house creation and deletion working">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/util/DoorHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/HouseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/commands/admin/HouseCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/HouseDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/HouseDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/LocationDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/dao/LocationDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/House.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/entity/House.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hiyamacity/lang/i18n_de.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +150,9 @@
       <workItem from="1677335537488" duration="4686000" />
       <workItem from="1677357798123" duration="1383000" />
       <workItem from="1677370732570" duration="1116000" />
-      <workItem from="1677414030416" duration="7075000" />
+      <workItem from="1677414030416" duration="8947000" />
+      <workItem from="1677432090358" duration="634000" />
+      <workItem from="1677511764356" duration="975000" />
     </task>
     <task id="LOCAL-00001" summary="hibernate working">
       <created>1677162347037</created>
@@ -276,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677341002227</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="WIP: house creation and deletion working">
+      <created>1677421443467</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677421443467</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +314,8 @@
     <MESSAGE value="fixed atm to check if the block that is looked at is an instance of WallSign" />
     <MESSAGE value="Closes #37" />
     <MESSAGE value="WIP: HouseCommand" />
-    <option name="LAST_COMMIT_MESSAGE" value="WIP: HouseCommand" />
+    <MESSAGE value="WIP: house creation and deletion working" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP: house creation and deletion working" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

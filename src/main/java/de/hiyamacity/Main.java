@@ -4,10 +4,7 @@ import de.hiyamacity.commands.admin.ATMCommand;
 import de.hiyamacity.commands.admin.HouseCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.dao.GeneralDAO;
-import de.hiyamacity.util.ChatHandler;
-import de.hiyamacity.util.JoinHandler;
-import de.hiyamacity.util.PlaytimeTracker;
-import de.hiyamacity.util.RankHandler;
+import de.hiyamacity.util.*;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import lombok.Getter;
@@ -60,6 +57,7 @@ public class Main extends JavaPlugin {
 	public void loadListeners() {
 		this.pm.registerEvents(new JoinHandler(), this);
 		this.pm.registerEvents(new ChatHandler(), this);
+		this.pm.registerEvents(new DoorHandler(), this);
 	}
 
 	public static EntityManagerFactory getEntityManagerFactory() {
