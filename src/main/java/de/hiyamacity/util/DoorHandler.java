@@ -14,10 +14,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DoorHandler implements Listener {
 
@@ -46,8 +44,20 @@ public class DoorHandler implements Listener {
 		final HouseDAOImpl houseDAO = new HouseDAOImpl();
 		final List<House> houses = houseDAO.findAll();
 
+		houses.sort((o1, o2) -> {
+			final Double distance1 = o1.getSignLocation().toBukkitLocation().distanceSquared(location);
+			final Double distance2 = o2.getSignLocation().toBukkitLocation().distanceSquared(location);
+			return distance1.compareTo(distance2);
+		});
+
 		for (House house : houses) {
-			for (de.hiyamacity.entity.Location door : house.getDoorLocations()) {
+			final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations().stream().sorted((o1, o2) -> {
+				final Double distance1 = o1.toBukkitLocation().distanceSquared(location);
+				final Double distance2 = o2.toBukkitLocation().distanceSquared(location);
+				return distance1.compareTo(distance2);
+			}).collect(Collectors.toCollection(LinkedHashSet::new));
+
+			for (de.hiyamacity.entity.Location door : doorLocs) {
 				final Location doorLocation = door.toBukkitLocation();
 				if (doorLocation.getBlock().equals(location.getBlock())) return Optional.of(house);
 			}
