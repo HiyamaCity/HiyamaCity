@@ -1,17 +1,11 @@
 package de.hiyamacity.entity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.hiyamacity.Main;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.bukkit.Bukkit;
 
 import java.util.UUID;
-import java.util.logging.Level;
 
 @Entity
 @Table(name = "locations")
@@ -46,7 +40,7 @@ public class Location {
 	public org.bukkit.Location toBukkitLocation() {
 		return new org.bukkit.Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
 	}
-	
+
 	public Location fromBukkitLocation(org.bukkit.Location location) {
 		this.world = location.getWorld().getName();
 		this.x = location.getX();
@@ -57,13 +51,10 @@ public class Location {
 		return this;
 	}
 
+	@SneakyThrows
 	@Override
 	public String toString() {
-		try {
-			return new ObjectMapper().writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			Main.getInstance().getLogger().log(Level.WARNING, "Error writing object as json.");
-		}
-		return null;
+		return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
 	}
+
 }

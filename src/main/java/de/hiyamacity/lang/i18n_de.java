@@ -59,7 +59,16 @@ public class i18n_de extends ListResourceBundle {
 				{"houseDeleteUnsuccessful", "§cFehler: Beim löschen des Hauses ist ein fehler aufgetreten."},
 				{"houseDeleteSuccessful", "§7Haus-§9{0}§7, mit Hausschild-Position: §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7,§a erfolgreich§7 gelöscht."},
 				{"houseLookAtSign", "§cFehler: Haus konnte nicht erstellt werden... Kein gültiges Wandschild gefunden."},
-				{"houseSignAlreadyRegistered", "§cFehler: Bei diesem Hausschild ist bereits ein Haus registriert."}
+				{"houseSignAlreadyRegistered", "§cFehler: Bei diesem Hausschild ist bereits ein Haus registriert."},
+				{"houseInfoUsage", "/house info"},
+				{"houseUsageModify", "/house modify [house number] [door | owner | renter] [add | delete | clear]"},
+				{"houseUsageModifyClear", "/house modify [house number] [door | owner | renter] [clear]"},
+				{"houseUsageModifyPlayer", "/house modify [house number] [owner | renter] [add | delete] [player]"},
+				{"houseUsageModifyDoor", "/house modify [house number] [door] [add | delete | clear]"},
+				{"houseNonOpenable", "§cFehler: Der gewünschte Block ist keine Instanz von Openable."},
+				{"houseModifyDoorAddSuccessful", "§7Haus-§9{0}§7 wurde§a erfolgreich§7, die Tür mit den Koordinaten: §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7,§a hinzugefügt."},
+				{"houseModifyDoorDeleteSuccessful", "§7Haus-§9{0}§7 wurde§a erfolgreich§7, die Tür mit den Koordinaten: §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7,§c entfernt."},
+				{"houseModifyDoorClearSuccessful", "§7Haus-§9{0}§7 wurde§a erfolgreich§7 alle Türen§c entfernt."}
 		};
 	}
 }

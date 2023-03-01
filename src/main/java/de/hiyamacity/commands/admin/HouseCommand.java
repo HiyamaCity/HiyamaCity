@@ -5,6 +5,7 @@ import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.entity.House;
 import de.hiyamacity.entity.User;
 import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.data.type.WallSign;
@@ -18,6 +19,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.text.MessageFormat;
 import java.util.*;
+
+import static de.hiyamacity.util.Util.isLong;
 
 public class HouseCommand implements CommandExecutor, TabCompleter {
 	@Override
@@ -35,7 +38,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 			return true;
 		}
 
-		if (args.length < 1 || args.length > 3) {
+		if (args.length < 1 || args.length > 5) {
 			p.sendMessage(rs.getString("houseUsage"));
 			return true;
 		}
@@ -47,7 +50,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 					return true;
 				}
 
-				final de.hiyamacity.entity.Location houseSignLocation = new de.hiyamacity.entity.Location().fromBukkitLocation(getHouseSignLocation(p));
+				final de.hiyamacity.entity.Location houseSignLocation = new de.hiyamacity.entity.Location().fromBukkitLocation(getTargetBlockLocation(p));
 				final House createdHouse = new House();
 				final HouseDAOImpl houseDAO = new HouseDAOImpl();
 				final LocationDAOImpl locationDAO = new LocationDAOImpl();
@@ -79,7 +82,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 					return true;
 				}
 
-				final Location houseSignLocation = getHouseSignLocation(p);
+				final Location houseSignLocation = getTargetBlockLocation(p);
 				final List<de.hiyamacity.entity.Location> optionalLocation = new LocationDAOImpl().findByBukkitLocation(houseSignLocation);
 
 				if (optionalLocation.isEmpty()) {
@@ -108,6 +111,118 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 					message = MessageFormat.format(message, house.getId(), houseSignLocation.getX(), houseSignLocation.getY(), houseSignLocation.getZ());
 					p.sendMessage(message);
 				});
+			}
+			case "info" -> {
+				if (args.length != 1) {
+					p.sendMessage("houseDeleteUsage");
+					return true;
+				}
+
+				final Location houseSignLocation = getTargetBlockLocation(p);
+				final List<de.hiyamacity.entity.Location> optionalLocation = new LocationDAOImpl().findByBukkitLocation(houseSignLocation);
+
+				if (optionalLocation.isEmpty()) {
+					p.sendMessage(rs.getString("houseNotFound"));
+					return true;
+				}
+
+				optionalLocation.forEach(location -> {
+					final Optional<House> houseOptional = getHouse(location.toBukkitLocation());
+
+					if (houseOptional.isEmpty()) {
+						p.sendMessage(rs.getString("houseNotFound"));
+						return;
+					}
+
+					final House house = houseOptional.get();
+					p.sendMessage("\n" + house + "\n ");
+				});
+			}
+			case "modify" -> {
+				if (args.length < 4) {
+					p.sendMessage(rs.getString("houseUsageModify"));
+					return true;
+				}
+
+				if (!isLong(args[1])) {
+					p.sendMessage(rs.getString("inputNaN"));
+					return true;
+				}
+
+				final long houseNumber = Long.parseLong(args[1]);
+				final HouseDAOImpl houseDAO = new HouseDAOImpl();
+				final House house = houseDAO.read(House.class, houseNumber);
+				switch (args[2].toLowerCase()) {
+					case "door" -> {
+						if (args.length != 4) {
+							p.sendMessage(rs.getString("houseUsageModifyDoor"));
+							return true;
+						}
+
+						switch (args[3].toLowerCase()) {
+							case "add" -> {
+								final Location targetLocation = getTargetBlockLocation(p);
+								final Optional<Location> openableLocation = Util.getOpenableLocation(targetLocation.getBlock());
+
+								if (openableLocation.isEmpty()) {
+									p.sendMessage(rs.getString("houseNonOpenable"));
+									return true;
+								}
+
+								final Location doorLocation = openableLocation.get();
+								final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
+								doorLocs.add(new de.hiyamacity.entity.Location().fromBukkitLocation(doorLocation));
+
+								house.setDoorLocations(doorLocs);
+								houseDAO.update(house);
+
+								String message = rs.getString("houseModifyDoorAddSuccessful");
+								message = MessageFormat.format(message, house.getId(), doorLocation.getX(), doorLocation.getY(), doorLocation.getZ());
+								p.sendMessage(message);
+
+							}
+							case "delete" -> {
+								final Location targetLocation = getTargetBlockLocation(p);
+								final Optional<Location> openableLocation = Util.getOpenableLocation(targetLocation.getBlock());
+
+								if (openableLocation.isEmpty()) {
+									p.sendMessage(rs.getString("houseNonOpenable"));
+									return true;
+								}
+
+								final Location doorLocation = openableLocation.get();
+								final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
+								doorLocs.remove(new de.hiyamacity.entity.Location().fromBukkitLocation(doorLocation));
+
+								house.setDoorLocations(doorLocs);
+								houseDAO.update(house);
+
+								String message = rs.getString("houseModifyDoorDeleteSuccessful");
+								message = MessageFormat.format(message, house.getId(), doorLocation.getX(), doorLocation.getY(), doorLocation.getZ());
+								p.sendMessage(message);
+							}
+							case "clear" -> {
+								final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
+								doorLocs.clear();
+
+								house.setDoorLocations(doorLocs);
+								houseDAO.update(house);
+
+								String message = rs.getString("houseModifyDoorClearSuccessful");
+								message = MessageFormat.format(message, house.getId());
+								p.sendMessage(message);
+							}
+						}
+
+					}
+					case "owner" -> {
+
+					}
+					case "renter" -> {
+
+					}
+				}
+
 			}
 		}
 
@@ -193,7 +308,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 				}
 
 				default -> {
-					return null;
+					return new ArrayList<>();
 				}
 			}
 		}
@@ -210,7 +325,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		return new HouseDAOImpl().getHouseBySignLocation(location);
 	}
 
-	private Location getHouseSignLocation(@NotNull Player p) {
+	private Location getTargetBlockLocation(@NotNull Player p) {
 		return p.getTargetBlock(null, 5).getLocation();
 	}
 

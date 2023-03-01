@@ -1,10 +1,8 @@
 package de.hiyamacity.entity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -16,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class House {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false)
@@ -37,5 +35,11 @@ public class House {
 	@OneToOne(optional = false, orphanRemoval = true)
 	@JoinColumn(name = "sign_location_id", nullable = false, unique = true)
 	private Location signLocation;
+
+	@SneakyThrows
+	@Override
+	public String toString() {
+		return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+	}
 
 }
