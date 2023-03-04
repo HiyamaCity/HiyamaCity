@@ -14,8 +14,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public class DoorHandler implements Listener {
 
@@ -26,9 +28,10 @@ public class DoorHandler implements Listener {
 		final Optional<BlockData> blockData = clickedBlock.map(Block::getBlockData);
 		blockData.ifPresent(data -> {
 			if (!(data instanceof Openable)) return;
-			final Location clickedBlockLocation = clickedBlock.get().getLocation();
-
-			final Optional<House> houseOptional = isLockedDoor(clickedBlockLocation);
+			final Block block = clickedBlock.get();
+			final Optional<Location> openableLocation = Util.getOpenableLocation(block);
+			if(openableLocation.isEmpty()) return;
+			final Optional<House> houseOptional = isLockedDoor(openableLocation.get());
 			if (houseOptional.isEmpty()) return;
 			final House house = houseOptional.get();
 			if (!(isAllowedToOpenDoor(e.getPlayer(), house))) e.setCancelled(true);
@@ -51,13 +54,17 @@ public class DoorHandler implements Listener {
 		});
 
 		for (House house : houses) {
-			final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations().stream().sorted((o1, o2) -> {
+			List<de.hiyamacity.entity.Location> houseDoorLocs = house.getDoorLocations().stream().toList();
+			
+			var sortedDoorLocs = houseDoorLocs.stream().sorted((o1, o2) -> {
 				final Double distance1 = o1.toBukkitLocation().distanceSquared(location);
 				final Double distance2 = o2.toBukkitLocation().distanceSquared(location);
 				return distance1.compareTo(distance2);
-			}).collect(Collectors.toCollection(LinkedHashSet::new));
+			});
+			
+			houseDoorLocs = sortedDoorLocs.toList();
 
-			for (de.hiyamacity.entity.Location door : doorLocs) {
+			for (de.hiyamacity.entity.Location door : houseDoorLocs) {
 				final Location doorLocation = door.toBukkitLocation();
 				if (doorLocation.getBlock().equals(location.getBlock())) return Optional.of(house);
 			}
@@ -73,10 +80,9 @@ public class DoorHandler implements Listener {
 	 * @return true if the player is allowed to open the door
 	 */
 	private boolean isAllowedToOpenDoor(@NotNull Player p, @NotNull House house) {
-		final Set<User> inhabitants = new HashSet<>() {{
-			addAll(house.getRenters());
-			addAll(house.getOwners());
-		}};
+		final Set<User> inhabitants = new HashSet<>();
+		inhabitants.addAll(house.getOwners());
+		inhabitants.addAll(house.getRenters());
 
 		for (User inhabitant : inhabitants) {
 			if (p.getUniqueId().equals(inhabitant.getPlayerUniqueID())) return true;

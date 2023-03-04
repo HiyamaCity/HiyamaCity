@@ -41,18 +41,12 @@ public class User {
 	@OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
 	@JoinColumn(name = "bank_account_id")
 	private BankAccount bankAccount;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "users_owned_houses",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "house_id"))
-	private Set<House> owned_houses = new LinkedHashSet<>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "users_rented_houses",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "house_id"))
-	private Set<House> rented_houses = new LinkedHashSet<>();
+	@ManyToMany(mappedBy = "owners")
+	private Set<House> ownedHouses = new LinkedHashSet<>();
+
+	@ManyToMany(mappedBy = "renters")
+	private Set<House> rentedHouses = new LinkedHashSet<>();
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "afk_location_id")
