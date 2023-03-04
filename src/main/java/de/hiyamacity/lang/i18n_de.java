@@ -6,7 +6,7 @@ import java.util.ListResourceBundle;
 public class i18n_de extends ListResourceBundle {
 	@Override
 	protected Object[][] getContents() {
-		return new Object[][] {
+		return new Object[][]{
 				{"playerCommand", "§cFehler: Dieser Befehl kann nur von Spielern ausgeführt werden..."},
 				{"afkJoin", "§6Du hast den AFK-Modus betreten."},
 				{"afkQuit", "§6Du hast den AFK-Modus verlassen."},
@@ -30,7 +30,7 @@ public class i18n_de extends ListResourceBundle {
 				{"atmAdminPlainUsage", "/atm [create | delete | modify | info]"},
 				{"atmAdminModifyUsage", "/atm modify [current | maximum] [new value]"},
 				{"atmAdminCreate", "§7ATM-§9{0}§a erfolgreich§7 erstellt.\n§9X: {1}, Y: {2}, Z: {3}"},
-				{"atmAdminDelete", "§7ATM-§9{0}§a erfolgreich§7 gelöscht.\n§9X: {1}, Y: {2}, Z: {3}"}, 
+				{"atmAdminDelete", "§7ATM-§9{0}§a erfolgreich§7 gelöscht.\n§9X: {1}, Y: {2}, Z: {3}"},
 				{"atmNotFound", "§cFehler: Es wurde kein ATM gefunden."},
 				{"atmAdminModify", "§7ATM-§9{0}§a erfolgreich§7 modifiziert.\n§7Parameter: §9\"{1}\"§7 von §9\"{2}\"§7 auf §9\"{3}\"§7 gesetzt."},
 				{"bankWithdrawDepositUsage", "/bank [abbuchen | einzahlen] [Menge]"},
@@ -68,7 +68,20 @@ public class i18n_de extends ListResourceBundle {
 				{"houseNonOpenable", "§cFehler: Der gewünschte Block ist keine Instanz von Openable."},
 				{"houseModifyDoorAddSuccessful", "§7Haus-§9{0}§7 wurde§a erfolgreich§7, die Tür mit den Koordinaten: §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7,§a hinzugefügt."},
 				{"houseModifyDoorDeleteSuccessful", "§7Haus-§9{0}§7 wurde§a erfolgreich§7, die Tür mit den Koordinaten: §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7,§c entfernt."},
-				{"houseModifyDoorClearSuccessful", "§7Haus-§9{0}§7 wurde§a erfolgreich§7 alle Türen§c entfernt."}
+				{"houseModifyDeleteDoorUnsuccessful", "§cFehler: Haus-{0} konnte die Tür mit den Koordinaten: X: {1} Y: {2} Z: {3} nicht entfernt werden."},
+				{"houseModifyDoorClearSuccessful", "§7Haus-§9{0}§7 wurde§a erfolgreich§7 alle Türen§c entfernt."},
+				{"unknownArgument", "§cFehler: Unbekanntes Argument: {0}"},
+				{"playerAlreadyOwnerOfThisHouse", "§cFehler: Der Spieler \"{0}\" ist bereits ein Besitzer dieses Hauses."},
+				{"playerNotOwnerOfThisHouse", "§cFehler: Der Spieler \"{0}\" ist kein Besitzer dieses Hauses."},
+				{"playerAlreadyRenterOfThisHouse", "§cFehler: Der Spieler \"{0}\" ist bereits ein Mieter dieses Hauses."},
+				{"playerNotRenterOfThisHouse", "§cFehler: Der Spieler \"{0}\" ist kein Mieter dieses Hauses."},
+				{"houseSuccessfullyAddedOwner", "§7Haus-§9{0}§7 wurde§a erfolgreich§9 {1}§7 als Besitzer§a hinzugefügt."},
+				{"houseSuccessfullyRemovedOwner", "§7Haus-§9{0}§7 wurde§a erfolgreich§9 {1}§7 als Besitzer§c entfernt."},
+				{"houseSuccessfullyClearedOwners", "§7Haus-§9{0}§7 wurde§a erfolgreich§7 alle Besitzer§c entfernt."},
+				{"houseSuccessfullyAddedRenter", "§7Haus-§9{0}§7 wurde§a erfolgreich§9 {1}§7 als Mieter§a hinzugefügt."},
+				{"houseSuccessfullyRemovedRenter", "§7Haus-§9{0}§7 wurde§a erfolgreich§9 {1}§7 als Mieter§c entfernt."},
+				{"houseSuccessfullyClearedRenters", "§7Haus-§9{0}§7 wurde§a erfolgreich§7 alle Mieter§c entfernt."},
+				{"houseModifyNoHouseDoor", "§cFehler: Diese Tür gehört nicht zu dem angegebenen Haus."}
 		};
 	}
 }

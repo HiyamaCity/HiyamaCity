@@ -12,31 +12,12 @@ import java.util.UUID;
 
 public class LocationDAOImpl extends GeneralDAO<Location, UUID> implements DAO<Location, UUID> {
 
-	@Override
-	public @NotNull Location create(@NotNull Location type) {
-		return super.create(type);
-	}
-
-	@Override
-	public Location read(@NotNull Class<Location> classType, @NotNull UUID primaryKey) {
-		return super.read(classType, primaryKey);
-	}
-
-	@Override
-	public Location update(@NotNull Location type) {
-		return super.update(type);
-	}
-
-	@Override
-	public boolean delete(@NotNull Class<Location> classType, @NotNull UUID primaryKey) {
-		return super.delete(classType, primaryKey);
-	}
-
 	public List<Location> findByBukkitLocation(@NotNull org.bukkit.Location houseSignLocation) {
 		EntityManager entityManager = Main.getEntityManagerFactory().createEntityManager();
 
 		try {
-			List<Location> loc = entityManager.createQuery("select loc from Location loc where loc.x = ?1 and loc.y = ?2 and loc.z = ?3 and loc.yaw = ?4 and loc.pitch = ?5", Location.class)
+			List<Location> loc = entityManager.createQuery("select loc from Location loc where loc.world = ?6 and loc.x = ?1 and loc.y = ?2 and loc.z = ?3 and loc.yaw = ?4 and loc.pitch = ?5", Location.class)
+					.setParameter(6, houseSignLocation.getWorld().getName())
 					.setParameter(1, houseSignLocation.getX())
 					.setParameter(2, houseSignLocation.getY())
 					.setParameter(3, houseSignLocation.getZ())
