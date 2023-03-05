@@ -14,9 +14,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
+	@Getter
 	private static final EntityManagerFactory entityManagerFactory;
 
 	static {
+		// This is used to set the correct context class loader for Hibernate to work correctly
 		Thread.currentThread().setContextClassLoader(Main.class.getClassLoader());
 		entityManagerFactory = Persistence.createEntityManagerFactory("default");
 	}
@@ -40,8 +42,11 @@ public class Main extends JavaPlugin {
 		GeneralDAO.getEntityManagerFactory().close();
 	}
 
+	/**
+	 * This method is responsible for registering all command that the plugin provides.
+	 */
 	@SuppressWarnings("ConstantConditions")
-	public void loadCommands() {
+	private void loadCommands() {
 		getCommand("afk").setExecutor(new AfkCommand());
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("money").setExecutor(new MoneyCommand());
@@ -54,14 +59,13 @@ public class Main extends JavaPlugin {
 		getCommand("house").setTabCompleter(new HouseCommand());
 	}
 
+	/**
+	 * This method is responsible for registering all events that the plugin listens to.
+	 */
 	public void loadListeners() {
 		this.pm.registerEvents(new JoinHandler(), this);
 		this.pm.registerEvents(new ChatHandler(), this);
 		this.pm.registerEvents(new DoorHandler(), this);
-	}
-
-	public static EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
 	}
 
 }
