@@ -87,7 +87,7 @@ public class i18n_de extends ListResourceBundle {
 				{"houseInfo", "\n§6Informationen zu Haus-{0}\n§7Haus-Schild: \n   §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7\nBesitzer: §9{4}§7\nMieter: §9{5}\n§7Türen: \n{6}\n "},
 				{"houseInfoDoorLocs", "   §7X: §9{0} §7Y: §9{1} §7Z: §9{2}\n"},
 				{"playerJoin", "§a{0} hat den Server betreten."},
-				{"playerLeave", "§c{0} hat den Server verlassen."}
+				{"playerQuit", "§c{0} hat den Server verlassen."}
 		};
 	}
 }
