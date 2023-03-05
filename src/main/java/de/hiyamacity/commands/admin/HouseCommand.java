@@ -30,9 +30,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 	private static final String ADD_CASE = "add";
 	private static final String CLEAR_CASE = "clear";
 	private static final String MODIFY_CASE = "modify";
-
 	private static final String HOUSE_NOT_FOUND = "houseNotFound";
-
 	private static final String PLAYER_NOT_FOUND = "playerNotFound";
 	private static final String USER_FETCH_FAILED = "userFetchFailed";
 	private static final String CREATE_CASE = "create";
@@ -42,6 +40,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 	private static final String RENTER_CASE = "renter";
 	private static final String DELETE_CASE = "delete";
 	private static final String HOUSE_USAGE_MODIFY_PLAYER = "houseUsageModifyPlayer";
+	private static final String HOUSE_USAGE_MODIFY = "houseUsageModifyClear";
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -220,15 +219,10 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		final House house = houseDAO.read(House.class, houseNumber);
 		switch (args[2].toLowerCase()) {
 			case DOOR_CASE -> {
-				if (args.length != 4) {
-					p.sendMessage(rs.getString("houseUsageModifyDoor"));
-					return;
-				}
-
 				switch (args[3].toLowerCase()) {
-					case ADD_CASE -> houseAddDoor(p, rs, houseDAO, house);
-					case REMOVE_CASE -> houseDeleteDoor(p, rs, houseDAO, house);
-					case CLEAR_CASE -> houseClearDoors(p, rs, houseDAO, house);
+					case ADD_CASE -> houseAddDoor(p, rs, houseDAO, house, args);
+					case REMOVE_CASE -> houseDeleteDoor(p, rs, houseDAO, house, args);
+					case CLEAR_CASE -> houseClearDoors(p, rs, houseDAO, house, args);
 					default -> {
 						String message = rs.getString(UNKNOWN_ARGUMENT);
 						message = MessageFormat.format(message, args[3].toLowerCase());
@@ -238,15 +232,10 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 
 			}
 			case OWNER_CASE -> {
-				if (args.length != 4) {
-					p.sendMessage(rs.getString("houseUsageModifyClear"));
-					return;
-				}
-
 				switch (args[3].toLowerCase()) {
 					case ADD_CASE -> houseAddOwner(p, rs, houseDAO, house, args);
 					case REMOVE_CASE -> houseDeleteOwner(p, rs, houseDAO, house, args);
-					case CLEAR_CASE -> houseClearOwners(p, rs, houseDAO, house);
+					case CLEAR_CASE -> houseClearOwners(p, rs, houseDAO, house, args);
 					default -> {
 						String message = rs.getString(UNKNOWN_ARGUMENT);
 						message = MessageFormat.format(message, args[3].toLowerCase());
@@ -255,15 +244,10 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 				}
 			}
 			case RENTER_CASE -> {
-				if (args.length != 4) {
-					p.sendMessage(rs.getString("houseUsageModifyClear"));
-					return;
-				}
-
 				switch (args[3].toLowerCase()) {
 					case ADD_CASE -> houseAddRenter(p, rs, houseDAO, house, args);
 					case REMOVE_CASE -> houseDeleteRenter(p, rs, houseDAO, house, args);
-					case CLEAR_CASE -> houseClearRenters(p, rs, houseDAO, house);
+					case CLEAR_CASE -> houseClearRenters(p, rs, houseDAO, house, args);
 					default -> {
 						String message = rs.getString(UNKNOWN_ARGUMENT);
 						message = MessageFormat.format(message, args[3].toLowerCase());
@@ -279,7 +263,12 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 	}
 
-	private void houseClearRenters(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house) {
+	private void houseClearRenters(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
+		if (args.length != 4) {
+			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY));
+			return;
+		}
+
 		final Set<User> houseRenters = house.getRenters();
 		houseRenters.clear();
 
@@ -379,7 +368,12 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
-	private void houseClearOwners(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house) {
+	private void houseClearOwners(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
+		if (args.length != 4) {
+			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY));
+			return;
+		}
+
 		final Set<User> houseOwners = house.getOwners();
 		houseOwners.clear();
 
@@ -479,7 +473,12 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
-	private void houseClearDoors(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house) {
+	private void houseClearDoors(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
+		if (args.length != 4) {
+			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY));
+			return;
+		}
+
 		final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
 		doorLocs.clear();
 
@@ -491,7 +490,12 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
-	private void houseDeleteDoor(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house) {
+	private void houseDeleteDoor(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
+		if (args.length != 4) {
+			p.sendMessage(rs.getString("houseUsageModifyDoor"));
+			return;
+		}
+
 		final Location targetLocation = getTargetBlockLocation(p);
 		final Optional<Location> openableLocation = Util.getOpenableLocation(targetLocation.getBlock());
 
@@ -502,10 +506,10 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 
 		final Location doorLocation = openableLocation.get();
 		final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
-		
+
 		boolean success = doorLocs.removeIf(location -> Objects.equals(location.getWorld(), doorLocation.getWorld().getName()) && location.getX() == doorLocation.getX() && location.getY() == doorLocation.getY() && location.getZ() == doorLocation.getZ());
-		
-		if(!success) {
+
+		if (!success) {
 			String message = rs.getString("houseModifyDeleteDoorUnsuccessful");
 			message = MessageFormat.format(message, house.getId(), doorLocation.getX(), doorLocation.getY(), doorLocation.getZ());
 			p.sendMessage(message);
@@ -520,7 +524,12 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
-	private void houseAddDoor(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house) {
+	private void houseAddDoor(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
+		if (args.length != 4) {
+			p.sendMessage(rs.getString("houseUsageModifyDoor"));
+			return;
+		}
+
 		final Location targetLocation = getTargetBlockLocation(p);
 		final Optional<Location> openableLocation = Util.getOpenableLocation(targetLocation.getBlock());
 
