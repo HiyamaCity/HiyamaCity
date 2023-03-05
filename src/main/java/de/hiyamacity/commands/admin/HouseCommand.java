@@ -107,6 +107,13 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		return null;
 	}
 
+	/**
+	 * This method handles the creation of a new house
+	 *
+	 * @param p    the player that ran the command
+	 * @param rs   the resource bundle of the player
+	 * @param args the given arguments from the command
+	 */
 	private void handleCreate(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull String[] args) {
 		if (args.length != 1) {
 			p.sendMessage("houseCreateUsage");
@@ -139,6 +146,13 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method handles the deletion of an existing house
+	 *
+	 * @param p    the player that ran the command
+	 * @param rs   the resource bundle of the player
+	 * @param args the given arguments from the command
+	 */
 	private void handleDelete(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull String[] args) {
 		if (args.length != 1) {
 			p.sendMessage("houseDeleteUsage");
@@ -176,6 +190,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		});
 	}
 
+	/**
+	 * This method handles printing information about the current house.
+	 * The current house is determined by the block the player is looking at
+	 * if the block that is looked at is registered to a house all available information will be sent to the player
+	 *
+	 * @param p    the player that ran the command
+	 * @param rs   the resource bundle of the player
+	 * @param args the given arguments from the command
+	 */
 	private void handleInfo(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull String[] args) {
 		if (args.length != 1) {
 			p.sendMessage("houseDeleteUsage");
@@ -210,7 +233,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 				Optional<Player> player = Optional.ofNullable(Bukkit.getPlayer(user.getPlayerUniqueID()));
 				player.ifPresent(value -> renters.add(value.getName()));
 			});
-			
+
 			final StringBuilder sb = new StringBuilder();
 			house.getDoorLocations().forEach(door -> {
 				String message = rs.getString("houseInfoDoorLocs");
@@ -218,13 +241,20 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 				sb.append(message);
 			});
 			final String doorLocations = sb.toString();
-			
+
 			String message = rs.getString("houseInfo");
 			message = MessageFormat.format(message, house.getId(), house.getSignLocation().getX(), house.getSignLocation().getY(), house.getSignLocation().getZ(), owners, renters, doorLocations);
 			p.sendMessage(message);
 		});
 	}
 
+	/**
+	 * This method is just a helper method. It parses user input and gives it to other methods.
+	 *
+	 * @param p    the player that ran the command
+	 * @param rs   the resource bundle of the player
+	 * @param args the given arguments from the command
+	 */
 	private void handleModify(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull String[] args) {
 		if (args.length < 4) {
 			p.sendMessage(rs.getString("houseUsageModify"));
@@ -285,6 +315,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 	}
 
+	/**
+	 * This method clears all the renters from a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseClearRenters(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 4) {
 			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY));
@@ -302,6 +341,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method deletes a specific renter from a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseDeleteRenter(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 5) {
 			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY_PLAYER));
@@ -346,6 +394,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method adds a specific renter to a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseAddRenter(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 5) {
 			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY_PLAYER));
@@ -398,6 +455,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method clears all the owners from a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseClearOwners(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 4) {
 			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY));
@@ -415,6 +481,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method deletes a specific owner from a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseDeleteOwner(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 5) {
 			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY_PLAYER));
@@ -459,6 +534,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method adds a specific owner to a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseAddOwner(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 5) {
 			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY_PLAYER));
@@ -511,6 +595,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method clears all doors from a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseClearDoors(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 4) {
 			p.sendMessage(rs.getString(HOUSE_USAGE_MODIFY));
@@ -528,6 +621,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method deletes a specific door from a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseDeleteDoor(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 4) {
 			p.sendMessage(rs.getString("houseUsageModifyDoor"));
@@ -562,6 +664,15 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		p.sendMessage(message);
 	}
 
+	/**
+	 * This method adds a specific door to a given house.
+	 *
+	 * @param p        the player that ran the command
+	 * @param rs       the resource bundle of the player
+	 * @param houseDAO the data access object for saving the data to the database
+	 * @param house    the determined house
+	 * @param args     the given arguments from the command
+	 */
 	private void houseAddDoor(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull HouseDAOImpl houseDAO, @NotNull House house, @NotNull String[] args) {
 		if (args.length != 4) {
 			p.sendMessage(rs.getString("houseUsageModifyDoor"));
@@ -589,6 +700,8 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 	}
 
 	/**
+	 * This method is responsible for returning a House if there is one that exists at a given location.
+	 *
 	 * @param location the location of the house sign
 	 *
 	 * @return the corresponding house to the location
@@ -597,10 +710,22 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		return new HouseDAOImpl().getHouseBySignLocation(location);
 	}
 
+	/**
+	 * This method returns the location of the block that is targeted by the player with a maximum distance of 5
+	 *
+	 * @param p The player
+	 *
+	 * @return location of the targeted block
+	 */
 	private Location getTargetBlockLocation(@NotNull Player p) {
 		return p.getTargetBlock(null, 5).getLocation();
 	}
 
+	/**
+	 * This method finds all the houses that exist and return them as a list
+	 *
+	 * @return all registered houses
+	 */
 	private List<Long> getAllHouseIDs() {
 		return new HouseDAOImpl().findAll().stream().map(House::getId).toList();
 	}
