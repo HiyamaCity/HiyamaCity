@@ -15,7 +15,8 @@ public class i18n_de extends ListResourceBundle {
 				{"playerSay", "{0} sagt: „{1}“"},
 				{"playerAsk", "{0} fragt: „{1}“"},
 				{"playerShout", "{0} schreit: „{1}“"},
-				{"playerWhisper", "{0} flüstert: „{1}“}"},
+				{"playerWhisper", "{0} flüstert: „{1}“"},
+				{"playerOor", "[OOR] {0} fügt hinzu: {1}"},
 				{"payUsage", "/pay [Spieler] [Menge]"},
 				{"playerNotFound", "§cFehler: Spieler \"{0}\" wurde nicht gefunden."},
 				{"databasePlayerNotFound", "§cFehler: Spieler \"{0}\" wurde nicht in der Datenbank gefunden."},
@@ -93,7 +94,8 @@ public class i18n_de extends ListResourceBundle {
 				{"me", "§3* {0} {1}"},
 				{"meUsage", "/me [Aktion]"},
 				{"shoutUsage", "/shout [Nachricht]"},
-				{"whisperUsage", "/whisper [Nachricht]"}
+				{"whisperUsage", "/whisper [Nachricht]"},
+				{"oorUsage", "/oor [Nachricht]"}
 		};
 	}
 }

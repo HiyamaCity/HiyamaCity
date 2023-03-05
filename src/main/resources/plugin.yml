@@ -7,13 +7,13 @@ prefix: HiyamaCity
 author: AhegaHOE
 softdepend:
   - jakarta
-commands: 
+commands:
   afk:
-    
+  
   pay:
-    
+  
   money:
-    
+  
   atm:
   
   bank:
@@ -21,11 +21,14 @@ commands:
   playtime:
   
   house:
-    
+  
   me:
-    
+  
   shout:
     aliases: s
   
   whisper:
     aliases: w
+  
+  oor:
+    aliases: [ oos, ooc ]

@@ -60,6 +60,7 @@ public class Main extends JavaPlugin {
 		getCommand("me").setExecutor(new MeCommand());
 		getCommand("shout").setExecutor(new ShoutCommand());
 		getCommand("whisper").setExecutor(new WhisperCommand());
+		getCommand("oor").setExecutor(new OorCommand());
 	}
 
 	/**
