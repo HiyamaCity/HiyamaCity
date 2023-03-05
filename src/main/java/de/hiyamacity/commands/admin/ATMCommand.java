@@ -32,7 +32,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 			return true;
 		}
 
-		if (!p.hasPermission("admin")) return true;
+		if (!p.hasPermission("hiyamacity.commands.admin.atm")) return true;
 
 		final UUID uuid = p.getUniqueId();
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);

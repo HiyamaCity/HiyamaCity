@@ -1,12 +1,15 @@
 package de.hiyamacity.util;
 
+import de.hiyamacity.Main;
 import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.User;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
@@ -33,6 +36,7 @@ public class JoinHandler implements Listener {
 
 		RankHandler.updateRanks();
 		TabListHandler.updateTab();
+		sendAdminJoinNotification(p);
 
 		ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 		String message = rs.getString("welcomeMessage");
@@ -40,14 +44,45 @@ public class JoinHandler implements Listener {
 		p.sendMessage(message);
 
 	}
-	
+
 	@EventHandler
 	@SuppressWarnings("deprecation")
 	public void onQuit(PlayerQuitEvent e) {
 		e.setQuitMessage("");
+		sendAdminQuitNotification(e.getPlayer());
 
-		RankHandler.updateRanks();
-		TabListHandler.updateTab();
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				RankHandler.updateRanks();
+				TabListHandler.updateTab();
+			}
+		}.runTaskLater(Main.getInstance(), 1);
+
+	}
+
+	private void sendAdminJoinNotification(@NotNull Player p) {
+		Bukkit.getOnlinePlayers().forEach(player -> {
+			if (player.hasPermission("hiyamacity.join.admin") && !player.getUniqueId().equals(p.getUniqueId())) {
+				final ResourceBundle rs = LanguageHandler.getResourceBundle(player.getUniqueId());
+
+				String message = rs.getString("playerJoin");
+				message = MessageFormat.format(message, p.getName());
+				p.sendMessage(message);
+			}
+		});
+	}
+
+	private void sendAdminQuitNotification(@NotNull Player p) {
+		Bukkit.getOnlinePlayers().forEach(player -> {
+			if (player.hasPermission("hiyamacity.quit.admin") && !player.getUniqueId().equals(p.getUniqueId())) {
+				final ResourceBundle rs = LanguageHandler.getResourceBundle(player.getUniqueId());
+
+				String message = rs.getString("playerQuit");
+				message = MessageFormat.format(message, p.getName());
+				p.sendMessage(message);
+			}
+		});
 	}
 
 	private @NotNull User createDefaultUser(@NotNull UUID uuid) {

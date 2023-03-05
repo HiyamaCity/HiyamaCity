@@ -55,7 +55,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		final UUID uuid = p.getUniqueId();
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 
-		if (!p.hasPermission("hiyamacity.house")) {
+		if (!p.hasPermission("hiyamacity.commands.admin.house")) {
 			return true;
 		}
 
