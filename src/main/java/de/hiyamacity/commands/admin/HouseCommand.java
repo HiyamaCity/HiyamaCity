@@ -503,7 +503,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		final Location doorLocation = openableLocation.get();
 		final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
 		
-		boolean success = doorLocs.remove(new de.hiyamacity.entity.Location().fromBukkitLocation(doorLocation));
+		boolean success = doorLocs.removeIf(location -> Objects.equals(location.getWorld(), doorLocation.getWorld().getName()) && location.getX() == doorLocation.getX() && location.getY() == doorLocation.getY() && location.getZ() == doorLocation.getZ());
 		
 		if(!success) {
 			String message = rs.getString("houseModifyDeleteDoorUnsuccessful");
