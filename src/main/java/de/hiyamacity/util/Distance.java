@@ -1,7 +1,7 @@
 package de.hiyamacity.util;
 
 @SuppressWarnings("unused")
-public abstract class Distances {
+public abstract class Distance {
 
 	public static final double ATM_DISTANCE = Math.pow(2, 2);
 	public static double CHAT_MESSAGE_NEAREST = Math.pow(8, 2);

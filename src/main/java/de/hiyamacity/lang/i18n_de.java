@@ -11,9 +11,11 @@ public class i18n_de extends ListResourceBundle {
 				{"afkJoin", "§6Du hast den AFK-Modus betreten."},
 				{"afkQuit", "§6Du hast den AFK-Modus verlassen."},
 				{"welcomeMessage", "§6Herzlich willkommen, {0}!"},
-				{"afkFallBackLocationInfo", "§cFehler: Deine Position konnte nicht ermittelt werden.\\nWenn du wieder anwesend bist, wirst du zum Fallback-Spot teleportiert."},
+				{"afkFallBackLocationInfo", "§cFehler: Deine Position konnte nicht ermittelt werden.\nWenn du wieder anwesend bist, wirst du zum Fallback-Spot teleportiert."},
 				{"playerSay", "{0} sagt: „{1}“"},
 				{"playerAsk", "{0} fragt: „{1}“"},
+				{"playerShout", "{0} schreit: „{1}“"},
+				{"playerWhisper", "{0} flüstert: „{1}“}"},
 				{"payUsage", "/pay [Spieler] [Menge]"},
 				{"playerNotFound", "§cFehler: Spieler \"{0}\" wurde nicht gefunden."},
 				{"databasePlayerNotFound", "§cFehler: Spieler \"{0}\" wurde nicht in der Datenbank gefunden."},
@@ -87,7 +89,11 @@ public class i18n_de extends ListResourceBundle {
 				{"houseInfo", "\n§6Informationen zu Haus-{0}\n§7Haus-Schild: \n   §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7\nBesitzer: §9{4}§7\nMieter: §9{5}\n§7Türen: \n{6}\n "},
 				{"houseInfoDoorLocs", "   §7X: §9{0} §7Y: §9{1} §7Z: §9{2}\n"},
 				{"playerJoin", "§a{0} hat den Server betreten."},
-				{"playerQuit", "§c{0} hat den Server verlassen."}
+				{"playerQuit", "§c{0} hat den Server verlassen."},
+				{"me", "§3* {0} {1}"},
+				{"meUsage", "/me [Aktion]"},
+				{"shoutUsage", "/shout [Nachricht]"},
+				{"whisperUsage", "/whisper [Nachricht]"}
 		};
 	}
 }

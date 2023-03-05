@@ -22,4 +22,10 @@ commands:
   
   house:
     
+  me:
+    
+  shout:
+    aliases: s
   
+  whisper:
+    aliases: w

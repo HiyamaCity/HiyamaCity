@@ -2,7 +2,7 @@ package de.hiyamacity.commands.user;
 
 import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.User;
-import de.hiyamacity.util.Distances;
+import de.hiyamacity.util.Distance;
 import de.hiyamacity.util.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -20,7 +20,7 @@ import static de.hiyamacity.util.Util.isLong;
 
 public class PayCommand implements CommandExecutor {
 
-	final double PAY_DISTANCE = Distances.KISS;
+	final double PAY_DISTANCE = Distance.KISS;
 	@Override
 	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 		if(!(commandSender instanceof Player p)) {

@@ -6,7 +6,7 @@ import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.ATM;
 import de.hiyamacity.entity.BankAccount;
 import de.hiyamacity.entity.User;
-import de.hiyamacity.util.Distances;
+import de.hiyamacity.util.Distance;
 import de.hiyamacity.util.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -247,7 +247,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 	private Optional<ATM> getNearestValidATM(@NotNull Location location) {
 		List<ATM> atms = new ATMDAOImpl().findAll();
 		for (ATM atm : atms) {
-			if (atm.getLocation().toBukkitLocation().distanceSquared(location) <= Distances.ATM_DISTANCE)
+			if (atm.getLocation().toBukkitLocation().distanceSquared(location) <= Distance.ATM_DISTANCE)
 				return Optional.of(atm);
 		}
 		return Optional.empty();
