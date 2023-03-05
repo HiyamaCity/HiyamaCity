@@ -199,7 +199,29 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 			}
 
 			final House house = houseOptional.get();
-			p.sendMessage("\n" + house + "\n ");
+			final List<String> owners = new ArrayList<>();
+			house.getOwners().forEach(user -> {
+				Optional<Player> player = Optional.ofNullable(Bukkit.getPlayer(user.getPlayerUniqueID()));
+				player.ifPresent(value -> owners.add(value.getName()));
+			});
+
+			final List<String> renters = new ArrayList<>();
+			house.getRenters().forEach(user -> {
+				Optional<Player> player = Optional.ofNullable(Bukkit.getPlayer(user.getPlayerUniqueID()));
+				player.ifPresent(value -> renters.add(value.getName()));
+			});
+			
+			final StringBuilder sb = new StringBuilder();
+			house.getDoorLocations().forEach(door -> {
+				String message = rs.getString("houseInfoDoorLocs");
+				message = MessageFormat.format(message, door.getX(), door.getY(), door.getZ());
+				sb.append(message);
+			});
+			final String doorLocations = sb.toString();
+			
+			String message = rs.getString("houseInfo");
+			message = MessageFormat.format(message, house.getId(), house.getSignLocation().getX(), house.getSignLocation().getY(), house.getSignLocation().getZ(), owners, renters, doorLocations);
+			p.sendMessage(message);
 		});
 	}
 
@@ -349,10 +371,18 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final User targetUser = optionalUser.get();
-		Set<User> renters = house.getRenters();
+		final Set<User> renters = house.getRenters();
+		final Set<User> owners = house.getOwners();
 
 		if (renters.contains(targetUser)) {
 			String message = rs.getString("playerAlreadyRenterOfThisHouse");
+			message = MessageFormat.format(message, args[4]);
+			p.sendMessage(message);
+			return;
+		}
+
+		if (owners.contains(targetUser)) {
+			String message = rs.getString("houseModifyPlayerAlreadyOwner");
 			message = MessageFormat.format(message, args[4]);
 			p.sendMessage(message);
 			return;
@@ -454,10 +484,18 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final User targetUser = optionalUser.get();
-		Set<User> owners = house.getOwners();
+		final Set<User> owners = house.getOwners();
+		final Set<User> renters = house.getRenters();
 
 		if (owners.contains(targetUser)) {
 			String message = rs.getString("playerAlreadyOwnerOfThisHouse");
+			message = MessageFormat.format(message, args[4]);
+			p.sendMessage(message);
+			return;
+		}
+
+		if (renters.contains(targetUser)) {
+			String message = rs.getString("houseModifyPlayerAlreadyRenter");
 			message = MessageFormat.format(message, args[4]);
 			p.sendMessage(message);
 			return;

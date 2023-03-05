@@ -81,7 +81,11 @@ public class i18n_de extends ListResourceBundle {
 				{"houseSuccessfullyAddedRenter", "§7Haus-§9{0}§7 wurde§a erfolgreich§9 {1}§7 als Mieter§a hinzugefügt."},
 				{"houseSuccessfullyRemovedRenter", "§7Haus-§9{0}§7 wurde§a erfolgreich§9 {1}§7 als Mieter§c entfernt."},
 				{"houseSuccessfullyClearedRenters", "§7Haus-§9{0}§7 wurde§a erfolgreich§7 alle Mieter§c entfernt."},
-				{"houseModifyNoHouseDoor", "§cFehler: Diese Tür gehört nicht zu dem angegebenen Haus."}
+				{"houseModifyNoHouseDoor", "§cFehler: Diese Tür gehört nicht zu dem angegebenen Haus."},
+				{"houseModifyPlayerAlreadyOwner", "§cFehler: Der Spieler \"{0}\" ist bereits Besitzer dieses Hauses."},
+				{"houseModifyPlayerAlreadyRenter", "§cFehler: Der Spieler \"{0}\" ist bereits Mieter dieses Hauses."},
+				{"houseInfo", "\n§6Informationen zu Haus-{0}\n§7Haus-Schild: \n   §7X: §9{1} §7Y: §9{2} §7Z: §9{3}§7\nBesitzer: §9{4}§7\nMieter: §9{5}\n§7Türen: \n{6}\n "},
+				{"houseInfoDoorLocs", "   §7X: §9{0} §7Y: §9{1} §7Z: §9{2}\n"}
 		};
 	}
 }

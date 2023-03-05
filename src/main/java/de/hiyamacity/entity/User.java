@@ -1,5 +1,6 @@
 package de.hiyamacity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,9 +43,11 @@ public class User {
 	@JoinColumn(name = "bank_account_id")
 	private BankAccount bankAccount;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "owners")
 	private Set<House> ownedHouses = new LinkedHashSet<>();
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "renters")
 	private Set<House> rentedHouses = new LinkedHashSet<>();
 
