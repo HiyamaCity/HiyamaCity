@@ -9,6 +9,8 @@ import de.hiyamacity.util.LanguageHandler;
 import de.hiyamacity.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -114,6 +116,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 	 * @param rs   the resource bundle of the player
 	 * @param args the given arguments from the command
 	 */
+	@SuppressWarnings("deprecation")
 	private void handleCreate(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull String[] args) {
 		if (args.length != 1) {
 			p.sendMessage("houseCreateUsage");
@@ -124,8 +127,9 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		final House createdHouse = new House();
 		final HouseDAOImpl houseDAO = new HouseDAOImpl();
 		final LocationDAOImpl locationDAO = new LocationDAOImpl();
+		final BlockData blockData = houseSignLocation.toBukkitLocation().getBlock().getBlockData();
 
-		if (!(houseSignLocation.toBukkitLocation().getBlock().getBlockData() instanceof WallSign)) {
+		if (!(blockData instanceof WallSign)) {
 			p.sendMessage(rs.getString("houseLookAtSign"));
 			return;
 		}
@@ -141,6 +145,13 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		createdHouse.setSignLocation(houseSignLocation);
 		houseDAO.create(createdHouse);
 
+		final Sign sign = (Sign) houseSignLocation.toBukkitLocation().getBlock().getState();
+		sign.setLine(0, "");
+		sign.setLine(1, "== " + createdHouse.getId() + " ==");
+		sign.setLine(2, "");
+		sign.setLine(3, "");
+		sign.update();
+
 		String message = rs.getString("houseCreateSuccessful");
 		message = MessageFormat.format(message, createdHouse.getId(), houseSignLocation.getX(), houseSignLocation.getY(), houseSignLocation.getZ());
 		p.sendMessage(message);
@@ -153,6 +164,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 	 * @param rs   the resource bundle of the player
 	 * @param args the given arguments from the command
 	 */
+	@SuppressWarnings("deprecation")
 	private void handleDelete(@NotNull Player p, @NotNull ResourceBundle rs, @NotNull String[] args) {
 		if (args.length != 1) {
 			p.sendMessage("houseDeleteUsage");
@@ -183,6 +195,13 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 				p.sendMessage(rs.getString("houseDeleteUnsuccessful"));
 				return;
 			}
+
+			final Sign sign = (Sign) houseSignLocation.getBlock().getState();
+			sign.setLine(0, "");
+			sign.setLine(1, "");
+			sign.setLine(2, "");
+			sign.setLine(3, "");
+			sign.update();
 
 			String message = rs.getString("houseDeleteSuccessful");
 			message = MessageFormat.format(message, house.getId(), houseSignLocation.getX(), houseSignLocation.getY(), houseSignLocation.getZ());
