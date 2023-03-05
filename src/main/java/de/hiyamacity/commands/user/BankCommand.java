@@ -28,7 +28,6 @@ import static de.hiyamacity.util.Util.isLong;
 
 public class BankCommand implements CommandExecutor, TabCompleter {
 
-	// TODO: Rework Withdrawal and Deposit
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player p)) {
@@ -193,12 +192,12 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				}
 
 				final Player target = targetOptional.get();
-				
-				if(p.getName().equals(target.getName())) {
+
+				if (p.getName().equals(target.getName())) {
 					p.sendMessage(rs.getString("bankTransferSelf"));
 					return true;
 				}
-				
+
 				final Optional<User> optionalTargetUser = userDAO.getUserByPlayerUniqueId(target.getUniqueId());
 
 				if (optionalTargetUser.isEmpty()) {
@@ -217,7 +216,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 					p.sendMessage(rs.getString("bankNonNegative"));
 					return true;
 				}
-				
+
 				if (userBankAmount < amount) {
 					p.sendMessage(rs.getString("payInsufficientFunds"));
 					return true;
@@ -246,7 +245,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 	}
 
 	private Optional<ATM> getNearestValidATM(@NotNull Location location) {
-		List<ATM> atms = new ATMDAOImpl().getATMs();
+		List<ATM> atms = new ATMDAOImpl().findAll();
 		for (ATM atm : atms) {
 			if (atm.getLocation().toBukkitLocation().distanceSquared(location) <= Distances.ATM_DISTANCE)
 				return Optional.of(atm);

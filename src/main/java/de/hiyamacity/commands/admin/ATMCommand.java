@@ -166,7 +166,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 
 	private Optional<ATM> getLookingAtATM(@NotNull Location location) {
 		ATMDAOImpl atmDAO = new ATMDAOImpl();
-		List<ATM> atms = atmDAO.getATMs();
+		List<ATM> atms = atmDAO.findAll();
 		for (ATM atm : atms) {
 			if (atm.getLocation().toBukkitLocation().equals(location)) return Optional.of(atm);
 		}
