@@ -95,7 +95,9 @@ public class i18n_de extends ListResourceBundle {
 				{"meUsage", "/me [Aktion]"},
 				{"shoutUsage", "/shout [Nachricht]"},
 				{"whisperUsage", "/whisper [Nachricht]"},
-				{"oorUsage", "/oor [Nachricht]"}
+				{"oorUsage", "/oor [Nachricht]"},
+				{"all", "(({0}: {1}))"},
+				{"allUsage", "/all [Nachricht]"}
 		};
 	}
 }

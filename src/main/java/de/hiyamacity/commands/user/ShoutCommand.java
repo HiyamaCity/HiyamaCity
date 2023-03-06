@@ -34,6 +34,7 @@ public class ShoutCommand implements CommandExecutor {
 		}
 
 		String message = String.join(" ", args);
+		if(!(message.endsWith("!"))) message = message + "!";
 
 		final List<Player> recipients = new ArrayList<>(Bukkit.getOnlinePlayers().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= Distance.CHAT_MESSAGE_FURTHEST * 2)).toList());
 		final List<String> recipientNames = new ArrayList<>();

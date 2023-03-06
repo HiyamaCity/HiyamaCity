@@ -1,6 +1,7 @@
 package de.hiyamacity;
 
 import de.hiyamacity.commands.admin.ATMCommand;
+import de.hiyamacity.commands.admin.AllCommand;
 import de.hiyamacity.commands.admin.HouseCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.dao.GeneralDAO;
@@ -61,6 +62,7 @@ public class Main extends JavaPlugin {
 		getCommand("shout").setExecutor(new ShoutCommand());
 		getCommand("whisper").setExecutor(new WhisperCommand());
 		getCommand("oor").setExecutor(new OorCommand());
+		getCommand("all").setExecutor(new AllCommand());
 	}
 
 	/**
