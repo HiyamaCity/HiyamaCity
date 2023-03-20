@@ -43,7 +43,7 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§8Ⓦ ", p.getName(), verb, message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), "§8Ⓦ§r ", p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 4) {
 				t.sendMessage(ChatColor.WHITE + message);
@@ -69,7 +69,7 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§3Ⓡ ", p.getName(), verb, message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), "§3Ⓡ§r ", p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
 				t.sendMessage(ChatColor.WHITE + message);
@@ -102,7 +102,7 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§cⓈ ", p.getName(), verb, message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), "§cⓈ§r ", p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() * 2) {
 				t.sendMessage(ChatColor.WHITE + message);
@@ -132,7 +132,7 @@ public class ChatHandler implements Listener {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§dAktion ", p.getName(), message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), "§dAktion§r ", p.getName(), message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
 				t.sendMessage(ChatColor.WHITE + message);
