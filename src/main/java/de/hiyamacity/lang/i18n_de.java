@@ -93,15 +93,15 @@ public class i18n_de extends ListResourceBundle {
 				{"oorUsage", "/oor [Nachricht]"},
 				{"all", "(({0}: {1}))"},
 				{"allUsage", "/all [Nachricht]"},
-				{"chat.whisper.error.no_recipients", "§c⚠ §eDich konnte niemand hören. Versuche es ohne \"{0}\" vor deiner Nachricht um lauter zu sprechen."},
-				{"chat.rp.error.no_recipients", "§c⚠ §eDich konnte niemand hören, versuche es mit noch mal mit einem \"{0}\" vor deiner Nachricht um zu schreien. Vielleicht hört dich so jemand."},
-				{"chat.shout.error.no_recipients", "§c⚠ §eDich konnte niemand hören."},
-				{"chat.action.error.no_recipients", "§c⚠ §eNiemand konnte deine Aktion sehen."},
+				{"chat.whisper.error.no_recipients", "\n§c⚠ §eDich konnte niemand hören. Versuche es ohne \"{0}\" vor deiner Nachricht um lauter zu sprechen.\n"},
+				{"chat.rp.error.no_recipients", "\n§c⚠ §eDich konnte niemand hören, versuche es mit noch mal mit einem \"{0}\" vor deiner Nachricht um zu schreien. Vielleicht hört dich so jemand.\n"},
+				{"chat.shout.error.no_recipients", "\n§c⚠ §eDich konnte niemand hören.\n"},
+				{"chat.action.error.no_recipients", "\n§c⚠ §eNiemand konnte deine Aktion sehen.\n"},
 				{"chat.say", "sagt:"},
 				{"chat.ask", "fragt:"},
 				{"chat.rp", "{0} {1} {2} „{3}“"},
 				{"chat.action", "{0} {1} {2}"},
-				{"chat.ooc.error.no_recipients", "§c⚠ §eNiemand konnte deine Out-of-Character-Nachricht sehen."}
+				{"chat.ooc.error.no_recipients", "\n§c⚠ §eNiemand konnte deine Out-of-Character-Nachricht sehen.\n"}
 		};
 	}
 }
