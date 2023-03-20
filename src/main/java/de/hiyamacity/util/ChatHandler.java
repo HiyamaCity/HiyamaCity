@@ -39,7 +39,7 @@ public class ChatHandler implements Listener {
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
-			p.sendMessage(rs.getString("chat.shout.error.no_recipients"));
+			p.sendMessage(rs.getString("chat.whisper.error.no_recipients"));
 			return;
 		}
 
