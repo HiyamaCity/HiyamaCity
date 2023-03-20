@@ -100,7 +100,8 @@ public class i18n_de extends ListResourceBundle {
 				{"chat.say", "sagt:"},
 				{"chat.ask", "fragt:"},
 				{"chat.rp", "{0} {1} {2} „{3}“"},
-				{"chat.action", "{0} {1} {2}"}
+				{"chat.action", "{0} {1} {2}"},
+				{"chat.ooc.error.no_recipients", "§c⚠ §eNiemand konnte Out-of-Character-Nachricht sehen."}
 		};
 	}
 }

@@ -19,6 +19,7 @@ public class ChatHandler implements Listener {
 	private static final String CHAT_SAY = "chat.say";
 	private static final String CHAT_ASK = "chat.ask";
 	private static final String CHAT_RP = "chat.rp";
+	private static final String OOC_HANDLE = "-";
 
 	@EventHandler
 	@SuppressWarnings("deprecation")
@@ -31,6 +32,7 @@ public class ChatHandler implements Listener {
 			handleAction(p, message.substring(1, message.length() - 1));
 		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message.replace(WHISPER_HANDLE, ""));
 		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message.replace(SHOUT_HANDLE, ""));
+		else if (message.startsWith(OOC_HANDLE)) handleOutOfCharacter(p, message.replace(OOC_HANDLE, ""));
 		else handleRoleplayChat(p, message);
 
 	}
@@ -157,6 +159,36 @@ public class ChatHandler implements Listener {
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
 			p.sendMessage(rs.getString("chat.action.error.no_recipients"));
+		}
+	}
+
+	public static void handleOutOfCharacter(Player p, String message) {
+		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
+		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
+
+		for (Player t : recipients) {
+			final double distance = p.getLocation().distanceSquared(t.getLocation());
+			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
+
+			message = MessageFormat.format(trs.getString("chat.action"), "§cOut of Character ", p.getName(), message);
+
+			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
+				t.sendMessage(message);
+				continue;
+			}
+
+			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2) {
+				t.sendMessage(message);
+				continue;
+			}
+
+			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() / 2) {
+				t.sendMessage(message);
+			}
+		}
+
+		if (recipients.size() == 1 && recipients.contains(p)) {
+			p.sendMessage(rs.getString("chat.ooc.error.no_recipients"));
 		}
 	}
 
