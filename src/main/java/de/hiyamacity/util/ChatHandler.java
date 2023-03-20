@@ -38,11 +38,6 @@ public class ChatHandler implements Listener {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
-		if (recipients.size() == 1 && recipients.contains(p)) {
-			p.sendMessage(rs.getString("chat.whisper.error.no_recipients"));
-			return;
-		}
-
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
@@ -59,18 +54,15 @@ public class ChatHandler implements Listener {
 				t.sendMessage(ChatColor.GRAY + message);
 			}
 		}
+
+		if (recipients.size() == 1 && recipients.contains(p)) {
+			p.sendMessage(rs.getString("chat.whisper.error.no_recipients"));
+		}
 	}
 
 	private static void handleRoleplayChat(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue());
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-
-		if (recipients.size() == 1 && recipients.contains(p)) {
-			String errorMsg = rs.getString("chat.rp.error.no_recipients");
-			errorMsg = MessageFormat.format(errorMsg, SHOUT_HANDLE);
-			p.sendMessage(errorMsg);
-			return;
-		}
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
@@ -93,16 +85,17 @@ public class ChatHandler implements Listener {
 				t.sendMessage(ChatColor.DARK_GRAY + message);
 			}
 		}
+
+		if (recipients.size() == 1 && recipients.contains(p)) {
+			String errorMsg = rs.getString("chat.rp.error.no_recipients");
+			errorMsg = MessageFormat.format(errorMsg, SHOUT_HANDLE);
+			p.sendMessage(errorMsg);
+		}
 	}
 
 	private static void handleShout(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() * 2);
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-
-		if (recipients.size() == 1 && recipients.contains(p)) {
-			p.sendMessage(rs.getString("chat.shout.error.no_recipients"));
-			return;
-		}
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
@@ -125,16 +118,15 @@ public class ChatHandler implements Listener {
 				t.sendMessage(ChatColor.DARK_GRAY + message);
 			}
 		}
+
+		if (recipients.size() == 1 && recipients.contains(p)) {
+			p.sendMessage(rs.getString("chat.shout.error.no_recipients"));
+		}
 	}
 
 	public static void handleAction(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
-
-		if (recipients.size() == 1 && recipients.contains(p)) {
-			p.sendMessage(rs.getString("chat.action.error.no_recipients"));
-			return;
-		}
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
@@ -155,6 +147,10 @@ public class ChatHandler implements Listener {
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() / 2) {
 				t.sendMessage(ChatColor.DARK_GRAY + message);
 			}
+		}
+
+		if (recipients.size() == 1 && recipients.contains(p)) {
+			p.sendMessage(rs.getString("chat.action.error.no_recipients"));
 		}
 	}
 
