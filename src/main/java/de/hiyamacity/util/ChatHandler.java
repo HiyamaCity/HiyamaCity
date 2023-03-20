@@ -27,7 +27,8 @@ public class ChatHandler implements Listener {
 		final Player p = e.getPlayer();
 		final String message = e.getMessage();
 
-		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE)) handleAction(p, message.substring(1, message.length() - 1));
+		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE))
+			handleAction(p, message.substring(1, message.length() - 1));
 		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message.replace(WHISPER_HANDLE, ""));
 		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message.replace(SHOUT_HANDLE, ""));
 		else handleRoleplayChat(p, message);
@@ -56,7 +57,9 @@ public class ChatHandler implements Listener {
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
-			p.sendMessage(rs.getString("chat.whisper.error.no_recipients"));
+			String errorMsg = rs.getString("chat.whisper.error.no_recipients");
+			errorMsg = MessageFormat.format(errorMsg, WHISPER_HANDLE);
+			p.sendMessage(errorMsg);
 		}
 	}
 
@@ -132,7 +135,7 @@ public class ChatHandler implements Listener {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§dAktion§r ", p.getName(), message);
+			message = MessageFormat.format(trs.getString("chat.action"), "§dAktion§r ", p.getName(), message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
 				t.sendMessage(ChatColor.WHITE + message);
