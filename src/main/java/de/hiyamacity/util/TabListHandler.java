@@ -3,12 +3,16 @@ package de.hiyamacity.util;
 import de.hiyamacity.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 public class TabListHandler {
+
+	private TabListHandler() {
+	}
 
 	public static void updateTab() {
 		BukkitRunnable runnable = new BukkitRunnable() {
@@ -18,7 +22,7 @@ public class TabListHandler {
 					initTab(all);
 			}
 		};
-		runnable.runTaskLaterAsynchronously(Main.getInstance(), 1);
+		runnable.runTaskLaterAsynchronously(JavaPlugin.getPlugin(Main.class), 1);
 	}
 
 	@SuppressWarnings("deprecation")

@@ -25,12 +25,9 @@ public class Main extends JavaPlugin {
 	}
 	
 	final PluginManager pm = Bukkit.getPluginManager();
-	@Getter
-	private static JavaPlugin instance;
 
 	@Override
 	public void onEnable() {
-		instance = this;
 		RankHandler.initScoreboard();
 		PlaytimeTracker.startPlaytimeTracker();
 
