@@ -99,13 +99,16 @@ public class ChatHandler implements Listener {
 	private static void handleShout(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() * 2);
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
+		final StringBuilder stringBuilder = new StringBuilder(message);
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
+			if (!message.endsWith("!")) stringBuilder.append("!");
+
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§cⓈ§r ", p.getName(), verb, message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), "§cⓈ§r ", p.getName(), verb, stringBuilder.toString());
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() * 2) {
 				t.sendMessage(ChatColor.WHITE + message);
