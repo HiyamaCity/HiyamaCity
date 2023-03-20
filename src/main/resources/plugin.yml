@@ -21,17 +21,6 @@ commands:
   playtime:
   
   house:
-  
-  me:
-  
-  shout:
-    aliases: s
-  
-  whisper:
-    aliases: w
-  
-  oor:
-    aliases: [ oos, ooc ]
     
   all:
     

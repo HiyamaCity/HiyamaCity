@@ -12,11 +12,6 @@ public class i18n_de extends ListResourceBundle {
 				{"afkQuit", "§6Du hast den AFK-Modus verlassen."},
 				{"welcomeMessage", "§6Herzlich willkommen, {0}!"},
 				{"afkFallBackLocationInfo", "§cFehler: Deine Position konnte nicht ermittelt werden.\nWenn du wieder anwesend bist, wirst du zum Fallback-Spot teleportiert."},
-				{"playerSay", "{0} sagt: „{1}“"},
-				{"playerAsk", "{0} fragt: „{1}“"},
-				{"playerShout", "{0} schreit: „{1}“"},
-				{"playerWhisper", "{0} flüstert: „{1}“"},
-				{"playerOor", "[OOR] {0} fügt hinzu: {1}"},
 				{"payUsage", "/pay [Spieler] [Menge]"},
 				{"playerNotFound", "§cFehler: Spieler \"{0}\" wurde nicht gefunden."},
 				{"databasePlayerNotFound", "§cFehler: Spieler \"{0}\" wurde nicht in der Datenbank gefunden."},
@@ -97,7 +92,14 @@ public class i18n_de extends ListResourceBundle {
 				{"whisperUsage", "/whisper [Nachricht]"},
 				{"oorUsage", "/oor [Nachricht]"},
 				{"all", "(({0}: {1}))"},
-				{"allUsage", "/all [Nachricht]"}
+				{"allUsage", "/all [Nachricht]"},
+				{"chat.whisper.error.no_recipients", "§c⚠ §eDich konnte niemand hören. Versuche es ohne \"{0}\" vor deiner Nachricht um lauter zu sprechen."},
+				{"chat.rp.error.no_recipients", "§c⚠ §eDich konnte niemand hören, versuche es mit noch mal mit einem \"{0}\" vor deiner Nachricht um zu schreien. Vielleicht hört dich so jemand."},
+				{"chat.shout.error.no_recipients", "§c⚠ §eDich konnte niemand hören."},
+				{"chat.action.error.no_recipients", "§c⚠ §eNiemand konnte deine Aktion sehen."},
+				{"chat.say", "sagt:"},
+				{"chat.ask", "fragt:"},
+				{"chat.rp", "{0} {1} „{2}“"},
 		};
 	}
 }

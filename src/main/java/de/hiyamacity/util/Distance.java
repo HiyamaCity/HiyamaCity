@@ -1,15 +1,21 @@
 package de.hiyamacity.util;
 
-@SuppressWarnings("unused")
-public abstract class Distance {
+import lombok.Getter;
 
-	public static final double ATM_DISTANCE = Math.pow(2, 2);
-	public static double CHAT_MESSAGE_NEAREST = Math.pow(8, 2);
-	public static double CHAT_MESSAGE_NORMAL = Math.pow(16, 2);
-	public static double CHAT_MESSAGE_FURTHEST = Math.pow(32, 2);
-	public static double KISS = Math.pow(2, 2);
-	public static double SHOW_FINANCES = Math.pow(4, 2);
-	public static double WHISPER = Math.pow(4, 2);
-	public static double HOUSE_DOOR_INTERACTION_MARGIN = Math.pow(2, 2);
-	
+@SuppressWarnings("unused")
+public enum Distance {
+
+	ATM(Math.pow(2, 2)),
+	CHAT_MESSAGE_SMALL(Math.pow(4, 2)),
+	CHAT_MESSAGE_MEDIUM(Math.pow(8, 2)),
+	CHAT_MESSAGE_LARGE(Math.pow(12, 2)),
+	CHAT_MESSAGE_HUGE(Math.pow(24, 2));
+
+	@Getter
+	private final double value;
+
+	Distance(double i) {
+		this.value = i;
+	}
+
 }

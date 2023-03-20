@@ -58,10 +58,6 @@ public class Main extends JavaPlugin {
 		getCommand("playtime").setExecutor(new PlaytimeCommand());
 		getCommand("house").setExecutor(new HouseCommand());
 		getCommand("house").setTabCompleter(new HouseCommand());
-		getCommand("me").setExecutor(new MeCommand());
-		getCommand("shout").setExecutor(new ShoutCommand());
-		getCommand("whisper").setExecutor(new WhisperCommand());
-		getCommand("oor").setExecutor(new OorCommand());
 		getCommand("all").setExecutor(new AllCommand());
 	}
 

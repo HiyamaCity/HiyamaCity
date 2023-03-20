@@ -247,7 +247,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 	private Optional<ATM> getNearestValidATM(@NotNull Location location) {
 		List<ATM> atms = new ATMDAOImpl().findAll();
 		for (ATM atm : atms) {
-			if (atm.getLocation().toBukkitLocation().distanceSquared(location) <= Distance.ATM_DISTANCE)
+			if (atm.getLocation().toBukkitLocation().distanceSquared(location) <= Distance.ATM.getValue())
 				return Optional.of(atm);
 		}
 		return Optional.empty();

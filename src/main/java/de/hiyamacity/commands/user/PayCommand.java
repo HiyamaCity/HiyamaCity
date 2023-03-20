@@ -20,7 +20,7 @@ import static de.hiyamacity.util.Util.isLong;
 
 public class PayCommand implements CommandExecutor {
 
-	final double PAY_DISTANCE = Distance.KISS;
+	private static final double PAY_DISTANCE = Distance.ATM.getValue();
 	@Override
 	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 		if(!(commandSender instanceof Player p)) {
