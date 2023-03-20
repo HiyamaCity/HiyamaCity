@@ -27,9 +27,9 @@ public class ChatHandler implements Listener {
 		final Player p = e.getPlayer();
 		final String message = e.getMessage();
 
-		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE)) handleAction(p, message);
-		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message);
-		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message);
+		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE)) handleAction(p, message.substring(1, message.length() - 1));
+		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message.replace(WHISPER_HANDLE, ""));
+		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message.replace(SHOUT_HANDLE, ""));
 		else handleRoleplayChat(p, message);
 
 	}
