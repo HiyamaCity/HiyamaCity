@@ -170,7 +170,7 @@ public class ChatHandler implements Listener {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			message = MessageFormat.format(trs.getString("chat.action"), "§cOut of Character ", p.getName(), message);
+			message = MessageFormat.format(trs.getString("chat.action"), "§cOut of Character ", p.getName() + ": ", message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
 				t.sendMessage(message);
