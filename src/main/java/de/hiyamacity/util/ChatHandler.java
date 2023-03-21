@@ -47,15 +47,15 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
+			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 4) {
-				t.sendMessage("§8Ⓦ " + ChatColor.GRAY + message);
+				t.sendMessage("§8Ⓦ " + ChatColor.GRAY + finalMessage);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 4) {
-				t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + message);
+				t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
 			}
 		}
 
@@ -75,20 +75,20 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
+			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.WHITE + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.WHITE + finalMessage);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.GRAY + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.GRAY + finalMessage);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + finalMessage);
 			}
 		}
 
@@ -111,20 +111,20 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString("chat.shout") : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, stringBuilder.toString());
+			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, stringBuilder.toString());
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() * 2) {
-				t.sendMessage("§cⓈ " + ChatColor.WHITE + message);
+				t.sendMessage("§cⓈ " + ChatColor.WHITE + finalMessage);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2) {
-				t.sendMessage("§cⓈ " + ChatColor.GRAY + message);
+				t.sendMessage("§cⓈ " + ChatColor.GRAY + finalMessage);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() * 2) {
-				t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + message);
+				t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + finalMessage);
 			}
 		}
 
@@ -141,10 +141,10 @@ public class ChatHandler implements Listener {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			message = MessageFormat.format(trs.getString("chat.action"), p.getName(), message);
+			final String finalMessage = MessageFormat.format(trs.getString("chat.action"), p.getName(), message);
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
-				t.sendMessage(ChatColor.GRAY + message);
+				t.sendMessage(ChatColor.GRAY + finalMessage);
 			}
 		}
 
@@ -162,20 +162,20 @@ public class ChatHandler implements Listener {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			message = MessageFormat.format(trs.getString(OUT_OF_CHARACTER), p.getName() + ": ", message);
+			final String finalMessage = MessageFormat.format(trs.getString(OUT_OF_CHARACTER), p.getName() + ": ", message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
-				t.sendMessage(message);
+				t.sendMessage(finalMessage);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2) {
-				t.sendMessage(message);
+				t.sendMessage(finalMessage);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() / 2) {
-				t.sendMessage(message);
+				t.sendMessage(finalMessage);
 			}
 		}
 
