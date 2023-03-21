@@ -54,7 +54,7 @@ public class ChatHandler implements Listener {
 				continue;
 			}
 
-			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 16)) {
+			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 32)) {
 				t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
 			}
 		}
