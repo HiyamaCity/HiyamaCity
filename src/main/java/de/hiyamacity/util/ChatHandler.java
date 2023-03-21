@@ -39,7 +39,7 @@ public class ChatHandler implements Listener {
 	}
 
 	private void handleWhisper(Player p, String message) {
-		message = message.substring(1);
+		message = message.substring(1).trim();
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_MEDIUM.getValue() / 32);
 
 		for (Player t : recipients) {
@@ -101,7 +101,7 @@ public class ChatHandler implements Listener {
 	}
 
 	private void handleShout(Player p, String message) {
-		message = message.substring(1);
+		message = message.substring(1).trim();
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() * 2);
 		final StringBuilder stringBuilder = new StringBuilder(message);
 		if (!message.endsWith("!")) stringBuilder.append("!");
@@ -155,8 +155,8 @@ public class ChatHandler implements Listener {
 	}
 
 	public void handleOutOfCharacter(Player p, String message) {
-		message = message.substring(1);
-		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
+		message = message.substring(1).trim();
+		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 8);
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
@@ -164,7 +164,7 @@ public class ChatHandler implements Listener {
 
 			final String finalMessage = MessageFormat.format(trs.getString(OUT_OF_CHARACTER), p.getName() + ": ", message);
 
-			if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() / 4)) {
+			if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() / 8)) {
 				t.sendMessage(finalMessage);
 			}
 		}
