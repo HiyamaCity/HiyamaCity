@@ -39,26 +39,26 @@ public class ChatHandler implements Listener {
 
 	private static void handleWhisper(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
-		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§8Ⓦ ", p.getName(), verb, message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 4) {
-				t.sendMessage(ChatColor.GRAY + message);
+				t.sendMessage("§8Ⓦ " + ChatColor.GRAY + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 4) {
-				t.sendMessage(ChatColor.DARK_GRAY + message);
+				t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + message);
 			}
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
+			final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 			String errorMsg = rs.getString("chat.whisper.error.no_recipients");
 			errorMsg = MessageFormat.format(errorMsg, WHISPER_HANDLE);
 			p.sendMessage(errorMsg);
@@ -67,31 +67,31 @@ public class ChatHandler implements Listener {
 
 	private static void handleRoleplayChat(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue());
-		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§3Ⓡ ", p.getName(), verb, message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
-				t.sendMessage(ChatColor.WHITE + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.WHITE + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
-				t.sendMessage(ChatColor.GRAY + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.GRAY + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue()) {
-				t.sendMessage(ChatColor.DARK_GRAY + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + message);
 			}
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
+			final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 			String errorMsg = rs.getString("chat.rp.error.no_recipients");
 			errorMsg = MessageFormat.format(errorMsg, SHOUT_HANDLE);
 			p.sendMessage(errorMsg);
@@ -100,7 +100,6 @@ public class ChatHandler implements Listener {
 
 	private static void handleShout(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() * 2);
-		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 		final StringBuilder stringBuilder = new StringBuilder(message);
 
 		for (Player t : recipients) {
@@ -110,84 +109,75 @@ public class ChatHandler implements Listener {
 			if (!message.endsWith("!")) stringBuilder.append("!");
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§cⓈ ", p.getName(), verb, stringBuilder.toString());
+			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, stringBuilder.toString());
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() * 2) {
-				t.sendMessage(ChatColor.WHITE + message);
+				t.sendMessage("§cⓈ " + ChatColor.WHITE + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2) {
-				t.sendMessage(ChatColor.GRAY + message);
+				t.sendMessage("§cⓈ " + ChatColor.GRAY + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() * 2) {
-				t.sendMessage(ChatColor.DARK_GRAY + message);
+				t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + message);
 			}
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
+			final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 			p.sendMessage(rs.getString("chat.shout.error.no_recipients"));
 		}
 	}
 
 	public static void handleAction(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
-		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			message = MessageFormat.format(trs.getString("chat.action"), "§dAktion ", p.getName(), message);
+			message = MessageFormat.format(trs.getString("chat.action"), p.getName(), message);
 
-			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
-				t.sendMessage(ChatColor.WHITE + message);
-				continue;
-			}
-
-			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2) {
-				t.sendMessage(ChatColor.GRAY + message);
-				continue;
-			}
-
-			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() / 2) {
-				t.sendMessage(ChatColor.DARK_GRAY + message);
+			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
+				t.sendMessage("§dAktion " + ChatColor.GRAY + message);
 			}
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
+			final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 			p.sendMessage(rs.getString("chat.action.error.no_recipients"));
 		}
 	}
 
 	public static void handleOutOfCharacter(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
-		final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			message = MessageFormat.format(trs.getString("chat.action"), "§cOut of Character ", p.getName() + ": ", message);
+			message = MessageFormat.format(trs.getString("chat.action"), p.getName() + ": ", message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
-				t.sendMessage(message);
+				t.sendMessage("§cOut of Character " + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2) {
-				t.sendMessage(message);
+				t.sendMessage("§cOut of Character " + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() / 2) {
-				t.sendMessage(message);
+				t.sendMessage("§cOut of Character " + message);
 			}
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
+			final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 			p.sendMessage(rs.getString("chat.ooc.error.no_recipients"));
 		}
 	}
