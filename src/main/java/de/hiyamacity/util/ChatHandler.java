@@ -49,12 +49,12 @@ public class ChatHandler implements Listener {
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
 			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
-			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 4) {
+			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 4)) {
 				t.sendMessage("§8Ⓦ " + ChatColor.GRAY + finalMessage);
 				continue;
 			}
 
-			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 4) {
+			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 4)) {
 				t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
 			}
 		}
@@ -113,17 +113,17 @@ public class ChatHandler implements Listener {
 			final String verb = (!message.contains("?")) ? trs.getString("chat.shout") : trs.getString(CHAT_ASK);
 			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, stringBuilder.toString());
 
-			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() * 2) {
+			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() * 2)) {
 				t.sendMessage("§cⓈ " + ChatColor.WHITE + finalMessage);
 				continue;
 			}
 
-			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2) {
+			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2)) {
 				t.sendMessage("§cⓈ " + ChatColor.GRAY + finalMessage);
 				continue;
 			}
 
-			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() * 2) {
+			if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() * 2)) {
 				t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + finalMessage);
 			}
 		}
@@ -164,17 +164,17 @@ public class ChatHandler implements Listener {
 
 			final String finalMessage = MessageFormat.format(trs.getString(OUT_OF_CHARACTER), p.getName() + ": ", message);
 
-			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
+			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 2)) {
 				t.sendMessage(finalMessage);
 				continue;
 			}
 
-			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2) {
+			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2)) {
 				t.sendMessage(finalMessage);
 				continue;
 			}
 
-			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() / 2) {
+			if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() / 2)) {
 				t.sendMessage(finalMessage);
 			}
 		}
