@@ -143,7 +143,7 @@ public class ChatHandler implements Listener {
 			final String finalMessage = MessageFormat.format(trs.getString("chat.action"), p.getName(), message);
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
-				t.sendMessage("§dAktion " + ChatColor.GRAY + finalMessage);
+				t.sendMessage(ChatColor.GRAY + finalMessage);
 			}
 		}
 
