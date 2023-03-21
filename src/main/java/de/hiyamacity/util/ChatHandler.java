@@ -46,14 +46,14 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), "§8Ⓦ§r ", p.getName(), verb, message);
+			message = MessageFormat.format(trs.getString(CHAT_RP), "§8Ⓦ ", p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 4) {
 				t.sendMessage(ChatColor.GRAY + message);
 				continue;
 			}
 
-			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 8) {
+			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 4) {
 				t.sendMessage(ChatColor.DARK_GRAY + message);
 			}
 		}
