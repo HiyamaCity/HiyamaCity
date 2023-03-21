@@ -40,7 +40,7 @@ public class ChatHandler implements Listener {
 
 	private void handleWhisper(Player p, String message) {
 		message = message.substring(1);
-		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
+		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_MEDIUM.getValue() / 32);
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
