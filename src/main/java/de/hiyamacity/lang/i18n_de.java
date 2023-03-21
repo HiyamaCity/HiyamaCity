@@ -99,6 +99,7 @@ public class i18n_de extends ListResourceBundle {
 				{"chat.action.error.no_recipients", "\n§c⚠ §eNiemand konnte deine Aktion sehen.\n "},
 				{"chat.say", "sagt:"},
 				{"chat.ask", "fragt:"},
+				{"chat.shout", "schreit:"},
 				{"chat.rp", "{0} {1} „{2}“"},
 				{"chat.action", "§dAction§r {0} {1}"},
 				{"chat.ooc.error.no_recipients", "\n§c⚠ §eNiemand konnte deine Out-of-Character-Nachricht sehen.\n "}

@@ -20,6 +20,7 @@ public class ChatHandler implements Listener {
 	private static final String CHAT_ASK = "chat.ask";
 	private static final String CHAT_RP = "chat.rp";
 	private static final String OOC_HANDLE = "-";
+	private static final String OUT_OF_CHARACTER = "§cOut of Character ";
 
 	@EventHandler
 	@SuppressWarnings("deprecation")
@@ -109,7 +110,7 @@ public class ChatHandler implements Listener {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
-			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
+			final String verb = (!message.contains("?")) ? trs.getString("chat.shout") : trs.getString(CHAT_ASK);
 			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, stringBuilder.toString());
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() * 2) {
@@ -164,17 +165,17 @@ public class ChatHandler implements Listener {
 			message = MessageFormat.format(trs.getString("chat.action"), p.getName() + ": ", message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue() / 2) {
-				t.sendMessage("§cOut of Character " + message);
+				t.sendMessage(OUT_OF_CHARACTER + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2) {
-				t.sendMessage("§cOut of Character " + message);
+				t.sendMessage(OUT_OF_CHARACTER + message);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue() / 2) {
-				t.sendMessage("§cOut of Character " + message);
+				t.sendMessage(OUT_OF_CHARACTER + message);
 			}
 		}
 
