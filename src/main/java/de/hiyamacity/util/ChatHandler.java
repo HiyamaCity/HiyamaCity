@@ -73,20 +73,20 @@ public class ChatHandler implements Listener {
 			final ResourceBundle trs = LanguageHandler.getResourceBundle(t.getUniqueId());
 
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
-			message = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
+			final String message1 = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
 			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.WHITE + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.WHITE + message1);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.GRAY + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.GRAY + message1);
 				continue;
 			}
 
 			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + message);
+				t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + message1);
 			}
 		}
 
