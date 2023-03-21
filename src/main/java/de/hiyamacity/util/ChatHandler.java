@@ -156,7 +156,7 @@ public class ChatHandler implements Listener {
 
 	public void handleOutOfCharacter(Player p, String message) {
 		message = message.substring(1);
-		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
+		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
 
 		for (Player t : recipients) {
 			final double distance = p.getLocation().distanceSquared(t.getLocation());
@@ -164,17 +164,7 @@ public class ChatHandler implements Listener {
 
 			final String finalMessage = MessageFormat.format(trs.getString(OUT_OF_CHARACTER), p.getName() + ": ", message);
 
-			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 2)) {
-				t.sendMessage(finalMessage);
-				continue;
-			}
-
-			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 2)) {
-				t.sendMessage(finalMessage);
-				continue;
-			}
-
-			if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() / 2)) {
+			if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() / 4)) {
 				t.sendMessage(finalMessage);
 			}
 		}
