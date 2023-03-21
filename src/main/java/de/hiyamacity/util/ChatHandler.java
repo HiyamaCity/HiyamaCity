@@ -49,12 +49,12 @@ public class ChatHandler implements Listener {
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
 			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
-			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 4)) {
+			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 16)) {
 				t.sendMessage("§8Ⓦ " + ChatColor.GRAY + finalMessage);
 				continue;
 			}
 
-			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 4)) {
+			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 16)) {
 				t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
 			}
 		}
