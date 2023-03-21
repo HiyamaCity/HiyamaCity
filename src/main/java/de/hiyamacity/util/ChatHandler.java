@@ -28,16 +28,16 @@ public class ChatHandler implements Listener {
 		final Player p = e.getPlayer();
 		final String message = e.getMessage();
 
-		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE))
-			handleAction(p, message.substring(1, message.length() - 1).trim());
-		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message.replace(WHISPER_HANDLE, "").trim());
-		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message.replace(SHOUT_HANDLE, "").trim());
-		else if (message.startsWith(OOC_HANDLE)) handleOutOfCharacter(p, message.replace(OOC_HANDLE, "").trim());
+		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE)) handleAction(p, message.substring(1, message.length() - 1).trim());
+		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message.trim());
+		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message.trim());
+		else if (message.startsWith(OOC_HANDLE)) handleOutOfCharacter(p, message.trim());
 		else handleRoleplayChat(p, message);
 
 	}
 
 	private void handleWhisper(Player p, String message) {
+		message = message.replace(WHISPER_HANDLE, "");
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
 
 		for (Player t : recipients) {
@@ -99,6 +99,7 @@ public class ChatHandler implements Listener {
 	}
 
 	private void handleShout(Player p, String message) {
+		message = message.replace(SHOUT_HANDLE, "");
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() * 2);
 		final StringBuilder stringBuilder = new StringBuilder(message);
 
@@ -153,6 +154,7 @@ public class ChatHandler implements Listener {
 	}
 
 	public void handleOutOfCharacter(Player p, String message) {
+		message = message.replace(OOC_HANDLE, "");
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
 
 		for (Player t : recipients) {
