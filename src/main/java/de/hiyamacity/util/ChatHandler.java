@@ -37,7 +37,7 @@ public class ChatHandler implements Listener {
 	}
 
 	private void handleWhisper(Player p, String message) {
-		message = message.replace(WHISPER_HANDLE, "");
+		message = message.substring(1);
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
 
 		for (Player t : recipients) {
@@ -99,7 +99,7 @@ public class ChatHandler implements Listener {
 	}
 
 	private void handleShout(Player p, String message) {
-		message = message.replace(SHOUT_HANDLE, "");
+		message = message.substring(1);
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() * 2);
 		final StringBuilder stringBuilder = new StringBuilder(message);
 
@@ -154,7 +154,7 @@ public class ChatHandler implements Listener {
 	}
 
 	public void handleOutOfCharacter(Player p, String message) {
-		message = message.replace(OOC_HANDLE, "");
+		message = message.substring(1);
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
 
 		for (Player t : recipients) {
