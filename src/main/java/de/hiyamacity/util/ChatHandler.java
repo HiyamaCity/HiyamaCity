@@ -37,7 +37,7 @@ public class ChatHandler implements Listener {
 
 	}
 
-	private static void handleWhisper(Player p, String message) {
+	private void handleWhisper(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 4);
 
 		for (Player t : recipients) {
@@ -65,7 +65,7 @@ public class ChatHandler implements Listener {
 		}
 	}
 
-	private static void handleRoleplayChat(Player p, String message) {
+	private void handleRoleplayChat(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue());
 
 		for (Player t : recipients) {
@@ -98,7 +98,7 @@ public class ChatHandler implements Listener {
 		}
 	}
 
-	private static void handleShout(Player p, String message) {
+	private void handleShout(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() * 2);
 		final StringBuilder stringBuilder = new StringBuilder(message);
 
@@ -132,7 +132,7 @@ public class ChatHandler implements Listener {
 		}
 	}
 
-	public static void handleAction(Player p, String message) {
+	public void handleAction(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
 
 		for (Player t : recipients) {
@@ -152,7 +152,7 @@ public class ChatHandler implements Listener {
 		}
 	}
 
-	public static void handleOutOfCharacter(Player p, String message) {
+	public void handleOutOfCharacter(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
 
 		for (Player t : recipients) {
@@ -188,7 +188,7 @@ public class ChatHandler implements Listener {
 	 *
 	 * @return list of players in the given distance
 	 */
-	private static List<Player> getRecipients(Player p, double distance) {
+	private List<Player> getRecipients(Player p, double distance) {
 		return new ArrayList<>(Bukkit.getOnlinePlayers().stream().filter(player -> (player.getLocation().distanceSquared(p.getLocation()) <= distance)).toList());
 	}
 
