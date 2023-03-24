@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class DoorHandler implements Listener {
 
@@ -56,7 +57,7 @@ public class DoorHandler implements Listener {
 		for (House house : houses) {
 			List<de.hiyamacity.entity.Location> houseDoorLocs = house.getDoorLocations().stream().toList();
 			
-			var sortedDoorLocs = houseDoorLocs.stream().sorted((o1, o2) -> {
+			final Stream<de.hiyamacity.entity.Location> sortedDoorLocs = houseDoorLocs.stream().sorted((o1, o2) -> {
 				final Double distance1 = o1.toBukkitLocation().distanceSquared(location);
 				final Double distance2 = o2.toBukkitLocation().distanceSquared(location);
 				return distance1.compareTo(distance2);
