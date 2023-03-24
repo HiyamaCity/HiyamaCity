@@ -12,6 +12,11 @@ import java.util.Optional;
 
 public interface Util {
 
+	/**
+	 * @param s String to check if it's a long
+	 *
+	 * @return whether the given string is a long
+	 */
 	static boolean isLong(String s) {
 		try {
 			Long.parseLong(s);
