@@ -30,7 +30,7 @@ public class ChatHandler implements Listener {
 		final String message = e.getMessage();
 
 		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE))
-			handleAction(p, message.substring(1, message.length() - 1).trim());
+			handleAction(p, message.trim());
 		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message.trim());
 		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message.trim());
 		else if (message.startsWith(OOC_HANDLE)) handleOutOfCharacter(p, message.trim());
@@ -135,6 +135,7 @@ public class ChatHandler implements Listener {
 	}
 
 	public void handleAction(Player p, String message) {
+		message = message.substring(1, message.length() - 1);
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue() / 2);
 
 		for (Player t : recipients) {
