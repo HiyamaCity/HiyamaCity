@@ -12,26 +12,6 @@ import java.util.Optional;
 
 public class HouseDAOImpl extends GeneralDAO<House, Long> implements DAO<House, Long> {
 
-	@Override
-	public @NotNull House create(@NotNull House type) {
-		return super.create(type);
-	}
-
-	@Override
-	public House read(@NotNull Class<House> classType, @NotNull Long primaryKey) {
-		return super.read(classType, primaryKey);
-	}
-
-	@Override
-	public House update(@NotNull House type) {
-		return super.update(type);
-	}
-
-	@Override
-	public boolean delete(@NotNull Class<House> classType, @NotNull Long primaryKey) {
-		return super.delete(classType, primaryKey);
-	}
-
 	public Optional<House> getHouseBySignLocation(@NotNull Location location) {
 		EntityManager entityManager = GeneralDAO.getEntityManagerFactory().createEntityManager();
 		try {
