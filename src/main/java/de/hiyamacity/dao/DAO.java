@@ -8,7 +8,7 @@ public interface DAO<T, S> {
 
 	T read(@NotNull Class<T> classType, @NotNull S primaryKey);
 
-	T update(@NotNull T type);
+	void update(@NotNull T type);
 
 	boolean delete(@NotNull Class<T> classType, @NotNull S primaryKey);
 

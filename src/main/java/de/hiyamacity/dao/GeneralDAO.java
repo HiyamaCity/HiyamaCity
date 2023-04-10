@@ -29,7 +29,7 @@ public class GeneralDAO<T, S> {
 		return entityManager.find(classType, primaryKey);
 	}
 
-	public T update(@NotNull T type) {
+	public void update(@NotNull T type) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -38,7 +38,6 @@ public class GeneralDAO<T, S> {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
-		return type;
 	}
 
 	public boolean delete(@NotNull Class<T> classType, @NotNull S primaryKey) {
