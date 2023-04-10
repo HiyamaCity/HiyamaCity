@@ -5,7 +5,7 @@ import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.dao.UserDAOImpl;
 import de.hiyamacity.entity.House;
 import de.hiyamacity.entity.User;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.util.player.LanguageHandler;
 import de.hiyamacity.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

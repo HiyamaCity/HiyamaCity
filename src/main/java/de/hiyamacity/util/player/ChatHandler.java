@@ -1,5 +1,6 @@
-package de.hiyamacity.util;
+package de.hiyamacity.util.player;
 
+import de.hiyamacity.util.Distance;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

@@ -7,7 +7,7 @@ import de.hiyamacity.entity.ATM;
 import de.hiyamacity.entity.BankAccount;
 import de.hiyamacity.entity.User;
 import de.hiyamacity.util.Distance;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.util.player.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;

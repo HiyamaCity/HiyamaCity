@@ -1,7 +1,7 @@
 package de.hiyamacity.commands.user;
 
-import de.hiyamacity.util.AfkHandler;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.util.player.AfkHandler;
+import de.hiyamacity.util.player.LanguageHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

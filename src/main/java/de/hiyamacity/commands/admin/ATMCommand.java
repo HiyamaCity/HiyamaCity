@@ -3,7 +3,7 @@ package de.hiyamacity.commands.admin;
 import de.hiyamacity.dao.ATMDAOImpl;
 import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.entity.ATM;
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.util.player.LanguageHandler;
 import org.bukkit.Location;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.command.Command;

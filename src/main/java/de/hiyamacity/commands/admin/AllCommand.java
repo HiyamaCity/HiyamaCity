@@ -1,6 +1,6 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.util.LanguageHandler;
+import de.hiyamacity.util.player.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

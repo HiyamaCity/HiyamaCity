@@ -1,8 +1,9 @@
-package de.hiyamacity.util;
+package de.hiyamacity.util.player;
 
 import de.hiyamacity.dao.HouseDAOImpl;
 import de.hiyamacity.entity.House;
 import de.hiyamacity.entity.User;
+import de.hiyamacity.util.Util;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;

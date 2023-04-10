@@ -1,4 +1,4 @@
-package de.hiyamacity.util;
+package de.hiyamacity.util.player;
 
 import de.hiyamacity.Main;
 import de.hiyamacity.dao.PlaytimeDAOImpl;

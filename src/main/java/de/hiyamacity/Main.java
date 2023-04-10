@@ -5,7 +5,7 @@ import de.hiyamacity.commands.admin.AllCommand;
 import de.hiyamacity.commands.admin.HouseCommand;
 import de.hiyamacity.commands.user.*;
 import de.hiyamacity.dao.GeneralDAO;
-import de.hiyamacity.util.*;
+import de.hiyamacity.util.player.*;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import lombok.Getter;
