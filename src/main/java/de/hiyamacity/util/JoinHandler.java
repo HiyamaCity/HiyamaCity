@@ -52,13 +52,15 @@ public class JoinHandler implements Listener {
 		e.setQuitMessage("");
 		sendAdminQuitNotification(e.getPlayer());
 
-		new BukkitRunnable() {
+		final BukkitRunnable runnable = new BukkitRunnable() {
 			@Override
 			public void run() {
 				RankHandler.updateRanks();
 				TabListHandler.updateTab();
 			}
-		}.runTaskLater(JavaPlugin.getPlugin(Main.class), 1);
+		};
+		
+		runnable.runTaskLater(JavaPlugin.getPlugin(Main.class), 1);
 
 	}
 
