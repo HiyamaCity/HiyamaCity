@@ -59,6 +59,14 @@ public class User {
 	@JoinColumn(name = "playtime_id")
 	private Playtime playtime;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "owned_plot_id")
+	private Plot ownedPlots;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "rented_plot_id")
+	private Plot rentedPlots;
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
