@@ -11,19 +11,22 @@ import java.util.UUID;
 
 public class LanguageHandler {
 
-	private static final Locale defaultLocale = Locale.GERMAN;
-	private static final String baseName = "de.hiyamacity.lang.i18n";
+	private LanguageHandler() {
+	}
+
+	private static final Locale DEFAULT_LOCALE = Locale.GERMAN;
+	private static final String BASE_NAME = "de.hiyamacity.lang.i18n";
 
 	public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
-		if(uuid == null) return getResourceBundle();
-		Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueId(uuid);
-		Locale locale = user.map(User::getLocale).orElse(Locale.GERMAN);
+		if (uuid == null) return getResourceBundle();
+		final Optional<User> user = new UserDAOImpl().getUserByPlayerUniqueId(uuid);
+		final Locale locale = user.map(User::getLocale).orElse(Locale.GERMAN);
 		if (locale == null) return getResourceBundle();
-		else return ResourceBundle.getBundle(baseName, locale);
+		else return ResourceBundle.getBundle(BASE_NAME, locale);
 	}
 
 	public static @NotNull ResourceBundle getResourceBundle() {
-		return ResourceBundle.getBundle(baseName, defaultLocale);
+		return ResourceBundle.getBundle(BASE_NAME, DEFAULT_LOCALE);
 	}
 
 }
