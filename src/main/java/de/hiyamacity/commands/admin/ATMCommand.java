@@ -24,6 +24,13 @@ import static de.hiyamacity.util.Util.isLong;
 
 public class ATMCommand implements CommandExecutor, TabCompleter {
 
+	private static final String ATM_ADMIN_PLAIN_USAGE = "atmAdminPlainUsage";
+	private static final String ATM_NOT_FOUND = "atmNotFound";
+	private static final String CREATE_CASE = "create";
+	private static final String DELETE_CASE = "delete";
+	private static final String AMOUNT_CASE = "amount";
+	private static final String MAXIMUM_CASE = "maximum";
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player p)) {
@@ -38,14 +45,14 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
 
 		if (args.length > 3 || args.length < 1) {
-			p.sendMessage(rs.getString("atmAdminPlainUsage"));
+			p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
 			return true;
 		}
 
 		switch (args[0].toLowerCase()) {
-			case "create" -> {
+			case CREATE_CASE -> {
 				if (args.length != 1) {
-					p.sendMessage(rs.getString("atmAdminPlainUsage"));
+					p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
 					return true;
 				}
 
@@ -71,9 +78,9 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				p.sendMessage(message);
 
 			}
-			case "delete" -> {
+			case DELETE_CASE -> {
 				if (args.length != 1) {
-					p.sendMessage(rs.getString("atmAdminPlainUsage"));
+					p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
 					return true;
 				}
 
@@ -81,7 +88,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				final ATMDAOImpl atmDAO = new ATMDAOImpl();
 
 				if (currentATM.isEmpty()) {
-					p.sendMessage(rs.getString("atmNotFound"));
+					p.sendMessage(rs.getString(ATM_NOT_FOUND));
 					return true;
 				}
 
@@ -110,7 +117,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				final ATMDAOImpl atmDAO = new ATMDAOImpl();
 
 				if (currentATM.isEmpty()) {
-					p.sendMessage(rs.getString("atmNotFound"));
+					p.sendMessage(rs.getString(ATM_NOT_FOUND));
 					return true;
 				}
 
@@ -119,8 +126,8 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				final long oldMaximum = atm.getMaximumAmount();
 
 				switch (args[1].toLowerCase()) {
-					case "amount" -> atm.setAmount(amount);
-					case "maximum" -> atm.setMaximumAmount(amount);
+					case AMOUNT_CASE -> atm.setAmount(amount);
+					case MAXIMUM_CASE -> atm.setMaximumAmount(amount);
 					default -> {
 						p.sendMessage(rs.getString("atmAdminModifyUsage"));
 						return true;
@@ -130,17 +137,20 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				atmDAO.update(atm);
 
 				switch (args[1].toLowerCase()) {
-					case "amount" -> {
+					case AMOUNT_CASE -> {
 						String message = rs.getString("atmAdminModify");
 						MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-						message = messageFormat.format(new Object[]{atm.getId(), "amount", oldAmount, atm.getAmount()});
+						message = messageFormat.format(new Object[]{atm.getId(), AMOUNT_CASE, oldAmount, atm.getAmount()});
 						p.sendMessage(message);
 					}
-					case "maximum" -> {
+					case MAXIMUM_CASE -> {
 						String message = rs.getString("atmAdminModify");
 						MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-						message = messageFormat.format(new Object[]{atm.getId(), "maximum", oldMaximum, atm.getMaximumAmount()});
+						message = messageFormat.format(new Object[]{atm.getId(), MAXIMUM_CASE, oldMaximum, atm.getMaximumAmount()});
 						p.sendMessage(message);
+					}
+					default -> {
+						return true;
 					}
 				}
 			}
@@ -148,7 +158,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
 
 				if (currentATM.isEmpty()) {
-					p.sendMessage(rs.getString("atmNotFound"));
+					p.sendMessage(rs.getString(ATM_NOT_FOUND));
 					return true;
 				}
 
@@ -156,7 +166,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				p.sendMessage("\n" + atm + "\n ");
 			}
 			default -> {
-				p.sendMessage(rs.getString("atmAdminPlainUsage"));
+				p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
 				return true;
 			}
 		}
@@ -165,11 +175,12 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 	}
 
 	private Optional<ATM> getLookingAtATM(@NotNull Location location) {
-		ATMDAOImpl atmDAO = new ATMDAOImpl();
-		List<ATM> atms = atmDAO.findAll();
-		for (ATM atm : atms) {
+		final ATMDAOImpl atmDAO = new ATMDAOImpl();
+		final List<ATM> atms = atmDAO.findAll();
+
+		for (ATM atm : atms)
 			if (atm.getLocation().toBukkitLocation().equals(location)) return Optional.of(atm);
-		}
+
 		return Optional.empty();
 	}
 
@@ -179,9 +190,9 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 
 	@Override
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if (args.length == 1) return List.of("create", "delete", "modify", "info");
-		else if (args.length == 2 || !args[0].contains("create") || !args[0].contains("delete") || !args[0].contains("info"))
-			return List.of("amount", "maximum");
+		if (args.length == 1) return List.of(CREATE_CASE, DELETE_CASE, "modify", "info");
+		else if (args.length == 2 || !args[0].contains(CREATE_CASE) || !args[0].contains(DELETE_CASE) || !args[0].contains("info"))
+			return List.of(AMOUNT_CASE, MAXIMUM_CASE);
 		else return null;
 	}
 }
