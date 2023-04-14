@@ -30,8 +30,7 @@ public class ChatHandler implements Listener {
 		final Player p = e.getPlayer();
 		final String message = e.getMessage();
 
-		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE))
-			handleAction(p, message.trim());
+		if (message.startsWith(ACTION_HANDLE) && message.endsWith(ACTION_HANDLE)) handleAction(p, message.trim());
 		else if (message.startsWith(WHISPER_HANDLE)) handleWhisper(p, message.trim());
 		else if (message.startsWith(SHOUT_HANDLE)) handleShout(p, message.trim());
 		else if (message.startsWith(OOC_HANDLE)) handleOutOfCharacter(p, message.trim());
@@ -50,14 +49,7 @@ public class ChatHandler implements Listener {
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
 			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
-			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 16)) {
-				t.sendMessage("§8Ⓦ " + ChatColor.GRAY + finalMessage);
-				continue;
-			}
-
-			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 32)) {
-				t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
-			}
+			sendWhisperChatMessage(t, distance, finalMessage);
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
@@ -65,6 +57,17 @@ public class ChatHandler implements Listener {
 			String errorMsg = rs.getString("chat.whisper.error.no_recipients");
 			errorMsg = MessageFormat.format(errorMsg, WHISPER_HANDLE);
 			p.sendMessage(errorMsg);
+		}
+	}
+
+	private static void sendWhisperChatMessage(Player t, double distance, String finalMessage) {
+		if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 16)) {
+			t.sendMessage("§8Ⓦ " + ChatColor.GRAY + finalMessage);
+			return;
+		}
+
+		if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 32)) {
+			t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
 		}
 	}
 
@@ -78,19 +81,7 @@ public class ChatHandler implements Listener {
 			final String verb = (!message.contains("?")) ? trs.getString(CHAT_SAY) : trs.getString(CHAT_ASK);
 			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, message);
 
-			if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.WHITE + finalMessage);
-				continue;
-			}
-
-			if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.GRAY + finalMessage);
-				continue;
-			}
-
-			if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue()) {
-				t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + finalMessage);
-			}
+			sendRoleplayChatMessage(t, distance, finalMessage);
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
@@ -98,6 +89,22 @@ public class ChatHandler implements Listener {
 			String errorMsg = rs.getString("chat.rp.error.no_recipients");
 			errorMsg = MessageFormat.format(errorMsg, SHOUT_HANDLE);
 			p.sendMessage(errorMsg);
+		}
+	}
+
+	private static void sendRoleplayChatMessage(Player t, double distance, String finalMessage) {
+		if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
+			t.sendMessage("§3Ⓡ " + ChatColor.WHITE + finalMessage);
+			return;
+		}
+
+		if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
+			t.sendMessage("§3Ⓡ " + ChatColor.GRAY + finalMessage);
+			return;
+		}
+
+		if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue()) {
+			t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + finalMessage);
 		}
 	}
 
@@ -114,24 +121,28 @@ public class ChatHandler implements Listener {
 			final String verb = (!message.contains("?")) ? trs.getString("chat.shout") : trs.getString(CHAT_ASK);
 			final String finalMessage = MessageFormat.format(trs.getString(CHAT_RP), p.getName(), verb, stringBuilder.toString());
 
-			if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() * 2)) {
-				t.sendMessage("§cⓈ " + ChatColor.WHITE + finalMessage);
-				continue;
-			}
-
-			if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2)) {
-				t.sendMessage("§cⓈ " + ChatColor.GRAY + finalMessage);
-				continue;
-			}
-
-			if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() * 2)) {
-				t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + finalMessage);
-			}
+			sendShoutChatMessage(t, distance, finalMessage);
 		}
 
 		if (recipients.size() == 1 && recipients.contains(p)) {
 			final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 			p.sendMessage(rs.getString("chat.shout.error.no_recipients"));
+		}
+	}
+
+	private static void sendShoutChatMessage(Player t, double distance, String finalMessage) {
+		if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() * 2)) {
+			t.sendMessage("§cⓈ " + ChatColor.WHITE + finalMessage);
+			return;
+		}
+
+		if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2)) {
+			t.sendMessage("§cⓈ " + ChatColor.GRAY + finalMessage);
+			return;
+		}
+
+		if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() * 2)) {
+			t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + finalMessage);
 		}
 	}
 
