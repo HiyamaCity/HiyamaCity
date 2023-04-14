@@ -14,18 +14,20 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class AfkHandler {
+	private AfkHandler() {
+	}
 
-	private static @NotNull
-	final org.bukkit.Location afkLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
+	@NotNull
+	private static final org.bukkit.Location afkLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
 
-	private static @NotNull
-	final org.bukkit.Location fallBackLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
+	@NotNull
+	private static final org.bukkit.Location fallBackLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
 
 	public static void toggleAfk(@NotNull UUID uuid) {
-		UserDAOImpl userDAO = new UserDAOImpl();
-		Optional<User> userOptional = userDAO.getUserByPlayerUniqueId(uuid);
-		Optional<Player> playerOptional = Optional.ofNullable(Bukkit.getPlayer(uuid));
-		ResourceBundle rs = LanguageHandler.getResourceBundle(playerOptional.map(Entity::getUniqueId).orElse(null));
+		final UserDAOImpl userDAO = new UserDAOImpl();
+		final Optional<User> userOptional = userDAO.getUserByPlayerUniqueId(uuid);
+		final Optional<Player> playerOptional = Optional.ofNullable(Bukkit.getPlayer(uuid));
+		final ResourceBundle rs = LanguageHandler.getResourceBundle(playerOptional.map(Entity::getUniqueId).orElseGet(() -> Bukkit.getOfflinePlayer(uuid).getUniqueId()));
 		userOptional.ifPresent(user -> {
 			boolean afk = !user.isAfk();
 			user.setAfk(afk);
@@ -35,7 +37,7 @@ public class AfkHandler {
 				LocationDAOImpl afkLocationDAO = new LocationDAOImpl();
 				Location nonAfkLocation = new Location().fromBukkitLocation(playerOptional.map(Player::getLocation).orElse(fallBackLocation));
 				nonAfkLocation = afkLocationDAO.create(nonAfkLocation);
-				
+
 				if (nonAfkLocation == new Location().fromBukkitLocation(fallBackLocation)) {
 					playerOptional.ifPresent(p -> p.sendMessage(rs.getString("afkFallBackLocationInfo")));
 				}
@@ -45,7 +47,7 @@ public class AfkHandler {
 					p.teleport(afkLocation);
 					p.sendMessage(rs.getString("afkJoin"));
 				});
-				
+
 			} else {
 				org.bukkit.Location nonAfkLocation = user.getNonAfkLocation().toBukkitLocation();
 
