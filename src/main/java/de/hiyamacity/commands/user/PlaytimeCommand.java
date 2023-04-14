@@ -18,6 +18,8 @@ import java.util.UUID;
 
 public class PlaytimeCommand implements CommandExecutor {
 
+	public static final String USER_FETCH_FAILED = "userFetchFailed";
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if(!(sender instanceof Player p)) {
@@ -38,7 +40,7 @@ public class PlaytimeCommand implements CommandExecutor {
 			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueId(p.getUniqueId());
 
 			if(optionalUser.isEmpty()) {
-				p.sendMessage(rs.getString("userFetchFailed"));
+				p.sendMessage(rs.getString(USER_FETCH_FAILED));
 				return true;
 			}
 
@@ -46,7 +48,7 @@ public class PlaytimeCommand implements CommandExecutor {
 			final Playtime playtime = user.getPlaytime();
 			
 			if(playtime == null) {
-				p.sendMessage(rs.getString("userFetchFailed"));
+				p.sendMessage(rs.getString(USER_FETCH_FAILED));
 				return true;
 			}
 			
@@ -70,7 +72,7 @@ public class PlaytimeCommand implements CommandExecutor {
 			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueId(targetPlayer.getUniqueId());
 			
 			if(optionalUser.isEmpty()) {
-				p.sendMessage(rs.getString("userFetchFailed"));
+				p.sendMessage(rs.getString(USER_FETCH_FAILED));
 				return true;
 			}
 			
