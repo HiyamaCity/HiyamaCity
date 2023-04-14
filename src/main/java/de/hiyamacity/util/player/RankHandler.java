@@ -11,6 +11,9 @@ import java.util.Optional;
 
 public class RankHandler {
 
+	private RankHandler() {
+	}
+
 	private static final Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
 	private static final String ADMIN_TEAM = "00000ADMIN";
 	private static final String PLAYER_TEAM = "00001PLAYER";
