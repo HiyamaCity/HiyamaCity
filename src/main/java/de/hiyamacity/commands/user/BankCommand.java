@@ -28,6 +28,10 @@ import static de.hiyamacity.util.Util.isLong;
 
 public class BankCommand implements CommandExecutor, TabCompleter {
 
+	public static final String CURRENCY_SYMBOL = "currencySymbol";
+	public static final String BANK_NON_NEGATIVE = "bankNonNegative";
+	public static final String INPUT_NAN = "inputNaN";
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player p)) {
@@ -80,7 +84,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				}
 
 				if (!isLong(args[1])) {
-					p.sendMessage(rs.getString("inputNaN"));
+					p.sendMessage(rs.getString(INPUT_NAN));
 					return true;
 				}
 
@@ -89,7 +93,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				final long userAmount = user.getPurse();
 
 				if (amount <= 0) {
-					p.sendMessage(rs.getString("bankNonNegative"));
+					p.sendMessage(rs.getString(BANK_NON_NEGATIVE));
 					return true;
 				}
 
@@ -113,7 +117,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 				String message = rs.getString("bankWithdraw");
 				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-				message = messageFormat.format(new Object[]{amount, rs.getString("currencySymbol")});
+				message = messageFormat.format(new Object[]{amount, rs.getString(CURRENCY_SYMBOL)});
 				p.sendMessage(message);
 			}
 			case "einzahlen" -> {
@@ -123,7 +127,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				}
 
 				if (!isLong(args[1])) {
-					p.sendMessage(rs.getString("inputNaN"));
+					p.sendMessage(rs.getString(INPUT_NAN));
 					return true;
 				}
 
@@ -133,7 +137,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				final long userAmount = user.getPurse();
 
 				if (amount <= 0) {
-					p.sendMessage(rs.getString("bankNonNegative"));
+					p.sendMessage(rs.getString(BANK_NON_NEGATIVE));
 					return true;
 				}
 
@@ -157,7 +161,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 				String message = rs.getString("bankDeposit");
 				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-				message = messageFormat.format(new Object[]{oldAmount, rs.getString("currencySymbol")});
+				message = messageFormat.format(new Object[]{oldAmount, rs.getString(CURRENCY_SYMBOL)});
 				p.sendMessage(message);
 			}
 			case "info" -> {
@@ -168,7 +172,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 				String message = rs.getString("bankInfo");
 				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-				message = messageFormat.format(new Object[]{p.getName(), bankAccount.getAmount(), rs.getString("currencySymbol"), atm.getAmount(), rs.getString("currencySymbol")});
+				message = messageFormat.format(new Object[]{p.getName(), bankAccount.getAmount(), rs.getString(CURRENCY_SYMBOL), atm.getAmount(), rs.getString(CURRENCY_SYMBOL)});
 				p.sendMessage(message);
 			}
 			case "überweisen" -> {
@@ -178,7 +182,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				}
 
 				if (!isLong(args[2])) {
-					p.sendMessage(rs.getString("inputNaN"));
+					p.sendMessage(rs.getString(INPUT_NAN));
 					return true;
 				}
 
@@ -213,7 +217,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 				final long userBankAmount = userBankAccount.getAmount();
 
 				if (amount <= 0) {
-					p.sendMessage(rs.getString("bankNonNegative"));
+					p.sendMessage(rs.getString(BANK_NON_NEGATIVE));
 					return true;
 				}
 
@@ -229,16 +233,22 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 				String message = rs.getString("bankTransferSend");
 				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-				message = messageFormat.format(new Object[]{amount, rs.getString("currencySymbol"), target.getName()});
+				message = messageFormat.format(new Object[]{amount, rs.getString(CURRENCY_SYMBOL), target.getName()});
 				p.sendMessage(message);
 
 				final ResourceBundle trs = LanguageHandler.getResourceBundle(target.getUniqueId());
 				message = rs.getString("bankTransferReceive");
 				MessageFormat format = new MessageFormat(message, trs.getLocale());
-				message = format.format(new Object[]{p.getName(), amount, trs.getString("currencySymbol")});
+				message = format.format(new Object[]{p.getName(), amount, trs.getString(CURRENCY_SYMBOL)});
 				target.sendMessage(message);
 
 			}
+
+			default -> {
+				// TODO: Add info message for the player on why it failed
+				return true;
+			}
+
 		}
 
 		return false;
