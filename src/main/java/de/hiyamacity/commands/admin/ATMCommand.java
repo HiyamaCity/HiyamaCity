@@ -51,20 +51,10 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 		}
 
 		switch (args[0].toLowerCase()) {
-			case CREATE_CASE -> {
-				if (handleAtmCreation(args, p, rs)) return true;
-
-			}
-			case DELETE_CASE -> {
-				if (handleAtmDeletion(args, p, rs)) return true;
-
-			}
-			case "modify" -> {
-				if (handleAtmModification(args, p, rs)) return true;
-			}
-			case "info" -> {
-				if (handleAtmInfo(p, rs)) return true;
-			}
+			case CREATE_CASE -> handleAtmCreation(args, p, rs);
+			case DELETE_CASE -> handleAtmDeletion(args, p, rs);
+			case "modify" -> handleAtmModification(args, p, rs);
+			case "info" -> handleAtmInfo(p, rs);
 			default -> {
 				p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
 				return true;
@@ -74,10 +64,10 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 		return false;
 	}
 
-	private boolean handleAtmCreation(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
+	private void handleAtmCreation(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
 		if (args.length != 1) {
 			p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
-			return true;
+			return;
 		}
 
 		final AtmDAOImpl atmDAO = new AtmDAOImpl();
@@ -87,7 +77,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 
 		if (!(location.toBukkitLocation().getBlock().getBlockData() instanceof WallSign)) {
 			p.sendMessage(rs.getString("atmLookAtSign"));
-			return true;
+			return;
 		}
 
 		locationDAO.create(location);
@@ -100,13 +90,12 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 		String message = rs.getString("atmAdminCreate");
 		message = MessageFormat.format(message, atm.getId(), atm.getLocation().getX(), atm.getLocation().getY(), atm.getLocation().getZ());
 		p.sendMessage(message);
-		return false;
 	}
 
-	private boolean handleAtmDeletion(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
+	private void handleAtmDeletion(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
 		if (args.length != 1) {
 			p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
-			return true;
+			return;
 		}
 
 		final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
@@ -114,7 +103,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 
 		if (currentATM.isEmpty()) {
 			p.sendMessage(rs.getString(ATM_NOT_FOUND));
-			return true;
+			return;
 		}
 
 		final ATM atm = currentATM.get();
@@ -123,20 +112,19 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 		String message = rs.getString("atmAdminDelete");
 		message = MessageFormat.format(message, atm.getId(), atm.getLocation().getX(), atm.getLocation().getY(), atm.getLocation().getZ());
 		p.sendMessage(message);
-		return false;
 	}
 
-	private boolean handleAtmModification(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
+	private void handleAtmModification(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
 		if (args.length != 3) {
 			p.sendMessage(rs.getString("atmAdminModifyUsage"));
-			return true;
+			return;
 		}
 
 		final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
 
 		if (!isLong(args[2])) {
 			p.sendMessage(rs.getString("inputNaN"));
-			return true;
+			return;
 		}
 
 		final long amount = Long.parseLong(args[2]);
@@ -144,7 +132,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 
 		if (currentATM.isEmpty()) {
 			p.sendMessage(rs.getString(ATM_NOT_FOUND));
-			return true;
+			return;
 		}
 
 		final ATM atm = currentATM.get();
@@ -156,7 +144,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 			case MAXIMUM_CASE -> atm.setMaximumAmount(amount);
 			default -> {
 				p.sendMessage(rs.getString("atmAdminModifyUsage"));
-				return true;
+				return;
 			}
 		}
 
@@ -175,24 +163,20 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 				message = messageFormat.format(new Object[]{atm.getId(), MAXIMUM_CASE, oldMaximum, atm.getMaximumAmount()});
 				p.sendMessage(message);
 			}
-			default -> {
-				return true;
-			}
+			default -> p.sendMessage(rs.getString("atm.action.not_found"));
 		}
-		return false;
 	}
 
-	private boolean handleAtmInfo(Player p, ResourceBundle rs) {
+	private void handleAtmInfo(Player p, ResourceBundle rs) {
 		final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
 
 		if (currentATM.isEmpty()) {
 			p.sendMessage(rs.getString(ATM_NOT_FOUND));
-			return true;
+			return;
 		}
 
 		final ATM atm = currentATM.get();
 		p.sendMessage(Component.text("\n" + atm + "\n"));
-		return false;
 	}
 
 	private Optional<ATM> getLookingAtATM(@NotNull Location location) {

@@ -34,15 +34,15 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 	private static final BankAccountDAOImpl bankAccountDAO = new BankAccountDAOImpl();
 	private static final UserDAOImpl userDAO = new UserDAOImpl();
 
-	private static boolean handleBankTransfer(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, User user) {
+	private static void handleBankTransfer(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, User user) {
 		if (args.length != 3) {
 			p.sendMessage(rs.getString("bankTransferUsage"));
-			return true;
+			return;
 		}
 
 		if (!isLong(args[2])) {
 			p.sendMessage(rs.getString(INPUT_NAN));
-			return true;
+			return;
 		}
 
 		final Optional<Player> targetOptional = Optional.ofNullable(Bukkit.getPlayer(args[1]));
@@ -51,21 +51,21 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 			String message = rs.getString("playerNotFound");
 			message = MessageFormat.format(message, args[1]);
 			p.sendMessage(message);
-			return true;
+			return;
 		}
 
 		final Player target = targetOptional.get();
 
 		if (p.getName().equals(target.getName())) {
 			p.sendMessage(rs.getString("bankTransferSelf"));
-			return true;
+			return;
 		}
 
 		final Optional<User> optionalTargetUser = BankCommand.userDAO.getUserByPlayerUniqueId(target.getUniqueId());
 
 		if (optionalTargetUser.isEmpty()) {
 			p.sendMessage(rs.getString("userFetchFailed"));
-			return true;
+			return;
 		}
 
 		final User targetUser = optionalTargetUser.get();
@@ -77,12 +77,12 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 		if (amount <= 0) {
 			p.sendMessage(rs.getString(BANK_NON_NEGATIVE));
-			return true;
+			return;
 		}
 
 		if (userBankAmount < amount) {
 			p.sendMessage(rs.getString("payInsufficientFunds"));
-			return true;
+			return;
 		}
 
 		userBankAccount.setAmount(userBankAmount - amount);
@@ -100,31 +100,29 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		MessageFormat format = new MessageFormat(message, trs.getLocale());
 		message = format.format(new Object[]{p.getName(), amount, trs.getString(CURRENCY_SYMBOL)});
 		target.sendMessage(message);
-		return false;
 	}
 
-	private static boolean handleAtmInfo(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, BankAccount bankAccount, ATM atm) {
+	private static void handleAtmInfo(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, BankAccount bankAccount, ATM atm) {
 		if (args.length != 1) {
 			p.sendMessage(rs.getString("bankInfoUsage"));
-			return true;
+			return;
 		}
 
 		String message = rs.getString("bankInfo");
 		MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
 		message = messageFormat.format(new Object[]{p.getName(), bankAccount.getAmount(), rs.getString(CURRENCY_SYMBOL), atm.getAmount(), rs.getString(CURRENCY_SYMBOL)});
 		p.sendMessage(message);
-		return false;
 	}
 
-	private static boolean handleBankDeposit(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, User user, BankAccount bankAccount, ATM atm) {
+	private static void handleBankDeposit(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, User user, BankAccount bankAccount, ATM atm) {
 		if (args.length != 2) {
 			p.sendMessage(rs.getString("bankWithdrawDepositUsage"));
-			return true;
+			return;
 		}
 
 		if (!isLong(args[1])) {
 			p.sendMessage(rs.getString(INPUT_NAN));
-			return true;
+			return;
 		}
 
 		long amount = Long.parseLong(args[1]);
@@ -134,12 +132,12 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 		if (amount <= 0) {
 			p.sendMessage(rs.getString(BANK_NON_NEGATIVE));
-			return true;
+			return;
 		}
 
 		if (userAmount < amount) {
 			p.sendMessage(rs.getString("payInsufficientFunds"));
-			return true;
+			return;
 		}
 
 		long oldAmount = amount;
@@ -159,18 +157,17 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
 		message = messageFormat.format(new Object[]{oldAmount, rs.getString(CURRENCY_SYMBOL)});
 		p.sendMessage(message);
-		return false;
 	}
 
-	private static boolean handleBankWithdraw(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, User user, BankAccount bankAccount, ATM atm) {
+	private static void handleBankWithdraw(@NotNull String @NotNull [] args, Player p, ResourceBundle rs, User user, BankAccount bankAccount, ATM atm) {
 		if (args.length != 2) {
 			p.sendMessage(rs.getString("bankWithdrawDepositUsage"));
-			return true;
+			return;
 		}
 
 		if (!isLong(args[1])) {
 			p.sendMessage(rs.getString(INPUT_NAN));
-			return true;
+			return;
 		}
 
 		final long amount = Long.parseLong(args[1]);
@@ -179,17 +176,17 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 		if (amount <= 0) {
 			p.sendMessage(rs.getString(BANK_NON_NEGATIVE));
-			return true;
+			return;
 		}
 
 		if (atmAmount < amount) {
 			p.sendMessage(rs.getString("bankWithdrawNotEnoughMoneyInATM"));
-			return true;
+			return;
 		}
 
 		if (bankAccount.getAmount() < amount) {
 			p.sendMessage(rs.getString("bankWithdrawNotEnoughMoneyOnBank"));
-			return true;
+			return;
 		}
 
 		bankAccount.setAmount(bankAccount.getAmount() - amount);
@@ -204,7 +201,6 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
 		message = messageFormat.format(new Object[]{amount, rs.getString(CURRENCY_SYMBOL)});
 		p.sendMessage(message);
-		return false;
 	}
 
 	@Override
@@ -250,18 +246,10 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 		final ATM atm = nearestATM.get();
 
 		switch (args[0].toLowerCase()) {
-			case "abbuchen" -> {
-				if (handleBankWithdraw(args, p, rs, user, bankAccount, atm)) return true;
-			}
-			case "einzahlen" -> {
-				if (handleBankDeposit(args, p, rs, user, bankAccount, atm)) return true;
-			}
-			case "info" -> {
-				if (handleAtmInfo(args, p, rs, bankAccount, atm)) return true;
-			}
-			case "überweisen" -> {
-				if (handleBankTransfer(args, p, rs, user)) return true;
-			}
+			case "abbuchen" -> handleBankWithdraw(args, p, rs, user, bankAccount, atm);
+			case "einzahlen" -> handleBankDeposit(args, p, rs, user, bankAccount, atm);
+			case "info" -> handleAtmInfo(args, p, rs, bankAccount, atm);
+			case "überweisen" -> handleBankTransfer(args, p, rs, user);
 
 			default -> {
 				p.sendMessage(rs.getString("atm.action.not_found"));
