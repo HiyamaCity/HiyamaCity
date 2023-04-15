@@ -1,7 +1,7 @@
 package de.hiyamacity.commands.user;
 
 import de.hiyamacity.dao.UserDAOImpl;
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.User;
 import de.hiyamacity.util.player.LanguageHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

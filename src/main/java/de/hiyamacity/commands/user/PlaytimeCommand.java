@@ -1,8 +1,8 @@
 package de.hiyamacity.commands.user;
 
 import de.hiyamacity.dao.UserDAOImpl;
-import de.hiyamacity.entity.Playtime;
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.Playtime;
+import de.hiyamacity.jpa.User;
 import de.hiyamacity.util.player.LanguageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

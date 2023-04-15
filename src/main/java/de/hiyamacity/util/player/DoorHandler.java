@@ -1,8 +1,8 @@
 package de.hiyamacity.util.player;
 
 import de.hiyamacity.dao.HouseDAOImpl;
-import de.hiyamacity.entity.House;
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.House;
+import de.hiyamacity.jpa.User;
 import de.hiyamacity.util.Util;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -56,9 +56,9 @@ public class DoorHandler implements Listener {
 		});
 
 		for (House house : houses) {
-			List<de.hiyamacity.entity.Location> houseDoorLocs = house.getDoorLocations().stream().toList();
+			List<de.hiyamacity.jpa.Location> houseDoorLocs = house.getDoorLocations().stream().toList();
 			
-			final Stream<de.hiyamacity.entity.Location> sortedDoorLocs = houseDoorLocs.stream().sorted((o1, o2) -> {
+			final Stream<de.hiyamacity.jpa.Location> sortedDoorLocs = houseDoorLocs.stream().sorted((o1, o2) -> {
 				final Double distance1 = o1.toBukkitLocation().distanceSquared(location);
 				final Double distance2 = o2.toBukkitLocation().distanceSquared(location);
 				return distance1.compareTo(distance2);
@@ -66,7 +66,7 @@ public class DoorHandler implements Listener {
 			
 			houseDoorLocs = sortedDoorLocs.toList();
 
-			for (de.hiyamacity.entity.Location door : houseDoorLocs) {
+			for (de.hiyamacity.jpa.Location door : houseDoorLocs) {
 				final Location doorLocation = door.toBukkitLocation();
 				if (doorLocation.getBlock().equals(location.getBlock())) return Optional.of(house);
 			}

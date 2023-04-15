@@ -1,7 +1,7 @@
 package de.hiyamacity.dao;
 
 import de.hiyamacity.Main;
-import de.hiyamacity.entity.Location;
+import de.hiyamacity.jpa.Location;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import org.jetbrains.annotations.NotNull;

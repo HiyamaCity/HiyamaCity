@@ -5,14 +5,14 @@
              version="3.0">
     <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>de.hiyamacity.entity.ATM</class>
-        <class>de.hiyamacity.entity.BankAccount</class>
-        <class>de.hiyamacity.entity.Gender</class>
-        <class>de.hiyamacity.entity.House</class>
-        <class>de.hiyamacity.entity.Location</class>
-        <class>de.hiyamacity.entity.Playtime</class>
-        <class>de.hiyamacity.entity.RoleplayCharacter</class>
-        <class>de.hiyamacity.entity.User</class>
+        <class>de.hiyamacity.jpa.ATM</class>
+        <class>de.hiyamacity.jpa.BankAccount</class>
+        <class>de.hiyamacity.jpa.Gender</class>
+        <class>de.hiyamacity.jpa.House</class>
+        <class>de.hiyamacity.jpa.Location</class>
+        <class>de.hiyamacity.jpa.Playtime</class>
+        <class>de.hiyamacity.jpa.RoleplayCharacter</class>
+        <class>de.hiyamacity.jpa.User</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://db:3306/mc"/>

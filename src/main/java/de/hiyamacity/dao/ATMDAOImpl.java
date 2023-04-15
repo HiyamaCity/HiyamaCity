@@ -1,6 +1,6 @@
 package de.hiyamacity.dao;
 
-import de.hiyamacity.entity.ATM;
+import de.hiyamacity.jpa.ATM;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;

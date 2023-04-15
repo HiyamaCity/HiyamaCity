@@ -3,8 +3,8 @@ package de.hiyamacity.commands.admin;
 import de.hiyamacity.dao.HouseDAOImpl;
 import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.dao.UserDAOImpl;
-import de.hiyamacity.entity.House;
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.House;
+import de.hiyamacity.jpa.User;
 import de.hiyamacity.util.player.LanguageHandler;
 import de.hiyamacity.util.Util;
 import org.bukkit.Bukkit;
@@ -123,7 +123,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 			return;
 		}
 
-		final de.hiyamacity.entity.Location houseSignLocation = new de.hiyamacity.entity.Location().fromBukkitLocation(getTargetBlockLocation(p));
+		final de.hiyamacity.jpa.Location houseSignLocation = new de.hiyamacity.jpa.Location().fromBukkitLocation(getTargetBlockLocation(p));
 		final House createdHouse = new House();
 		final HouseDAOImpl houseDAO = new HouseDAOImpl();
 		final LocationDAOImpl locationDAO = new LocationDAOImpl();
@@ -134,7 +134,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 			return;
 		}
 
-		final List<de.hiyamacity.entity.Location> houseSignLocationExists = locationDAO.findByBukkitLocation(houseSignLocation.toBukkitLocation());
+		final List<de.hiyamacity.jpa.Location> houseSignLocationExists = locationDAO.findByBukkitLocation(houseSignLocation.toBukkitLocation());
 
 		if (!houseSignLocationExists.isEmpty()) {
 			p.sendMessage(rs.getString("houseSignAlreadyRegistered"));
@@ -172,7 +172,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final Location houseSignLocation = getTargetBlockLocation(p);
-		final List<de.hiyamacity.entity.Location> optionalLocation = new LocationDAOImpl().findByBukkitLocation(houseSignLocation);
+		final List<de.hiyamacity.jpa.Location> optionalLocation = new LocationDAOImpl().findByBukkitLocation(houseSignLocation);
 
 		if (optionalLocation.isEmpty()) {
 			p.sendMessage(rs.getString(HOUSE_NOT_FOUND));
@@ -225,7 +225,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final Location houseSignLocation = getTargetBlockLocation(p);
-		final List<de.hiyamacity.entity.Location> optionalLocation = new LocationDAOImpl().findByBukkitLocation(houseSignLocation);
+		final List<de.hiyamacity.jpa.Location> optionalLocation = new LocationDAOImpl().findByBukkitLocation(houseSignLocation);
 
 		if (optionalLocation.isEmpty()) {
 			p.sendMessage(rs.getString(HOUSE_NOT_FOUND));
@@ -629,7 +629,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 			return;
 		}
 
-		final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
+		final Set<de.hiyamacity.jpa.Location> doorLocs = house.getDoorLocations();
 		doorLocs.clear();
 
 		house.setDoorLocations(doorLocs);
@@ -664,7 +664,7 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final Location doorLocation = openableLocation.get();
-		final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
+		final Set<de.hiyamacity.jpa.Location> doorLocs = house.getDoorLocations();
 
 		boolean success = doorLocs.removeIf(location -> Objects.equals(location.getWorld(), doorLocation.getWorld().getName()) && location.getX() == doorLocation.getX() && location.getY() == doorLocation.getY() && location.getZ() == doorLocation.getZ());
 
@@ -707,8 +707,8 @@ public class HouseCommand implements CommandExecutor, TabCompleter {
 		}
 
 		final Location doorLocation = openableLocation.get();
-		final Set<de.hiyamacity.entity.Location> doorLocs = house.getDoorLocations();
-		doorLocs.add(new de.hiyamacity.entity.Location().fromBukkitLocation(doorLocation));
+		final Set<de.hiyamacity.jpa.Location> doorLocs = house.getDoorLocations();
+		doorLocs.add(new de.hiyamacity.jpa.Location().fromBukkitLocation(doorLocation));
 
 		house.setDoorLocations(doorLocs);
 		houseDAO.update(house);

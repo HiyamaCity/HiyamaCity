@@ -2,7 +2,7 @@ package de.hiyamacity.util.player;
 
 import de.hiyamacity.Main;
 import de.hiyamacity.dao.UserDAOImpl;
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

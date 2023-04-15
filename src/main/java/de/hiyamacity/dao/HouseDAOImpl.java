@@ -1,6 +1,6 @@
 package de.hiyamacity.dao;
 
-import de.hiyamacity.entity.House;
+import de.hiyamacity.jpa.House;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import org.bukkit.Location;

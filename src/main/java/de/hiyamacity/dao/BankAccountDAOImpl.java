@@ -1,6 +1,6 @@
 package de.hiyamacity.dao;
 
-import de.hiyamacity.entity.BankAccount;
+import de.hiyamacity.jpa.BankAccount;
 
 import java.util.UUID;
 

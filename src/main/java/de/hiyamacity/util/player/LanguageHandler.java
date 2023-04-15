@@ -1,7 +1,7 @@
 package de.hiyamacity.util.player;
 
 import de.hiyamacity.dao.UserDAOImpl;
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.User;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;

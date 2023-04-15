@@ -1,6 +1,6 @@
 package de.hiyamacity.dao;
 
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import org.jetbrains.annotations.NotNull;

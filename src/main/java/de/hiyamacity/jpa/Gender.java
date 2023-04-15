@@ -1,4 +1,4 @@
-package de.hiyamacity.entity;
+package de.hiyamacity.jpa;
 
 public enum Gender {
 	

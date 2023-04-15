@@ -2,8 +2,8 @@ package de.hiyamacity.util.player;
 
 import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.dao.UserDAOImpl;
-import de.hiyamacity.entity.Location;
-import de.hiyamacity.entity.User;
+import de.hiyamacity.jpa.Location;
+import de.hiyamacity.jpa.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

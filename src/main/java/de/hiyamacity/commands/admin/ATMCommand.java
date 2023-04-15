@@ -2,7 +2,7 @@ package de.hiyamacity.commands.admin;
 
 import de.hiyamacity.dao.ATMDAOImpl;
 import de.hiyamacity.dao.LocationDAOImpl;
-import de.hiyamacity.entity.ATM;
+import de.hiyamacity.jpa.ATM;
 import de.hiyamacity.util.player.LanguageHandler;
 import org.bukkit.Location;
 import org.bukkit.block.data.type.WallSign;
@@ -58,7 +58,7 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 
 				final ATMDAOImpl atmDAO = new ATMDAOImpl();
 				final ATM atm = new ATM();
-				final de.hiyamacity.entity.Location location = new de.hiyamacity.entity.Location().fromBukkitLocation(getATMLocation(p));
+				final de.hiyamacity.jpa.Location location = new de.hiyamacity.jpa.Location().fromBukkitLocation(getATMLocation(p));
 				final LocationDAOImpl locationDAO = new LocationDAOImpl();
 
 				if (!(location.toBukkitLocation().getBlock().getBlockData() instanceof WallSign)) {

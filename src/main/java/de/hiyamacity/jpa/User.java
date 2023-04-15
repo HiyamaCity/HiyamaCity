@@ -1,4 +1,4 @@
-package de.hiyamacity.entity;
+package de.hiyamacity.jpa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
