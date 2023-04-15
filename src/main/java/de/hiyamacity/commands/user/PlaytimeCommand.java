@@ -22,36 +22,36 @@ public class PlaytimeCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if(!(sender instanceof Player p)) {
+		if (!(sender instanceof Player p)) {
 			ResourceBundle rs = LanguageHandler.getResourceBundle();
 			sender.sendMessage(rs.getString("playerCommand"));
 			return true;
 		}
-		
+
 		final UUID uuid = p.getUniqueId();
 		final ResourceBundle rs = LanguageHandler.getResourceBundle(uuid);
-		
-		if(args.length > 1) {
+
+		if (args.length > 1) {
 			p.sendMessage(rs.getString("playtimeUsage"));
 			return true;
 		}
 
-		if(args.length == 0) {
+		if (args.length == 0) {
 			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueId(p.getUniqueId());
 
-			if(optionalUser.isEmpty()) {
+			if (optionalUser.isEmpty()) {
 				p.sendMessage(rs.getString(USER_FETCH_FAILED));
 				return true;
 			}
 
 			final User user = optionalUser.get();
 			final Playtime playtime = user.getPlaytime();
-			
-			if(playtime == null) {
+
+			if (playtime == null) {
 				p.sendMessage(rs.getString(USER_FETCH_FAILED));
 				return true;
 			}
-			
+
 			final long minutes = playtime.getMinutes();
 			final long hours = playtime.getHours();
 
@@ -61,32 +61,32 @@ public class PlaytimeCommand implements CommandExecutor {
 			p.sendMessage(message);
 		} else {
 			Optional<Player> targetOptional = Optional.ofNullable(Bukkit.getPlayer(args[0]));
-			if(targetOptional.isEmpty()) {
+			if (targetOptional.isEmpty()) {
 				String message = rs.getString("playerNotFound");
 				message = MessageFormat.format(message, args[0]);
 				p.sendMessage(message);
 				return true;
 			}
-			
+
 			final Player targetPlayer = targetOptional.get();
 			final Optional<User> optionalUser = new UserDAOImpl().getUserByPlayerUniqueId(targetPlayer.getUniqueId());
-			
-			if(optionalUser.isEmpty()) {
+
+			if (optionalUser.isEmpty()) {
 				p.sendMessage(rs.getString(USER_FETCH_FAILED));
 				return true;
 			}
-			
+
 			final User user = optionalUser.get();
 			final Playtime playtime = user.getPlaytime();
 			final long minutes = playtime.getMinutes();
 			final long hours = playtime.getHours();
-			
+
 			String message = rs.getString("playtimeMessage");
 			MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
 			message = messageFormat.format(new Object[]{targetPlayer.getName(), hours, minutes});
 			p.sendMessage(message);
 		}
-		
+
 		return false;
 	}
 }

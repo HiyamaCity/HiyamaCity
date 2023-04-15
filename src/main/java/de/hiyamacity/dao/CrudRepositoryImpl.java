@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManagerFactory;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
-public class GeneralDAO<T, S> {
+public abstract non-sealed class CrudRepositoryImpl<T, S> implements CrudRepository<T, S> {
 
 	@Getter
 	@NotNull

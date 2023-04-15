@@ -32,7 +32,7 @@ public class DoorHandler implements Listener {
 			if (!(data instanceof Openable)) return;
 			final Block block = clickedBlock.get();
 			final Optional<Location> openableLocation = Util.getOpenableLocation(block);
-			if(openableLocation.isEmpty()) return;
+			if (openableLocation.isEmpty()) return;
 			final Optional<House> houseOptional = isLockedDoor(openableLocation.get());
 			if (houseOptional.isEmpty()) return;
 			final House house = houseOptional.get();
@@ -57,13 +57,13 @@ public class DoorHandler implements Listener {
 
 		for (House house : houses) {
 			List<de.hiyamacity.jpa.Location> houseDoorLocs = house.getDoorLocations().stream().toList();
-			
+
 			final Stream<de.hiyamacity.jpa.Location> sortedDoorLocs = houseDoorLocs.stream().sorted((o1, o2) -> {
 				final Double distance1 = o1.toBukkitLocation().distanceSquared(location);
 				final Double distance2 = o2.toBukkitLocation().distanceSquared(location);
 				return distance1.compareTo(distance2);
 			});
-			
+
 			houseDoorLocs = sortedDoorLocs.toList();
 
 			for (de.hiyamacity.jpa.Location door : houseDoorLocs) {

@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class HouseDAOImpl extends GeneralDAO<House, Long> implements DAO<House, Long> {
+public class HouseDAOImpl extends CrudRepositoryImpl<House, Long> {
 
 	public Optional<House> getHouseBySignLocation(@NotNull Location location) {
-		EntityManager entityManager = GeneralDAO.getEntityManagerFactory().createEntityManager();
+		EntityManager entityManager = CrudRepositoryImpl.getEntityManagerFactory().createEntityManager();
 		try {
 			Optional<House> houseOptional = Optional.ofNullable((House) entityManager.createQuery("SELECT h from House h where h.signLocation.x = ?1 and h.signLocation.y = ?2 and h.signLocation.z = ?3 and h.signLocation.yaw = ?4 and h.signLocation.pitch = ?5")
 					.setParameter(1, location.getX())
@@ -30,7 +30,7 @@ public class HouseDAOImpl extends GeneralDAO<House, Long> implements DAO<House, 
 	}
 
 	public List<House> findAll() {
-		EntityManager entityManager = GeneralDAO.getEntityManagerFactory().createEntityManager();
+		EntityManager entityManager = CrudRepositoryImpl.getEntityManagerFactory().createEntityManager();
 		try {
 			List<House> set = entityManager.createQuery("SELECT h from House h", House.class).getResultList();
 			entityManager.close();

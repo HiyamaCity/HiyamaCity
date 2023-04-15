@@ -11,11 +11,10 @@ import java.util.UUID;
 
 public class LanguageHandler {
 
-	private LanguageHandler() {
-	}
-
 	private static final Locale DEFAULT_LOCALE = Locale.GERMAN;
 	private static final String BASE_NAME = "de.hiyamacity.lang.i18n";
+	private LanguageHandler() {
+	}
 
 	public static @NotNull ResourceBundle getResourceBundle(UUID uuid) {
 		if (uuid == null) return getResourceBundle();

@@ -14,14 +14,13 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class AfkHandler {
-	private AfkHandler() {
-	}
-
 	@NotNull
 	private static final org.bukkit.Location afkLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -59, 126, 366, 180, 0);
-
 	@NotNull
 	private static final org.bukkit.Location fallBackLocation = new org.bukkit.Location(Bukkit.getWorld("world"), -41, 111, 400, -90, 0);
+
+	private AfkHandler() {
+	}
 
 	public static void toggleAfk(@NotNull UUID uuid) {
 		final UserDAOImpl userDAO = new UserDAOImpl();

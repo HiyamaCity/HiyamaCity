@@ -1,9 +1,10 @@
 package de.hiyamacity.commands.admin;
 
-import de.hiyamacity.dao.ATMDAOImpl;
+import de.hiyamacity.dao.AtmDAOImpl;
 import de.hiyamacity.dao.LocationDAOImpl;
 import de.hiyamacity.jpa.ATM;
 import de.hiyamacity.util.player.LanguageHandler;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.command.Command;
@@ -51,119 +52,18 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 
 		switch (args[0].toLowerCase()) {
 			case CREATE_CASE -> {
-				if (args.length != 1) {
-					p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
-					return true;
-				}
-
-				final ATMDAOImpl atmDAO = new ATMDAOImpl();
-				final ATM atm = new ATM();
-				final de.hiyamacity.jpa.Location location = new de.hiyamacity.jpa.Location().fromBukkitLocation(getATMLocation(p));
-				final LocationDAOImpl locationDAO = new LocationDAOImpl();
-
-				if (!(location.toBukkitLocation().getBlock().getBlockData() instanceof WallSign)) {
-					p.sendMessage(rs.getString("atmLookAtSign"));
-					return true;
-				}
-
-				locationDAO.create(location);
-
-				atm.setLocation(location);
-				atm.setAmount(150000);
-				atm.setMaximumAmount(150000);
-				atmDAO.create(atm);
-
-				String message = rs.getString("atmAdminCreate");
-				message = MessageFormat.format(message, atm.getId(), atm.getLocation().getX(), atm.getLocation().getY(), atm.getLocation().getZ());
-				p.sendMessage(message);
+				if (handleAtmCreation(args, p, rs)) return true;
 
 			}
 			case DELETE_CASE -> {
-				if (args.length != 1) {
-					p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
-					return true;
-				}
-
-				final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
-				final ATMDAOImpl atmDAO = new ATMDAOImpl();
-
-				if (currentATM.isEmpty()) {
-					p.sendMessage(rs.getString(ATM_NOT_FOUND));
-					return true;
-				}
-
-				final ATM atm = currentATM.get();
-				atmDAO.delete(ATM.class, atm.getId());
-
-				String message = rs.getString("atmAdminDelete");
-				message = MessageFormat.format(message, atm.getId(), atm.getLocation().getX(), atm.getLocation().getY(), atm.getLocation().getZ());
-				p.sendMessage(message);
+				if (handleAtmDeletion(args, p, rs)) return true;
 
 			}
 			case "modify" -> {
-				if (args.length != 3) {
-					p.sendMessage(rs.getString("atmAdminModifyUsage"));
-					return true;
-				}
-
-				final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
-
-				if (!isLong(args[2])) {
-					p.sendMessage(rs.getString("inputNaN"));
-					return true;
-				}
-
-				final long amount = Long.parseLong(args[2]);
-				final ATMDAOImpl atmDAO = new ATMDAOImpl();
-
-				if (currentATM.isEmpty()) {
-					p.sendMessage(rs.getString(ATM_NOT_FOUND));
-					return true;
-				}
-
-				final ATM atm = currentATM.get();
-				final long oldAmount = atm.getAmount();
-				final long oldMaximum = atm.getMaximumAmount();
-
-				switch (args[1].toLowerCase()) {
-					case AMOUNT_CASE -> atm.setAmount(amount);
-					case MAXIMUM_CASE -> atm.setMaximumAmount(amount);
-					default -> {
-						p.sendMessage(rs.getString("atmAdminModifyUsage"));
-						return true;
-					}
-				}
-
-				atmDAO.update(atm);
-
-				switch (args[1].toLowerCase()) {
-					case AMOUNT_CASE -> {
-						String message = rs.getString("atmAdminModify");
-						MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-						message = messageFormat.format(new Object[]{atm.getId(), AMOUNT_CASE, oldAmount, atm.getAmount()});
-						p.sendMessage(message);
-					}
-					case MAXIMUM_CASE -> {
-						String message = rs.getString("atmAdminModify");
-						MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
-						message = messageFormat.format(new Object[]{atm.getId(), MAXIMUM_CASE, oldMaximum, atm.getMaximumAmount()});
-						p.sendMessage(message);
-					}
-					default -> {
-						return true;
-					}
-				}
+				if (handleAtmModification(args, p, rs)) return true;
 			}
 			case "info" -> {
-				final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
-
-				if (currentATM.isEmpty()) {
-					p.sendMessage(rs.getString(ATM_NOT_FOUND));
-					return true;
-				}
-
-				final ATM atm = currentATM.get();
-				p.sendMessage("\n" + atm + "\n ");
+				if (handleAtmInfo(p, rs)) return true;
 			}
 			default -> {
 				p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
@@ -174,8 +74,129 @@ public class ATMCommand implements CommandExecutor, TabCompleter {
 		return false;
 	}
 
+	private boolean handleAtmCreation(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
+		if (args.length != 1) {
+			p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
+			return true;
+		}
+
+		final AtmDAOImpl atmDAO = new AtmDAOImpl();
+		final ATM atm = new ATM();
+		final de.hiyamacity.jpa.Location location = new de.hiyamacity.jpa.Location().fromBukkitLocation(getATMLocation(p));
+		final LocationDAOImpl locationDAO = new LocationDAOImpl();
+
+		if (!(location.toBukkitLocation().getBlock().getBlockData() instanceof WallSign)) {
+			p.sendMessage(rs.getString("atmLookAtSign"));
+			return true;
+		}
+
+		locationDAO.create(location);
+
+		atm.setLocation(location);
+		atm.setAmount(150000);
+		atm.setMaximumAmount(150000);
+		atmDAO.create(atm);
+
+		String message = rs.getString("atmAdminCreate");
+		message = MessageFormat.format(message, atm.getId(), atm.getLocation().getX(), atm.getLocation().getY(), atm.getLocation().getZ());
+		p.sendMessage(message);
+		return false;
+	}
+
+	private boolean handleAtmDeletion(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
+		if (args.length != 1) {
+			p.sendMessage(rs.getString(ATM_ADMIN_PLAIN_USAGE));
+			return true;
+		}
+
+		final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
+		final AtmDAOImpl atmDAO = new AtmDAOImpl();
+
+		if (currentATM.isEmpty()) {
+			p.sendMessage(rs.getString(ATM_NOT_FOUND));
+			return true;
+		}
+
+		final ATM atm = currentATM.get();
+		atmDAO.delete(ATM.class, atm.getId());
+
+		String message = rs.getString("atmAdminDelete");
+		message = MessageFormat.format(message, atm.getId(), atm.getLocation().getX(), atm.getLocation().getY(), atm.getLocation().getZ());
+		p.sendMessage(message);
+		return false;
+	}
+
+	private boolean handleAtmModification(@NotNull String @NotNull [] args, Player p, ResourceBundle rs) {
+		if (args.length != 3) {
+			p.sendMessage(rs.getString("atmAdminModifyUsage"));
+			return true;
+		}
+
+		final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
+
+		if (!isLong(args[2])) {
+			p.sendMessage(rs.getString("inputNaN"));
+			return true;
+		}
+
+		final long amount = Long.parseLong(args[2]);
+		final AtmDAOImpl atmDAO = new AtmDAOImpl();
+
+		if (currentATM.isEmpty()) {
+			p.sendMessage(rs.getString(ATM_NOT_FOUND));
+			return true;
+		}
+
+		final ATM atm = currentATM.get();
+		final long oldAmount = atm.getAmount();
+		final long oldMaximum = atm.getMaximumAmount();
+
+		switch (args[1].toLowerCase()) {
+			case AMOUNT_CASE -> atm.setAmount(amount);
+			case MAXIMUM_CASE -> atm.setMaximumAmount(amount);
+			default -> {
+				p.sendMessage(rs.getString("atmAdminModifyUsage"));
+				return true;
+			}
+		}
+
+		atmDAO.update(atm);
+
+		switch (args[1].toLowerCase()) {
+			case AMOUNT_CASE -> {
+				String message = rs.getString("atmAdminModify");
+				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+				message = messageFormat.format(new Object[]{atm.getId(), AMOUNT_CASE, oldAmount, atm.getAmount()});
+				p.sendMessage(message);
+			}
+			case MAXIMUM_CASE -> {
+				String message = rs.getString("atmAdminModify");
+				MessageFormat messageFormat = new MessageFormat(message, rs.getLocale());
+				message = messageFormat.format(new Object[]{atm.getId(), MAXIMUM_CASE, oldMaximum, atm.getMaximumAmount()});
+				p.sendMessage(message);
+			}
+			default -> {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean handleAtmInfo(Player p, ResourceBundle rs) {
+		final Optional<ATM> currentATM = getLookingAtATM(getATMLocation(p));
+
+		if (currentATM.isEmpty()) {
+			p.sendMessage(rs.getString(ATM_NOT_FOUND));
+			return true;
+		}
+
+		final ATM atm = currentATM.get();
+		p.sendMessage(Component.text("\n" + atm + "\n"));
+		return false;
+	}
+
 	private Optional<ATM> getLookingAtATM(@NotNull Location location) {
-		final ATMDAOImpl atmDAO = new ATMDAOImpl();
+		final AtmDAOImpl atmDAO = new AtmDAOImpl();
 		final List<ATM> atms = atmDAO.findAll();
 
 		for (ATM atm : atms)

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class LocationDAOImpl extends GeneralDAO<Location, UUID> implements DAO<Location, UUID> {
+public class LocationDAOImpl extends CrudRepositoryImpl<Location, UUID> {
 
 	public List<Location> findByBukkitLocation(@NotNull org.bukkit.Location houseSignLocation) {
 		EntityManager entityManager = Main.getEntityManagerFactory().createEntityManager();

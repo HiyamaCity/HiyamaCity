@@ -23,6 +23,49 @@ public class ChatHandler implements Listener {
 	private static final String OOC_HANDLE = "-";
 	private static final String OUT_OF_CHARACTER = "chat.ooc";
 
+	private static void sendWhisperChatMessage(Player t, double distance, String finalMessage) {
+		if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 16)) {
+			t.sendMessage("§8Ⓦ " + ChatColor.GRAY + finalMessage);
+			return;
+		}
+
+		if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 32)) {
+			t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
+		}
+	}
+
+	private static void sendRoleplayChatMessage(Player t, double distance, String finalMessage) {
+		if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
+			t.sendMessage("§3Ⓡ " + ChatColor.WHITE + finalMessage);
+			return;
+		}
+
+		if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
+			t.sendMessage("§3Ⓡ " + ChatColor.GRAY + finalMessage);
+			return;
+		}
+
+		if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue()) {
+			t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + finalMessage);
+		}
+	}
+
+	private static void sendShoutChatMessage(Player t, double distance, String finalMessage) {
+		if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() * 2)) {
+			t.sendMessage("§cⓈ " + ChatColor.WHITE + finalMessage);
+			return;
+		}
+
+		if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2)) {
+			t.sendMessage("§cⓈ " + ChatColor.GRAY + finalMessage);
+			return;
+		}
+
+		if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() * 2)) {
+			t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + finalMessage);
+		}
+	}
+
 	@EventHandler
 	@SuppressWarnings("deprecation")
 	public void onChat(AsyncPlayerChatEvent e) {
@@ -60,17 +103,6 @@ public class ChatHandler implements Listener {
 		}
 	}
 
-	private static void sendWhisperChatMessage(Player t, double distance, String finalMessage) {
-		if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() / 16)) {
-			t.sendMessage("§8Ⓦ " + ChatColor.GRAY + finalMessage);
-			return;
-		}
-
-		if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() / 32)) {
-			t.sendMessage("§8Ⓦ " + ChatColor.DARK_GRAY + finalMessage);
-		}
-	}
-
 	private void handleRoleplayChat(Player p, String message) {
 		final List<Player> recipients = getRecipients(p, Distance.CHAT_MESSAGE_LARGE.getValue());
 
@@ -89,22 +121,6 @@ public class ChatHandler implements Listener {
 			String errorMsg = rs.getString("chat.rp.error.no_recipients");
 			errorMsg = MessageFormat.format(errorMsg, SHOUT_HANDLE);
 			p.sendMessage(errorMsg);
-		}
-	}
-
-	private static void sendRoleplayChatMessage(Player t, double distance, String finalMessage) {
-		if (distance <= Distance.CHAT_MESSAGE_SMALL.getValue()) {
-			t.sendMessage("§3Ⓡ " + ChatColor.WHITE + finalMessage);
-			return;
-		}
-
-		if (distance <= Distance.CHAT_MESSAGE_MEDIUM.getValue()) {
-			t.sendMessage("§3Ⓡ " + ChatColor.GRAY + finalMessage);
-			return;
-		}
-
-		if (distance <= Distance.CHAT_MESSAGE_LARGE.getValue()) {
-			t.sendMessage("§3Ⓡ " + ChatColor.DARK_GRAY + finalMessage);
 		}
 	}
 
@@ -127,22 +143,6 @@ public class ChatHandler implements Listener {
 		if (recipients.size() == 1 && recipients.contains(p)) {
 			final ResourceBundle rs = LanguageHandler.getResourceBundle(p.getUniqueId());
 			p.sendMessage(rs.getString("chat.shout.error.no_recipients"));
-		}
-	}
-
-	private static void sendShoutChatMessage(Player t, double distance, String finalMessage) {
-		if (distance <= (Distance.CHAT_MESSAGE_SMALL.getValue() * 2)) {
-			t.sendMessage("§cⓈ " + ChatColor.WHITE + finalMessage);
-			return;
-		}
-
-		if (distance <= (Distance.CHAT_MESSAGE_MEDIUM.getValue() * 2)) {
-			t.sendMessage("§cⓈ " + ChatColor.GRAY + finalMessage);
-			return;
-		}
-
-		if (distance <= (Distance.CHAT_MESSAGE_LARGE.getValue() * 2)) {
-			t.sendMessage("§cⓈ " + ChatColor.DARK_GRAY + finalMessage);
 		}
 	}
 

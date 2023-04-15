@@ -2,7 +2,7 @@ package de.hiyamacity.dao;
 
 import org.jetbrains.annotations.NotNull;
 
-public interface DAO<T, S> {
+public sealed interface CrudRepository<T, S> permits CrudRepositoryImpl {
 
 	T create(@NotNull T type);
 

@@ -15,13 +15,12 @@ import java.util.function.Supplier;
 
 public class RankHandler {
 
-	private RankHandler() {
-	}
-
 	private static final Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
 	private static final String ADMIN_TEAM = "00000ADMIN";
 	private static final String PLAYER_TEAM = "00001PLAYER";
 	private static final String AFK_TEAM = "99999AFK";
+	private RankHandler() {
+	}
 
 	public static void initScoreboard() {
 

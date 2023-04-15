@@ -8,9 +8,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UserDAOImpl extends GeneralDAO<User, UUID> implements DAO<User, UUID> {
+public class UserDAOImpl extends CrudRepositoryImpl<User, UUID> {
 	public Optional<User> getUserByPlayerUniqueId(@NotNull UUID uuid) {
-		EntityManager entityManager = GeneralDAO.getEntityManagerFactory().createEntityManager();
+		EntityManager entityManager = CrudRepositoryImpl.getEntityManagerFactory().createEntityManager();
 		try {
 			Optional<User> userOptional = Optional.ofNullable((User) entityManager.createQuery("SELECT user from User user where user.playerUniqueID = ?1").setParameter(1, uuid).getSingleResult());
 			entityManager.close();

@@ -38,7 +38,7 @@ public class User {
 
 	@Column(name = "player_unique_id", nullable = false, unique = true)
 	private UUID playerUniqueID;
-	
+
 	@OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
 	@JoinColumn(name = "bank_account_id")
 	private BankAccount bankAccount;
@@ -55,7 +55,7 @@ public class User {
 	@JoinColumn(name = "afk_location_id")
 	private Location nonAfkLocation;
 
-	@OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "playtime_id")
 	private Playtime playtime;
 

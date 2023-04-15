@@ -4,5 +4,5 @@ import de.hiyamacity.jpa.BankAccount;
 
 import java.util.UUID;
 
-public class BankAccountDAOImpl extends GeneralDAO<BankAccount, UUID> implements DAO<BankAccount, UUID> {
+public class BankAccountDAOImpl extends CrudRepositoryImpl<BankAccount, UUID> {
 }

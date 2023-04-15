@@ -59,7 +59,7 @@ public class JoinHandler implements Listener {
 				TabListHandler.updateTab();
 			}
 		};
-		
+
 		runnable.runTaskLater(JavaPlugin.getPlugin(Main.class), 1);
 
 	}

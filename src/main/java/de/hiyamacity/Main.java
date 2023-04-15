@@ -4,7 +4,7 @@ import de.hiyamacity.commands.admin.ATMCommand;
 import de.hiyamacity.commands.admin.AllCommand;
 import de.hiyamacity.commands.admin.HouseCommand;
 import de.hiyamacity.commands.user.*;
-import de.hiyamacity.dao.GeneralDAO;
+import de.hiyamacity.dao.CrudRepositoryImpl;
 import de.hiyamacity.util.player.*;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -23,7 +23,7 @@ public class Main extends JavaPlugin {
 		Thread.currentThread().setContextClassLoader(Main.class.getClassLoader());
 		entityManagerFactory = Persistence.createEntityManagerFactory("default");
 	}
-	
+
 	final PluginManager pm = Bukkit.getPluginManager();
 
 	@Override
@@ -37,7 +37,7 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		GeneralDAO.getEntityManagerFactory().close();
+		CrudRepositoryImpl.getEntityManagerFactory().close();
 	}
 
 	/**
